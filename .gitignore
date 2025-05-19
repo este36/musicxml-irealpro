@@ -1,3 +1,7 @@
+mxl2irp
+node_modules
+package-lock.json
+
 # Prerequisites
 *.d
 
