@@ -3,10 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//unpkg.com/alpinejs" defer></script>
   <link rel="stylesheet" href="style.css">
   <title>MUSICXML TO IREALPRO FILE CONVERTER</title>
+  <style>
+    html, body { margin: 0px; padding: 0px; width:100%; height: 100%;}
+  </style>
 </head>
 <body>
- <h1 class="text-blue-500">MUSICXML TO IREALPRO FILE CONVERTER</h1>
+<footer class="m-5 p-5">
+  <h1 class="text-lg">Musicxml to irealpro file converter</h1>
+</footer>
+<main class="h-full w-full flex flex-col gap-2 justify-center items-center">
+  <div class="p-2"
+    x-data="{
+      fileData: '',
+      getFile() {
+        const file = $refs.fileInput.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.fileData = e.target.result;
+        }
+        reader.readAsText(file);
+      },
+    }">
+    <input class="border rounded p-1 pt-2 pb-2 cursor-pointer text-md"
+      type="file"
+      accept=".mxl,.musicxml"
+      x-ref="fileInput" 
+      x-on:change="getFile()">
+  </div>
+</main>
+
 </body>
 </html>
