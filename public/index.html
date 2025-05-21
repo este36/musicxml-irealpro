@@ -1,40 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="//unpkg.com/alpinejs" defer></script>
-  <link rel="stylesheet" href="style.css">
-  <title>MUSICXML TO IREALPRO FILE CONVERTER</title>
+  <title>MusicXML to iReal Pro Converter</title>
   <style>
-    html, body { margin: 0px; padding: 0px; width:100%; height: 100%;}
+    html, body { margin: 0; padding: 0; height: 100%; }
   </style>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<footer class="m-5 p-5">
-  <h1 class="text-lg">Musicxml to irealpro file converter</h1>
-</footer>
-<main class="h-full w-full flex flex-col gap-2 justify-center items-center">
-  <div class="p-2"
+<body class="bg-gray-100 text-gray-900 flex flex-col min-h-screen">
+
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('globalData', {
+        fileBuffer: '',
+        score_parts_count: 0,
+        score_part_selected: 0,
+        includeOnly: '',
+        parseFile() {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(this.fileBuffer, "application/xml");
+          const partLists = xmlDoc.getElementsByTagName("part-list");
+          const scoreParts = xmlDoc.getElementsByTagName("score-part");
+          this.score_parts_count = scoreParts.length;
+        },
+        irealProURL: '',
+        fetchIrealProUrl() {
+          if (this.score_part_count === 1 && this.score_part_selected === 0 ) this.score_part_selected = 1;
+
+          fetch(`/api/convert?part-number=${this.score_part_selected}&include-only=${encodeURIComponent(this.includeOnly)}`,
+            {
+              method: 'POST',
+              headers: { 'Content-type': 'application/octet-stream'},
+              body: this.fileBuffer
+            })
+            .then(response => response.json())
+            .then(data => this.irealProURL = data.url)
+            .catch(err => console.error('Error: ', err))
+        }
+      });
+    });
+  </script>
+
+  <header class="bg-white shadow p-6">
+    <h1 class="text-2xl font-bold text-center">MusicXML → iReal Pro Converter</h1>
+  </header>
+
+  <main class="flex-1 flex flex-col items-center justify-center p-6"
     x-data="{
-      fileData: '',
       getFile() {
         const file = $refs.fileInput.files[0];
         if (!file) return;
         const reader = new FileReader();
         reader.onload = (e) => {
-          this.fileData = e.target.result;
-        }
+          Alpine.store('globalData').fileBuffer = e.target.result;
+          Alpine.store('globalData').parseFile();
+        };
         reader.readAsText(file);
       },
     }">
-    <input class="border rounded p-1 pt-2 pb-2 cursor-pointer text-md"
-      type="file"
-      accept=".mxl,.musicxml"
-      x-ref="fileInput" 
-      x-on:change="getFile()">
-  </div>
-</main>
+
+    <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md space-y-4">
+      <label class="block">
+        <span class="block text-sm font-medium mb-1">Upload MusicXML File</span>
+        <input type="file"
+               accept=".mxl,.musicxml"
+               x-ref="fileInput"
+               x-on:change="getFile()"
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+      </label>
+
+      <template x-if="$store.globalData.score_parts_count > 1">
+        <div class="relative" x-data="{ open: false, }">
+          <button type="button"
+                  @click="open = !open"
+                  class="input-base flex justify-between items-center">
+            <span x-text="$store.globalData.score_part_selected > 0 ? 'Selected part: ' + $store.globalData.score_part_selected : 'Your score have multiple part. Select part number'"></span>
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <ul x-show="open"
+              @click.outside="open = false"
+              class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded shadow">
+            <template x-for="i in $store.globalData.score_parts_count" >
+              <li @click="$store.globalData.score_part_selected = i; open = false"
+                  class="px-3 py-2 cursor-pointer hover:bg-blue-100 active:bg-blue-200 select-none"
+                  x-text="i"></li>
+            </template>
+          </ul>
+
+          <input type="hidden" name="style" :value="$store.globalData.score_part_selected">
+        </div>
+      </template>
+      
+      <label for="">Include only</label>
+      <input type="text" placeholder="ex: 1-5 (bars) or A, B (sections)" x-model="$store.globalData.includeOnly"
+             class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+      <button class="w-full bg-blue-600 text-white font-semibold py-2 rounded select-none active:bg-blue-700 cursor-pointer"
+          @click="$store.globalData.fetchIrealProUrl()" >
+        Convert
+      </button>
+      <template x-if="$store.globalData.irealProURL">
+        <div class="w-full p-2 flex justify-center items-center ">
+          <a :href="$store.globalData.irealProURL"
+            class="font-bold underline text-blue-700 text-xl">
+            Open in iReal Pro
+          </a>
+        </div>
+      </template>
+    </div>
+  </main>
+
+  <footer class="bg-white border-t p-4 text-center text-sm text-gray-500">
+    &copy; 2025 MusicXML Converter
+  </footer>
 
 </body>
 </html>
+
