@@ -91,14 +91,18 @@ typedef struct irp_measures {
 typedef struct irp_song {
     irp_measures measures;
     struct {
-        char first_name[255];
-        char last_name[255];
+        char first_name[256];
+        char last_name[256];
     } composer;
-    char title[255];
+    char title[256];
 } irp_song;
 
 typedef struct mxl2irp_convert_params {
-    xmlDocPtr xmlDoc;
+    struct {
+        char* name;
+        char* content;
+        size_t length;
+    } file;
     uint16_t part_number;
     uint16_t time_factor;
     uint16_t max_chords_per_bar;
