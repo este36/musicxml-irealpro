@@ -1,6 +1,6 @@
 #include "mxl2irp.h"
 
-static int str_append(mxl_str *s, const char *e) {
+static int str_append(struct mxl_str *s, const char *e) {
     size_t e_len = strlen(e);
     size_t needed = s->len + e_len + 1;
 
@@ -327,14 +327,8 @@ static void parse_measure(xmlNodePtr n, irp_measure* m)
     //      and divide by the current <divisions> reference.
 };
 
-
-int mxl2irp_get_url(mxl2irp_convert_params* params, char* urlBuffer, size_t lenght)
+int mxl2irp_get_url(mxl2irp_convert_params* params, char* urlBuffer)
 {
-    // 1. Setup SAX parser
-    xmlContext ctx = {0};
-    ctx.params = params;
+    printf("%s, %s", (const char *)params.file.name, m->barlines);
     return 0;
 };
-
-
-

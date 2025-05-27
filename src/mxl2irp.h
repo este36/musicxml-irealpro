@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define LIBXML_SAX1_ENABLED
 #include <libxml/parser.h>
@@ -20,7 +21,7 @@
 #define MXL2IRP_URL_BUFFER_LEN 1024 * 32
 #endif
 
-typedef enum {
+enum {
     NOTE_UNDEFINED = 0,
     NOTE_QUARTER = 360360,
     NOTE_WHOLE = NOTE_QUARTER * 4,
@@ -47,26 +48,26 @@ typedef enum {
     NOTE_SEPTOLET_QUARTER = (NOTE_QUARTER * 4) / 7,
     NOTE_SEPTOLET_EIGHTH = (NOTE_EIGHTH * 4) / 7,
     NOTE_SEPTOLET_SIXTEENTH = (NOTE_SIXTEENTH * 4) / 7
-} irp_duration;
+};
 
 typedef struct irp_chord {
-    irp_duration duration;
+    uint32_t duration;
     char quality[16];
 } irp_chord;
 
 typedef struct irp_chords {
-    size_t count;
-    size_t capacity;
+    uint32_t count;
+    uint32_t capacity;
     irp_chord* items;
 } irp_chords;
 
-typedef struct irp_time_signature {
-    irp_duration beats;
-    irp_duration beat_type;
-} irp_time_signature;
+typedef struct musicxml_time_signature {
+    uint32_t beats;
+    uint32_t beat_type;
+} musicxml_time_signature;
 
 typedef struct irp_measures_attributes {
-    irp_time_signature time_signature;
+    musicxml_time_signature time_signature;
     char key[4];
     uint32_t divisions;
 } irp_measures_attributes;
@@ -83,19 +84,31 @@ typedef struct irp_measure {
 } irp_measure;
 
 typedef struct irp_measures {
-    size_t count;
-    size_t capacity;
+    uint32_t count;
+    uint32_t capacity;
     irp_chord* items;
 } irp_measures;
+
+
+#ifndef MAX_CREDITS_CHAR
+#define MAX_CREDITS_CHAR 128
+#endif
 
 typedef struct irp_song {
     irp_measures measures;
     struct {
-        char first_name[256];
-        char last_name[256];
+        char first_name[MAX_CREDITS_CHAR];
+        char last_name[MAX_CREDITS_CHAR];
     } composer;
-    char title[256];
+    char title[MAX_CREDITS_CHAR];
 } irp_song;
+
+
+typedef struct mxl_str {
+    char *buf;
+    size_t len;
+    size_t cap;
+} mxl_str;
 
 typedef struct mxl2irp_convert_params {
     struct {
@@ -110,6 +123,26 @@ typedef struct mxl2irp_convert_params {
     char* include_only;
 } mxl2irp_convert_params;
 
-int mxl2irp_get_url(mxl2irp_convert_params* params, char* urlBuffer);
+enum {
+    HEADER_UNSET,
+    HEADER_WORK,
+    HEADER_WORK_TITLE,
+    HEADER_ID,
+    HEADER_ID_COMPOSER,
+    HEADER_PARTLIST,
+    HEADER_PARTLIST_SCOREPART,
+};
+
+
+typedef struct xmlContext {
+    bool score_partwise;
+    uint8_t header_element;
+    bool part;
+    uint8_t measure_element;
+    mxl_str current_buf;
+    mxl2irp_convert_params* params;
+} xmlContext;
+
+int mxl2irp_get_url(mxl2irp_convert_params* params, char* urlBuffer, size_t length);
 int mxl2irp_load_parser();
 #endif // __MXL2IRP_H__
