@@ -15,11 +15,36 @@
   <script>
     document.addEventListener('alpine:init', () => {
       Alpine.store('globalData', {
+        compressed: '',
         fileBuffer: '',
         score_parts_count: 0,
         score_part_selected: 0,
         includeOnly: '',
+        async getFile() {
+          const file = document.getElementById('input_file').files[0]
+          if (!file) return;
+          if (file.name.endsWith('.mxl')) {
+            this.fileBuffer = await window.unzipMxlFile(file);
+            this.parseFile();
+          } else if (file.name.endsWith('.musicxml')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              this.fileBuffer = e.target.result;
+              this.parseFile();
+            };
+            reader.readAsText(file);
+          } else {
+            console.error('le fichier n\'est accepté ! | filename: ' + file.name )
+          }
+        },
         parseFile() {
+          this.compessed = window.gzip(this.fileBuffer);
+          if (this.compressed.length > 3145728) {
+            alert("Fichier trop grand ! ")
+            this.compressed = '';
+            document.getElementById('input_file').value = '';
+            return;
+          }
           const parser = new DOMParser();
           const xmlDoc = parser.parseFromString(this.fileBuffer, "application/xml");
           const partLists = xmlDoc.getElementsByTagName("part-list");
@@ -28,13 +53,19 @@
         },
         irealProURL: '',
         fetchIrealProUrl() {
-          if (this.score_part_count === 1 && this.score_part_selected === 0 ) this.score_part_selected = 1;
+          if (this.score_parts_count === 1 && this.score_part_selected === 0 ) this.score_part_selected = 1;
 
-          fetch(`/api/convert?part-number=${this.score_part_selected}&include-only=${encodeURIComponent(this.includeOnly)}`,
+          const formData = new FormData();
+
+          formData.append('file', new Blob([compressed], { type: 'application/gzip' }));
+
+          formData.append('part-number', this.score_part_selected);
+          formData.append('include-only', this.includeOnly);
+
+          fetch(`/api/convert`,
             {
               method: 'POST',
-              headers: { 'Content-type': 'application/octet-stream'},
-              body: this.fileBuffer
+              body: formData
             })
             .then(response => response.json())
             .then(data => this.irealProURL = data.url)
@@ -44,22 +75,14 @@
     });
   </script>
 
+ 
+
   <header class="bg-white shadow p-6">
     <h1 class="text-2xl font-bold text-center">MusicXML → iReal Pro Converter</h1>
   </header>
 
   <main class="flex-1 flex flex-col items-center justify-center p-6"
     x-data="{
-      getFile() {
-        const file = $refs.fileInput.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          Alpine.store('globalData').fileBuffer = e.target.result;
-          Alpine.store('globalData').parseFile();
-        };
-        reader.readAsText(file);
-      },
     }">
 
     <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md space-y-4">
@@ -67,8 +90,8 @@
         <span class="block text-sm font-medium mb-1">Upload MusicXML File</span>
         <input type="file"
                accept=".mxl,.musicxml"
-               x-ref="fileInput"
-               x-on:change="getFile()"
+               id="input_file"
+               x-on:change="() => $store.globalData.getFile()"
                class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer" />
       </label>
 
@@ -119,7 +142,38 @@
   <footer class="bg-white border-t p-4 text-center text-sm text-gray-500">
     &copy; 2025 MusicXML Converter
   </footer>
+ 
+  <script type="module">
+    import * as fflate from 'https://cdn.skypack.dev/fflate@0.8.2?min';
 
+    window.unzipMxlFile = async (file) => {
+      const arrayBuffer = await file.arrayBuffer();
+      const uint8 = new Uint8Array(arrayBuffer);
+      const entries = fflate.unzipSync(uint8);
+
+      const decoder = new TextDecoder();
+
+      // Lire META-INF/container.xml
+      const containerPath = 'META-INF/container.xml';
+      if (!(containerPath in entries)) throw new Error("Missing container.xml");
+
+      const containerXml = decoder.decode(entries[containerPath]);
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(containerXml, 'application/xml');
+      const fullPath = xmlDoc.querySelector('rootfile')?.getAttribute('full-path');
+
+      if (!fullPath || !(fullPath in entries)) {
+        throw new Error("MusicXML file not found at path declared in container.xml");
+      }
+
+      return decoder.decode(entries[fullPath]);
+    }
+
+    window.gzip = (text) => {
+      const uint8 = new TextEncoder().encode(text);
+      return fflate.gzipSync(uint8)
+    }
+  </script>
 </body>
 </html>
 

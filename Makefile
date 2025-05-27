@@ -8,7 +8,8 @@ OBJ_DIR = obj
 SRC_DIR = src
 
 SRC = main.c \
-      mongoose.c
+      mongoose.c \
+	  mxl2irp.c \
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
@@ -20,7 +21,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
 
 clean:
 	rm -rf $(OBJ_DIR)
