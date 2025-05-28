@@ -1,9 +1,15 @@
+#include "da_append.h"
 #include "mongoose.h"
 #include "mxl2irp.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+
+void parse_mg_str(const struct mg_str* ref, da_str* dest) {
+    dest->buf = ref->buf;
+    dest->cap = dest->len = ref->len;
+}
 
 int parse_strict_int(const char *str, int *out) {
     if (str == NULL || *str == '\0') return 0;
@@ -20,30 +26,32 @@ int parse_strict_int(const char *str, int *out) {
     return 1;
 }
 
+static void terminate(struct mg_connection *c)
+{
+    mg_http_reply(c, 200, "Content-Type: application/json\r\n", "{%m: %m}", MG_ESC("result"), MG_ESC("server error"));
+}
+
 static void fn(struct mg_connection *c, int ev, void *ev_data) {
     if (ev == MG_EV_HTTP_MSG) {
         struct mg_http_message *hm = (struct mg_http_message *) ev_data;
+        // MG_INFO(("EWWW"));
 
-        if (mg_match(hm->uri, mg_str("/api/convert"), NULL)) {
+        if (mg_match(hm->uri, mg_str("/api/convert/"), NULL)) {
 
-            mg_http_reply(c, 200, "Content-Type: application/json\r\n", "{}");
+            mxl2irp_convert_params convert_params = {0};
+            convert_params.include_only = DA_STR("");
+            da_str res = {0};
 
-            struct mg_http_part part;
-            size_t pos = 0;
-            
-            while ((pos = mg_http_next_multipart(hm->body, pos, &part)) != 0) {
-              MG_INFO(("Chunk name: [%.*s] filename: [%.*s] length: %lu bytes",
-                       part.name.len, part.name.buf,
-                       part.filename.len, part.filename.buf, part.body.len));
+            char buf[4];
+            if (!mg_http_get_var(&hm->body, "part-number", buf, 4)) { terminate(c); return; }
+            convert_params.part_number = atoi(buf);
+            if (!mg_http_get_var(&hm->body, "include-only", convert_params.include_only.buf, DA_MIN_CAPACITY)) { terminate(c); return; } 
+            if (!mg_http_get_var(&hm->body, "filename", convert_params.filename.buf, DA_MIN_CAPACITY)) { terminate(c); return; } 
 
-              if (mg_strcmp(part.name, mg_str("file"))) {
+            mxl2irp_get_url(&convert_params, &res);
 
-              } else if (mg_strcmp(part.name, mg_str("part-number"))) {
+            mg_http_reply(c, 200, "Content-Type: application/json\r\n", "{%m: %m}", MG_ESC("result"), MG_ESC(res.buf));
 
-              } else if (mg_strcmp(part.name, mg_str("include-only"))) {
-
-              }
-            }
             // char urlBuffer[MXL2IRP_URL_BUFFER_LEN] = {0};
             // xmlDocPtr xml = xmlParseMemory(hm->body.buf, strlen(hm->body.buf));
 

@@ -38,7 +38,7 @@
           }
         },
         parseFile() {
-          this.compessed = window.gzip(this.fileBuffer);
+          this.compressed = window.gzip(this.fileBuffer);
           if (this.compressed.length > 3145728) {
             alert("Fichier trop grand ! ")
             this.compressed = '';
@@ -55,17 +55,21 @@
         fetchIrealProUrl() {
           if (this.score_parts_count === 1 && this.score_part_selected === 0 ) this.score_part_selected = 1;
 
-          const formData = new FormData();
+          // const formData = new FormData();
+          //
+          // formData.append('file', new Blob([this.compressed], { type: 'application/gzip' }));
+          //
+          // formData.append('part-number', this.score_part_selected);
+          // formData.append('include-only', this.includeOnly);
+          const filename = document.getElementById('input_file').files[0].name;
 
-          formData.append('file', new Blob([compressed], { type: 'application/gzip' }));
-
-          formData.append('part-number', this.score_part_selected);
-          formData.append('include-only', this.includeOnly);
-
-          fetch(`/api/convert`,
+          fetch(encodeURI(`/api/convert/?part-number=${this.score_part_selected}&include-only=${this.includeOnly}&filename=${filename}`),
             {
               method: 'POST',
-              body: formData
+              body: this.compressed,
+              headers: {
+                'Content-Type': 'application/gzip'
+              }
             })
             .then(response => response.json())
             .then(data => this.irealProURL = data.url)

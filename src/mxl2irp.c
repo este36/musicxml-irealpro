@@ -1,22 +1,5 @@
 #include "mxl2irp.h"
 
-static int str_append(mxl_str *s, const char *e) {
-    size_t e_len = strlen(e);
-    size_t needed = s->len + e_len + 1;
-
-    if (needed > s->cap) {
-        size_t new_cap = s->cap ? s->cap : 256;
-        while (new_cap < needed) new_cap *= 2;
-        s->buf = (char *)realloc(s->buf, new_cap);
-        if (!s->buf) return -1;
-        s->cap = new_cap;
-    }
-
-    memcpy(s->buf + s->len, e, e_len + 1); // +1 pour le '\0'
-    s->len += e_len;
-    return 0;
-}
-
 /*------------------------------------------------------------*/
 
 struct chord_qualities_hash {
@@ -314,25 +297,29 @@ int mxl2irp_load_parser()
 //      # Content :
 //          - Any child elements can be at any place without order, beside <notes> and <harmony> logical places
 //          - Can by empty      
+//
 
-static void parse_measure(xmlNodePtr n, irp_measure* m)
-{
-    printf("%s, %s", (const char *)n.name, m->barlines);
-    //  1.  Check eventual <attributes>
-    //  2.  Check eventual barlines and endings
-    //  3.  Check eventual rehearsal
+// static void parse_measure(xmlNodePtr n, irp_measure* m)
+// {
+//     printf("%s, %s", (const char *)n.name, m->barlines);
+//     //  1.  Check eventual <attributes>
+//     //  2.  Check eventual barlines and endings
+//     //  3.  Check eventual rehearsal
+//
+//     //  4.  Check for harmony, then all the notes after <harmony> before another <harmony> encounter.
+//     //      Then determine the duration of harmony chord by adding every notes duration
+//     //      and divide by the current <divisions> reference.
+// };
+//
 
-    //  4.  Check for harmony, then all the notes after <harmony> before another <harmony> encounter.
-    //      Then determine the duration of harmony chord by adding every notes duration
-    //      and divide by the current <divisions> reference.
-};
-
-
-int mxl2irp_get_url(mxl2irp_convert_params* params, char* urlBuffer, size_t lenght)
+int mxl2irp_get_url(mxl2irp_convert_params* params, da_str* urlBuffer)
 {
     // 1. Setup SAX parser
     xmlContext ctx = {0};
     ctx.params = params;
+
+    *urlBuffer = DA_STR("hey!\n");
+    str_append(urlBuffer, params->include_only.buf);
     return 0;
 };
 

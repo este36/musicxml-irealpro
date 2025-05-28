@@ -104,24 +104,17 @@ typedef struct irp_song {
 } irp_song;
 
 
-typedef struct mxl_str {
-    char *buf;
-    size_t len;
-    size_t cap;
-} mxl_str;
-
 typedef struct mxl2irp_convert_params {
-    struct {
-        char* name;
-        char* content;
-        size_t length;
-    } file;
     uint16_t part_number;
     uint16_t time_factor;
     uint16_t max_chords_per_bar;
     bool no_visual_exeptations;
-    char* include_only;
+    da_str include_only;
+    da_str file;
+    da_str filename;
 } mxl2irp_convert_params;
+
+int mxl2irp_get_url(mxl2irp_convert_params* params, da_str* urlBuffer);
 
 enum {
     HEADER_UNSET,
@@ -133,16 +126,14 @@ enum {
     HEADER_PARTLIST_SCOREPART,
 };
 
-
 typedef struct xmlContext {
     bool score_partwise;
     uint8_t header_element;
     bool part;
     uint8_t measure_element;
-    mxl_str current_buf;
+    da_str current_buf;
     mxl2irp_convert_params* params;
 } xmlContext;
 
-int mxl2irp_get_url(mxl2irp_convert_params* params, char* urlBuffer, size_t length);
 int mxl2irp_load_parser();
 #endif // __MXL2IRP_H__
