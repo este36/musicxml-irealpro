@@ -1,7 +1,7 @@
 NAME = mxl2irp
 CC = gcc
 
-CFLAGS = -Wall -Wextra -std=c11 -I/usr/include/libxml2
+CFLAGS = -Wall -Wextra -g -fsanitize=address -std=c11 -I/usr/include/libxml2 
 LFLAGS = -lxml2
 
 OBJ_DIR = obj

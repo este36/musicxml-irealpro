@@ -38,10 +38,10 @@
           }
         },
         parseFile() {
-          this.compressed = window.gzip(this.fileBuffer);
-          if (this.compressed.length > 3145728) {
+          // this.compressed = window.gzip(this.fileBuffer);
+          if (this.fileBuffer.length > 3145728) {
             alert("Fichier trop grand ! ")
-            this.compressed = '';
+            this.fileBuffer = '';
             document.getElementById('input_file').value = '';
             return;
           }
@@ -53,7 +53,7 @@
         },
         irealProURL: '',
         fetchIrealProUrl() {
-          if (this.score_parts_count === 1 && this.score_part_selected === 0 ) this.score_part_selected = 1;
+          if (this.score_parts_count === 1 && this.score_part_selected === 0 || this.score_part_selected === 0) this.score_part_selected = 1;
 
           // const formData = new FormData();
           //
@@ -66,9 +66,9 @@
           fetch(encodeURI(`/api/convert/?part-number=${this.score_part_selected}&include-only=${this.includeOnly}&filename=${filename}`),
             {
               method: 'POST',
-              body: this.compressed,
+              body: this.fileBuffer,
               headers: {
-                'Content-Type': 'application/gzip'
+                'Content-Type': 'application/xml'
               }
             })
             .then(response => response.json())

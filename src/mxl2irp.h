@@ -4,13 +4,17 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+#include <errno.h>
 
 #define LIBXML_SAX1_ENABLED
+
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+#include <libxml/parserInternals.h>
 #include "uthash.h"
 #include "da_append.h"
 
+#define MXL2IRP_DEBUG
 #ifdef MXL2IRP_DEBUG
 #include <stdio.h>
 #else
@@ -18,8 +22,10 @@
 #endif
 
 #ifndef MXL2IRP_URL_BUFFER_LEN
-#define MXL2IRP_URL_BUFFER_LEN 1024 * 32
+#define MXL2IRP_URL_BUFFER_LEN (1024 * 32)
 #endif
+
+int parse_strict_int(const char *str, int *out);
 
 enum {
     NOTE_UNDEFINED = 0,
@@ -80,29 +86,29 @@ typedef struct irp_measure {
     bool coda;
     bool DC_al_coda;
     irp_chords chords;
-    irp_measures_attributes* attributes;
+    irp_measures_attributes attributes;
 } irp_measure;
 
 typedef struct irp_measures {
     uint32_t count;
     uint32_t capacity;
-    irp_chord* items;
+    irp_measure* items;
 } irp_measures;
 
-
-#ifndef MAX_CREDITS_CHAR
-#define MAX_CREDITS_CHAR 128
+#ifndef IRP_MAX_CREDENTIALS
+#define IRP_MAX_CREDENTIALS 256 
 #endif
 
 typedef struct irp_song {
     irp_measures measures;
     struct {
-        char first_name[MAX_CREDITS_CHAR];
-        char last_name[MAX_CREDITS_CHAR];
+        char first_name[IRP_MAX_CREDENTIALS];
+        char last_name[IRP_MAX_CREDENTIALS];
     } composer;
-    char title[MAX_CREDITS_CHAR];
+    char title[IRP_MAX_CREDENTIALS];
 } irp_song;
 
+void free_irp_song(irp_song* s);
 
 typedef struct mxl2irp_convert_params {
     uint16_t part_number;
@@ -114,7 +120,7 @@ typedef struct mxl2irp_convert_params {
     da_str filename;
 } mxl2irp_convert_params;
 
-int mxl2irp_get_url(mxl2irp_convert_params* params, da_str* urlBuffer);
+void mxl2irp_free_convert_params(mxl2irp_convert_params* cp);
 
 enum {
     HEADER_UNSET,
@@ -126,14 +132,18 @@ enum {
     HEADER_PARTLIST_SCOREPART,
 };
 
-typedef struct xmlContext {
+typedef struct xmlUserData {
     bool score_partwise;
     uint8_t header_element;
     bool part;
     uint8_t measure_element;
     da_str current_buf;
-    mxl2irp_convert_params* params;
-} xmlContext;
+    irp_song song;
+    mxl2irp_convert_params params;
+} xmlUserData;
+
+int mxl2irp_get_url(xmlUserData* ud, da_str* urlBuffer);
+void mxl2irp_free_xmlUserData(xmlUserData* ctxt);
 
 int mxl2irp_load_parser();
 #endif // __MXL2IRP_H__

@@ -28,7 +28,13 @@
         }\
         if (da.items) da.items[da.count++] = e;\
         else da.capacity = da.count = 0; \
-    } while (0) \
+    } while (0)
+
+#define da_free(da) \
+    do { \
+        free((da)->items); \
+        (da)->count = (da)->capacity = 0; \
+    } while (0) 
 
 typedef struct da_str {
     char *buf;
