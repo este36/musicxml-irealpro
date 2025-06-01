@@ -87,4 +87,17 @@ static inline void da_str_free(da_str *s) {
     s->len = s->cap = 0;
 }
 
+// used for sub string, not null terminated
+typedef struct da_string_ref {
+    char* buf;
+    size_t len;
+} da_string_ref;
+
+void str_ref_copy(da_string_ref* ref, char* dest, size_t length) {
+    size_t cpy_len = ref->len < length - 1 ? ref->len : length - 1;
+    for (size_t i = 0; i < cpy_len; ++i) {
+        dest[i] = ref->buf[i];
+    }
+    dest[cpy_len] = '\0';
+}
 #endif

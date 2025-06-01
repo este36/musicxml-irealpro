@@ -1,3 +1,5 @@
+.PHONY: all clean run tests
+
 NAME = mxl2irp
 CC = gcc
 
@@ -8,8 +10,7 @@ OBJ_DIR = obj
 SRC_DIR = src
 
 SRC = main.c \
-      mongoose.c \
-	  mxl2irp.c \
+	  lib/sax.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
@@ -17,7 +18,7 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
@@ -29,5 +30,5 @@ clean:
 run:
 	./$(NAME)
 
-css:
-	tailwindcss -i assets/main.css -o public/style.css --minify
+tests:
+	$(MAKE) -C tests

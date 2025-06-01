@@ -1,20 +1,5 @@
 #include "mxl2irp.h"
 
-int parse_strict_int(const char *str, int *out) {
-    if (str == NULL || *str == '\0') return 0;
-
-    char *end;
-    errno = 0;
-
-    long val = strtol(str, &end, 10);
-
-    if (errno != 0 || *end != '\0') return 0;
-    if (val < INT_MIN || val > INT_MAX) return 0;
-
-    *out = (int) val;
-    return 1;
-}
-
 /*------------------------------------------------------------*/
 
 struct chord_qualities_hash {
@@ -331,14 +316,6 @@ int mxl2irp_load_parser()
 // };
 //
 
-void start_element(void *userData, const xmlChar *name, const xmlChar **attrs) {
-    printf("Début de l'élément : %s\n", (const char*)name);
-}  
-
-void end_element(void *user_data, const xmlChar *name) {
-    printf("Fin de l'élément : %s\n", (const char*)name);
-}
-
 void free_irp_song(irp_song* s)
 {
     da_free(&s->measures);
@@ -358,18 +335,8 @@ void mxl2irp_free_xmlUserData(xmlUserData* ud)
     mxl2irp_free_convert_params(&ud->params);
 }
 
-int mxl2irp_get_url(xmlUserData* ud, da_str* urlBuffer)
+int mxl2irp_get_url(da_str* urlBuffer)
 {
-    static xmlSAXHandler saxHandler = {0};
-    saxHandler.startElement = start_element;
-    saxHandler.endElement = end_element;
-
-    if(xmlSAXUserParseMemory((xmlSAXHandlerPtr)&saxHandler, ud, ud->params.file.buf, ud->params.file.len) != 0) {
-        return -1;
-    }
-
-    *urlBuffer = DA_STR("hey!\n");
-    str_append(urlBuffer, ud->params.include_only.buf);
     return urlBuffer->len;
 };
 

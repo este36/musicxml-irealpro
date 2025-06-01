@@ -6,13 +6,8 @@
 #include <string.h>
 #include <errno.h>
 
-#define LIBXML_SAX1_ENABLED
-
-#include <libxml/parser.h>
-#include <libxml/tree.h>
-#include <libxml/parserInternals.h>
-#include "uthash.h"
-#include "da_append.h"
+#include "lib/uthash.h"
+#include "lib/da.h"
 
 #define MXL2IRP_DEBUG
 #ifdef MXL2IRP_DEBUG
@@ -142,7 +137,7 @@ typedef struct xmlUserData {
     mxl2irp_convert_params params;
 } xmlUserData;
 
-int mxl2irp_get_url(xmlUserData* ud, da_str* urlBuffer);
+int mxl2irp_get_url(da_str* urlBuffer);
 void mxl2irp_free_xmlUserData(xmlUserData* ctxt);
 
 int mxl2irp_load_parser();
