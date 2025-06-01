@@ -89,7 +89,7 @@ static inline void da_str_free(da_str *s) {
 
 // used for sub string, not null terminated
 typedef struct da_string_ref {
-    char* buf;
+    const char* buf;
     size_t len;
 } da_string_ref;
 

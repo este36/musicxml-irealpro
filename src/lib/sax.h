@@ -6,6 +6,12 @@
 
 #include "da.h"
 
+#ifdef SAX_DEBUG
+#define INLINE static inline
+#else
+#define INLINE static
+#endif
+
 typedef struct sax_lexer {
     size_t pos;
     da_string_ref xml;
@@ -16,7 +22,10 @@ typedef struct sax_lexer {
 #define GET_CHAR(lexer) (((lexer)->xml.buf[(lexer)->pos]))
 #define GET_PTR(lexer) ((lexer)->xml.buf + ((lexer)->pos))
 #define GET_NEXT_CHAR(lexer) (((lexer)->pos + 1 >= (lexer)->xml.len) ? '\0': ((lexer)->xml.buf[(lexer)->pos + 1]))
-#define GET_CHAR_BEFORE(lexer) (((lexer)->xml.buf[(lexer)->pos -1]))
+#define GET_LAST_CHAR(lexer) (((lexer)->xml.buf[(lexer)->pos -1]))
+#define SKIP_UNTIL(lexer, c) while(!IS_EOF(lexer) && GET_CHAR(lexer) != c) ADVANCE(lexer)
+#define SKIP_WHILE(lexer, fn) while(!IS_EOF(lexer) && fn(GET_CHAR(lexer))) ADVANCE(lexer)
+#define SKIP_WHILE_NOT(lexer, fn) while(!IS_EOF(lexer) && !fn(GET_CHAR(lexer))) ADVANCE(lexer)
 
 typedef enum xml_node_type {
     XML_UNSET,
@@ -40,14 +49,14 @@ typedef struct xml_attribute {
 typedef struct xml_node {
     xml_node_type type;
     da_string_ref target; // name or text content
-    xml_attribute attrs[XML_MAX_ATTRIBUTES];
-    size_t attrs_len;
+    xml_attribute attrv[XML_MAX_ATTRIBUTES];
+    size_t attrc;
 } xml_node;
 
-static inline void xml_clear_node(xml_node* n)
+INLINE void xml_clear_node(xml_node* n)
 {
     n->type = XML_UNSET;
-    n->attrs_len = 0;
+    n->attrc = 0;
     n->target.buf = NULL;
     n->target.len = 0;
 };
@@ -62,7 +71,7 @@ typedef struct sax_context {
 #define NODE_IS_VARIABLE   0x01
 #define NODE_IS_PARENT     0x02
 
-#define PARSER_STATUS_MASK 0x0F
+#define PARSER_STATUS_MASK 0x30
 #define PARSER_CONTINUE    0x00
 #define PARSER_STOP        0x10
 #define PARSER_STOP_ERROR  0x20
@@ -70,11 +79,12 @@ typedef struct sax_context {
 
 #define XML_FILE_CORRUPT 1
 
+#define SKIP_VALID_MXL_NAME() while (!IS_EOF(context->lexer) && (isalpha(GET_CHAR(context->lexer)) || GET_CHAR(context->lexer) == '-')) ADVANCE(context->lexer)
 
 // It should not get the entire tag, only name and attributes.
 // Because the closing /> or > is parsed after.
 // It must end on last white space or " (end attribute quote)
-static inline int sax_parse_tag_body(sax_context* context) // TODO
+INLINE int sax_parse_tag_body(sax_context* context) // TODO
 {
     da_string_ref* name = &context->found.target;
 
@@ -82,20 +92,21 @@ static inline int sax_parse_tag_body(sax_context* context) // TODO
     name->buf = GET_PTR(context->lexer);
 
     ADVANCE(context->lexer);
-    while (!IS_EOF(context->lexer) && (isalpha(GET_CHAR(context->lexer)) || GET_CHAR(context->lexer) == '-')) ADVANCE(context->lexer);
+    SKIP_VALID_MXL_NAME();
     if (IS_EOF(context->lexer)) return XML_FILE_CORRUPT;
 
     name->len = GET_PTR(context->lexer) - name->buf;
 
-    while (!IS_EOF(context->lexer) && isspace(GET_CHAR(context->lexer))) ADVANCE(context->lexer);
+    SKIP_WHILE(context->lexer, isspace);
+    // no need to check if EOF because while loop checks it
 
     size_t attrc = 0;
     while (!IS_EOF(context->lexer) && attrc < XML_MAX_ATTRIBUTES) {
-        xml_attribute* a = &context->found.attrs[attrc];
+        xml_attribute* a = &context->found.attrv[attrc];
 
         // get key 
         a->key.buf = GET_PTR(context->lexer);
-        while (!IS_EOF(context->lexer) && isalpha(GET_CHAR(context->lexer))) ADVANCE(context->lexer);
+        SKIP_VALID_MXL_NAME();
         if (IS_EOF(context->lexer)) return XML_FILE_CORRUPT;
         a->key.len = GET_PTR(context->lexer) - a->key.buf;
 
@@ -111,22 +122,24 @@ static inline int sax_parse_tag_body(sax_context* context) // TODO
 
         a->value.buf = GET_PTR(context->lexer);
         // " chars are escaped only with &quot so its safe.
-        while (!IS_EOF(context->lexer) && GET_CHAR(context->lexer) != '"') ADVANCE(context->lexer);
+        SKIP_UNTIL(context->lexer, '"');
         if (IS_EOF(context->lexer)) return XML_FILE_CORRUPT;
 
-        a->value.len = GET_PTR(context->lexer) - a->value.buf; // -1 for the last "
+        a->value.len = GET_PTR(context->lexer) - a->value.buf;
         ADVANCE(context->lexer);
         attrc++;
 
-        // skip space characters
-        while (!IS_EOF(context->lexer) && isspace(GET_CHAR(context->lexer))) ADVANCE(context->lexer);
+        SKIP_WHILE(context->lexer, isspace);
     }
+
+    // update attributes count
+    context->found.attrc = attrc;
 
     return IS_EOF(context->lexer) ? XML_FILE_CORRUPT : 0;
 }
 
 
-static inline int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt), void* user_data, const char* buf, size_t len) 
+INLINE int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt), void* user_data, const char* buf, size_t len) 
 {
     sax_lexer lexer = { 
         .xml = { 
@@ -141,31 +154,17 @@ static inline int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt), v
         .found = {0}
     };
 
-    bool buffering_characters = false;
-
     while (!IS_EOF(&lexer)) {
         if (GET_CHAR(&lexer) == '<') { // we found a tag
-            int status;
+            int status = PARSER_CONTINUE;
             char nc = GET_NEXT_CHAR(&lexer);
 
             if (nc == '/') { // we found a closing tag
-                if (buffering_characters) { // it was from a variable element. we should fire XML_CHARACTERS event
-                    context.found.target.len = GET_PTR(&lexer) - context.found.target.buf - 1;
-                    context.found.type = XML_CHARACTERS;
-
-                    status = fn(user_data, &context);
-                    xml_clear_node(&context.found);
-
-                    if ((status & PARSER_STATUS_MASK) == PARSER_STOP) return 0;
-                    if ((status & PARSER_STATUS_MASK) == PARSER_STOP_ERROR) return XML_FILE_CORRUPT;
-
-                    buffering_characters = false;
-                }
                 ADVANCE(&lexer);
                 ADVANCE(&lexer); 
                 if (sax_parse_tag_body(&context) != 0) return XML_FILE_CORRUPT;
 
-                char closing = GET_NEXT_CHAR(&lexer);
+                char closing = GET_CHAR(&lexer);
                 if (closing != '>') return XML_FILE_CORRUPT; // it is the only option since </.../> is not valid
                 ADVANCE(&lexer);
                 // we good ! that is valid CLOSING tag
@@ -174,17 +173,17 @@ static inline int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt), v
                 status = fn(user_data, &context);
                 xml_clear_node(&context.found);
 
-            } else if (isalpha(nc)) { // continue... (musicxml tags are only alphabetical)
-                if (buffering_characters) return XML_FILE_CORRUPT; // no parent or self-closing tag can have characters
+            } else if (isalpha(nc)) { // continue... (first char of musicxml tags are only alphabetical)
                 ADVANCE(&lexer);
                 if (sax_parse_tag_body(&context) != 0) return XML_FILE_CORRUPT;
 
                 // now we check for either self closing tag or opening tag
 
-                char closing = GET_NEXT_CHAR(&lexer);
+                char closing = GET_CHAR(&lexer);
                 if (closing == '/') { // that is probably a self closing
                     ADVANCE(&lexer);
-                    char closing_end = GET_NEXT_CHAR(&lexer);
+
+                    char closing_end = GET_CHAR(&lexer);
                     if (closing_end != '>') return XML_FILE_CORRUPT;
                     ADVANCE(&lexer);
                     // we good ! that is valid SELF_CLOSING tag
@@ -196,21 +195,36 @@ static inline int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt), v
                 } else if (closing == '>') { // this is parent or variable opening tag
 
                     ADVANCE(&lexer);
-                    // we good ! that is valid SELF_CLOSING tag
+                    // we good ! that is valid OPENING tag
                     // now give the data to user
                     context.found.type = XML_TAG_OPEN;
                     status = fn(user_data, &context);
                     xml_clear_node(&context.found);
 
                     if (status & NODE_IS_VARIABLE) { // now alls the next choped characters have a value
-                        buffering_characters = true;
                         ADVANCE(&lexer);
                         context.found.target.buf = GET_PTR(&lexer);
+
+                        // we have to search next closing tag.
+                        // we do not compare the nodes names bc that is the frontend parser job.
+                        SKIP_UNTIL(&lexer, '<');
+                        if (IS_EOF(&lexer)) return XML_FILE_CORRUPT;
+
+                        if (GET_CHAR(&lexer) != '/') return XML_FILE_CORRUPT;
+                        ADVANCE(&lexer);
+
+                        context.found.target.len = GET_PTR(&lexer) - context.found.target.buf - 1;
+                        context.found.type = XML_CHARACTERS;
+
+                        status = fn(user_data, &context);
+                        xml_clear_node(&context.found);
                     }
                 } else {
                     return XML_FILE_CORRUPT;
                 }
-            } else { // TODO: gerer les eventuels commentaires
+            } else if ( nc == '?' || nc == '!') {
+                // TODO: retourner le contenu dans found.target et creer un event XML_INFO, pour le found.type
+            } else {
                 return XML_FILE_CORRUPT;
             }
 
