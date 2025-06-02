@@ -100,4 +100,10 @@ void str_ref_copy(da_string_ref* ref, char* dest, size_t length) {
     }
     dest[cpy_len] = '\0';
 }
+
+bool str_ref_cmp(da_string_ref* a, da_string_ref* b)
+{
+    return a->len == b->len && memcmp(a->buf, b->buf, a->len) == 0;
+}
+
 #endif

@@ -1,16 +1,16 @@
-#define MXL2IRP_DEBUG
-
-#ifndef MXL2IRP_DEBUG
-#define printf(...) ((void)0)
-#endif
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <stdarg.h>
 
 #include "lib/da.h"
 #include "lib/sax.h"
 // #include "mxl2irp.h"
+
+#ifndef DEBUG
+#define printf(...) ((void)0)
+#endif
+
 
 int fn(void *user_data, sax_context * context)
 {
@@ -26,36 +26,55 @@ int fn(void *user_data, sax_context * context)
         case XML_SELF_CLOSING:
             printf("self_closing tag. name: %.*s\n", (int)n->target.len, n->target.buf);
            return PARSER_CONTINUE; 
-        case XML_CHARACTERS:
-           return PARSER_CONTINUE; 
         case XML_UNSET:
         default: return PARSER_CONTINUE;
     }
 }
 
+FILE *fopenf(const char *mode, const char *fmt, ...) {
+    char path[512];
+    va_list args;
+    va_start(args, fmt);
+    vsnprintf(path, sizeof(path), fmt, args);
+    va_end(args);
+    return fopen(path, mode);
+}
+
 
 int main() {
-    // mxl2irp_load_parser();
-    const char* xml = "<measure number=\"2\">\r\n"
-        "    <harmony print-frame=\"no\">\r\n"
-        "<root>\r\n" 
-        "<root-step>C</root-step>\r\n" 
-        "</root>\r\n" 
-        "<kind>major</kind>\r\n" 
-        "<degree>\r\n" 
-        "<degree-value>2</degree-value>\r\n" 
-        "<degree-alter>0</degree-alter>\r\n" 
-        "<degree-type>add</degree-type>\r\n" 
-        "\t\t</degree>\r\n" 
-        "    </harmony>\r\n" 
-        "<note>\r\n" 
-        "<rest measure=\"yes\"/>\r\n"
-        "<duration>4</duration>\r\n" 
-        "<voice>1</voice>\r\n" 
-        "</note>\r\n" 
-        "</measure>\r\n";
-    size_t len = strlen(xml);
-    printf("%s \n len: %zu\n", xml, len);
-    sax_parse_xml(fn, NULL, xml, len);
+    // chords.musicxml
+    // complicité.musicxml
+    // DaysOfWineRoses.musicxml
+    // Grace_and_Mercy.musicxml
+    // Misty.musicxml
+    // Out_of_Nothing.musicxml
+    // sauts.musicxml
+    // timesignature.musicxml
+    // Unrealised_Love.musicxml
+     FILE *f = fopen("tests/musicxml/DaysOfWineRoses.musicxml", "rb");
+    if (!f) {
+        perror("fopen");
+        return 1;
+    }
+
+    fseek(f, 0, SEEK_END);
+    long size = ftell(f);
+    rewind(f);
+
+    char *buf = malloc(size + 1); 
+    if (!buf) {
+        perror("malloc");
+        fclose(f);
+        return 1;
+    }
+
+    fread(buf, 1, size, f);
+    buf[size] = '\0';
+
+    sax_lexer lexer = sax_lexer_init(buf, size);
+    sax_context context = sax_context_init(&lexer);
+    sax_parse_xml(fn, NULL, &context);
+    free(buf);
+    fclose(f);
     return 0;
 }

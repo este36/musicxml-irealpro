@@ -17,7 +17,7 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 all: CFLAGS += -fsanitize=address
 all: $(NAME)
 
-debug: CFLAGS += -DSAX_DEBUG -g -O0 
+debug: CFLAGS += -DDEBUG -g -O0 
 debug: $(NAME)
 
 
