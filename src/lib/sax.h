@@ -65,9 +65,8 @@ typedef struct sax_context {
 } sax_context;
 
 // orders/infos to talk to backend parser
-// usage : PARSER_CONTINUE | NODE_IS_VARIABLE
-#define NODE_IS_VARIABLE   0x01
-#define NODE_IS_PARENT     0x02
+// usage : PARSER_CONTINUE | SKIP_ENTIRE_NODE
+#define SKIP_ENTIRE_NODE   0x01
 
 #define PARSER_STATUS_MASK 0x30
 #define PARSER_CONTINUE    0x00
@@ -92,16 +91,17 @@ INLINE sax_context sax_context_init(sax_lexer* l)
 // So the context.found is exepted to be a container of either text or other child elements, especially the opening tag of this container.
 // the lexer is expected to be at the begining of the content, after the > char of opening tag.
 // the user of this function is supposed to be sure that the element is a container.
+// if the str_ref is null then the node will just be skiped without doing buffering
 INLINE int sax_get_content(sax_context* context, da_string_ref* str_ref)
 {
-    str_ref->buf = GET_PTR(context->lexer);
+    if (str_ref != NULL ) str_ref->buf = GET_PTR(context->lexer);
 
     // now we try to find a closing tag with the same name.
     while (!IS_EOF(context->lexer)) 
     {
         if (GET_CHAR(context->lexer) == '<' && GET_NEXT_CHAR(context->lexer) == '/') {
             // update the len
-            str_ref->len = GET_PTR(context->lexer) - str_ref->buf;
+            if (str_ref != NULL) str_ref->len = GET_PTR(context->lexer) - str_ref->buf;
 
             ADVANCE(context->lexer);
             ADVANCE(context->lexer);
@@ -123,6 +123,11 @@ INLINE int sax_get_content(sax_context* context, da_string_ref* str_ref)
     return XML_FILE_CORRUPT;
 }
 
+// NULL in second param of sax_get_content means litteraly to not save the content but to go through entirely.
+INLINE int sax_skip_content(sax_context* context)
+{
+    return sax_get_content(context, NULL);
+}
 
 // It should not get the entire tag, only name and attributes.
 // Because the closing /> or > is parsed after.
@@ -231,6 +236,8 @@ INLINE int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt), void* us
                     // now give the data to user
                     context->found.type = XML_TAG_OPEN;
                     status = fn(user_data, context);
+
+                    if (status == SKIP_ENTIRE_NODE) sax_skip_content(context);
                     xml_clear_node(&context->found);
                 } else {
                     return XML_FILE_CORRUPT;
