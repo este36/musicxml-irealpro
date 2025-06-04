@@ -3,13 +3,13 @@
 NAME = mxl2irp
 CC = gcc
 
-CFLAGS = -Wall -Wextra -std=c11 -I/usr/include/libxml2
-LFLAGS = -lxml2
+CFLAGS = -Wall -Wextra -std=c11
 
 OBJ_DIR = obj
 SRC_DIR = src
 
 SRC = main.c \
+	  lib/musicxml.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))

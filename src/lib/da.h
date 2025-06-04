@@ -12,6 +12,13 @@
 #endif
 #define DA_UNSET (size_t)-1
 
+#ifndef DEBUG
+#define printf(...) ((void)0)
+#define INLINE static inline
+#else
+#define INLINE static
+#endif
+
 // struct example {
 //     size_t capacity;
 //     size_t count;
@@ -93,7 +100,10 @@ typedef struct da_string_ref {
     size_t len;
 } da_string_ref;
 
-void str_ref_copy(da_string_ref* ref, char* dest, size_t length) {
+// Use this for evaluating string and string length at compile time
+#define STR_REF(cstr) (da_string_ref){.buf = cstr, (sizeof(cstr) - 1)}
+
+INLINE void str_ref_copy(const da_string_ref* ref, char* dest, size_t length) {
     size_t cpy_len = ref->len < length - 1 ? ref->len : length - 1;
     for (size_t i = 0; i < cpy_len; ++i) {
         dest[i] = ref->buf[i];
@@ -101,7 +111,7 @@ void str_ref_copy(da_string_ref* ref, char* dest, size_t length) {
     dest[cpy_len] = '\0';
 }
 
-bool str_ref_cmp(da_string_ref* a, da_string_ref* b)
+INLINE bool str_ref_cmp(const da_string_ref* a, const da_string_ref* b)
 {
     return a->len == b->len && memcmp(a->buf, b->buf, a->len) == 0;
 }

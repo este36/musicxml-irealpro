@@ -1,5 +1,5 @@
 CompileFlags:
-  Add: [-I/usr/include/libxml2, -Wall, -Wextra, -std=c17]
+  Add: [-x, c, -Wno-objc-root-class, -Wno-objc-interface-ivars, -Wall, -Wextra, -std=c17]
   Diagnostics:
   UnusedIncludes: Strict
   Suppress: [unknown-warning-option]
