@@ -453,7 +453,7 @@ print('// Generated MusicxmlElements const globale\n')
 print('typedef struct {')
 
 for e in elements:
-    print(f'    da_string_ref {to_c_ident(e)};')
+    print(f'    da_str_ref {to_c_ident(e)};')
 
 print('} MusicxmlElements;\n')
 

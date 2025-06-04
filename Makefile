@@ -9,6 +9,10 @@ OBJ_DIR = obj
 SRC_DIR = src
 
 SRC = main.c \
+	  lib/irealpro.c \
+	  lib/parser.c \
+	  lib/sax.c \
+	  lib/da.c \
 	  lib/musicxml.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
