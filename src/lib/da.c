@@ -18,10 +18,9 @@ da_str da_str_c(const char* c, size_t l)
     return s;
 }
 
-int str_append(da_str *s, const char *e)
+int da_str_append(da_str *s, da_str_ref e)
 {
-    size_t e_len = strlen(e);
-    size_t needed = s->len + e_len + 1;
+    size_t needed = s->len + e.len + 1;
 
     if (needed > s->cap) {
         size_t new_cap = s->cap ? s->cap : DA_MIN_CAPACITY;
@@ -31,8 +30,8 @@ int str_append(da_str *s, const char *e)
         s->cap = new_cap;
     }
 
-    memcpy(s->buf + s->len, e, e_len);
-    s->len += e_len;
+    memcpy(s->buf + s->len, e.buf, e.len);
+    s->len += e.len;
     s->buf[s->len] = '\0';
     return 0;
 }

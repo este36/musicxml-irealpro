@@ -43,19 +43,19 @@ typedef struct da_str {
     size_t cap;
 } da_str;
 
-da_str da_str_c(const char* c, size_t l);
-
-#define DA_STR(s) da_str_c(s, DA_UNSET)
-#define DA_STRCPY(s, l) da_str_c(s, l)
-
-int str_append(da_str *s, const char *e);
-void da_str_free(da_str *s);
-
 // used for sub string, not null terminated
 typedef struct {
     const char* buf;
     size_t len;
 } da_str_ref;
+
+da_str da_str_c(const char* c, size_t l);
+
+#define DA_STR(s) da_str_c(s, DA_UNSET)
+#define DA_STRCPY(s, l) da_str_c(s, l)
+
+int da_str_append(da_str *s, da_str_ref e);
+void da_str_free(da_str *s);
 
 // Use this for evaluating string and string length at compile time
 #define STR_REF(cstr) (da_str_ref){.buf = cstr, (sizeof(cstr) - 1)}

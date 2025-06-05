@@ -20,10 +20,7 @@ typedef enum {
 
 typedef struct {
     da_str title;
-    struct {
-        da_str first_name;
-        da_str last_name;
-    } composer;
+    da_str composer;
     da_str body;
     uint16_t tempo;
     StyleEnum style;

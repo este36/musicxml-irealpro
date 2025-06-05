@@ -49,7 +49,8 @@ int main() {
     // Unrealised_Love.musicxml
 
     long file_len = 0;
-    char* file = open_file(&file_len, "tests/musicxml/DaysOfWineRoses.musicxml");
+    // char* file = open_file(&file_len, "tests/musicxml/DaysOfWineRoses.musicxml");
+    char* file = open_file(&file_len, "tests/musicxml/Out_of_Nothing.musicxml");
 
     if (!file) return 1;
 
@@ -58,6 +59,8 @@ int main() {
         free(file);
         return 1;
     }
+
+    printf("Song title: %.*s, composer: %.*s\n", (int)irpSong->title.len, irpSong->title.buf, (int)irpSong->composer.len, irpSong->composer.buf);
 
     freeIrealProSong(irpSong);
     free(irpSong);

@@ -210,8 +210,7 @@ typedef struct {
     da_str_ref lyric;
     da_str_ref lyric_font;
     da_str_ref lyric_language;
-    da_str_ref measure_partwise;
-    da_str_ref measure_timewise;
+    da_str_ref measure;
     da_str_ref measure_distance;
     da_str_ref measure_layout;
     da_str_ref measure_numbering;
@@ -289,8 +288,7 @@ typedef struct {
     da_str_ref page_margins;
     da_str_ref page_width;
     da_str_ref pan;
-    da_str_ref part_partwise;
-    da_str_ref part_timewise;
+    da_str_ref part;
     da_str_ref part_abbreviation;
     da_str_ref part_abbreviation_display;
     da_str_ref part_clef;
@@ -459,6 +457,7 @@ typedef struct {
     da_str_ref work_number;
     da_str_ref work_title;
 } MusicxmlElements;
+
 
 extern const MusicxmlElements musicxml;
 
