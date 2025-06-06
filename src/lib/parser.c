@@ -60,7 +60,8 @@ static int parse_identification(void* user_data, sax_context* context)
             if (!parser_data->song->composer.len
                 && str_ref_cmp(&n->target, &musicxml.creator)
                 && n->attrc >= 1 
-                && str_ref_cmp(&n->attrv[0], &musicxml.type)
+                && str_ref_cmp(&n->attrv[0].key, &musicxml.type)
+                && str_ref_cmp(&n->attrv[0].value, &musicxml.composer)
             ) {
                 da_str_ref full_name;
                 if (sax_get_content(context, &full_name) != 0) return PARSER_STOP_ERROR;

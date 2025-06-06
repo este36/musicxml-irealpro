@@ -1,0 +1,81 @@
+%{
+#include <string.h>
+%}
+%language=C
+%readonly-tables
+%define hash-function-name my_hash
+%define lookup-function-name irealpro_chord
+
+struct keyword { const char *name; int id; };
+%%
+augmented, 0
+diminished, 1
+diminished-seventh, 2
+dominant, 3
+dominant#11, 4
+dominant#5, 5
+dominant#5#9, 6
+dominant#5b9, 7
+dominant#9, 8
+dominant#9#11, 9
+dominant-11th, 10
+dominant-13th, 11
+dominant-13th#11, 12
+dominant-13th#9, 13
+dominant-13thb9, 14
+dominant-ninth, 15
+dominant-ninth#11, 16
+dominant-ninth#5, 17
+dominant-ninthb5, 18
+dominantb13, 19
+dominantb5, 20
+dominantb5#5b9#9, 21
+dominantb5#9, 22
+dominantb5b9, 23
+dominantb9, 24
+dominantb9#11, 25
+dominantb9#9, 26
+dominantb913, 27
+dominantb9b13, 28
+half-diminished, 29
+major, 30
+major-13th, 31
+major-13th#11, 32
+major-minor, 33
+major-minor9, 34
+major-ninth, 35
+major-ninth#11, 36
+major-seventh, 37
+major-seventh#11, 38
+major-seventh#5, 39
+major-seventh#5#9, 40
+major-seventh913, 41
+major-sixth, 42
+major-sixth9, 43
+major11, 44
+major2, 45
+major9, 46
+minor, 47
+minor#5, 48
+minor-11th, 49
+minor-ninth, 50
+minor-seventh, 51
+minor-seventh9, 52
+minor-seventhb13, 53
+minor-seventhb59, 54
+minor-sixth, 55
+minor-sixth9, 56
+minor9, 57
+minorb6, 58
+none, 59
+power, 60
+repeat, 61
+suspended-fourth, 62
+suspended-fourth7, 63
+suspended-fourth73, 64
+suspended-fourth79, 65
+suspended-fourth791113, 66
+suspended-fourthb137, 67
+suspended-fourthb97, 68
+suspended-second, 69
+%%

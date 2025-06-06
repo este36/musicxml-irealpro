@@ -13,7 +13,7 @@ SRC = main.c \
 	  lib/parser.c \
 	  lib/sax.c \
 	  lib/da.c \
-	  lib/musicxml.c
+	  gen/musicxml.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
@@ -41,3 +41,8 @@ run: $(NAME)
 tests:
 	$(MAKE) -C tests
 
+generate:
+	python3 ./gen/musicxml.c.py > ./src/gen/musicxml.c
+	python3 ./gen/musicxml.h.py > ./src/gen/musicxml.h
+	python3 ./gen/musicxml_harmony.py > ./src/gen/musicxml_harmony.gperf
+	gperf ./src/gen/musicxml_harmony.gperf > ./src/gen/musicxml_harmony.c
