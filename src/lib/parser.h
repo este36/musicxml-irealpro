@@ -23,15 +23,10 @@ typedef struct {
 } ParserState;
 
 typedef struct {
-    IrealProSong* song;
+    IrpSong* song;
     ParserParams* params;
     ParserState state;
 } ParserData;
 
-IrealProSong* parse_musicxml_song(  
-                ParserParams* parameters, 
-                const char* musicxml,
-                const size_t musicxml_length
-            );
-
+int parse_musicxml_song(IrpSong* irp_song, ParserParams* parameters, const char* musicxml, const size_t musicxml_length);
 #endif // __PARSER_H__

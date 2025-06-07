@@ -54,16 +54,15 @@ int main() {
 
     if (!file) return 1;
 
-    IrealProSong* irpSong = parse_musicxml_song(NULL, file, file_len);
-    if (!irpSong) {
+    IrpSong irpSong = {0};
+    
+    if (parse_musicxml_song(&irpSong, NULL, file, file_len)) {
         free(file);
         return 1;
     }
 
-    printf("Song title: %.*s, composer: %.*s\n", (int)irpSong->title.len, irpSong->title.buf, (int)irpSong->composer.len, irpSong->composer.buf);
+    printf("Song title: %s, composer: %s\n", irpSong.title, irpSong.composer);
 
-    freeIrealProSong(irpSong);
-    free(irpSong);
     free(file);
     return 0;
 }

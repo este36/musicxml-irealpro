@@ -1,4 +1,5 @@
 #include "parser.h"
+#include <string.h>
 
 /*---------- from irealpro.h ----------*/
 
@@ -16,12 +17,25 @@
 //  We want to get theses infos:
 //   - Song Title
 //   - Composer first name & last name
-//   - Style
 //   - Tempo
 
-static int parse_part_list(void* user_data, sax_context* context)
+static int parse_part(void* user_data, sax_context* context)
 {
-    return 0;
+    const xml_node* n = &context->found;
+    ParserData* parser_data = (ParserData*)user_data;
+
+    switch (context->found.type) {
+        case XML_TAG_OPEN:
+            return PARSER_CONTINUE;
+        case XML_TAG_CLOSE:
+            if (str_ref_cmp(&n->target, &musicxml.part)) { 
+                parser_data->state.work = true;
+                return PARSER_STOP;
+            }
+
+            return PARSER_CONTINUE; 
+        default: return PARSER_CONTINUE;
+    }
 }
 
 static int parse_work(void* user_data, sax_context* context)
@@ -31,10 +45,10 @@ static int parse_work(void* user_data, sax_context* context)
 
     switch (context->found.type) {
         case XML_TAG_OPEN:
-            if (!parser_data->song->title.len && str_ref_cmp(&n->target, &musicxml.work_title)) { 
+            if (!parser_data->song->title[0] && str_ref_cmp(&n->target, &musicxml.work_title)) { 
                 da_str_ref title;
                 if (sax_get_content(context, &title) != 0) return PARSER_STOP_ERROR;
-                da_str_append(&parser_data->song->title, title);
+                strncat(parser_data->song->title, title.buf, title.len);
             }
 
             return PARSER_CONTINUE;
@@ -57,7 +71,7 @@ static int parse_identification(void* user_data, sax_context* context)
     switch (context->found.type) {
         case XML_TAG_OPEN:
             da_str_ref composer_str = STR_REF("composer");
-            if (!parser_data->song->composer.len
+            if (!parser_data->song->composer[0]
                 && str_ref_cmp(&n->target, &musicxml.creator)
                 && n->attrc >= 1 
                 && str_ref_cmp(&n->attrv[0].key, &musicxml.type)
@@ -65,7 +79,7 @@ static int parse_identification(void* user_data, sax_context* context)
             ) {
                 da_str_ref full_name;
                 if (sax_get_content(context, &full_name) != 0) return PARSER_STOP_ERROR;
-                da_str_append(&parser_data->song->composer, full_name);
+                strncat(parser_data->song->composer, full_name.buf, full_name.len);
 
             } else if (str_ref_cmp(&n->target, &musicxml.encoding)) {
                 if (sax_skip_content(context) != 0) return PARSER_STOP_ERROR;
@@ -118,10 +132,11 @@ static int parse_song_partwise(void* user_data, sax_context* context)
     return 0;
 }
 
-IrealProSong* parse_musicxml_song(ParserParams* parameters, const char* musicxml, const size_t musicxml_length)
+// All of irp_song members should be init to zero.
+int parse_musicxml_song(IrpSong* irp_song, ParserParams* parameters, const char* musicxml, const size_t musicxml_length)
 {
     ParserData parser_data = {
-        .song = new_IrealProSong(),
+        .song = irp_song,
         .params = parameters,
         .state = {0}
     };
@@ -131,11 +146,5 @@ IrealProSong* parse_musicxml_song(ParserParams* parameters, const char* musicxml
     sax_scanner scanner = sax_scanner_init(musicxml, musicxml_length);
     sax_context context = sax_context_init(&scanner);
 
-    if (sax_parse_xml(parse_song_partwise, &parser_data, &context) != 0) {
-        freeIrealProSong(parser_data.song);;
-        free(parser_data.song);
-        return NULL;
-    }
-
-    return parser_data.song;
+    return sax_parse_xml(parse_song_partwise, &parser_data, &context);
 }

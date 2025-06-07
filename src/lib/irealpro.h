@@ -11,6 +11,78 @@
 #endif
 
 typedef enum {
+    NOTE_UNSET,
+    NOTE_C,
+    NOTE_Cb,
+    NOTE_Cc,
+    NOTE_D,
+    NOTE_Db,
+    NOTE_Dc,
+    NOTE_E,
+    NOTE_Eb,
+    NOTE_Ec,
+    NOTE_F,
+    NOTE_Fb,
+    NOTE_Fc,
+    NOTE_G,
+    NOTE_Gb,
+    NOTE_Gc,
+    NOTE_A, 
+    NOTE_Ab,
+    NOTE_Ac,
+    NOTE_B,
+    NOTE_Bb,
+    NOTE_Bc
+} NoteEnum;
+
+#define IRP_MAX_CHORD_QUALITY_LEN 16
+
+typedef struct {
+    uint32_t duration;
+    NoteEnum root;
+    NoteEnum bass;
+    char quality[IRP_MAX_CHORD_QUALITY_LEN];
+} IrpChord;
+
+typedef struct {
+    uint32_t count;
+    uint32_t capacity;
+    IrpChord* items;
+} IrpChords;
+
+typedef struct {
+    uint32_t beats;
+    uint32_t beat_type;
+} IrpTimeSignature;
+
+typedef struct {
+    NoteEnum Tonic;
+    bool minor;
+}IrpKey;
+
+typedef struct {
+    uint32_t divisions; // quarter note reference integer
+    IrpTimeSignature time_signature;
+    IrpChords chords;
+    char barlines[2];
+    bool repeat;
+    bool segno;
+    bool DC_al_segno;
+    bool coda;
+    bool DC_al_coda;
+} IrpMeasure;
+
+typedef struct IrpMeasures {
+    uint32_t count;
+    uint32_t capacity;
+    IrpMeasure* items;
+} IrpMeasures;
+
+#ifndef IRP_MAX_CREDENTIALS
+#define IRP_MAX_CREDENTIALS 256 
+#endif
+
+typedef enum {
     UNKNOWN,
     JAZZ,
     JAZZ_LATIN,
@@ -19,28 +91,26 @@ typedef enum {
 } StyleEnum;
 
 typedef struct {
-    int duration;
-} IrealProMeasure;
-
-typedef struct {
-    da_str title;
-    da_str composer;
-    da_str body;
+    IrpKey key;
+    IrpMeasures measures;
+    char composer[IRP_MAX_CREDENTIALS];
+    char title[IRP_MAX_CREDENTIALS];
     uint16_t tempo;
+    uint16_t repeat_times;
     StyleEnum style;
-} IrealProSong;
+} IrpSong;
 
 typedef struct {
     da_str title;
     struct {
         size_t count;
         size_t capacity;
-        IrealProSong* items;
+        IrpSong* items;
     } song;
-} IrealProPlaylist;
+} IrpPlaylist;
 
-void freeIrealProSong(IrealProSong* song);
-
-IrealProSong* new_IrealProSong(void);
+void irp_song_init(IrpSong* song);
+int irp_render_song(IrpSong* song, char *buf, size_t len);
+int irp_render_playlist(IrpPlaylist* playlist, char *buf, size_t len);
 
 #endif // IREALPRO_H
