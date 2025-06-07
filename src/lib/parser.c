@@ -40,14 +40,13 @@ static int parse_work(void* user_data, sax_context* context)
             return PARSER_CONTINUE;
         case XML_TAG_CLOSE:
             if (str_ref_cmp(&n->target, &musicxml.work)) { 
-                parser_data->state.identification = true;
+                parser_data->state.work = true;
                 return PARSER_STOP;
             }
 
             return PARSER_CONTINUE; 
         default: return PARSER_CONTINUE;
     }
-    return 0;
 }
 
 static int parse_identification(void* user_data, sax_context* context)
@@ -57,11 +56,12 @@ static int parse_identification(void* user_data, sax_context* context)
 
     switch (context->found.type) {
         case XML_TAG_OPEN:
+            da_str_ref composer_str = STR_REF("composer");
             if (!parser_data->song->composer.len
                 && str_ref_cmp(&n->target, &musicxml.creator)
                 && n->attrc >= 1 
                 && str_ref_cmp(&n->attrv[0].key, &musicxml.type)
-                && str_ref_cmp(&n->attrv[0].value, &musicxml.composer)
+                && str_ref_cmp(&n->attrv[0].value, &composer_str)
             ) {
                 da_str_ref full_name;
                 if (sax_get_content(context, &full_name) != 0) return PARSER_STOP_ERROR;
@@ -81,7 +81,6 @@ static int parse_identification(void* user_data, sax_context* context)
             return PARSER_CONTINUE; 
         default: return PARSER_CONTINUE;
     }
-    return 0;
 }
 
 static int parse_song_partwise(void* user_data, sax_context* context)

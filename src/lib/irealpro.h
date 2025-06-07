@@ -19,6 +19,10 @@ typedef enum {
 } StyleEnum;
 
 typedef struct {
+    int duration;
+} IrealProMeasure;
+
+typedef struct {
     da_str title;
     da_str composer;
     da_str body;

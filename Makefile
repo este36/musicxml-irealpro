@@ -18,8 +18,11 @@ SRC = main.c \
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
-all: CFLAGS += -fsanitize=address
+all: CFLAGS += -O3
 all: $(NAME)
+
+sanitize: CFLAGS += -fsanitize=address
+sanitize: $(NAME)
 
 debug: CFLAGS += -DDEBUG -g -O0 
 debug: $(NAME)
