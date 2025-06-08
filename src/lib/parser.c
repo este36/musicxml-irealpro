@@ -14,10 +14,14 @@ static int parse_note(void *user_data, sax_context *context)
     const xml_node *n = &context->found;
     switch (n->type) {
         case XML_TAG_OPEN:
+        {
+
+        }
+        break;
         case XML_TAG_CLOSE:
-            if (str_ref_cmp(&n->target, &musicxml.note)) { 
-                return PARSER_STOP;
-            }
+        {
+            if (str_ref_cmp(&n->target, &musicxml.note)) return PARSER_STOP;
+        }
         break;
         case XML_SELF_CLOSING:
     }
@@ -29,10 +33,13 @@ static int parse_attributes(void *user_data, sax_context *context)
     const xml_node *n = &context->found;
     switch (n->type) {
         case XML_TAG_OPEN:
+        {
+        }
+        break;
         case XML_TAG_CLOSE:
-            if (str_ref_cmp(&n->target, &musicxml.attributes)) { 
-                return PARSER_STOP;
-            }
+        {
+            if (str_ref_cmp(&n->target, &musicxml.attributes)) return PARSER_STOP;
+        }
         case XML_SELF_CLOSING:
     }
     return PARSER_CONTINUE;
@@ -43,10 +50,13 @@ static int parse_direction(void *user_data, sax_context *context)
     const xml_node *n = &context->found;
     switch (n->type) {
         case XML_TAG_OPEN:
+        {
+        }
+        break;
         case XML_TAG_CLOSE:
-            if (str_ref_cmp(&n->target, &musicxml.direction)) { 
-                return PARSER_STOP;
-            }
+        {
+            if (str_ref_cmp(&n->target, &musicxml.direction)) return PARSER_STOP;
+        }
         case XML_SELF_CLOSING:
     }
     return PARSER_CONTINUE;
@@ -57,10 +67,13 @@ static int parse_harmony(void *user_data, sax_context *context)
     const xml_node *n = &context->found;
     switch (n->type) {
         case XML_TAG_OPEN:
+        {
+        }
+        break;
         case XML_TAG_CLOSE:
-            if (str_ref_cmp(&n->target, &musicxml.harmony)) { 
-                return PARSER_STOP;
-            }
+        {
+            if (str_ref_cmp(&n->target, &musicxml.harmony)) return PARSER_STOP;
+        }
         case XML_SELF_CLOSING:
     }
     return PARSER_CONTINUE;
@@ -71,10 +84,13 @@ static int parse_barline(void *user_data, sax_context *context)
     const xml_node *n = &context->found;
     switch (n->type) {
         case XML_TAG_OPEN:
+        {
+        }
+        break;
         case XML_TAG_CLOSE:
-            if (str_ref_cmp(&n->target, &musicxml.barline)) { 
-                return PARSER_STOP;
-            }
+        {
+            if (str_ref_cmp(&n->target, &musicxml.barline)) return PARSER_STOP;
+        }
         case XML_SELF_CLOSING:
     }
     return PARSER_CONTINUE;
@@ -89,6 +105,7 @@ static int parse_measure(void *user_data, sax_context *context)
 
     switch (n->type) {
         case XML_TAG_OPEN:
+        {
             if (m->chords.count != 0 && str_ref_cmp(&n->target, &musicxml.note)) { 
                 if (sax_parse_xml(parse_note, parser_data, context) != 0) return PARSER_STOP_ERROR;
 
@@ -108,12 +125,12 @@ static int parse_measure(void *user_data, sax_context *context)
             } else {
                 return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
             }
-
-            break;
+        }
+        break;
         case XML_TAG_CLOSE:
-            if (str_ref_cmp(&n->target, &musicxml.measure)) { 
-                return PARSER_STOP;
-            }
+        {
+            if (str_ref_cmp(&n->target, &musicxml.measure)) return PARSER_STOP;
+        }
         case XML_SELF_CLOSING:
 
         default: break;
@@ -128,17 +145,19 @@ static int parse_part(void *user_data, sax_context *context)
 
     switch (n->type) {
         case XML_TAG_OPEN:
+        {
             if (str_ref_cmp(&n->target, &musicxml.measure)) { 
                 da_append(parser_data->song->measures, (IrpMeasure){0});
                 MsrState msr_state = {0};
                 parser_data->state = &msr_state;
                 if (sax_parse_xml(parse_measure, parser_data, context) != 0) return PARSER_STOP_ERROR;
             }
-            break;
+        }
+        break;
         case XML_TAG_CLOSE:
-            if (str_ref_cmp(&n->target, &musicxml.part)) { 
-                return PARSER_STOP;
-            }
+        {
+            if (str_ref_cmp(&n->target, &musicxml.part)) return PARSER_STOP;
+        }
         case XML_SELF_CLOSING:
 
         default: break;
@@ -153,6 +172,7 @@ static int parse_work(void *user_data, sax_context *context)
 
     switch (n->type) {
         case XML_TAG_OPEN:
+        {
             if (!parser_data->song->title[0] && str_ref_cmp(&n->target, &musicxml.work_title)) { 
                 da_str_ref title;
                 if (sax_get_content(context, &title) != 0) return PARSER_STOP_ERROR;
@@ -163,12 +183,12 @@ static int parse_work(void *user_data, sax_context *context)
                 if (sax_skip_content(context, musicxml.work) != 0) return PARSER_STOP_ERROR;
                 return PARSER_STOP;
             }
-            break;
-
+        }
+        break;
         case XML_TAG_CLOSE:
-            if (str_ref_cmp(&n->target, &musicxml.work)) { 
-                return PARSER_STOP;
-            }
+        {
+            if (str_ref_cmp(&n->target, &musicxml.work)) return PARSER_STOP;
+        }
         case XML_SELF_CLOSING:
 
         default: break;
@@ -184,6 +204,7 @@ static int parse_identification(void *user_data, sax_context *context)
 
     switch (n->type) {
         case XML_TAG_OPEN:
+        {
             da_str_ref composer_str = STR_REF("composer");
             if (!parser_data->song->composer[0]
                 && str_ref_cmp(&n->target, &musicxml.creator)
@@ -202,12 +223,12 @@ static int parse_identification(void *user_data, sax_context *context)
             } else {
                 return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
             }
-
-            break;
+        }
+        break;
         case XML_TAG_CLOSE:
-            if (str_ref_cmp(&n->target, &musicxml.identification)) { 
-                return PARSER_STOP;
-            }
+        {
+            if (str_ref_cmp(&n->target, &musicxml.identification)) return PARSER_STOP;
+        }
         case XML_SELF_CLOSING:
 
         default: break;
