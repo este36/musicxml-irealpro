@@ -56,12 +56,13 @@ int main() {
 
     IrpSong irpSong = {0};
     
-    if (parse_musicxml_song(&irpSong, NULL, file, file_len)) {
+    if (parse_musicxml_song(&irpSong, STR_REF("P1"), file, file_len)) {
         free(file);
         return 1;
     }
 
     printf("Song title: %s, composer: %s\n", irpSong.title, irpSong.composer);
+    printf("Number of bars: %zu\n", irpSong.measures.count);
 
     free(file);
     return 0;

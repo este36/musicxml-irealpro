@@ -5,9 +5,6 @@
 
 #ifndef DEBUG
 #define printf(...) ((void)0)
-#define INLINE static inline
-#else
-#define INLINE static
 #endif
 
 typedef enum {
@@ -44,10 +41,11 @@ typedef struct {
     char quality[IRP_MAX_CHORD_QUALITY_LEN];
 } IrpChord;
 
+#define IRP_MAX_CHORDS 8 
+
 typedef struct {
-    uint32_t count;
-    uint32_t capacity;
-    IrpChord* items;
+    size_t count;
+    IrpChord items[IRP_MAX_CHORDS];
 } IrpChords;
 
 typedef struct {
@@ -73,9 +71,9 @@ typedef struct {
 } IrpMeasure;
 
 typedef struct IrpMeasures {
-    uint32_t count;
-    uint32_t capacity;
-    IrpMeasure* items;
+    size_t count;
+    size_t capacity;
+    IrpMeasure *items;
 } IrpMeasures;
 
 #ifndef IRP_MAX_CREDENTIALS
@@ -87,7 +85,7 @@ typedef enum {
     JAZZ,
     JAZZ_LATIN,
     ROCK,
-    POP,
+    POP
 } StyleEnum;
 
 typedef struct {
@@ -105,12 +103,12 @@ typedef struct {
     struct {
         size_t count;
         size_t capacity;
-        IrpSong* items;
+        IrpSong *items;
     } song;
 } IrpPlaylist;
 
-void irp_song_init(IrpSong* song);
-int irp_render_song(IrpSong* song, char *buf, size_t len);
-int irp_render_playlist(IrpPlaylist* playlist, char *buf, size_t len);
+void irp_song_free(IrpSong *song);
+int irp_render_song(IrpSong *song, char *buf, size_t len);
+int irp_render_playlist(IrpPlaylist *playlist, char *buf, size_t len);
 
 #endif // IREALPRO_H

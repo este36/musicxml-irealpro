@@ -2,7 +2,7 @@
 
 void xml_clear_node(xml_node* n)
 {
-    n->type = XML_UNSET;
+    n->type = 0;
     n->attrc = 0;
     n->target.buf = NULL;
     n->target.len = 0;
@@ -18,9 +18,10 @@ sax_context sax_context_init(sax_scanner* l)
     return (sax_context){ .scanner = l, .found = {0} };
 }
 
+// Suppose that the scanner is inside the parent node
 int sax_get_content(sax_context* context, da_str_ref* str_ref)
 {
-    if (str_ref != NULL ) str_ref->buf = GET_PTR(context->scanner);
+    if (str_ref != NULL) str_ref->buf = GET_PTR(context->scanner);
 
     // now we try to find a closing tag with the same name.
     while (!IS_EOF(context->scanner)) 
@@ -49,9 +50,31 @@ int sax_get_content(sax_context* context, da_str_ref* str_ref)
     return XML_FILE_CORRUPT;
 }
 
-int sax_skip_content(sax_context* context)
+// Suppose that the scanner is inside the parent node
+int sax_skip_content(sax_context* context, da_str_ref node_name)
 {
-    return sax_get_content(context, NULL);
+    while (!IS_EOF(context->scanner)) 
+    {
+        if (GET_CHAR(context->scanner) == '<' && GET_NEXT_CHAR(context->scanner) == '/') {
+
+            ADVANCE(context->scanner);
+            ADVANCE(context->scanner);
+
+            da_str_ref name = {0};
+            name.buf = GET_PTR(context->scanner);
+            SKIP_VALID_MXL_NAME(context->scanner);
+            if (IS_EOF(context->scanner) || GET_CHAR(context->scanner) != '>') return XML_FILE_CORRUPT;
+
+            name.len = GET_PTR(context->scanner) - name.buf;
+
+            ADVANCE(context->scanner);
+            if (str_ref_cmp(&node_name, &name)) {
+                return 0;
+            }
+        } 
+        ADVANCE(context->scanner);
+    }
+    return XML_FILE_CORRUPT;
 }
 
 // It should not get the entire tag, only name and attributes.
@@ -161,7 +184,7 @@ int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt), void* user_data
                     context->found.type = XML_TAG_OPEN;
                     status = fn(user_data, context);
 
-                    if (status == SKIP_ENTIRE_NODE) sax_skip_content(context);
+                    if (status == SKIP_ENTIRE_NODE) sax_skip_content(context, context->found.target);
                     xml_clear_node(&context->found);
                 } else {
                     return XML_FILE_CORRUPT;

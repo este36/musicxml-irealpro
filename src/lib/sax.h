@@ -26,7 +26,6 @@ typedef struct sax_scanner {
 #define SKIP_WHILE_NOT(scanner, fn) while(!IS_EOF(scanner) && !fn(GET_CHAR(scanner))) ADVANCE(scanner)
 
 typedef enum xml_node_type {
-    XML_UNSET,
     XML_TAG_OPEN,
     XML_TAG_CLOSE,
     XML_SELF_CLOSING,
@@ -79,8 +78,7 @@ sax_context sax_context_init(sax_scanner* l);
 // if the str_ref is null then the node will just be skiped without doing buffering
 int sax_get_content(sax_context* context, da_str_ref* str_ref);
 
-// Same implementation as sax_get_content but NULL in second param, bc it means litteraly to not save the content but to go through entirely.
-int sax_skip_content(sax_context* context);
+int sax_skip_content(sax_context* context, da_str_ref node_name);
 
 int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt), void* user_data, sax_context* context);
 

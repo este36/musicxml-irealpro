@@ -11,22 +11,10 @@
 #endif
 
 typedef struct {
-    uint16_t part_selected;
-} ParserParams;
-
-typedef struct {
-    bool work;
-    bool identification;
-    bool defaults;
-    bool credit;
-    bool part_list;
-} ParserState;
-
-typedef struct {
-    IrpSong* song;
-    ParserParams* params;
-    ParserState state;
+    IrpSong *song;
+    da_str_ref part_selected;
+    void *state;
 } ParserData;
 
-int parse_musicxml_song(IrpSong* irp_song, ParserParams* parameters, const char* musicxml, const size_t musicxml_length);
+int parse_musicxml_song(IrpSong *irp_song, const da_str_ref part_id, const char *musicxml, const size_t musicxml_length);
 #endif // __PARSER_H__

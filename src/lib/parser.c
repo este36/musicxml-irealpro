@@ -1,74 +1,188 @@
 #include "parser.h"
 #include <string.h>
 
-/*---------- from irealpro.h ----------*/
+#define GET_CURR_MEASURE() (&parser_data->song->measures.items[parser_data->song->measures.count - 1])
 
-// typedef struct {
-//     da_str title;
-//     struct composer {
-//         da_str first_name;
-//         da_str last_name;
-//     };
-//     da_str body;
-//     uint16_t tempo;
-//     StyleEnum style;
-// } IrealProSong;
+typedef struct {
+    bool attributes;
+    bool rearsheal;
+} MsrState;
 
-//  We want to get theses infos:
-//   - Song Title
-//   - Composer first name & last name
-//   - Tempo
 
-static int parse_part(void* user_data, sax_context* context)
+static int parse_note(void *user_data, sax_context *context)
 {
-    const xml_node* n = &context->found;
-    ParserData* parser_data = (ParserData*)user_data;
-
-    switch (context->found.type) {
+    const xml_node *n = &context->found;
+    switch (n->type) {
         case XML_TAG_OPEN:
-            return PARSER_CONTINUE;
         case XML_TAG_CLOSE:
-            if (str_ref_cmp(&n->target, &musicxml.part)) { 
-                parser_data->state.work = true;
+            if (str_ref_cmp(&n->target, &musicxml.note)) { 
                 return PARSER_STOP;
             }
-
-            return PARSER_CONTINUE; 
-        default: return PARSER_CONTINUE;
+        break;
+        case XML_SELF_CLOSING:
     }
+    return PARSER_CONTINUE;
 }
 
-static int parse_work(void* user_data, sax_context* context)
+static int parse_attributes(void *user_data, sax_context *context)
 {
-    const xml_node* n = &context->found;
-    ParserData* parser_data = (ParserData*)user_data;
+    const xml_node *n = &context->found;
+    switch (n->type) {
+        case XML_TAG_OPEN:
+        case XML_TAG_CLOSE:
+            if (str_ref_cmp(&n->target, &musicxml.attributes)) { 
+                return PARSER_STOP;
+            }
+        case XML_SELF_CLOSING:
+    }
+    return PARSER_CONTINUE;
+}
 
-    switch (context->found.type) {
+static int parse_direction(void *user_data, sax_context *context)
+{
+    const xml_node *n = &context->found;
+    switch (n->type) {
+        case XML_TAG_OPEN:
+        case XML_TAG_CLOSE:
+            if (str_ref_cmp(&n->target, &musicxml.direction)) { 
+                return PARSER_STOP;
+            }
+        case XML_SELF_CLOSING:
+    }
+    return PARSER_CONTINUE;
+}
+
+static int parse_harmony(void *user_data, sax_context *context)
+{
+    const xml_node *n = &context->found;
+    switch (n->type) {
+        case XML_TAG_OPEN:
+        case XML_TAG_CLOSE:
+            if (str_ref_cmp(&n->target, &musicxml.harmony)) { 
+                return PARSER_STOP;
+            }
+        case XML_SELF_CLOSING:
+    }
+    return PARSER_CONTINUE;
+}
+
+static int parse_barline(void *user_data, sax_context *context)
+{
+    const xml_node *n = &context->found;
+    switch (n->type) {
+        case XML_TAG_OPEN:
+        case XML_TAG_CLOSE:
+            if (str_ref_cmp(&n->target, &musicxml.barline)) { 
+                return PARSER_STOP;
+            }
+        case XML_SELF_CLOSING:
+    }
+    return PARSER_CONTINUE;
+}
+
+static int parse_measure(void *user_data, sax_context *context)
+{
+    const xml_node *n = &context->found;
+    ParserData *parser_data = (ParserData*)user_data;
+    IrpMeasure *m = GET_CURR_MEASURE();
+    MsrState *state = (MsrState*)parser_data->state;
+
+    switch (n->type) {
+        case XML_TAG_OPEN:
+            if (m->chords.count != 0 && str_ref_cmp(&n->target, &musicxml.note)) { 
+                if (sax_parse_xml(parse_note, parser_data, context) != 0) return PARSER_STOP_ERROR;
+
+            } else if (!state->attributes && str_ref_cmp(&n->target, &musicxml.attributes)) { 
+                state->attributes = true;
+                if (sax_parse_xml(parse_attributes, parser_data, context) != 0) return PARSER_STOP_ERROR;
+
+            } else if (str_ref_cmp(&n->target, &musicxml.direction)) { 
+                if (sax_parse_xml(parse_direction, parser_data, context) != 0) return PARSER_STOP_ERROR;
+
+            } else if (str_ref_cmp(&n->target, &musicxml.harmony)) { 
+                if (sax_parse_xml(parse_harmony, parser_data, context) != 0) return PARSER_STOP_ERROR;
+
+            } else if (str_ref_cmp(&n->target, &musicxml.barline)) { 
+                if (sax_parse_xml(parse_barline, parser_data, context) != 0) return PARSER_STOP_ERROR;
+
+            } else {
+                return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
+            }
+
+            break;
+        case XML_TAG_CLOSE:
+            if (str_ref_cmp(&n->target, &musicxml.measure)) { 
+                return PARSER_STOP;
+            }
+        case XML_SELF_CLOSING:
+
+        default: break;
+    }
+    return PARSER_CONTINUE;
+}
+
+static int parse_part(void *user_data, sax_context *context)
+{
+    const xml_node *n = &context->found;
+    ParserData *parser_data = (ParserData*)user_data;
+
+    switch (n->type) {
+        case XML_TAG_OPEN:
+            if (str_ref_cmp(&n->target, &musicxml.measure)) { 
+                da_append(parser_data->song->measures, (IrpMeasure){0});
+                MsrState msr_state = {0};
+                parser_data->state = &msr_state;
+                if (sax_parse_xml(parse_measure, parser_data, context) != 0) return PARSER_STOP_ERROR;
+            }
+            break;
+        case XML_TAG_CLOSE:
+            if (str_ref_cmp(&n->target, &musicxml.part)) { 
+                return PARSER_STOP;
+            }
+        case XML_SELF_CLOSING:
+
+        default: break;
+    }
+    return PARSER_CONTINUE;
+}
+
+static int parse_work(void *user_data, sax_context *context)
+{
+    const xml_node *n = &context->found;
+    ParserData *parser_data = (ParserData*)user_data;
+
+    switch (n->type) {
         case XML_TAG_OPEN:
             if (!parser_data->song->title[0] && str_ref_cmp(&n->target, &musicxml.work_title)) { 
                 da_str_ref title;
                 if (sax_get_content(context, &title) != 0) return PARSER_STOP_ERROR;
-                strncat(parser_data->song->title, title.buf, title.len);
-            }
+                if (title.len < IRP_MAX_CREDENTIALS ) 
+                    memcpy(parser_data->song->title, title.buf, title.len);
 
-            return PARSER_CONTINUE;
-        case XML_TAG_CLOSE:
-            if (str_ref_cmp(&n->target, &musicxml.work)) { 
-                parser_data->state.work = true;
+                // we have what we need, so we skip the rest of parent content
+                if (sax_skip_content(context, musicxml.work) != 0) return PARSER_STOP_ERROR;
                 return PARSER_STOP;
             }
+            break;
 
-            return PARSER_CONTINUE; 
-        default: return PARSER_CONTINUE;
+        case XML_TAG_CLOSE:
+            if (str_ref_cmp(&n->target, &musicxml.work)) { 
+                return PARSER_STOP;
+            }
+        case XML_SELF_CLOSING:
+
+        default: break;
     }
+            
+    return PARSER_CONTINUE;
 }
 
-static int parse_identification(void* user_data, sax_context* context)
+static int parse_identification(void *user_data, sax_context *context)
 {
-    const xml_node* n = &context->found;
-    ParserData* parser_data = (ParserData*)user_data;
+    const xml_node *n = &context->found;
+    ParserData *parser_data = (ParserData*)user_data;
 
-    switch (context->found.type) {
+    switch (n->type) {
         case XML_TAG_OPEN:
             da_str_ref composer_str = STR_REF("composer");
             if (!parser_data->song->composer[0]
@@ -79,70 +193,66 @@ static int parse_identification(void* user_data, sax_context* context)
             ) {
                 da_str_ref full_name;
                 if (sax_get_content(context, &full_name) != 0) return PARSER_STOP_ERROR;
-                strncat(parser_data->song->composer, full_name.buf, full_name.len);
+                if (full_name.len < IRP_MAX_CREDENTIALS ) 
+                    memcpy(parser_data->song->composer, full_name.buf, full_name.len);
 
-            } else if (str_ref_cmp(&n->target, &musicxml.encoding)) {
-                if (sax_skip_content(context) != 0) return PARSER_STOP_ERROR;
+                // we have what we need, so we skip the rest of parent content
+                if (sax_skip_content(context, musicxml.identification) != 0) return PARSER_STOP_ERROR;
+                return PARSER_STOP;
+            } else {
+                return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
             }
 
-            return PARSER_CONTINUE;
+            break;
         case XML_TAG_CLOSE:
             if (str_ref_cmp(&n->target, &musicxml.identification)) { 
-                parser_data->state.identification = true;
                 return PARSER_STOP;
             }
+        case XML_SELF_CLOSING:
 
-            return PARSER_CONTINUE; 
-        default: return PARSER_CONTINUE;
+        default: break;
     }
+    return PARSER_CONTINUE;
 }
 
-static int parse_song_partwise(void* user_data, sax_context* context)
+static int parse_song_partwise(void *user_data, sax_context *context)
 {
-    const xml_node* n = &context->found;
-    ParserData* parser_data = (ParserData*)user_data;
+    const xml_node *n = &context->found;
+    ParserData *parser_data = (ParserData*)user_data;
 
-    switch (context->found.type) {
-        case XML_TAG_OPEN:
-            if (!parser_data->state.work && str_ref_cmp(&n->target, &musicxml.work)) {
-                if (sax_parse_xml(parse_work, parser_data, context) != 0) return PARSER_STOP_ERROR;
-
-            } else if (!parser_data->state.identification && str_ref_cmp(&n->target, &musicxml.identification)) {
-                if (sax_parse_xml(parse_identification, parser_data, context) != 0) return PARSER_STOP_ERROR;
-
-            } else if (!parser_data->state.defaults && str_ref_cmp(&n->target, &musicxml.defaults)) {
-                if (sax_skip_content(context) != 0) return PARSER_STOP_ERROR;
-                parser_data->state.defaults = true;
-
-            } else if (!parser_data->state.credit && str_ref_cmp(&n->target, &musicxml.credit)) {
-                if (sax_skip_content(context) != 0) return PARSER_STOP_ERROR;
-                parser_data->state.credit = true;
-
-            } else if (!parser_data->state.part_list && str_ref_cmp(&n->target, &musicxml.part_list)) {
-                if (sax_skip_content(context) != 0) return PARSER_STOP_ERROR;
-                parser_data->state.part_list = true;
-
-            } else if (str_ref_cmp(&n->target, &musicxml.part)) {
-                return PARSER_STOP;
-            }
-                // main parser stuff
+    if (n->type == XML_TAG_OPEN) {
+        if (str_ref_cmp(&n->target, &musicxml.score_partwise)) {
             return PARSER_CONTINUE;
-        default: return PARSER_CONTINUE;
+        }
+        if (str_ref_cmp(&n->target, &musicxml.work)) {
+            if (sax_parse_xml(parse_work, parser_data, context) != 0) return PARSER_STOP_ERROR;
+
+        } else if (str_ref_cmp(&n->target, &musicxml.identification)) {
+            if (sax_parse_xml(parse_identification, parser_data, context) != 0) return PARSER_STOP_ERROR;
+
+        } else if (str_ref_cmp(&n->target, &musicxml.part)
+                    && n->attrc >= 1
+                    && str_ref_cmp(&n->attrv[0].key, &musicxml.id) 
+                    && str_ref_cmp(&n->attrv[0].value, &parser_data->part_selected) 
+                ) {
+            if (sax_parse_xml(parse_part, parser_data, context) != 0) return PARSER_STOP_ERROR;
+            return PARSER_STOP;
+        } else {
+            return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
+        }
     }
-    return 0;
+
+    return PARSER_CONTINUE;
 }
 
 // All of irp_song members should be init to zero.
-int parse_musicxml_song(IrpSong* irp_song, ParserParams* parameters, const char* musicxml, const size_t musicxml_length)
+int parse_musicxml_song(IrpSong* irp_song, const da_str_ref part_id, const char* musicxml, const size_t musicxml_length)
 {
     ParserData parser_data = {
         .song = irp_song,
-        .params = parameters,
-        .state = {0}
+        .part_selected = part_id,
     };
-    
-    if (parser_data.song == NULL) return NULL;
-    
+
     sax_scanner scanner = sax_scanner_init(musicxml, musicxml_length);
     sax_context context = sax_context_init(&scanner);
 
