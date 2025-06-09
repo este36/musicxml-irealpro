@@ -8,40 +8,42 @@
 #endif
 
 typedef enum {
-    NOTE_UNSET,
-    NOTE_C,
-    NOTE_Cb,
-    NOTE_Cc,
-    NOTE_D,
-    NOTE_Db,
-    NOTE_Dc,
-    NOTE_E,
-    NOTE_Eb,
-    NOTE_Ec,
-    NOTE_F,
-    NOTE_Fb,
-    NOTE_Fc,
-    NOTE_G,
-    NOTE_Gb,
-    NOTE_Gc,
+    NOTE_Ab = 1,
     NOTE_A, 
-    NOTE_Ab,
     NOTE_Ac,
-    NOTE_B,
     NOTE_Bb,
-    NOTE_Bc
+    NOTE_B,
+    NOTE_Bc,
+    NOTE_Cb,
+    NOTE_C,
+    NOTE_Cc,
+    NOTE_Db,
+    NOTE_D,
+    NOTE_Dc,
+    NOTE_Eb,
+    NOTE_E,
+    NOTE_Ec,
+    NOTE_Fb,
+    NOTE_F,
+    NOTE_Fc,
+    NOTE_Gb,
+    NOTE_G,
+    NOTE_Gc,
+    NOTE_MAX
 } NoteEnum;
+
+const char* get_note_str(NoteEnum note);
 
 #define IRP_MAX_CHORD_QUALITY_LEN 16
 
 typedef struct {
-    uint32_t duration;
+    double duration;
     NoteEnum root;
     NoteEnum bass;
     char quality[IRP_MAX_CHORD_QUALITY_LEN];
 } IrpChord;
 
-#define IRP_MAX_CHORDS 8 
+#define IRP_MAX_CHORDS 5 
 
 typedef struct {
     size_t count;
@@ -81,8 +83,7 @@ typedef struct IrpMeasures {
 #endif
 
 typedef enum {
-    UNKNOWN,
-    JAZZ,
+    JAZZ = 1,
     JAZZ_LATIN,
     ROCK,
     POP
