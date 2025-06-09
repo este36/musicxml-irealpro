@@ -23,7 +23,6 @@
 int parse_strict_int(const char *str, int *out);
 
 enum {
-    NOTE_UNDEFINED = 0,
     NOTE_QUARTER = 360360,
     NOTE_WHOLE = NOTE_QUARTER * 4,
     NOTE_HALF = NOTE_QUARTER * 2,
@@ -118,8 +117,7 @@ typedef struct mxl2irp_convert_params {
 void mxl2irp_free_convert_params(mxl2irp_convert_params* cp);
 
 enum {
-    HEADER_UNSET,
-    HEADER_WORK,
+    HEADER_WORK = 1,
     HEADER_WORK_TITLE,
     HEADER_ID,
     HEADER_ID_COMPOSER,
