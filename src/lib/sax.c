@@ -50,6 +50,44 @@ int sax_get_content(sax_context* context, da_str_ref* str_ref)
     return XML_FILE_CORRUPT;
 }
 
+int sax_copy_content(sax_context* context, char* buf, size_t buf_len)
+{
+    da_str_ref str_ref = {0};
+
+    str_ref.buf = GET_PTR(context->scanner);
+
+    // now we try to find a closing tag with the same name.
+    while (!IS_EOF(context->scanner)) 
+    {
+        if (GET_CHAR(context->scanner) == '<' && GET_NEXT_CHAR(context->scanner) == '/') {
+            // update the len
+            str_ref.len = GET_PTR(context->scanner) - str_ref.buf;
+
+            ADVANCE(context->scanner);
+            ADVANCE(context->scanner);
+
+            da_str_ref name = {0};
+            name.buf = GET_PTR(context->scanner);
+            SKIP_VALID_MXL_NAME(context->scanner);
+            if (IS_EOF(context->scanner) || GET_CHAR(context->scanner) != '>') return XML_FILE_CORRUPT;
+
+            name.len = GET_PTR(context->scanner) - name.buf;
+
+            ADVANCE(context->scanner);
+            if (str_ref_cmp(&context->found.target, &name)) {
+                // perfom copy str_ref to buf
+                size_t copy_len = str_ref.len > buf_len ? buf_len : str_ref.len;
+                memcpy(buf, str_ref.buf, copy_len);
+                buf[copy_len] = '\0';
+
+                return 0;
+            }
+        } 
+        ADVANCE(context->scanner);
+    }
+    return XML_FILE_CORRUPT;
+}
+
 // Suppose that the scanner is inside the parent node
 int sax_skip_content(sax_context* context, da_str_ref node_name)
 {

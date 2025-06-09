@@ -26,7 +26,7 @@ typedef struct sax_scanner {
 #define SKIP_WHILE_NOT(scanner, fn) while(!IS_EOF(scanner) && !fn(GET_CHAR(scanner))) ADVANCE(scanner)
 
 typedef enum xml_node_type {
-    XML_TAG_OPEN,
+    XML_TAG_OPEN = 1,
     XML_TAG_CLOSE,
     XML_SELF_CLOSING,
 } xml_node_type;
@@ -77,6 +77,8 @@ sax_context sax_context_init(sax_scanner* l);
 // the user of this function is supposed to be sure that the element is a container.
 // if the str_ref is null then the node will just be skiped without doing buffering
 int sax_get_content(sax_context* context, da_str_ref* str_ref);
+
+int sax_copy_content(sax_context* context, char* buf, size_t buf_len);
 
 int sax_skip_content(sax_context* context, da_str_ref node_name);
 
