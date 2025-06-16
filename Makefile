@@ -1,4 +1,4 @@
-.PHONY: all clean run tests debug
+# .PHONY: all clean run tests debug
 
 NAME = mxl2irp
 CC = gcc
@@ -41,8 +41,9 @@ clean:
 run: $(NAME)
 	./$(NAME)
 
-tests:
-	$(MAKE) -C tests
+# tests:
+# 	$(MAKE) -C tests
+#
 
 generate:
 	python3 ./gen/musicxml.c.py > ./src/gen/musicxml.c

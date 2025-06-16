@@ -141,7 +141,7 @@ static int parse_note(void *user_data, sax_context *context)
                 IrpMeasure *m = GET_CURR_MEASURE(parser_data);
                 char note_duration_buf[128] = {0};
 
-                if (!sax_copy_content(context, note_duration_buf, 128)) return PARSER_STOP_ERROR;
+                if (sax_copy_content(context, note_duration_buf, 128) != 0) return PARSER_STOP_ERROR;
 
                 m->chords.items[m->chords.count].duration += (double)strtod(note_duration_buf, NULL);
             } else {

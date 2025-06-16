@@ -49,8 +49,8 @@ int main() {
     // Unrealised_Love.musicxml
 
     long file_len = 0;
-    // char* file = open_file(&file_len, "tests/musicxml/DaysOfWineRoses.musicxml");
-    char* file = open_file(&file_len, "tests/musicxml/Out_of_Nothing.musicxml");
+    // char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
+    char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
 
     if (!file) return 1;
 
