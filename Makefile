@@ -11,7 +11,7 @@ OBJ_DIR = obj
 SRC_DIR = src
 
 SRC = main.c \
-	  parser/parser.c \
+	  parser/musicxml_parser.c \
 	  irealpro.c \
 	  sax.c \
 	  da.c \
