@@ -59,7 +59,7 @@ static int parse_degree(void *user_data, sax_context *context)
 }
 
 // A is 65 in ascii code, so a bit of arithmetic and me can get the correct root note.
-#define GET_NOTE_STEP() ((NoteEnum)(((int)GET_CHAR(context->scanner) - 'A') * 3 + 1))
+#define GET_NOTE_STEP() ((NoteEnum)(((int)GET_CHAR(context->scanner) - 'A') * 3 + 2))
 
 static int parse_harmony(void *user_data, sax_context *context)
 {
@@ -81,12 +81,12 @@ static int parse_harmony(void *user_data, sax_context *context)
                 // the scanner is just after the > of open tag. root-step content is only one char.
                 msr_state->curr_chord.root = GET_NOTE_STEP();
 
-            } else if (str_ref_cmp(&n->target, &musicxml.root_alter)) {
-                char alter_str[4] = {0};
-                if (sax_copy_content(context, alter_str, 4) != 0) return PARSER_STOP_ERROR;
-
-                if (strcmp(alter_str, "1")) msr_state->curr_chord.root++;
-                else if (strcmp(alter_str, "-1")) msr_state->curr_chord.root--;
+            // } else if (str_ref_cmp(&n->target, &musicxml.root_alter)) {
+            //     char alter_str[4] = {0};
+            //     if (sax_copy_content(context, alter_str, 4) != 0) return PARSER_STOP_ERROR;
+            //
+            //     if (strcmp(alter_str, "1")) msr_state->curr_chord.root++;
+            //     else if (strcmp(alter_str, "-1")) msr_state->curr_chord.root--;
 
             } else if (str_ref_cmp(&n->target, &musicxml.kind)) {
                 if (sax_get_content(context, &msr_state->curr_chord.qual) != 0) return PARSER_STOP_ERROR; 
@@ -104,7 +104,7 @@ static int parse_harmony(void *user_data, sax_context *context)
                 else if (strcmp(alter_str, "-1")) msr_state->curr_chord.bass--;
 
             } else {
-                return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
+                return PARSER_CONTINUE;
             }
         }
         break;

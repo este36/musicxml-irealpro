@@ -49,8 +49,8 @@ int main() {
     // Unrealised_Love.musicxml
 
     long file_len = 0;
-    // char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
-    char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
+    char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
+    // char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
 
     if (!file) return 1;
 
@@ -63,6 +63,15 @@ int main() {
 
     printf("Song title: %s, composer: %s\n", irpSong.title, irpSong.composer);
     printf("Number of bars: %zu\n", irpSong.measures.count);
+
+    for (size_t i = 0; i < irpSong.measures.count; i++) {
+        printf("measure %zu\n", i);
+        for (size_t j = 0; j < irpSong.measures.items[i].chords.count; j++) {
+            printf("    chord %zu\n", j);
+            printf("        duration:\t%f\n", irpSong.measures.items[i].chords.items[j].duration);
+            printf("        root:\t\t%s\n", get_note_str(irpSong.measures.items[i].chords.items[j].root));
+        }
+    }
 
     free(file);
     return 0;
