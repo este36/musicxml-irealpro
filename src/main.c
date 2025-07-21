@@ -2,10 +2,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-// #include "lib/da.h"
-// #include "lib/sax.h"
-// #include "mxl2irp.h"
-#include "lib/parser.h"
+#include "parser.h"
 
 #ifndef DEBUG
 #define printf(...) ((void)0)

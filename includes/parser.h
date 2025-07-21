@@ -2,7 +2,7 @@
 #define __MXL_PARSER_H__
 
 #include "da.h"
-#include "../gen/musicxml.h"
+#include "musicxml.h"
 #include "irealpro.h"
 #include "sax.h"
 
