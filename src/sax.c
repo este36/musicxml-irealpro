@@ -40,7 +40,7 @@ int sax_get_content(sax_context* context, da_str_ref* str_ref)
                 return XML_FILE_CORRUPT;
             name.len = GET_PTR(context->scanner) - name.buf;
             ADVANCE(context->scanner);
-            if (str_ref_cmp(&context->found.target, &name))
+            if (str_ref_eq(&context->found.target, &name))
                 return 0;
         } 
         ADVANCE(context->scanner);
@@ -70,7 +70,7 @@ int sax_copy_content(sax_context* context, char* buf, size_t buf_len)
                 return XML_FILE_CORRUPT;
             name.len = GET_PTR(context->scanner) - name.buf;
             ADVANCE(context->scanner);
-            if (str_ref_cmp(&context->found.target, &name)) {
+            if (str_ref_eq(&context->found.target, &name)) {
                 // perfom copy str_ref to buf
                 size_t copy_len = str_ref.len > buf_len ? buf_len : str_ref.len;
                 memcpy(buf, str_ref.buf, copy_len);
@@ -99,7 +99,7 @@ int sax_skip_content(sax_context* context, da_str_ref node_name)
                 return XML_FILE_CORRUPT;
             name.len = GET_PTR(context->scanner) - name.buf;
             ADVANCE(context->scanner);
-            if (str_ref_cmp(&node_name, &name))
+            if (str_ref_eq(&node_name, &name))
                 return 0;
         } 
         ADVANCE(context->scanner);
@@ -222,6 +222,5 @@ int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt), void* user_data
             ADVANCE(context->scanner);
         }
     }
-
     return 0;
 }

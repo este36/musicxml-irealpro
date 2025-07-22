@@ -3,11 +3,12 @@
 
 #include "sax.h"
 
-#ifndef DEBUG
-#define printf(...) ((void)0)
-#endif
+#define IRP_MAX_CREDENTIALS			256 
+#define IRP_MAX_CHORD_QUALITIES		16
+#define IRP_MAX_CHORDS 5 
 
-typedef enum {
+typedef enum
+{
     NOTE_Ab = 1,
     NOTE_A, 
     NOTE_Ac,
@@ -30,86 +31,86 @@ typedef enum {
     NOTE_G,
     NOTE_Gc,
     NOTE_MAX
-} NoteEnum;
+}	NoteEnum;
 
-const char* get_note_str(NoteEnum note);
+typedef struct
+{
+    double		duration;
+    NoteEnum	root;
+    NoteEnum	bass;
+    char		quality[IRP_MAX_CHORD_QUALITIES];
+}	IrpChord;
 
-#define IRP_MAX_CHORD_QUALITY_LEN 16
+typedef struct
+{
+    size_t		count;
+    IrpChord	items[IRP_MAX_CHORDS];
+}	IrpChords;
 
-typedef struct {
-    double duration;
-    NoteEnum root;
-    NoteEnum bass;
-    char quality[IRP_MAX_CHORD_QUALITY_LEN];
-} IrpChord;
+typedef struct
+{
+    uint32_t	beats;
+    uint32_t	beat_type;
+}	IrpTimeSignature;
 
-#define IRP_MAX_CHORDS 5 
+typedef struct
+{
+    NoteEnum	Tonic;
+    bool		minor;
+}	IrpKey;
 
-typedef struct {
-    size_t count;
-    IrpChord items[IRP_MAX_CHORDS];
-} IrpChords;
+typedef struct
+{
+    uint32_t			divisions; // quarter note reference integer
+    IrpTimeSignature	time_signature;
+    IrpChords			chords;
+    char				barlines[2];
+    bool				repeat;
+    bool				segno;
+    bool				DC_al_segno;
+    bool				coda;
+    bool				DC_al_coda;
+}	IrpMeasure;
 
-typedef struct {
-    uint32_t beats;
-    uint32_t beat_type;
-} IrpTimeSignature;
+typedef struct
+{
+    size_t		count;
+    size_t		capacity;
+    IrpMeasure	*items;
+}	IrpMeasures;
 
-typedef struct {
-    NoteEnum Tonic;
-    bool minor;
-}IrpKey;
-
-typedef struct {
-    uint32_t divisions; // quarter note reference integer
-    IrpTimeSignature time_signature;
-    IrpChords chords;
-    char barlines[2];
-    bool repeat;
-    bool segno;
-    bool DC_al_segno;
-    bool coda;
-    bool DC_al_coda;
-} IrpMeasure;
-
-typedef struct IrpMeasures {
-    size_t count;
-    size_t capacity;
-    IrpMeasure *items;
-} IrpMeasures;
-
-#ifndef IRP_MAX_CREDENTIALS
-#define IRP_MAX_CREDENTIALS 256 
-#endif
-
-typedef enum {
+typedef enum
+{
     JAZZ = 1,
     JAZZ_LATIN,
     ROCK,
     POP
-} StyleEnum;
+}	StyleEnum;
 
-typedef struct {
-    IrpKey key;
-    IrpMeasures measures;
-    char composer[IRP_MAX_CREDENTIALS];
-    char title[IRP_MAX_CREDENTIALS];
-    uint16_t tempo;
-    uint16_t repeat_times;
-    StyleEnum style;
-} IrpSong;
+typedef struct
+{
+    IrpKey		key;
+    IrpMeasures	measures;
+    char		composer[IRP_MAX_CREDENTIALS];
+    char		title[IRP_MAX_CREDENTIALS];
+    uint16_t	tempo;
+    uint16_t	repeat_times;
+    StyleEnum	style;
+}	IrpSong;
 
-typedef struct {
-    da_str title;
+typedef struct
+{
+    da_str	title;
     struct {
-        size_t count;
-        size_t capacity;
-        IrpSong *items;
-    } song;
-} IrpPlaylist;
+        size_t	count;
+        size_t	capacity;
+        IrpSong	*items;
+    }	song;
+}	IrpPlaylist;
 
-void irp_song_free(IrpSong *song);
-int irp_render_song(IrpSong *song, char *buf, size_t len);
-int irp_render_playlist(IrpPlaylist *playlist, char *buf, size_t len);
+const char*	get_note_str(NoteEnum note);
+void		irp_song_free(IrpSong *song);
+int			irp_render_song(IrpSong *song, char *buf, size_t len);
+int			irp_render_playlist(IrpPlaylist *playlist, char *buf, size_t len);
 
 #endif // IREALPRO_H

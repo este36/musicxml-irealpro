@@ -1,9 +1,7 @@
-# .PHONY: all clean run tests debug
-
-NAME = mxl2irp
+NAME = test
 CC = gcc
 
-CFLAGS = -Wall -Wextra -std=c11
+CFLAGS = -Wall -Wextra -Werror -std=c11
 
 INCLUDES_DIR = ./includes
 
@@ -20,15 +18,9 @@ SRC = main.c \
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
-all: CFLAGS += -O3
+all: CFLAGS += -g
+#all: CFLAGS += -O3
 all: $(NAME)
-
-sanitize: CFLAGS += -fsanitize=address
-sanitize: $(NAME)
-
-debug: CFLAGS += -DDEBUG -g -O0 
-debug: $(NAME)
-
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
@@ -40,15 +32,15 @@ $(NAME): $(OBJS)
 clean:
 	rm -rf $(OBJ_DIR) $(NAME)
 
+re: clean all
+
 run: $(NAME)
 	./$(NAME)
-
-# tests:
-# 	$(MAKE) -C tests
-#
 
 generate:
 	python3 ./gen/musicxml.c.py > ./src/gen/musicxml.c
 	python3 ./gen/musicxml.h.py > ./includes/musicxml.h
 	python3 ./gen/musicxml_harmony.py > ./src/gen/musicxml_harmony.gperf
 	gperf ./src/gen/musicxml_harmony.gperf > ./src/gen/musicxml_harmony.c
+
+.PHONY: all re run clean

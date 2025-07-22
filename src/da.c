@@ -52,7 +52,7 @@ void str_ref_copy(const da_str_ref* ref, char* dest, size_t length)
     dest[cpy_len] = '\0';
 }
 
-bool str_ref_cmp(const da_str_ref* a, const da_str_ref* b)
+bool str_ref_eq(const da_str_ref* a, const da_str_ref* b)
 {
     return a->len == b->len && memcmp(a->buf, b->buf, a->len) == 0;
 }
