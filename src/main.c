@@ -4,10 +4,6 @@
 
 #include "parser.h"
 
-#ifndef DEBUG
-#define printf(...) ((void)0)
-#endif
-
 char* open_file(long* length, const char* path)
 {
     FILE* f = fopen(path, "rb");
@@ -52,8 +48,8 @@ int main() {
     if (!file) return 1;
 
     IrpSong irpSong = {0};
-    
-    if (parse_musicxml_song(&irpSong, STR_REF("P1"), file, file_len)) {
+
+    if (parse_musicxml_song(&irpSong, STR_REF("P1"), file, file_len) != 0) {
         free(file);
         return 1;
     }

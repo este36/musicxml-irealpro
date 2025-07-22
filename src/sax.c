@@ -21,19 +21,17 @@ sax_context sax_context_init(sax_scanner* l)
 // Suppose that the scanner is inside the parent node
 int sax_get_content(sax_context* context, da_str_ref* str_ref)
 {
-    if (str_ref != NULL)
-        str_ref->buf = GET_PTR(context->scanner);
+    str_ref->buf = GET_PTR(context->scanner);
     // now we try to find a closing tag with the same name.
     while (!IS_EOF(context->scanner)) 
     {
         if (GET_CHAR(context->scanner) == '<' && GET_NEXT_CHAR(context->scanner) == '/') {
-            // update the len
-            if (str_ref != NULL)
-                str_ref->len = GET_PTR(context->scanner) - str_ref->buf;
-            ADVANCE(context->scanner);
-            ADVANCE(context->scanner);
-
             da_str_ref name = {0};
+
+            // update the len
+            str_ref->len = GET_PTR(context->scanner) - str_ref->buf;
+            ADVANCE(context->scanner);
+            ADVANCE(context->scanner);
             name.buf = GET_PTR(context->scanner);
             SKIP_VALID_MXL_NAME(context->scanner);
             if (IS_EOF(context->scanner) || GET_CHAR(context->scanner) != '>')
@@ -56,14 +54,15 @@ int sax_copy_content(sax_context* context, char* buf, size_t buf_len)
     // now we try to find a closing tag with the same name.
     while (!IS_EOF(context->scanner)) 
     {
-        if (GET_CHAR(context->scanner) == '<' && GET_NEXT_CHAR(context->scanner) == '/') {
+        if (GET_CHAR(context->scanner) == '<'
+		&& GET_NEXT_CHAR(context->scanner) == '/')
+		{
+            da_str_ref name = {0};
+
             // update the len
             str_ref.len = GET_PTR(context->scanner) - str_ref.buf;
-
             ADVANCE(context->scanner);
             ADVANCE(context->scanner);
-
-            da_str_ref name = {0};
             name.buf = GET_PTR(context->scanner);
             SKIP_VALID_MXL_NAME(context->scanner);
             if (IS_EOF(context->scanner) || GET_CHAR(context->scanner) != '>')
@@ -88,11 +87,13 @@ int sax_skip_content(sax_context* context, da_str_ref node_name)
 {
     while (!IS_EOF(context->scanner)) 
     {
-        if (GET_CHAR(context->scanner) == '<' && GET_NEXT_CHAR(context->scanner) == '/') {
-            ADVANCE(context->scanner);
-            ADVANCE(context->scanner);
-
+        if (GET_CHAR(context->scanner) == '<'
+			&& GET_NEXT_CHAR(context->scanner) == '/')
+		{
             da_str_ref name = {0};
+
+            ADVANCE(context->scanner);
+            ADVANCE(context->scanner);
             name.buf = GET_PTR(context->scanner);
             SKIP_VALID_MXL_NAME(context->scanner);
             if (IS_EOF(context->scanner) || GET_CHAR(context->scanner) != '>') 
@@ -112,6 +113,7 @@ int sax_skip_content(sax_context* context, da_str_ref node_name)
 // It must end on last white space or " (end attribute quote)
 static int sax_parse_tag_body(sax_context* context)
 {
+	size_t attrc;
     da_str_ref* name = &context->found.target;
     // get name
     name->buf = GET_PTR(context->scanner);
@@ -123,7 +125,7 @@ static int sax_parse_tag_body(sax_context* context)
     SKIP_WHILE(context->scanner, isspace);
 
     // no need to check if EOF because while loop checks it
-    size_t attrc = 0;
+    attrc = 0;
     while (!IS_EOF(context->scanner) && attrc < XML_MAX_ATTRIBUTES) {
         xml_attribute* a = &context->found.attrv[attrc];
 
@@ -158,7 +160,8 @@ static int sax_parse_tag_body(sax_context* context)
     return IS_EOF(context->scanner) ? XML_FILE_CORRUPT : 0;
 }
 
-int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt), void* user_data, sax_context* context) 
+int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt),
+					void* user_data, sax_context* context) 
 {
     while (!IS_EOF(context->scanner)) {
         if (GET_CHAR(context->scanner) == '<') { // we found a tag

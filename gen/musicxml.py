@@ -6,7 +6,7 @@ def to_c_str_ref(s):
 
 parser_c = ""
 
-with open("./src/lib/parser.c", "r", encoding="utf-8") as f:
+with open("./src/parser.c", "r", encoding="utf-8") as f:
     parser_c = f.read()
 
 def is_in_parser_c(e_str):
