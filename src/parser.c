@@ -1,28 +1,6 @@
 #include "parser.h"
 #include <string.h>
 
-#define GET_CURR_MEASURE(parser_data) (&(parser_data)->song->measures.items[(parser_data)->song->measures.count - 1])
-#define GET_CURR_CHORD(parser_data) (&(GET_CURR_MEASURE(parser_data))->chords.items[(GET_CURR_MEASURE(parser_data))->chords.count - 1])
-
-#define TMP_CHORD_MAX_LEN 128
-#define TMP_CHORD_MAX_DEGREES 3
-typedef struct {
-    int16_t value;
-    int16_t alter;
-} mxl_degree;
-
-typedef struct {
-    bool rehearsal;
-    bool attributes;
-    struct {
-        NoteEnum root;
-        NoteEnum bass;
-        da_str_ref qual;
-        mxl_degree degrees[TMP_CHORD_MAX_DEGREES];
-        uint32_t deg_count;
-    } curr_chord;
-} MsrState;
-
 static int parse_degree(void *user_data, sax_context *context)
 {
     const xml_node *n = &context->found;
@@ -96,15 +74,15 @@ static int parse_harmony(void *user_data, sax_context *context)
 					return PARSER_STOP_ERROR; 
             else if (str_ref_eq(&n->target, &musicxml.bass_step))
                 msr_state->curr_chord.bass = GET_NOTE_STEP(); // same as root-step
-            else if (str_ref_eq(&n->target, &musicxml.bass_alter)) {
+            else if (str_ref_eq(&n->target, &musicxml.root_alter)) {
                 // same logic as root-alter
                 char alter_str[4] = {0};
                 if (sax_copy_content(context, alter_str, 4) != 0)
 					return PARSER_STOP_ERROR;
-                if (strcmp(alter_str, "1"))
-					msr_state->curr_chord.bass++;
-                else if (strcmp(alter_str, "-1"))
-					msr_state->curr_chord.bass--;
+                if (strncmp(alter_str, "1", 1) == 0)
+					msr_state->curr_chord.root += 1;
+                else if (strncmp(alter_str, "-1", 2) == 0)
+					msr_state->curr_chord.root -= 1;
             }
         	break;
         }
@@ -135,16 +113,28 @@ static int parse_note(void *user_data, sax_context *context)
 {
     const xml_node *n = &context->found;
     switch (n->type) {
+		case XML_SELF_CLOSING:
+		{
+			// Chord self-closing tag element is always the first element
+			// inside the <note> element and if it is present
+			// we skip because the duration is already set
+            if (str_ref_eq(&n->target, &musicxml.chord)) {
+				if (sax_skip_content(context, musicxml.note) != 0)
+					return PARSER_STOP_ERROR;
+				return PARSER_STOP;
+            }
+			break;
+		}
         case XML_TAG_OPEN:
         {
-            if (str_ref_eq(&n->target, &musicxml.duration)) {
+			if (str_ref_eq(&n->target, &musicxml.duration)) {
                 ParserData *parser_data = (ParserData*)user_data;
-                IrpMeasure *m = GET_CURR_MEASURE(parser_data);
+                IrpChord* c = GET_CURR_CHORD(parser_data);
                 char note_duration_buf[128] = {0};
 
                 if (sax_copy_content(context, note_duration_buf, 128) != 0)
 					return PARSER_STOP_ERROR;
-                m->chords.items[m->chords.count].duration += (double)strtod(note_duration_buf, NULL);
+                c->duration += (double)strtod(note_duration_buf, NULL);
             } else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
@@ -229,16 +219,17 @@ static int parse_measure(void *user_data, sax_context *context)
         case XML_TAG_OPEN:
         {
             if (m->chords.count <= IRP_MAX_CHORDS
-					&& str_ref_eq(&n->target, &musicxml.note)
-					&& sax_parse_xml(parse_note, parser_data, context) != 0) { 
-					return PARSER_STOP_ERROR;
-            } else if (!state->attributes && str_ref_eq(&n->target, &musicxml.attributes)) { 
+				&& str_ref_eq(&n->target, &musicxml.note)) {
+					if (sax_parse_xml(parse_note, parser_data, context) != 0)
+						return PARSER_STOP_ERROR;
+            } else if (!state->attributes
+				&& str_ref_eq(&n->target, &musicxml.attributes)) {
                 state->attributes = true;
                 if (sax_parse_xml(parse_attributes, parser_data, context) != 0)
 					return PARSER_STOP_ERROR;
-            } else if (str_ref_eq(&n->target, &musicxml.direction)
-					&& sax_parse_xml(parse_direction, parser_data, context) != 0) {
-                return PARSER_STOP_ERROR;
+            } else if (str_ref_eq(&n->target, &musicxml.direction)) {
+					if (sax_parse_xml(parse_direction, parser_data, context) != 0)
+						return PARSER_STOP_ERROR;
             } else if (str_ref_eq(&n->target, &musicxml.harmony)) { 
                 // chords are already allocated, there is no dynamic array.
                 // chords.count indicate the number of chords inside the bar,
@@ -282,8 +273,8 @@ static int parse_part(void *user_data, sax_context *context)
                 if (sax_parse_xml(parse_measure, parser_data, context) != 0)
 					return PARSER_STOP_ERROR;
             }
+        	break;
         }
-        break;
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.part))
@@ -310,8 +301,8 @@ static int parse_work(void *user_data, sax_context *context)
 					return PARSER_STOP_ERROR;
                 return PARSER_STOP;
             }
+        	break;
         }
-        break;
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.work))
@@ -365,13 +356,13 @@ static int parse_song_partwise(void *user_data, sax_context *context)
     if (n->type == XML_TAG_OPEN) {
         if (str_ref_eq(&n->target, &musicxml.score_partwise)) 
             return PARSER_CONTINUE;
-        if (str_ref_eq(&n->target, &musicxml.work)
-				&& sax_parse_xml(parse_work, parser_data, context) != 0)
-				return PARSER_STOP_ERROR;
-        else if (str_ref_eq(&n->target, &musicxml.identification)
-				&& sax_parse_xml(parse_identification, parser_data, context) != 0)
-				return PARSER_STOP_ERROR;
-        else if (str_ref_eq(&n->target, &musicxml.part)
+        if (str_ref_eq(&n->target, &musicxml.work)) {
+            if (sax_parse_xml(parse_work, parser_data, context) != 0)
+                return PARSER_STOP_ERROR;
+        } else if (str_ref_eq(&n->target, &musicxml.identification)) {
+            if (sax_parse_xml(parse_identification, parser_data, context) != 0)
+                return PARSER_STOP_ERROR;
+        } else if (str_ref_eq(&n->target, &musicxml.part)
                     && n->attrc >= 1
                     && str_ref_eq(&n->attrv[0].key, &musicxml.id) 
                     && str_ref_eq(&n->attrv[0].value, &parser_data->part_selected) 
