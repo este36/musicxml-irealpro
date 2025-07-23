@@ -32,8 +32,6 @@
         <pan>0</pan>
         </midi-instrument>
       </score-part>
-	  <score-part id="P2">
-	  </score-part>
     </part-list>
   <part id="P1">
     <measure number="1">
@@ -144,15 +142,15 @@
           <step>E</step>
           <octave>4</octave>
           </pitch>
-          <duration>3</duration>
-          <tie type="stop"/>
-          <voice>1</voice>
-          <type>eighth</type>
-          <dot/>
-          <stem>up</stem>
-		  <beam number="1">begin</beam>
-		  <notations>
-			<tied type="stop"/>
+        <duration>3</duration>
+        <tie type="stop"/>
+        <voice>1</voice>
+        <type>eighth</type>
+        <dot/>
+        <stem>up</stem>
+        <beam number="1">begin</beam>
+        <notations>
+          <tied type="stop"/>
           </notations>
         </note>
       <note>
