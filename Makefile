@@ -9,7 +9,7 @@ OBJ_DIR = obj
 SRC_DIR = src
 
 SRC = main.c \
-	  gen/musicxml.c \
+	  musicxml.c \
 	  parser.c \
 	  irealpro.c \
 	  sax.c \
@@ -38,7 +38,7 @@ run: $(NAME)
 	./$(NAME)
 
 generate:
-	python3 ./gen/musicxml.c.py > ./src/gen/musicxml.c
+	python3 ./gen/musicxml.c.py > ./src/musicxml.c
 	python3 ./gen/musicxml.h.py > ./includes/musicxml.h
 	python3 ./gen/musicxml_harmony.py > ./src/musicxml_harmony.gperf
 	gperf --language=ANSI-C ./src/musicxml_harmony.gperf > ./includes/irealpro_chord.h
