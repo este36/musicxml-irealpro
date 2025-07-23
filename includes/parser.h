@@ -4,6 +4,7 @@
 #include "da.h"
 #include "musicxml.h"
 #include "irealpro.h"
+#include "irealpro_chord.h"
 
 #include <stdio.h>
 #include <ctype.h>
@@ -98,7 +99,6 @@ typedef struct s_parser_state
 	da_str_ref		part_selected;
 	t_tmp_measure	tmp_msr;
 }	t_parser_state;
-
 
 t_sax_scanner	sax_scanner_init(const char *buffer, size_t length);
 t_sax_context	sax_context_init(t_sax_scanner *l);

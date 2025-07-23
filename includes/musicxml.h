@@ -5,6 +5,7 @@ typedef struct {
     da_str_ref attributes;
     da_str_ref barline;
     da_str_ref bass;
+    da_str_ref bass_alter;
     da_str_ref bass_step;
     da_str_ref chord;
     da_str_ref creator;

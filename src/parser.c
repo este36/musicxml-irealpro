@@ -14,15 +14,12 @@ static int parse_degree(t_parser_state *parser_state, t_sax_context *context)
                 if (sax_copy_content(context, value_str, 4) != 0)
 					return PARSER_STOP_ERROR;
                 int16_t value_int = atoi(value_str);
-                // we do not accept additional degrees of third or seventh
-                if (value_int % 7 == 3 || value_int % 7 == 0)
-					return PARSER_STOP;
                 curr_deg->value = value_int;
             } else if (curr_deg->value != 0 && str_ref_eq(&n->target, &musicxml.degree_alter)) {
                 char alter_str[4] = {0};
                 if (sax_copy_content(context, alter_str, 4) != 0)
 					return PARSER_STOP_ERROR;
-                curr_deg->value = atoi(alter_str);
+                curr_deg->alter = atoi(alter_str);
             } else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
@@ -55,17 +52,14 @@ static int parse_harmony(t_parser_state *parser_state, t_sax_context *context)
                 msr_state->tmp_chord.degrees_count++;
                 if (sax_parse_xml(parse_degree, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
-            } else if (str_ref_eq(&n->target, &musicxml.root_step)) {
-                // the scanner is just after the > of open tag. root-step content is only one char.
-                msr_state->tmp_chord.root = GET_NOTE_STEP();
-            }
-			else if (str_ref_eq(&n->target, &musicxml.kind)
-					&& sax_get_content(context, &msr_state->tmp_chord.qual) != 0)
+			} else if (str_ref_eq(&n->target, &musicxml.kind)) {
+				if (sax_get_content(context, &msr_state->tmp_chord.qual) != 0)
 					return PARSER_STOP_ERROR; 
-            else if (str_ref_eq(&n->target, &musicxml.bass_step))
+            } else if (str_ref_eq(&n->target, &musicxml.root_step)) {
+                msr_state->tmp_chord.root = GET_NOTE_STEP();
+            } else if (str_ref_eq(&n->target, &musicxml.bass_step)) {
                 msr_state->tmp_chord.bass = GET_NOTE_STEP(); // same as root-step
-            else if (str_ref_eq(&n->target, &musicxml.root_alter)) {
-                // same logic as root-alter
+            } else if (str_ref_eq(&n->target, &musicxml.root_alter)) {
                 char alter_str[4] = {0};
                 if (sax_copy_content(context, alter_str, 4) != 0)
 					return PARSER_STOP_ERROR;
@@ -74,22 +68,57 @@ static int parse_harmony(t_parser_state *parser_state, t_sax_context *context)
                 else if (strncmp(alter_str, "-1", 2) == 0)
 					msr_state->tmp_chord.root -= 1;
             }
+            else if (str_ref_eq(&n->target, &musicxml.bass_alter)) {
+                // same logic as root-alter
+                char alter_str[4] = {0};
+                if (sax_copy_content(context, alter_str, 4) != 0)
+					return PARSER_STOP_ERROR;
+                if (strncmp(alter_str, "1", 1) == 0)
+					msr_state->tmp_chord.bass += 1;
+                else if (strncmp(alter_str, "-1", 2) == 0)
+					msr_state->tmp_chord.bass -= 1;
+            }
         	break;
         }
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.harmony)) {
-                // char kind[256] = {0};
                 // We must prepare the chord quality and convert it for irealpro:
                 // 1. concatenate every degrees and qual into kind
                 // 2. hashtable lookup for the irealpro chord quality.
-                // memcpy(kind, msr_state->tmp_chord.qual.buf, msr_state->tmp_chord.qual.len);
-
+                char kind[256] = {0};
+				char *ref = kind;
+                memcpy(kind, msr_state->tmp_chord.qual.buf, msr_state->tmp_chord.qual.len);
+				ref += strlen(ref);
+				for (uint32_t i = 0; i < msr_state->tmp_chord.degrees_count; i++) {
+					// -4 bc we can append 4 chars at once
+					size_t len_left = (ref - kind) < (256 - 4) ? 256 - (ref - kind) : 0;
+					if (len_left == 0)
+						break ;
+					if (msr_state->tmp_chord.degrees[i].alter > 0)
+						strcpy(ref, "#");
+					else if (msr_state->tmp_chord.degrees[i].alter < 0)
+						strcpy(ref, "b");
+					ref += strlen(ref);
+					char nb[3] = {0};
+					if (msr_state->tmp_chord.degrees[i].value > 10) {
+						nb[0] = (msr_state->tmp_chord.degrees[i].value / 10) + '0';
+						nb[1] = (msr_state->tmp_chord.degrees[i].value % 10) + '0';
+					} else {
+						nb[0] = msr_state->tmp_chord.degrees[i].value + '0';
+					}
+					strcpy(ref, nb);
+					ref += strlen(ref);
+				}
+				const struct keyword *kw = irealpro_chord_lookup(kind, ref - kind);
+				if (kw == NULL)
+					return PARSER_STOP_ERROR;
                 // we copy the content of what we found to the current chord.
                 t_chord* c = GET_CURR_CHORD(parser_state);
                 c->root = msr_state->tmp_chord.root;
                 c->bass = msr_state->tmp_chord.bass;
-
+				strcpy(c->quality, musicxml_chords[kw->id]);
+				memset(&parser_state->tmp_msr.tmp_chord, 0 , sizeof(t_mxl_chord));
                 return PARSER_STOP;
             }
 			break;
@@ -217,8 +246,8 @@ static int parse_measure(t_parser_state *parser_state, t_sax_context *context)
                 if (sax_parse_xml(parse_attributes, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
             } else if (str_ref_eq(&n->target, &musicxml.direction)) {
-					if (sax_parse_xml(parse_direction, parser_state, context) != 0)
-						return PARSER_STOP_ERROR;
+				if (sax_parse_xml(parse_direction, parser_state, context) != 0)
+					return PARSER_STOP_ERROR;
             } else if (str_ref_eq(&n->target, &musicxml.harmony)) { 
                 // chords are already allocated, there is no dynamic array.
                 // chords.count indicate the number of chords inside the bar,
@@ -230,8 +259,8 @@ static int parse_measure(t_parser_state *parser_state, t_sax_context *context)
                 if (m->chords.count < MAX_CHORDS
 						&& sax_parse_xml(parse_harmony, parser_state, context) != 0)
                 	return PARSER_STOP_ERROR;
-            } else if (str_ref_eq(&n->target, &musicxml.barline)
-				   	&& sax_parse_xml(parse_barline, parser_state, context) != 0) { 
+            } else if (str_ref_eq(&n->target, &musicxml.barline)) {
+				if (sax_parse_xml(parse_barline, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
             } else {
                 return PARSER_CONTINUE | SKIP_ENTIRE_NODE;

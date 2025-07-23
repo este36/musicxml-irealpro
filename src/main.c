@@ -42,8 +42,15 @@ int main() {
     // Unrealised_Love.musicxml
 
     long file_len = 0;
-    char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
-    // char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
+    // char* file = open_file(&file_len, "musicxml/chords.musicxml");
+    // char* file = open_file(&file_len, "musicxml/complicité.musicxml");
+    // char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
+    // char* file = open_file(&file_len, "musicxml/Grace_and_Mercy.musicxml");
+    // char* file = open_file(&file_len, "musicxml/Misty.musicxml");
+    char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
+    // char* file = open_file(&file_len, "musicxml/sauts.musicxml");
+    // char* file = open_file(&file_len, "musicxml/timesignature.musicxml");
+    // char* file = open_file(&file_len, "musicxml/Unrealised_Love.musicxml");
 
     if (!file) return 1;
 
@@ -63,6 +70,8 @@ int main() {
             printf("    chord %zu\n", j);
             printf("        duration:\t%f\n", irpSong.measures.items[i].chords.items[j].duration);
             printf("        root:\t\t%s\n", get_note_str(irpSong.measures.items[i].chords.items[j].root));
+            printf("        bass:\t\t%s\n", get_note_str(irpSong.measures.items[i].chords.items[j].bass));
+            printf("        qual:\t\t%s\n", irpSong.measures.items[i].chords.items[j].quality);
         }
     }
 
