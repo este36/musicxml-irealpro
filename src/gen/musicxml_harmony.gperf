@@ -4,7 +4,8 @@
 %language=C
 %readonly-tables
 %define hash-function-name my_hash
-%define lookup-function-name irealpro_chord
+%define lookup-function-name irealpro_chord_lookup
+%struct-type
 
 struct keyword { const char *name; int id; };
 %%

@@ -32,6 +32,8 @@ error "gperf generated tables don't work with this execution character set. Plea
 #line 1 "./src/gen/musicxml_harmony.gperf"
 
 #include <string.h>
+#line 10 "./src/gen/musicxml_harmony.gperf"
+struct keyword { const char *name; int id; };
 
 #define TOTAL_KEYWORDS 70
 #define MIN_WORD_LENGTH 4
@@ -115,121 +117,191 @@ my_hash (str, len)
   return hval + asso_values[(unsigned char)str[len - 1]];
 }
 
-const char *
-irealpro_chord (str, len)
+const struct keyword *
+irealpro_chord_lookup (str, len)
      register const char *str;
      register size_t len;
 {
-  static const char * const wordlist[] =
+  static const struct keyword wordlist[] =
     {
-      "", "", "", "", "",
-      "major",
-      "major9",
-      "major11",
-      "", "", "", "", "", "", "",
-      "minor",
-      "minor9",
-      "minorb6",
-      "",
-      "none",
-      "power",
-      "",
-      "minor#5",
-      "", "",
-      "dominantb9",
-      "",
-      "dominantb9#9",
-      "dominantb9#11",
-      "",
-      "dominant#9",
-      "",
-      "dominantb5#9",
-      "dominant#9#11",
-      "",
-      "dominantb5",
-      "major-seventh#11",
-      "dominant#5#9",
-      "",
-      "minor-seventh9",
-      "dominant#5",
-      "dominantb5#5b9#9",
-      "major-seventh#5#9",
-      "major-seventh",
-      "",
-      "major-seventh#5",
-      "minor-seventhb59",
-      "dominantb5b9",
-      "",
-      "augmented",
-      "dominant-13thb9",
-      "repeat",
-      "dominant#5b9",
-      "minor-seventh",
-      "",
-      "dominant-13th#9",
-      "dominant-13th#11",
-      "", "", "",
-      "diminished",
-      "major2",
-      "",
-      "dominant-13th",
-      "",
-      "half-diminished",
-      "major-minor",
-      "major-minor9",
-      "dominant",
-      "major-ninth#11",
-      "",
-      "dominant-ninthb5",
-      "dominant-ninth#11",
-      "major-13th#11",
-      "", "",
-      "dominant-ninth#5",
-      "",
-      "diminished-seventh",
-      "dominant-ninth",
-      "",
-      "major-ninth",
-      "major-sixth9",
-      "", "",
-      "major-13th",
-      "dominant#11",
-      "", "", "", "",
-      "minor-ninth",
-      "minor-sixth9",
-      "", "",
-      "minor-11th",
-      "major-sixth",
-      "", "", "", "", "", "", "", "", "",
-      "minor-sixth",
-      "suspended-fourth7",
-      "suspended-fourth79",
-      "suspended-fourthb97",
-      "suspended-fourthb137",
-      "dominantb13",
-      "", "", "", "",
-      "major-seventh913",
-      "",
-      "dominant-11th",
-      "", "",
-      "suspended-fourth",
-      "", "", "", "",
-      "minor-seventhb13",
-      "",
-      "dominantb9b13",
-      "", "", "", "", "", "", "",
-      "suspended-second",
-      "", "", "", "", "", "", "", "", "",
-      "", "", "", "", "", "", "", "", "",
-      "", "", "", "", "", "", "", "", "",
-      "", "", "",
-      "dominantb913",
-      "", "", "", "", "", "", "", "", "",
-      "", "", "", "", "", "", "", "", "",
-      "", "", "", "", "", "", "",
-      "suspended-fourth73",
-      "", "", "",
-      "suspended-fourth791113"
+      {""}, {""}, {""}, {""}, {""},
+#line 42 "./src/gen/musicxml_harmony.gperf"
+      {"major", 30},
+#line 58 "./src/gen/musicxml_harmony.gperf"
+      {"major9", 46},
+#line 56 "./src/gen/musicxml_harmony.gperf"
+      {"major11", 44},
+      {""}, {""}, {""}, {""}, {""}, {""}, {""},
+#line 59 "./src/gen/musicxml_harmony.gperf"
+      {"minor", 47},
+#line 69 "./src/gen/musicxml_harmony.gperf"
+      {"minor9", 57},
+#line 70 "./src/gen/musicxml_harmony.gperf"
+      {"minorb6", 58},
+      {""},
+#line 71 "./src/gen/musicxml_harmony.gperf"
+      {"none", 59},
+#line 72 "./src/gen/musicxml_harmony.gperf"
+      {"power", 60},
+      {""},
+#line 60 "./src/gen/musicxml_harmony.gperf"
+      {"minor#5", 48},
+      {""}, {""},
+#line 36 "./src/gen/musicxml_harmony.gperf"
+      {"dominantb9", 24},
+      {""},
+#line 38 "./src/gen/musicxml_harmony.gperf"
+      {"dominantb9#9", 26},
+#line 37 "./src/gen/musicxml_harmony.gperf"
+      {"dominantb9#11", 25},
+      {""},
+#line 20 "./src/gen/musicxml_harmony.gperf"
+      {"dominant#9", 8},
+      {""},
+#line 34 "./src/gen/musicxml_harmony.gperf"
+      {"dominantb5#9", 22},
+#line 21 "./src/gen/musicxml_harmony.gperf"
+      {"dominant#9#11", 9},
+      {""},
+#line 32 "./src/gen/musicxml_harmony.gperf"
+      {"dominantb5", 20},
+#line 50 "./src/gen/musicxml_harmony.gperf"
+      {"major-seventh#11", 38},
+#line 18 "./src/gen/musicxml_harmony.gperf"
+      {"dominant#5#9", 6},
+      {""},
+#line 64 "./src/gen/musicxml_harmony.gperf"
+      {"minor-seventh9", 52},
+#line 17 "./src/gen/musicxml_harmony.gperf"
+      {"dominant#5", 5},
+#line 33 "./src/gen/musicxml_harmony.gperf"
+      {"dominantb5#5b9#9", 21},
+#line 52 "./src/gen/musicxml_harmony.gperf"
+      {"major-seventh#5#9", 40},
+#line 49 "./src/gen/musicxml_harmony.gperf"
+      {"major-seventh", 37},
+      {""},
+#line 51 "./src/gen/musicxml_harmony.gperf"
+      {"major-seventh#5", 39},
+#line 66 "./src/gen/musicxml_harmony.gperf"
+      {"minor-seventhb59", 54},
+#line 35 "./src/gen/musicxml_harmony.gperf"
+      {"dominantb5b9", 23},
+      {""},
+#line 12 "./src/gen/musicxml_harmony.gperf"
+      {"augmented", 0},
+#line 26 "./src/gen/musicxml_harmony.gperf"
+      {"dominant-13thb9", 14},
+#line 73 "./src/gen/musicxml_harmony.gperf"
+      {"repeat", 61},
+#line 19 "./src/gen/musicxml_harmony.gperf"
+      {"dominant#5b9", 7},
+#line 63 "./src/gen/musicxml_harmony.gperf"
+      {"minor-seventh", 51},
+      {""},
+#line 25 "./src/gen/musicxml_harmony.gperf"
+      {"dominant-13th#9", 13},
+#line 24 "./src/gen/musicxml_harmony.gperf"
+      {"dominant-13th#11", 12},
+      {""}, {""}, {""},
+#line 13 "./src/gen/musicxml_harmony.gperf"
+      {"diminished", 1},
+#line 57 "./src/gen/musicxml_harmony.gperf"
+      {"major2", 45},
+      {""},
+#line 23 "./src/gen/musicxml_harmony.gperf"
+      {"dominant-13th", 11},
+      {""},
+#line 41 "./src/gen/musicxml_harmony.gperf"
+      {"half-diminished", 29},
+#line 45 "./src/gen/musicxml_harmony.gperf"
+      {"major-minor", 33},
+#line 46 "./src/gen/musicxml_harmony.gperf"
+      {"major-minor9", 34},
+#line 15 "./src/gen/musicxml_harmony.gperf"
+      {"dominant", 3},
+#line 48 "./src/gen/musicxml_harmony.gperf"
+      {"major-ninth#11", 36},
+      {""},
+#line 30 "./src/gen/musicxml_harmony.gperf"
+      {"dominant-ninthb5", 18},
+#line 28 "./src/gen/musicxml_harmony.gperf"
+      {"dominant-ninth#11", 16},
+#line 44 "./src/gen/musicxml_harmony.gperf"
+      {"major-13th#11", 32},
+      {""}, {""},
+#line 29 "./src/gen/musicxml_harmony.gperf"
+      {"dominant-ninth#5", 17},
+      {""},
+#line 14 "./src/gen/musicxml_harmony.gperf"
+      {"diminished-seventh", 2},
+#line 27 "./src/gen/musicxml_harmony.gperf"
+      {"dominant-ninth", 15},
+      {""},
+#line 47 "./src/gen/musicxml_harmony.gperf"
+      {"major-ninth", 35},
+#line 55 "./src/gen/musicxml_harmony.gperf"
+      {"major-sixth9", 43},
+      {""}, {""},
+#line 43 "./src/gen/musicxml_harmony.gperf"
+      {"major-13th", 31},
+#line 16 "./src/gen/musicxml_harmony.gperf"
+      {"dominant#11", 4},
+      {""}, {""}, {""}, {""},
+#line 62 "./src/gen/musicxml_harmony.gperf"
+      {"minor-ninth", 50},
+#line 68 "./src/gen/musicxml_harmony.gperf"
+      {"minor-sixth9", 56},
+      {""}, {""},
+#line 61 "./src/gen/musicxml_harmony.gperf"
+      {"minor-11th", 49},
+#line 54 "./src/gen/musicxml_harmony.gperf"
+      {"major-sixth", 42},
+      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
+#line 67 "./src/gen/musicxml_harmony.gperf"
+      {"minor-sixth", 55},
+#line 75 "./src/gen/musicxml_harmony.gperf"
+      {"suspended-fourth7", 63},
+#line 77 "./src/gen/musicxml_harmony.gperf"
+      {"suspended-fourth79", 65},
+#line 80 "./src/gen/musicxml_harmony.gperf"
+      {"suspended-fourthb97", 68},
+#line 79 "./src/gen/musicxml_harmony.gperf"
+      {"suspended-fourthb137", 67},
+#line 31 "./src/gen/musicxml_harmony.gperf"
+      {"dominantb13", 19},
+      {""}, {""}, {""}, {""},
+#line 53 "./src/gen/musicxml_harmony.gperf"
+      {"major-seventh913", 41},
+      {""},
+#line 22 "./src/gen/musicxml_harmony.gperf"
+      {"dominant-11th", 10},
+      {""}, {""},
+#line 74 "./src/gen/musicxml_harmony.gperf"
+      {"suspended-fourth", 62},
+      {""}, {""}, {""}, {""},
+#line 65 "./src/gen/musicxml_harmony.gperf"
+      {"minor-seventhb13", 53},
+      {""},
+#line 40 "./src/gen/musicxml_harmony.gperf"
+      {"dominantb9b13", 28},
+      {""}, {""}, {""}, {""}, {""}, {""}, {""},
+#line 81 "./src/gen/musicxml_harmony.gperf"
+      {"suspended-second", 69},
+      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
+      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
+      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
+      {""}, {""}, {""},
+#line 39 "./src/gen/musicxml_harmony.gperf"
+      {"dominantb913", 27},
+      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
+      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
+      {""}, {""}, {""}, {""}, {""}, {""}, {""},
+#line 76 "./src/gen/musicxml_harmony.gperf"
+      {"suspended-fourth73", 64},
+      {""}, {""}, {""},
+#line 78 "./src/gen/musicxml_harmony.gperf"
+      {"suspended-fourth791113", 66}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
@@ -238,13 +310,13 @@ irealpro_chord (str, len)
 
       if (key <= MAX_HASH_VALUE)
         {
-          register const char *s = wordlist[key];
+          register const char *s = wordlist[key].name;
 
           if (*str == *s && !strcmp (str + 1, s + 1))
-            return s;
+            return &wordlist[key];
         }
     }
   return 0;
 }
-#line 81 "./src/gen/musicxml_harmony.gperf"
+#line 82 "./src/gen/musicxml_harmony.gperf"
 
