@@ -1,6 +1,6 @@
-#include "sax.h"
+#include "parser.h"
 
-void xml_clear_node(xml_node* n)
+void xml_clear_node(t_xml_node *n)
 {
     n->type = 0;
     n->attrc = 0;
@@ -8,18 +8,18 @@ void xml_clear_node(xml_node* n)
     n->target.len = 0;
 };
 
-sax_scanner sax_scanner_init(const char* buffer, size_t length)
+t_sax_scanner sax_scanner_init(const char *buffer, size_t length)
 {
-    return (sax_scanner){ .xml = { .buf = buffer, .len = length}, .pos = 0};
+    return (t_sax_scanner){ .xml = { .buf = buffer, .len = length}, .pos = 0};
 }
 
-sax_context sax_context_init(sax_scanner* l)
+t_sax_context sax_context_init(t_sax_scanner *l)
 {
-    return (sax_context){ .scanner = l, .found = {0} };
+    return (t_sax_context){ .scanner = l, .found = {0} };
 }
 
 // Suppose that the scanner is inside the parent node
-int sax_get_content(sax_context* context, da_str_ref* str_ref)
+int sax_get_content(t_sax_context *context, da_str_ref *str_ref)
 {
     str_ref->buf = GET_PTR(context->scanner);
     // now we try to find a closing tag with the same name.
@@ -46,7 +46,7 @@ int sax_get_content(sax_context* context, da_str_ref* str_ref)
     return XML_FILE_CORRUPT;
 }
 
-int sax_copy_content(sax_context* context, char* buf, size_t buf_len)
+int sax_copy_content(t_sax_context *context, char *buf, size_t buf_len)
 {
     da_str_ref str_ref = {0};
     str_ref.buf = GET_PTR(context->scanner);
@@ -83,7 +83,7 @@ int sax_copy_content(sax_context* context, char* buf, size_t buf_len)
 }
 
 // Suppose that the scanner is inside the parent node
-int sax_skip_content(sax_context* context, da_str_ref node_name)
+int sax_skip_content(t_sax_context *context, da_str_ref node_name)
 {
     while (!IS_EOF(context->scanner)) 
     {
@@ -111,10 +111,10 @@ int sax_skip_content(sax_context* context, da_str_ref node_name)
 // It should not get the entire tag, only name and attributes.
 // Because the closing /> or > is parsed after.
 // It must end on last white space or " (end attribute quote)
-static int sax_parse_tag_body(sax_context* context)
+static int sax_parse_tag_body(t_sax_context *context)
 {
 	size_t attrc;
-    da_str_ref* name = &context->found.target;
+    da_str_ref *name = &context->found.target;
     // get name
     name->buf = GET_PTR(context->scanner);
     ADVANCE(context->scanner);
@@ -127,7 +127,7 @@ static int sax_parse_tag_body(sax_context* context)
     // no need to check if EOF because while loop checks it
     attrc = 0;
     while (!IS_EOF(context->scanner) && attrc < XML_MAX_ATTRIBUTES) {
-        xml_attribute* a = &context->found.attrv[attrc];
+        t_xml_attribute* a = &context->found.attrv[attrc];
 
         // get key 
         a->key.buf = GET_PTR(context->scanner);
@@ -160,8 +160,8 @@ static int sax_parse_tag_body(sax_context* context)
     return IS_EOF(context->scanner) ? XML_FILE_CORRUPT : 0;
 }
 
-int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt),
-					void* user_data, sax_context* context) 
+int sax_parse_xml(int (*fn)(t_parser_state *parser_state, t_sax_context *ctxt),
+					t_parser_state *parser_state, t_sax_context *context) 
 {
     while (!IS_EOF(context->scanner)) {
         if (GET_CHAR(context->scanner) == '<') { // we found a tag
@@ -180,7 +180,7 @@ int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt),
                 context->found.target.len = GET_PTR(context->scanner) - context->found.target.buf;
                 context->found.type = XML_TAG_CLOSE;
                 // Here we are sure thats a valid CLOSING tag
-                status = fn(user_data, context);
+                status = fn(parser_state, context);
                 xml_clear_node(&context->found);
 
             } else if (isalpha(nc)) { // continue... (first char of musicxml tags are only alphabetical)
@@ -197,13 +197,13 @@ int sax_parse_xml(int (*fn)(void* user_data, sax_context* ctxt),
                     ADVANCE(context->scanner);
                     // Here we are sure thats a valid SELF_CLOSING tag
                     context->found.type = XML_SELF_CLOSING;
-                    status = fn(user_data, context);
+                    status = fn(parser_state, context);
                     xml_clear_node(&context->found);
                 } else if (closing == '>') { // this is parent or variable opening tag
                     ADVANCE(context->scanner);
                     // Here we are sure thats a valid OPENING tag
                     context->found.type = XML_TAG_OPEN;
-                    status = fn(user_data, context);
+                    status = fn(parser_state, context);
                     if (status == SKIP_ENTIRE_NODE)
                         sax_skip_content(context, context->found.target);
                     xml_clear_node(&context->found);

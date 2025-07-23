@@ -47,7 +47,7 @@ int main() {
 
     if (!file) return 1;
 
-    IrpSong irpSong = {0};
+    t_irealpro_song irpSong = {0};
 
     if (parse_musicxml_song(&irpSong, STR_REF("P1"), file, file_len) != 0) {
         free(file);
@@ -66,6 +66,7 @@ int main() {
         }
     }
 
+	irp_song_free(&irpSong);
     free(file);
     return 0;
 }

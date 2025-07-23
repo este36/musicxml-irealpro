@@ -1,11 +1,11 @@
 #ifndef IREALPRO_H
 #define IREALPRO_H
 
-#include "sax.h"
+#include "da.h"
 
-#define IRP_MAX_CREDENTIALS			256 
-#define IRP_MAX_CHORD_QUALITIES		16
-#define IRP_MAX_CHORDS 5 
+#define MAX_CREDENTIALS			256 
+#define MAX_CHORD_QUALITIES		16
+#define MAX_CHORDS 5 
 
 typedef enum
 {
@@ -33,51 +33,51 @@ typedef enum
     NOTE_MAX
 }	NoteEnum;
 
-typedef struct
+typedef struct s_chord
 {
     double		duration;
     NoteEnum	root;
     NoteEnum	bass;
-    char		quality[IRP_MAX_CHORD_QUALITIES];
-}	IrpChord;
+    char		quality[MAX_CHORD_QUALITIES];
+}	t_chord;
 
-typedef struct
+typedef struct s_chords
 {
     size_t		count;
-    IrpChord	items[IRP_MAX_CHORDS];
-}	IrpChords;
+    t_chord	items[MAX_CHORDS];
+}	t_chords;
 
-typedef struct
+typedef struct s_time_signature
 {
     uint32_t	beats;
     uint32_t	beat_type;
-}	IrpTimeSignature;
+}	t_time_signature;
 
-typedef struct
+typedef struct s_key
 {
     NoteEnum	Tonic;
     bool		minor;
-}	IrpKey;
+}	t_key;
 
-typedef struct
+typedef struct s_measure
 {
     uint32_t			divisions; // quarter note reference integer
-    IrpTimeSignature	time_signature;
-    IrpChords			chords;
+    t_time_signature	time_signature;
+    t_chords			chords;
     char				barlines[2];
     bool				repeat;
     bool				segno;
     bool				DC_al_segno;
     bool				coda;
     bool				DC_al_coda;
-}	IrpMeasure;
+}	t_measure;
 
-typedef struct
+typedef struct s_measures
 {
     size_t		count;
     size_t		capacity;
-    IrpMeasure	*items;
-}	IrpMeasures;
+    t_measure	*items;
+}	t_measures;
 
 typedef enum
 {
@@ -87,30 +87,30 @@ typedef enum
     POP
 }	StyleEnum;
 
-typedef struct
+typedef struct s_irealpro_song
 {
-    IrpKey		key;
-    IrpMeasures	measures;
-    char		composer[IRP_MAX_CREDENTIALS];
-    char		title[IRP_MAX_CREDENTIALS];
+    t_key		key;
+    t_measures	measures;
+    char		composer[MAX_CREDENTIALS];
+    char		title[MAX_CREDENTIALS];
     uint16_t	tempo;
     uint16_t	repeat_times;
     StyleEnum	style;
-}	IrpSong;
+}	t_irealpro_song;
 
-typedef struct
+typedef struct s_irealpro_playlist
 {
     da_str	title;
     struct {
         size_t	count;
         size_t	capacity;
-        IrpSong	*items;
-    }	song;
-}	IrpPlaylist;
+        t_irealpro_song	*items;
+    }	songs;
+}	t_irealpro_playlist;
 
-const char*	get_note_str(NoteEnum note);
-void		irp_song_free(IrpSong *song);
-int			irp_render_song(IrpSong *song, char *buf, size_t len);
-int			irp_render_playlist(IrpPlaylist *playlist, char *buf, size_t len);
+const char	*get_note_str(NoteEnum note);
+void		irp_song_free(t_irealpro_song *song);
+int			irp_render_song(t_irealpro_song *song, char *buf, size_t len);
+int			irp_render_playlist(t_irealpro_playlist *playlist, char *buf, size_t len);
 
 #endif // IREALPRO_H

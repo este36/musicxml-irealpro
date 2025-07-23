@@ -15,7 +15,7 @@ const char* get_note_str(NoteEnum note)
     return note >= 1 && note < NOTE_MAX ? notes[note] : NULL;
 }
 
-void irp_song_free(IrpSong* song)
+void irp_song_free(t_irealpro_song* song)
 {
     free(song->measures.items);
 }

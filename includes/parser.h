@@ -1,45 +1,116 @@
-#ifndef __MXL_PARSER_H__
-#define __MXL_PARSER_H__
+#ifndef PARSER_H
+#define PARSER_H
 
 #include "da.h"
 #include "musicxml.h"
 #include "irealpro.h"
-#include "sax.h"
 
-#define GET_CURR_MEASURE(parser_data) (&(parser_data)->song->measures.items[(parser_data)->song->measures.count - 1])
-#define GET_CURR_CHORD(parser_data) (&(GET_CURR_MEASURE(parser_data))->chords.items[(GET_CURR_MEASURE(parser_data))->chords.count - 1])
+#include <stdio.h>
+#include <ctype.h>
 
-#define TMP_CHORD_MAX_LEN 128
-#define TMP_CHORD_MAX_DEGREES 3
+#define ADVANCE(scanner) (scanner)->pos++
+#define IS_EOF(scanner) ((scanner)->pos >= (scanner)->xml.len)
+#define GET_CHAR(scanner) (((scanner)->xml.buf[(scanner)->pos]))
+#define GET_PTR(scanner) ((scanner)->xml.buf + ((scanner)->pos))
+#define GET_NEXT_CHAR(scanner) (((scanner)->pos + 1 >= (scanner)->xml.len) ? '\0': ((scanner)->xml.buf[(scanner)->pos + 1]))
+#define GET_PREV_CHAR(scanner) (((scanner)->xml.buf[(scanner)->pos -1]))
+#define SKIP_UNTIL(scanner, c) while(!IS_EOF(scanner) && GET_CHAR(scanner) != c) ADVANCE(scanner)
+#define SKIP_WHILE(scanner, fn) while(!IS_EOF(scanner) && fn(GET_CHAR(scanner))) ADVANCE(scanner)
+#define SKIP_WHILE_NOT(scanner, fn) while(!IS_EOF(scanner) && !fn(GET_CHAR(scanner))) ADVANCE(scanner)
+#define SKIP_VALID_MXL_NAME(scanner) while (!IS_EOF(scanner) && (isalpha(GET_CHAR(scanner)) || GET_CHAR(scanner) == '-')) ADVANCE(scanner)
 
-typedef struct
+#define XML_MAX_ATTRIBUTES	32
+
+#define SKIP_ENTIRE_NODE	0x01
+#define PARSER_STATUS_MASK	0x30
+#define PARSER_CONTINUE		0x00
+#define PARSER_STOP			0x10
+#define PARSER_STOP_ERROR	0x20
+#define XML_FILE_CORRUPT	-1
+
+#define GET_CURR_MEASURE(parser_state) (&(parser_state)->song->measures.items[(parser_state)->song->measures.count - 1])
+#define GET_CURR_CHORD(parser_state) (&(GET_CURR_MEASURE(parser_state))->chords.items[(GET_CURR_MEASURE(parser_state))->chords.count - 1])
+#define GET_TMP_CHORD(parser_state) (&(parser_state)->tmp_msr.tmp_chord)
+#define GET_TMP_CURR_DEGREE(parser_state) (&GET_TMP_CHORD(parser_state)->degrees[GET_TMP_CHORD(parser_state)->degrees_count - 1])
+
+#define TMP_CHORD_MAX_LEN		128
+#define TMP_CHORD_MAX_DEGREES	3
+
+typedef struct s_sax_scanner
+{
+    size_t		pos;
+    da_str_ref	xml;
+}	t_sax_scanner;
+
+typedef enum s_xml_node_type
+{
+	XML_TAG_UNSET,
+    XML_TAG_OPEN,
+    XML_TAG_CLOSE,
+    XML_SELF_CLOSING,
+}	t_xml_node_type;
+
+typedef struct s_xml_attribute
+{
+    da_str_ref	key;
+    da_str_ref	value;
+}	t_xml_attribute;
+
+typedef struct s_xml_node
+{
+    t_xml_node_type	type;
+    da_str_ref		target; // name or text content
+    t_xml_attribute	attrv[XML_MAX_ATTRIBUTES];
+    size_t			attrc;
+}	t_xml_node;
+
+typedef struct s_sax_context
+{
+    t_sax_scanner	*scanner;
+    t_xml_node		found;
+}	t_sax_context;
+
+typedef struct s_mxl_degree
 {
     int16_t	value;
     int16_t	alter;
-}	mxl_degree;
+}	t_mxl_degree;
 
-typedef struct
+typedef struct s_mxl_chord
 {
-    bool	rehearsal;
-    bool	attributes;
-    struct
-	{
-        NoteEnum	root;
-        NoteEnum	bass;
-        da_str_ref	qual;
-        mxl_degree	degrees[TMP_CHORD_MAX_DEGREES];
-        uint32_t	deg_count;
-    }	curr_chord;
-}	MsrState;
+	NoteEnum		root;
+	NoteEnum		bass;
+	da_str_ref		qual;
+	t_mxl_degree	degrees[TMP_CHORD_MAX_DEGREES];
+	uint32_t		degrees_count;
+}	t_mxl_chord;
 
-typedef struct {
-	IrpSong     *song;
-	da_str_ref  part_selected;
-	void        *state;
-}   ParserData;
+typedef struct s_curr_measure
+{
+    bool		is_rehearsal;
+    bool		is_attributes;
+	t_mxl_chord	tmp_chord;
+}	t_tmp_measure;
 
-int parse_musicxml_song(IrpSong *irp_song,
+typedef struct s_parser_state
+{
+	t_irealpro_song	*song;
+	da_str_ref		part_selected;
+	t_tmp_measure	tmp_msr;
+}	t_parser_state;
+
+
+t_sax_scanner	sax_scanner_init(const char *buffer, size_t length);
+t_sax_context	sax_context_init(t_sax_scanner *l);
+void			xml_clear_node(t_xml_node *n);
+int				sax_get_content(t_sax_context *context, da_str_ref *str_ref);
+int				sax_copy_content(t_sax_context *context, char *buf, size_t buf_len);
+int				sax_skip_content(t_sax_context *context, da_str_ref node_name);
+int				sax_parse_xml(int (*fn)(t_parser_state *parser_state, t_sax_context *ctxt),
+							t_parser_state *parser_state, t_sax_context *context);
+
+int parse_musicxml_song(t_irealpro_song *irp_song,
 					const da_str_ref part_id,
 					const char *musicxml,
 					const size_t musicxml_length);
-#endif // __PARSER_H__
+#endif // PARSER_H
