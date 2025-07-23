@@ -9,11 +9,11 @@ OBJ_DIR = obj
 SRC_DIR = src
 
 SRC = main.c \
+	  gen/musicxml.c \
 	  parser.c \
 	  irealpro.c \
 	  sax.c \
 	  da.c \
-	  gen/musicxml.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
@@ -40,7 +40,9 @@ run: $(NAME)
 generate:
 	python3 ./gen/musicxml.c.py > ./src/gen/musicxml.c
 	python3 ./gen/musicxml.h.py > ./includes/musicxml.h
-	python3 ./gen/musicxml_harmony.py > ./src/gen/musicxml_harmony.gperf
-	gperf ./src/gen/musicxml_harmony.gperf > ./src/gen/musicxml_harmony.c
+	python3 ./gen/musicxml_harmony.py > ./src/musicxml_harmony.gperf
+	gperf --language=ANSI-C ./src/musicxml_harmony.gperf > ./includes/irealpro_chord.h
+	python3 gen/patch_gperf_header.py ./includes/irealpro_chord.h
+	rm ./src/musicxml_harmony.gperf
 
 .PHONY: all re run clean
