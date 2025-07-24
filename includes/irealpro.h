@@ -65,11 +65,11 @@ typedef struct s_measure
     t_time_signature	time_signature;
     t_chords			chords;
     char				barlines[2];
-    bool				repeat;
-    bool				segno;
-    bool				DC_al_segno;
-    bool				coda;
-    bool				DC_al_coda;
+    bool				is_repeat;
+    bool				is_segno;
+    bool				is_DC_al_segno;
+    bool				is_coda;
+    bool				is_DC_al_coda;
 }	t_measure;
 
 typedef struct s_measures

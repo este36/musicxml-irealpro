@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 
 #define ADVANCE(scanner) (scanner)->pos++
 #define IS_EOF(scanner) ((scanner)->pos >= (scanner)->xml.len)
@@ -39,7 +40,7 @@
 #define GET_NOTE_STEP() ((NoteEnum)(((int)GET_CHAR(context->scanner) - 'A') * 3 + 2))
 
 #define TMP_CHORD_MAX_LEN		128
-#define TMP_CHORD_MAX_DEGREES	3
+#define TMP_CHORD_MAX_DEGREES	4
 
 typedef struct s_sax_scanner
 {
@@ -90,7 +91,7 @@ typedef struct s_mxl_chord
 	uint32_t		degrees_count;
 }	t_mxl_chord;
 
-typedef struct s_curr_measure
+typedef struct s_tmp_measure
 {
     bool		is_rehearsal;
     bool		is_attributes;
@@ -113,6 +114,9 @@ int				sax_skip_content(t_sax_context *context, da_str_ref node_name);
 int				sax_parse_xml(int (*fn)(t_parser_state *parser_state, t_sax_context *ctxt),
 							t_parser_state *parser_state, t_sax_context *context);
 
+int parse_attributes(t_parser_state *parser_state, t_sax_context *context);
+int parse_harmony(t_parser_state *parser_state, t_sax_context *ctxt);
+int parse_measure(t_parser_state *parser_state, t_sax_context *ctxt);
 int parse_musicxml_song(t_irealpro_song *irp_song,
 					const da_str_ref part_id,
 					const char *musicxml,

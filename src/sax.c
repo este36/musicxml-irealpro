@@ -111,7 +111,7 @@ int sax_skip_content(t_sax_context *context, da_str_ref node_name)
 // It should not get the entire tag, only name and attributes.
 // Because the closing /> or > is parsed after.
 // It must end on last white space or " (end attribute quote)
-static int sax_parse_tag_body(t_sax_context *context)
+int sax_parse_tag_body(t_sax_context *context)
 {
 	size_t attrc;
     da_str_ref *name = &context->found.target;
