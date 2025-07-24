@@ -35,9 +35,6 @@ static int parse_degree(t_parser_state *parser_state, t_sax_context *context)
     return PARSER_CONTINUE;
 }
 
-// A is 65 in ascii code, so a bit of arithmetic and me can get the correct root note.
-#define GET_NOTE_STEP() ((NoteEnum)(((int)GET_CHAR(context->scanner) - 'A') * 3 + 2))
-
 static int parse_harmony(t_parser_state *parser_state, t_sax_context *context)
 {
     const t_xml_node *n = &context->found;

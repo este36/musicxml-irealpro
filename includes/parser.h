@@ -34,6 +34,10 @@
 #define GET_TMP_CHORD(parser_state) (&(parser_state)->tmp_msr.tmp_chord)
 #define GET_TMP_CURR_DEGREE(parser_state) (&GET_TMP_CHORD(parser_state)->degrees[GET_TMP_CHORD(parser_state)->degrees_count - 1])
 
+// a bit of ascii arithmetic and me can get the correct root note.
+// the scanner will be at the begining of content in after the open tag
+#define GET_NOTE_STEP() ((NoteEnum)(((int)GET_CHAR(context->scanner) - 'A') * 3 + 2))
+
 #define TMP_CHORD_MAX_LEN		128
 #define TMP_CHORD_MAX_DEGREES	3
 
