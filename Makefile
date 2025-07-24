@@ -9,11 +9,13 @@ OBJ_DIR = obj
 SRC_DIR = src
 
 SRC = main.c \
-	  musicxml.c \
-	  parser.c \
-	  irealpro.c \
-	  sax.c \
-	  da.c \
+	musicxml.c \
+	parser/parse_measure.c \
+	parser/parse_harmony.c \
+	parser/parse_musicxml_song.c \
+	irealpro.c \
+	sax.c \
+	da.c \
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))

@@ -6,8 +6,9 @@ def to_c_str_ref(s):
 
 parser_c = ""
 
-with open("./src/parser.c", "r", encoding="utf-8") as f:
-    parser_c = f.read()
+for filepath in glob.glob("./src/parser/*.c"):
+    with open(filepath, "r", encoding="utf-8") as f:
+        parser_c += f.read()
 
 def is_in_parser_c(e_str):
     return f'musicxml.{e_str}' in parser_c
