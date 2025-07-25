@@ -113,6 +113,7 @@ int				sax_skip_content(t_sax_context *context, da_str_ref node_name);
 int				sax_parse_xml(int (*fn)(t_parser_state *parser_state, t_sax_context *ctxt),
 							t_parser_state *parser_state, t_sax_context *context);
 
+int	parse_direction(t_parser_state *parser_state, t_sax_context *context);
 int parse_attributes(t_parser_state *parser_state, t_sax_context *context);
 int parse_harmony(t_parser_state *parser_state, t_sax_context *context);
 int parse_measure(t_parser_state *parser_state, t_sax_context *context);

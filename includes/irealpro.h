@@ -5,6 +5,7 @@
 
 #define MAX_CREDENTIALS			256 
 #define MAX_CHORD_QUALITIES		16
+#define MAX_REHEARSAL_LEN		128
 #define MAX_CHORDS 5 
 
 typedef enum
@@ -60,6 +61,7 @@ typedef struct s_measure
     t_time_signature	time_signature;
     t_chords			chords;
     char				barlines[2];
+	char				rehearsal[MAX_REHEARSAL_LEN];
     bool				is_repeat;
     bool				is_segno;
     bool				is_DC_al_segno;

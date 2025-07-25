@@ -40,25 +40,6 @@ int parse_note(t_parser_state *parser_state, t_sax_context *context)
     return PARSER_CONTINUE;
 }
 
-int parse_direction(t_parser_state *parser_state, t_sax_context *context)
-{
-	(void)parser_state;
-    const t_xml_node *n = &context->found;
-    switch (n->type) {
-        case XML_TAG_OPEN:
-        {
-        	break;
-        }
-        case XML_TAG_CLOSE:
-        {
-           if (str_ref_eq(&n->target, &musicxml.direction))
-				return PARSER_STOP;
-        }
-		default: break;
-    }
-    return PARSER_CONTINUE;
-}
-
 int parse_barline(t_parser_state *parser_state, t_sax_context *context)
 {
 	(void)parser_state;
@@ -78,6 +59,41 @@ int parse_barline(t_parser_state *parser_state, t_sax_context *context)
     return PARSER_CONTINUE;
 }
 
+int parse_direction(t_parser_state *parser_state, t_sax_context *context)
+{
+	const t_xml_node *n = &context->found;
+	switch (n->type) {
+		case XML_TAG_OPEN:
+		{
+			if (str_ref_eq(&n->target, &musicxml.rehearsal)) {
+				char *r_buf = GET_CURR_MEASURE(parser_state)->rehearsal;
+				if (sax_copy_content(context, r_buf, MAX_REHEARSAL_LEN) != 0)
+					return PARSER_STOP_ERROR;
+			} else if (str_ref_eq(&n->target, &musicxml.segno)) {
+				GET_CURR_MEASURE(parser_state)->is_segno = true;
+			} else if (str_ref_eq(&n->target, &musicxml.coda)) {
+				GET_CURR_MEASURE(parser_state)->is_coda = true;
+			} else if (!str_ref_eq(&n->target, &musicxml.direction_type)) {
+				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
+			}
+			break;
+		}
+		case XML_TAG_CLOSE:
+		{
+		   if (str_ref_eq(&n->target, &musicxml.direction))
+				return PARSER_STOP;
+		}
+		default: break;
+	}
+	return PARSER_CONTINUE;
+}
+
+// chords are already allocated, there is no dynamic array.
+// chords.count indicate the number of chords inside the bar,
+// but it will not parse more dans IRP_MAX_CHORDS.
+// count act as a flag for note element parsing if there is more than IRP_MAX_CHORDS chords
+// Also, the first chords[0] act as empty chord when there is no chords
+// in the begining of the bar but only notes
 int parse_measure(t_parser_state *parser_state, t_sax_context *context)
 {
     const t_xml_node *n = &context->found;
@@ -99,15 +115,9 @@ int parse_measure(t_parser_state *parser_state, t_sax_context *context)
 				if (sax_parse_xml(parse_direction, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
             } else if (str_ref_eq(&n->target, &musicxml.harmony)) { 
-                // chords are already allocated, there is no dynamic array.
-                // chords.count indicate the number of chords inside the bar,
-				// but it will not parse more dans IRP_MAX_CHORDS.
-                // count act as a flag for note element parsing if there is more than IRP_MAX_CHORDS chords
-                // Also, the first chords[0] act as empty chord when there is no chords
-				// in the begining of the bar but only notes
                 m->chords.count++;
                 if (m->chords.count < MAX_CHORDS
-						&& sax_parse_xml(parse_harmony, parser_state, context) != 0)
+					&& sax_parse_xml(parse_harmony, parser_state, context) != 0)
                 	return PARSER_STOP_ERROR;
             } else if (str_ref_eq(&n->target, &musicxml.barline)) {
 				if (sax_parse_xml(parse_barline, parser_state, context) != 0)

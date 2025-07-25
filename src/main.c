@@ -61,6 +61,7 @@ int main() {
         free(file);
         return 1;
     }
+    printf("sizeof song: %zu\n\n", sizeof(t_irealpro_song));
 
     printf("Song title: %s, composer: %s\n", irpSong.title, irpSong.composer);
     printf("Number of bars: %zu\n", irpSong.measures.count);
@@ -68,6 +69,9 @@ int main() {
 
     for (size_t i = 0; i < irpSong.measures.count; i++) {
         printf("measure no %zu\n", i);
+		printf("rehearsal: %s\n", irpSong.measures.items[i].rehearsal);
+		printf("segno: %d\n", irpSong.measures.items[i].is_segno);
+		printf("coda: %d\n", irpSong.measures.items[i].is_coda);
         printf("divisions: %d\n", irpSong.measures.items[i].divisions);
         printf("time_signate.beats: %d\n", irpSong.measures.items[i].time_signature.beats);
         printf("time_signate.beat_type: %d\n", irpSong.measures.items[i].time_signature.beat_type);
