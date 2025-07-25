@@ -1,3 +1,6 @@
+import glob
+import os
+
 def to_c_ident(s):
     return s.replace('-', '_')
 
