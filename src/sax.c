@@ -82,6 +82,15 @@ int sax_copy_content(t_sax_context *context, char *buf, size_t buf_len)
     return XML_FILE_CORRUPT;
 }
 
+int	sax_get_int(t_sax_context *context, int *res)
+{
+	char buf[32] = {0};
+	if (sax_copy_content(context, buf, 32) != 0)
+		return XML_FILE_CORRUPT;
+	*res = atoi(buf);
+	return 0;
+}
+
 // Suppose that the scanner is inside the parent node
 int sax_skip_content(t_sax_context *context, da_str_ref node_name)
 {

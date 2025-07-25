@@ -9,16 +9,15 @@ int parse_degree(t_parser_state *parser_state, t_sax_context *context)
         case XML_TAG_OPEN:
         {
             if (str_ref_eq(&n->target, &musicxml.degree_value)) {
-                char value_str[4] = {0};
-                if (sax_copy_content(context, value_str, 4) != 0)
+                int val;
+                if (sax_get_int(context, &val) != 0)
 					return PARSER_STOP_ERROR;
-                int16_t value_int = atoi(value_str);
-                curr_deg->value = value_int;
+                curr_deg->value = val;
             } else if (curr_deg->value != 0 && str_ref_eq(&n->target, &musicxml.degree_alter)) {
-                char alter_str[4] = {0};
-                if (sax_copy_content(context, alter_str, 4) != 0)
+                int alter;
+                if (sax_get_int(context, &alter) != 0)
 					return PARSER_STOP_ERROR;
-                curr_deg->alter = atoi(alter_str);
+                curr_deg->alter = alter;
             } else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}

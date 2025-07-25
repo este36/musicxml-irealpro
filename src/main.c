@@ -46,8 +46,8 @@ int main() {
     // char* file = open_file(&file_len, "musicxml/complicité.musicxml");
     // char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
     // char* file = open_file(&file_len, "musicxml/Grace_and_Mercy.musicxml");
-    // char* file = open_file(&file_len, "musicxml/Misty.musicxml");
-    char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
+    char* file = open_file(&file_len, "musicxml/Misty.musicxml");
+    // char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
     // char* file = open_file(&file_len, "musicxml/sauts.musicxml");
     // char* file = open_file(&file_len, "musicxml/timesignature.musicxml");
     // char* file = open_file(&file_len, "musicxml/Unrealised_Love.musicxml");
@@ -57,15 +57,20 @@ int main() {
     t_irealpro_song irpSong = {0};
 
     if (parse_musicxml_song(&irpSong, STR_REF("P1"), file, file_len) != 0) {
+		printf("PARSER_STOP_ERROR\n");
         free(file);
         return 1;
     }
 
     printf("Song title: %s, composer: %s\n", irpSong.title, irpSong.composer);
     printf("Number of bars: %zu\n", irpSong.measures.count);
+    printf("Key: %s\n", get_note_str(irpSong.key));
 
     for (size_t i = 0; i < irpSong.measures.count; i++) {
-        printf("measure %zu\n", i);
+        printf("measure no %zu\n", i);
+        printf("divisions: %d\n", irpSong.measures.items[i].divisions);
+        printf("time_signate.beats: %d\n", irpSong.measures.items[i].time_signature.beats);
+        printf("time_signate.beat_type: %d\n", irpSong.measures.items[i].time_signature.beat_type);
         for (size_t j = 0; j < irpSong.measures.items[i].chords.count; j++) {
             printf("    chord %zu\n", j);
             printf("        duration:\t%f\n", irpSong.measures.items[i].chords.items[j].duration);

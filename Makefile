@@ -12,6 +12,7 @@ SRC = main.c \
 	musicxml.c \
 	parser/parse_measure.c \
 	parser/parse_harmony.c \
+	parser/parse_attributes.c \
 	parser/parse_musicxml_song.c \
 	irealpro.c \
 	sax.c \

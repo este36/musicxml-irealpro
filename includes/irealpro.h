@@ -9,7 +9,8 @@
 
 typedef enum
 {
-    NOTE_Ab = 1,
+	NOTE_UNVALID,
+    NOTE_Ab,
     NOTE_A, 
     NOTE_Ac,
     NOTE_Bb,
@@ -30,7 +31,7 @@ typedef enum
     NOTE_Gb,
     NOTE_G,
     NOTE_Gc,
-    NOTE_MAX
+    NOTE_MAX,
 }	NoteEnum;
 
 typedef struct s_chord
@@ -52,12 +53,6 @@ typedef struct s_time_signature
     uint32_t	beats;
     uint32_t	beat_type;
 }	t_time_signature;
-
-typedef struct s_key
-{
-    NoteEnum	Tonic;
-    bool		minor;
-}	t_key;
 
 typedef struct s_measure
 {
@@ -89,7 +84,7 @@ typedef enum
 
 typedef struct s_irealpro_song
 {
-    t_key		key;
+    NoteEnum		key;
     t_measures	measures;
     char		composer[MAX_CREDENTIALS];
     char		title[MAX_CREDENTIALS];

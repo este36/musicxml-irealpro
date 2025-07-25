@@ -78,8 +78,8 @@ typedef struct s_sax_context
 
 typedef struct s_mxl_degree
 {
-    int16_t	value;
-    int16_t	alter;
+    int	value;
+    int	alter;
 }	t_mxl_degree;
 
 typedef struct s_mxl_chord
@@ -93,8 +93,6 @@ typedef struct s_mxl_chord
 
 typedef struct s_tmp_measure
 {
-    bool		is_rehearsal;
-    bool		is_attributes;
 	t_mxl_chord	tmp_chord;
 }	t_tmp_measure;
 
@@ -110,13 +108,14 @@ t_sax_context	sax_context_init(t_sax_scanner *l);
 void			xml_clear_node(t_xml_node *n);
 int				sax_get_content(t_sax_context *context, da_str_ref *str_ref);
 int				sax_copy_content(t_sax_context *context, char *buf, size_t buf_len);
+int				sax_get_int(t_sax_context *context, int *res);
 int				sax_skip_content(t_sax_context *context, da_str_ref node_name);
 int				sax_parse_xml(int (*fn)(t_parser_state *parser_state, t_sax_context *ctxt),
 							t_parser_state *parser_state, t_sax_context *context);
 
 int parse_attributes(t_parser_state *parser_state, t_sax_context *context);
-int parse_harmony(t_parser_state *parser_state, t_sax_context *ctxt);
-int parse_measure(t_parser_state *parser_state, t_sax_context *ctxt);
+int parse_harmony(t_parser_state *parser_state, t_sax_context *context);
+int parse_measure(t_parser_state *parser_state, t_sax_context *context);
 int parse_musicxml_song(t_irealpro_song *irp_song,
 					const da_str_ref part_id,
 					const char *musicxml,
