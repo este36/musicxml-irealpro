@@ -5,6 +5,3 @@ obj
 bin
 result
 test
-includes/irealpro_chord.h
-includes/musicxml.h
-src/musicxml.c
