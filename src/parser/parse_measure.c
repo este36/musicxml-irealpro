@@ -80,20 +80,20 @@ int parse_barline(t_parser_state *parser_state, t_sax_context *context)
 {
 	const t_xml_node *n = &context->found;
 	t_measure	*m = GET_CURR_MEASURE(parser_state);
+	char content[128];
+	da_str_ref val;
 
     switch (n->type) {
 		case XML_SELF_CLOSING:
 		{
 			if (str_ref_eq(&n->target, &musicxml.repeat)) {
-				if (n->attrc < 1)
-					return PARSER_STOP_ERROR;
-				if (strncmp(n->attrv[0].key.buf, "direction", n->attrv[0].key.len) == 0) {
-					if (strncmp(n->attrv[0].value.buf, "backward", n->attrv[0].value.len) == 0) {
+				if (sax_get_attrv(context, &val, "direction") == 0) {
+					if (strncmp(val.buf, "backward", val.len) == 0) {
 						if (m->chords.count >= 1)
 							m->barlines[1] = '}';
 						else if (parser_state->song->measures.count > 1)
 							(m - 1)->barlines[1] = '}';
-					} else if (strncmp(n->attrv[0].value.buf, "forward", n->attrv[0].value.len) == 0) {
+					} else if (strncmp(val.buf, "forward", val.len) == 0) {
 						m->barlines[0] = '{';
 					}
 				}
@@ -103,7 +103,6 @@ int parse_barline(t_parser_state *parser_state, t_sax_context *context)
         case XML_TAG_OPEN:
 		{
 			if (str_ref_eq(&n->target, &musicxml.bar_style)) {
-				char content[128];
 				if (sax_copy_content(context, content, 128) != 0)
 					return PARSER_STOP_ERROR;
 				if (strcmp(content, "heavy-light") == 0)
@@ -117,6 +116,11 @@ int parse_barline(t_parser_state *parser_state, t_sax_context *context)
 			} else if (str_ref_eq(&n->target, &musicxml.segno)) {
 				m->is_segno = true;
 			} else if (str_ref_eq(&n->target, &musicxml.ending)) {
+				if (sax_get_attrv(context, &val, "number") == 0) {
+					if (val.buf[0] - '0' > 0 && val.buf[0] - '0' < 4
+						&& val.buf[1] != ',')
+						m->ending = val.buf[0] - '0';
+				}
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}

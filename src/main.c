@@ -74,6 +74,7 @@ int main() {
         printf("%c\"\n", irpSong.measures.items[i].barlines[1]);
 		printf("rehearsal: \"%s\", ", irpSong.measures.items[i].rehearsal);
 		printf("playback: \"%s\"\n", irpSong.measures.items[i].playback);
+		printf("ending: %d, ", irpSong.measures.items[i].ending);
 		printf("segno: %d, ", irpSong.measures.items[i].is_segno);
 		printf("coda: %d, ", irpSong.measures.items[i].is_coda);
         printf("divisions: %d\n", irpSong.measures.items[i].divisions);

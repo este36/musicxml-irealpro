@@ -64,10 +64,9 @@ typedef struct s_measure
     char				barlines[2];
 	char				rehearsal[MAX_REHEARSAL_LEN];
 	char				playback[MAX_PLAYBACK_LEN];
+	int					ending;
     bool				is_segno;
     bool				is_coda;
-    bool				is_DC_al_segno;
-    bool				is_DC_al_coda;
 }	t_measure;
 
 typedef struct s_measures
