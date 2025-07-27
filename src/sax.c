@@ -85,10 +85,50 @@ int sax_copy_content(t_sax_context *context, char *buf, size_t buf_len)
 int	sax_get_int(t_sax_context *context, int *res)
 {
 	char buf[32] = {0};
+
 	if (sax_copy_content(context, buf, 32) != 0)
 		return XML_FILE_CORRUPT;
 	*res = atoi(buf);
 	return 0;
+}
+
+int	sax_get_attrv(t_sax_context *context, da_str_ref *dst, char *key_buf)
+{
+	size_t i = 0;
+	const da_str_ref key = {
+		.buf = key_buf,
+		.len = strlen(key_buf)
+	};
+
+	while (i < context->found.attrc)
+	{
+		if (str_ref_eq(&context->found.attrv[0].key, &key)) {
+			*dst = context->found.attrv[0].value;
+			return 0;
+		}
+		i++;
+	}
+	return 1;
+}
+
+// return 0 if exists, 1 if not found
+int	sax_cpy_attrv(t_sax_context *context, char *dst, char *key_buf, size_t dst_len)
+{
+	size_t i = 0;
+	const da_str_ref key = {
+		.buf = key_buf,
+		.len = strlen(key_buf)
+	};
+
+	while (i < context->found.attrc)
+	{
+		if (str_ref_eq(&context->found.attrv[0].key, &key)) {
+			strncpy(dst, context->found.attrv[0].key.buf, dst_len);
+			return 0;
+		}
+		i++;
+	}
+	return 1;
 }
 
 // Suppose that the scanner is inside the parent node

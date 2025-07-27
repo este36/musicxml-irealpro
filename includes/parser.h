@@ -109,6 +109,7 @@ void			xml_clear_node(t_xml_node *n);
 int				sax_get_content(t_sax_context *context, da_str_ref *str_ref);
 int				sax_copy_content(t_sax_context *context, char *buf, size_t buf_len);
 int				sax_get_int(t_sax_context *context, int *res);
+int				sax_get_attrv(t_sax_context *context, da_str_ref *dst, char *key_buf);
 int				sax_skip_content(t_sax_context *context, da_str_ref node_name);
 int				sax_parse_xml(int (*fn)(t_parser_state *parser_state, t_sax_context *ctxt),
 							t_parser_state *parser_state, t_sax_context *context);
