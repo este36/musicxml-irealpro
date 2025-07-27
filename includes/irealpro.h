@@ -6,6 +6,7 @@
 #define MAX_CREDENTIALS			256 
 #define MAX_CHORD_QUALITIES		16
 #define MAX_REHEARSAL_LEN		128
+#define MAX_PLAYBACK_LEN		16
 #define MAX_CHORDS 5 
 
 typedef enum
@@ -62,10 +63,10 @@ typedef struct s_measure
     t_chords			chords;
     char				barlines[2];
 	char				rehearsal[MAX_REHEARSAL_LEN];
-    bool				is_repeat;
+	char				playback[MAX_PLAYBACK_LEN];
     bool				is_segno;
-    bool				is_DC_al_segno;
     bool				is_coda;
+    bool				is_DC_al_segno;
     bool				is_DC_al_coda;
 }	t_measure;
 

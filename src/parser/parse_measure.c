@@ -3,6 +3,7 @@
 int parse_note(t_parser_state *parser_state, t_sax_context *context)
 {
     const t_xml_node *n = &context->found;
+
     switch (n->type) {
 		case XML_SELF_CLOSING:
 		{
@@ -16,63 +17,50 @@ int parse_note(t_parser_state *parser_state, t_sax_context *context)
             }
 			break;
 		}
-        case XML_TAG_OPEN:
-        {
+		case XML_TAG_OPEN:
+		{
 			if (str_ref_eq(&n->target, &musicxml.duration)) {
-                t_chord* c = GET_CURR_CHORD(parser_state);
-                char note_duration_buf[128] = {0};
+				t_chord* c = GET_CURR_CHORD(parser_state);
+				char note_duration_buf[128] = {0};
 
-                if (sax_copy_content(context, note_duration_buf, 128) != 0)
+				if (sax_copy_content(context, note_duration_buf, 128) != 0)
 					return PARSER_STOP_ERROR;
-                c->duration += strtod(note_duration_buf, NULL);
-            } else {
+				c->duration += strtod(note_duration_buf, NULL);
+			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
-        	break;
-        }
-        case XML_TAG_CLOSE:
-        {
-            if (str_ref_eq(&n->target, &musicxml.note))
+			break;
+		}
+		case XML_TAG_CLOSE:
+		{
+			if (str_ref_eq(&n->target, &musicxml.note))
 				return PARSER_STOP;
-        }
+		}
 		default: break;
-    }
-    return PARSER_CONTINUE;
-}
-
-int parse_barline(t_parser_state *parser_state, t_sax_context *context)
-{
-	(void)parser_state;
-    const t_xml_node *n = &context->found;
-    switch (n->type) {
-        case XML_TAG_OPEN:
-        {
-        	break;
-        }
-        case XML_TAG_CLOSE:
-        {
-            if (str_ref_eq(&n->target, &musicxml.barline))
-				return PARSER_STOP;
-        }
-		default: break;
-    }
-    return PARSER_CONTINUE;
+	}
+	return PARSER_CONTINUE;
 }
 
 int parse_direction(t_parser_state *parser_state, t_sax_context *context)
 {
 	const t_xml_node *n = &context->found;
+	t_measure	*m = GET_CURR_MEASURE(parser_state);
+
 	switch (n->type) {
 		case XML_TAG_OPEN:
 		{
-			if (str_ref_eq(&n->target, &musicxml.rehearsal)) {
-				char *r_buf = GET_CURR_MEASURE(parser_state)->rehearsal;
-				if (sax_copy_content(context, r_buf, MAX_REHEARSAL_LEN) != 0)
+			if (m->rehearsal[0] == '\0'
+				&& str_ref_eq(&n->target, &musicxml.rehearsal)) {
+				if (sax_copy_content(context, m->rehearsal, MAX_REHEARSAL_LEN) != 0)
 					return PARSER_STOP_ERROR;
 			} else if (str_ref_eq(&n->target, &musicxml.segno)) {
-				GET_CURR_MEASURE(parser_state)->is_segno = true;
+				m->is_segno = true;
 			} else if (str_ref_eq(&n->target, &musicxml.coda)) {
-				GET_CURR_MEASURE(parser_state)->is_coda = true;
+				m->is_coda = true;
+			} else if (m->playback[0] == '\0'
+						&& str_ref_eq(&n->target, &musicxml.words)) {
+				if (sax_copy_content(context, m->playback, MAX_PLAYBACK_LEN) != 0)
+					return PARSER_STOP_ERROR;
 			} else if (!str_ref_eq(&n->target, &musicxml.direction_type)) {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
@@ -81,6 +69,62 @@ int parse_direction(t_parser_state *parser_state, t_sax_context *context)
 		case XML_TAG_CLOSE:
 		{
 		   if (str_ref_eq(&n->target, &musicxml.direction))
+				return PARSER_STOP;
+		}
+		default: break;
+	}
+	return PARSER_CONTINUE;
+}
+
+int parse_barline(t_parser_state *parser_state, t_sax_context *context)
+{
+	const t_xml_node *n = &context->found;
+	t_measure	*m = GET_CURR_MEASURE(parser_state);
+
+    switch (n->type) {
+		case XML_SELF_CLOSING:
+		{
+			if (str_ref_eq(&n->target, &musicxml.repeat)) {
+				if (n->attrc < 1)
+					return PARSER_STOP_ERROR;
+				if (strncmp(n->attrv[0].key.buf, "direction", n->attrv[0].key.len) == 0) {
+					if (strncmp(n->attrv[0].value.buf, "backward", n->attrv[0].value.len) == 0) {
+						if (m->chords.count >= 1)
+							m->barlines[1] = '}';
+						else if (parser_state->song->measures.count > 1)
+							(m - 1)->barlines[1] = '}';
+					} else if (strncmp(n->attrv[0].value.buf, "forward", n->attrv[0].value.len) == 0) {
+						m->barlines[0] = '{';
+					}
+				}
+			}
+			break;
+		}
+        case XML_TAG_OPEN:
+		{
+			if (str_ref_eq(&n->target, &musicxml.bar_style)) {
+				char content[128];
+				if (sax_copy_content(context, content, 128) != 0)
+					return PARSER_STOP_ERROR;
+				if (strcmp(content, "heavy-light") == 0)
+					m->barlines[0] = '[';
+				else if (strcmp(content, "light-heavy") == 0)
+					m->barlines[1] = ']';
+				else if (strcmp(content, "heavy-heavy") == 0)
+					m->barlines[1] = 'Z';
+			} else if (str_ref_eq(&n->target, &musicxml.coda)) {
+				m->is_coda = true;
+			} else if (str_ref_eq(&n->target, &musicxml.segno)) {
+				m->is_segno = true;
+			} else if (str_ref_eq(&n->target, &musicxml.ending)) {
+			} else {
+				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
+			}
+			break;
+		}
+		case XML_TAG_CLOSE:
+		{
+			if (str_ref_eq(&n->target, &musicxml.barline))
 				return PARSER_STOP;
 		}
 		default: break;

@@ -3,6 +3,7 @@
 typedef struct {
     da_str_ref attribute;
     da_str_ref attributes;
+    da_str_ref bar_style;
     da_str_ref barline;
     da_str_ref bass;
     da_str_ref bass_alter;
@@ -20,6 +21,7 @@ typedef struct {
     da_str_ref direction_type;
     da_str_ref divisions;
     da_str_ref duration;
+    da_str_ref ending;
     da_str_ref f;
     da_str_ref fifths;
     da_str_ref harmony;
@@ -33,6 +35,7 @@ typedef struct {
     da_str_ref p;
     da_str_ref part;
     da_str_ref rehearsal;
+    da_str_ref repeat;
     da_str_ref root;
     da_str_ref root_alter;
     da_str_ref root_step;
