@@ -2,6 +2,7 @@
 #define IREALPRO_H
 
 #include "da.h"
+#include <ctype.h>
 
 #define MAX_CREDENTIALS			256 
 #define MAX_CHORD_QUALITIES		16
@@ -86,15 +87,23 @@ typedef enum
 	STYLE_MAX
 }	StyleEnum;
 
+typedef enum
+{
+	ZOOM_100,
+	ZOOM_50,
+	ZOOM_200
+} ZoomEnum;
+
 typedef struct s_irealpro_song
 {
-    NoteEnum		key;
+    NoteEnum	key;
     t_measures	measures;
     char		composer[MAX_CREDENTIALS];
     char		title[MAX_CREDENTIALS];
     uint16_t	tempo;
     uint16_t	repeat_times;
     StyleEnum	style;
+	uint32_t	zoom;
 }	t_irealpro_song;
 
 typedef struct s_irealpro_playlist
@@ -107,6 +116,7 @@ typedef struct s_irealpro_playlist
     }	songs;
 }	t_irealpro_playlist;
 
+int			is_unvalid_time_signature(uint32_t b, uint32_t bt);
 const char	*get_note_str(NoteEnum note);
 void		irp_song_free(t_irealpro_song *song);
 char		*irp_get_song_url(t_irealpro_song *song);

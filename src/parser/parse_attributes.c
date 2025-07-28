@@ -32,11 +32,16 @@ int parse_time(t_parser_state *parser_state, t_sax_context *context)
 				uint32_t b = m->time_signature.beats;
 				uint32_t bt = m->time_signature.beat_type;
 				if (b && bt) {
-					if (b < 2 || bt < 2 || bt > 8 || (bt % 2 != 0)
-						|| (b > 7 && bt == 4)
-						|| (b > 3 && bt == 2)
-						|| ((b < 5 || (b > 9 && b != 12)) && bt == 8))
+					if (bt % 2 != 0)
 						return PARSER_STOP_ERROR;
+					if (parser_state->song->zoom == ZOOM_100
+						&& is_unvalid_time_signature(b, bt)) {
+						// try to zoom in or out
+						if (!is_unvalid_time_signature(b, bt*2))
+							parser_state->song->zoom = ZOOM_50;
+						else if (!is_unvalid_time_signature(b, bt/2))
+							parser_state->song->zoom = ZOOM_200;
+					}
 				} else if (b != bt)
 					return PARSER_STOP_ERROR;
 				return PARSER_STOP;

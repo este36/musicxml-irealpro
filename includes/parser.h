@@ -1,10 +1,10 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include "irealpro_chord.h"
 #include "da.h"
 #include "musicxml.h"
 #include "irealpro.h"
-#include "irealpro_chord.h"
 
 #include <stdio.h>
 #include <ctype.h>
@@ -96,7 +96,6 @@ typedef struct s_parser_state
 	t_irealpro_song	*song;
 	da_str_ref		part_selected;
 	t_mxl_chord		tmp_chord;
-	uint32_t		zoom;
 }	t_parser_state;
 
 t_sax_scanner	sax_scanner_init(const char *buffer, size_t length);
