@@ -78,10 +78,12 @@ typedef struct s_measures
 
 typedef enum
 {
-    JAZZ = 1,
-    JAZZ_LATIN,
-    ROCK,
-    POP
+    STYLE_UNSET,
+    STYLE_MEDIUM_SWING,
+	STYLE_BALLAD,
+    STYLE_ROCK,
+    STYLE_POP,
+	STYLE_MAX
 }	StyleEnum;
 
 typedef struct s_irealpro_song
@@ -107,7 +109,6 @@ typedef struct s_irealpro_playlist
 
 const char	*get_note_str(NoteEnum note);
 void		irp_song_free(t_irealpro_song *song);
-int			irp_render_song(t_irealpro_song *song, char *buf, size_t len);
-int			irp_render_playlist(t_irealpro_playlist *playlist, char *buf, size_t len);
+char		*irp_get_song_url(t_irealpro_song *song);
 
 #endif // IREALPRO_H

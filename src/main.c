@@ -62,32 +62,34 @@ int main() {
         free(file);
         return 1;
     }
-    printf("sizeof song: %zu\n\n", sizeof(t_irealpro_song));
 
-    printf("Song title: %s, composer: %s\n", irpSong.title, irpSong.composer);
-    printf("Number of bars: %zu\n", irpSong.measures.count);
-    printf("Key: %s\n", get_note_str(irpSong.key));
+	char *url = irp_get_song_url(&irpSong);
+	printf("%s\n", url);
+	free(url);
+    // printf("Song title: %s, composer: %s\n", irpSong.title, irpSong.composer);
+    // printf("Number of bars: %zu\n", irpSong.measures.count);
+    // printf("Key: %s\n", get_note_str(irpSong.key));
 
-    for (size_t i = 0; i < irpSong.measures.count; i++) {
-        printf("measure no %zu\n", i);
-        printf("barlines: \"%c", irpSong.measures.items[i].barlines[0]);
-        printf("%c\"\n", irpSong.measures.items[i].barlines[1]);
-		printf("rehearsal: \"%s\", ", irpSong.measures.items[i].rehearsal);
-		printf("playback: \"%s\"\n", irpSong.measures.items[i].playback);
-		printf("ending: %d, ", irpSong.measures.items[i].ending);
-		printf("segno: %d, ", irpSong.measures.items[i].is_segno);
-		printf("coda: %d, ", irpSong.measures.items[i].is_coda);
-        printf("divisions: %d\n", irpSong.measures.items[i].divisions);
-        printf("time_signate.beats: %d, ", irpSong.measures.items[i].time_signature.beats);
-        printf("time_signate.beat_type: %d\n", irpSong.measures.items[i].time_signature.beat_type);
-        for (size_t j = 0; j < irpSong.measures.items[i].chords.count; j++) {
-            printf("    chord %zu\n", j);
-            printf("        duration:\t%f\n", irpSong.measures.items[i].chords.items[j].duration);
-            printf("        root:\t\t\"%s\"\n", get_note_str(irpSong.measures.items[i].chords.items[j].root));
-            printf("        bass:\t\t\"%s\"\n", get_note_str(irpSong.measures.items[i].chords.items[j].bass));
-            printf("        qual:\t\t\"%s\"\n", irpSong.measures.items[i].chords.items[j].quality);
-        }
-    }
+    // for (size_t i = 0; i < irpSong.measures.count; i++) {
+    //     printf("measure no %zu\n", i);
+    //     printf("barlines: \"%c", irpSong.measures.items[i].barlines[0]);
+    //     printf("%c\"\n", irpSong.measures.items[i].barlines[1]);
+	// 	printf("rehearsal: \"%s\", ", irpSong.measures.items[i].rehearsal);
+	// 	printf("playback: \"%s\"\n", irpSong.measures.items[i].playback);
+	// 	printf("ending: %d, ", irpSong.measures.items[i].ending);
+	// 	printf("segno: %d, ", irpSong.measures.items[i].is_segno);
+	// 	printf("coda: %d, ", irpSong.measures.items[i].is_coda);
+    //     printf("divisions: %d\n", irpSong.measures.items[i].divisions);
+    //     printf("time_signate.beats: %d, ", irpSong.measures.items[i].time_signature.beats);
+    //     printf("time_signate.beat_type: %d\n", irpSong.measures.items[i].time_signature.beat_type);
+    //     for (size_t j = 0; j < irpSong.measures.items[i].chords.count; j++) {
+    //         printf("    chord %zu\n", j);
+    //         printf("        duration:\t%f\n", irpSong.measures.items[i].chords.items[j].duration);
+    //         printf("        root:\t\t\"%s\"\n", get_note_str(irpSong.measures.items[i].chords.items[j].root));
+    //         printf("        bass:\t\t\"%s\"\n", get_note_str(irpSong.measures.items[i].chords.items[j].bass));
+    //         printf("        qual:\t\t\"%s\"\n", irpSong.measures.items[i].chords.items[j].quality);
+    //     }
+    // }
 
 	irp_song_free(&irpSong);
     free(file);
