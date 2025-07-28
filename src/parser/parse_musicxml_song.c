@@ -8,7 +8,7 @@ int parse_part(t_parser_state *parser_state, t_sax_context *context)
         {
             if (str_ref_eq(&n->target, &musicxml.measure)) { 
                 da_append(parser_state->song->measures, (t_measure){0});
-				memset(&parser_state->tmp_msr, 0, sizeof(t_tmp_measure));
+				memset(&parser_state->tmp_chord, 0, sizeof(t_mxl_chord));
                 if (sax_parse_xml(parse_measure, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
             }

@@ -32,7 +32,7 @@
 
 #define GET_CURR_MEASURE(parser_state) (&(parser_state)->song->measures.items[(parser_state)->song->measures.count - 1])
 #define GET_CURR_CHORD(parser_state) (&(GET_CURR_MEASURE(parser_state))->chords.items[(GET_CURR_MEASURE(parser_state))->chords.count - 1])
-#define GET_TMP_CHORD(parser_state) (&(parser_state)->tmp_msr.tmp_chord)
+#define GET_TMP_CHORD(parser_state) (&(parser_state)->tmp_chord)
 #define GET_TMP_CURR_DEGREE(parser_state) (&GET_TMP_CHORD(parser_state)->degrees[GET_TMP_CHORD(parser_state)->degrees_count - 1])
 
 // a bit of ascii arithmetic and me can get the correct root note.
@@ -91,16 +91,12 @@ typedef struct s_mxl_chord
 	uint32_t		degrees_count;
 }	t_mxl_chord;
 
-typedef struct s_tmp_measure
-{
-	t_mxl_chord	tmp_chord;
-}	t_tmp_measure;
-
 typedef struct s_parser_state
 {
 	t_irealpro_song	*song;
 	da_str_ref		part_selected;
-	t_tmp_measure	tmp_msr;
+	t_mxl_chord		tmp_chord;
+	uint32_t		zoom;
 }	t_parser_state;
 
 t_sax_scanner	sax_scanner_init(const char *buffer, size_t length);
