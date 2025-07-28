@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 #ifndef DA_MIN_CAPACITY
-#define DA_MIN_CAPACITY 128
+#define DA_MIN_CAPACITY 64
 #endif
 #define DA_UNSET (size_t)-1
 
@@ -56,7 +56,8 @@ typedef struct
 }	da_str_ref;
 
 da_str	da_str_c(const char* c, size_t l);
-int		da_str_append(da_str *s, da_str_ref e);
+int		da_str_init(da_str *dst, size_t capacity);
+int		da_strcat(da_str *dst, const char *src);
 void	da_str_free(da_str *s);
 void	str_ref_copy(const da_str_ref* ref, char* dest, size_t length);
 bool	str_ref_eq(const da_str_ref* a, const da_str_ref* b);

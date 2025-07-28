@@ -1,4 +1,5 @@
 #include "da.h"
+#include <string.h>
 
 da_str da_str_c(const char* c, size_t l)
 {
@@ -18,21 +19,34 @@ da_str da_str_c(const char* c, size_t l)
     return s;
 }
 
-int da_str_append(da_str *s, da_str_ref e)
+int		da_str_init(da_str *dst, size_t capacity)
 {
-    size_t needed = s->len + e.len + 1;
+    dst->buf = (char *)malloc(sizeof(char) * capacity);
+	if (dst->buf == NULL)
+		return -1;
+	dst->cap = capacity;
+	dst->len = 0;
+	return 0;
+}
 
-    if (needed > s->cap) {
-        size_t new_cap = s->cap ? s->cap : DA_MIN_CAPACITY;
-        while (new_cap < needed) new_cap *= 2;
-        s->buf = (char *)realloc(s->buf, new_cap);
-        if (!s->buf) return -1;
-        s->cap = new_cap;
+int	da_strcat(da_str *dst, const char *src)
+{
+	size_t	src_len = strlen(src);
+    size_t needed = dst->len + src_len + 1;
+
+    if (needed > dst->cap) {
+        size_t new_cap = dst->cap ? dst->cap : DA_MIN_CAPACITY;
+        while (new_cap < needed)
+			new_cap *= 2;
+        dst->buf = (char *)realloc(dst->buf, new_cap);
+        if (dst->buf == NULL)
+			return -1;
+        dst->cap = new_cap;
     }
 
-    memcpy(s->buf + s->len, e.buf, e.len);
-    s->len += e.len;
-    s->buf[s->len] = '\0';
+    memcpy(dst->buf + dst->len, src, src_len);
+    dst->len += src_len;
+    dst->buf[dst->len] = '\0';
     return 0;
 }
 
