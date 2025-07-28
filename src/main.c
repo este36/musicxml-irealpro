@@ -51,7 +51,7 @@ int main() {
         return 1;
     }
 	printf("ZOOM: %d\n", irpSong.zoom);
-	char *url = irp_get_song_url(&irpSong);
+	char *url = irp_get_song_html(&irpSong);
 	printf("%s\n", url);
 	free(url);
     // printf("Song title: %s, composer: %s\n", irpSong.title, irpSong.composer);

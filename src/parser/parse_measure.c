@@ -1,4 +1,5 @@
 #include "parser.h"
+#include <strings.h>
 
 int parse_note(t_parser_state *parser_state, t_sax_context *context)
 {
@@ -41,6 +42,40 @@ int parse_note(t_parser_state *parser_state, t_sax_context *context)
 	return PARSER_CONTINUE;
 }
 
+RehearsalEnum get_rehearsal_enum(char *xml_content)
+{
+	if (strcasecmp(xml_content, "intro") == 0)
+		return (REHEARSAL_INTRO);
+	if (strcasecmp(xml_content, "in") == 0)
+		return (REHEARSAL_INTRO);
+	if (strcasecmp(xml_content, "verse") == 0)
+		return (REHEARSAL_VERSE);
+	else if (strcasecmp(xml_content, "A") == 0)
+		return (REHEARSAL_A);
+	else if (strcasecmp(xml_content, "B") == 0)
+		return (REHEARSAL_B);
+	else if (strcasecmp(xml_content, "C") == 0)
+		return (REHEARSAL_C);
+	else if (strcasecmp(xml_content, "D") == 0)
+		return (REHEARSAL_D);
+	return (REHEARSAL_NONE);
+}
+
+PlaybackEnum get_playback_enum(char *xml_content)
+{
+	if (strcasecmp(xml_content, "fine") == 0)
+		return (PLAYBACK_FINE);
+	else if (strcasecmp(xml_content, "d.c al coda") == 0)
+		return (PLAYBACK_DC_AL_CODA);
+	else if (strcasecmp(xml_content, "d.c al fine") == 0)
+		return (PLAYBACK_DC_AL_FINE);
+	else if (strcasecmp(xml_content, "d.s al coda") == 0)
+		return (PLAYBACK_DS_AL_CODA);
+	else if (strcasecmp(xml_content, "d.s al fine") == 0)
+		return (PLAYBACK_DS_AL_FINE);
+	return (PLAYBACK_NONE);
+}
+
 int parse_direction(t_parser_state *parser_state, t_sax_context *context)
 {
 	const t_xml_node *n = &context->found;
@@ -49,18 +84,20 @@ int parse_direction(t_parser_state *parser_state, t_sax_context *context)
 	switch (n->type) {
 		case XML_TAG_OPEN:
 		{
-			if (m->rehearsal[0] == '\0'
-				&& str_ref_eq(&n->target, &musicxml.rehearsal)) {
-				if (sax_copy_content(context, m->rehearsal, MAX_REHEARSAL_LEN) != 0)
+			char buf[128];
+
+			if (str_ref_eq(&n->target, &musicxml.rehearsal)) {
+				if (sax_copy_content(context, buf, 128) != 0)
 					return PARSER_STOP_ERROR;
+				m->rehearsal = get_rehearsal_enum(buf);
 			} else if (str_ref_eq(&n->target, &musicxml.segno)) {
-				m->is_segno = true;
+				m->playback = PLAYBACK_SEGNO;
 			} else if (str_ref_eq(&n->target, &musicxml.coda)) {
-				m->is_coda = true;
-			} else if (m->playback[0] == '\0'
-						&& str_ref_eq(&n->target, &musicxml.words)) {
-				if (sax_copy_content(context, m->playback, MAX_PLAYBACK_LEN) != 0)
+				m->playback = PLAYBACK_CODA;
+			} else if (str_ref_eq(&n->target, &musicxml.words)) {
+				if (sax_copy_content(context, buf, 128) != 0)
 					return PARSER_STOP_ERROR;
+				m->playback = get_playback_enum(buf);
 			} else if (!str_ref_eq(&n->target, &musicxml.direction_type)) {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
@@ -111,15 +148,15 @@ int parse_barline(t_parser_state *parser_state, t_sax_context *context)
 					m->barlines[1] = ']';
 				else if (strcmp(content, "heavy-heavy") == 0)
 					m->barlines[1] = 'Z';
-			} else if (str_ref_eq(&n->target, &musicxml.coda)) {
-				m->is_coda = true;
 			} else if (str_ref_eq(&n->target, &musicxml.segno)) {
-				m->is_segno = true;
+				m->playback = PLAYBACK_SEGNO;
+			} else if (str_ref_eq(&n->target, &musicxml.coda)) {
+				m->playback = PLAYBACK_CODA;
 			} else if (str_ref_eq(&n->target, &musicxml.ending)) {
 				if (sax_get_attrv(context, &val, "number") == 0) {
 					if (val.buf[0] - '0' > 0 && val.buf[0] - '0' < 4
 						&& val.buf[1] != ',')
-						m->ending = val.buf[0] - '0';
+						m->ending = (EndingEnum)val.buf[0] - '0';
 				}
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;

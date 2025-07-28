@@ -57,17 +57,48 @@ typedef struct s_time_signature
     uint32_t	beat_type;
 }	t_time_signature;
 
+typedef	enum
+{
+	REHEARSAL_NONE,
+	REHEARSAL_INTRO,
+	REHEARSAL_VERSE,
+	REHEARSAL_A,
+	REHEARSAL_B,
+	REHEARSAL_C,
+	REHEARSAL_D,
+	REHEARSAL_MAX
+}	RehearsalEnum;
+
+typedef enum
+{
+	PLAYBACK_NONE,
+	PLAYBACK_CODA,
+	PLAYBACK_SEGNO,
+	PLAYBACK_FINE,
+	PLAYBACK_DC_AL_CODA,
+	PLAYBACK_DC_AL_FINE,
+	PLAYBACK_DS_AL_CODA,
+	PLAYBACK_DS_AL_FINE,
+	PLAYBACK_MAX
+}	PlaybackEnum;
+
+typedef enum
+{
+	ENDING_NONE,
+	ENDING_FIRST,
+	ENDING_SECOND,
+	ENDING_THIRD,
+}	EndingEnum;
+
 typedef struct s_measure
 {
     uint32_t			divisions; // quarter note reference integer
     t_time_signature	time_signature;
     t_chords			chords;
     char				barlines[2];
-	char				rehearsal[MAX_REHEARSAL_LEN];
-	char				playback[MAX_PLAYBACK_LEN];
-	int					ending;
-    bool				is_segno;
-    bool				is_coda;
+	RehearsalEnum		rehearsal;
+	PlaybackEnum		playback;
+	EndingEnum			ending;
 }	t_measure;
 
 typedef struct s_measures
@@ -109,9 +140,10 @@ typedef struct s_irealpro_song
 typedef struct s_irealpro_playlist
 {
     da_str	title;
-    struct {
-        size_t	count;
-        size_t	capacity;
+    struct 
+	{
+        size_t			count;
+        size_t			capacity;
         t_irealpro_song	*items;
     }	songs;
 }	t_irealpro_playlist;
@@ -119,6 +151,6 @@ typedef struct s_irealpro_playlist
 int			is_unvalid_time_signature(uint32_t b, uint32_t bt);
 const char	*get_note_str(NoteEnum note);
 void		irp_song_free(t_irealpro_song *song);
-char		*irp_get_song_url(t_irealpro_song *song);
+char		*irp_get_song_html(t_irealpro_song *song);
 
 #endif // IREALPRO_H

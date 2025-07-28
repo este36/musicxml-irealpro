@@ -9,7 +9,7 @@ int is_unvalid_time_signature(uint32_t b, uint32_t bt)
 
 const char*	get_note_str(NoteEnum note)
 {
-    static const char* notes[NOTE_MAX] = {
+    static const char *notes[NOTE_MAX] = {
         NULL, 
         "Ab", "A", "A#",
         "Bb", "B", "B#",
@@ -63,6 +63,8 @@ static void append_time_signature(da_str *dst, const t_measure *m)
 {
 	uint32_t b = m->time_signature.beats; // 3/4 -> 4
 	uint32_t bt = m->time_signature.beat_type; // 3/4 -> 3
+	if (b == 0 && bt == 0)
+		return ;
 	char buf[4];
 	buf[0] = 'T';
 	if (b == 12) {
@@ -75,7 +77,12 @@ static void append_time_signature(da_str *dst, const t_measure *m)
 	buf[3] = '\0';
 	da_strcat(dst, buf);
 }
-static void	append_song_body(da_str *dst, t_irealpro_song *song)
+
+// append_rehearsal(da_str *dst, char *rehearsal)
+// {
+// }
+
+static int	append_song_body(da_str *dst, t_irealpro_song *song)
 {
 	size_t		i;
 	t_measure	*m;
@@ -99,35 +106,44 @@ static void	append_song_body(da_str *dst, t_irealpro_song *song)
 		}
 		i++;
 	}
+	return 0;
 }
 
-char	*irp_get_song_url(t_irealpro_song *song)
+static	int	append_song(da_str *dst, t_irealpro_song *song)
 {
-	da_str		res;
+	append_song_title(dst, song->title);
+	da_strcat(dst, "=");
+	if (song->composer[0])
+		da_strcat(dst, song->composer);
+	else
+		da_strcat(dst, "Composer Unknown");
+	da_strcat(dst, "=");
+	const char *style = get_style_str(song->style);
+	if (style != NULL)
+		da_strcat(dst, style);
+	else
+		da_strcat(dst, "Medium Swing");
+	da_strcat(dst, "=");
+	const char *key = get_note_str(song->key);
+	if (key != NULL)
+		da_strcat(dst, key);
+	else
+		da_strcat(dst, "C");
+	da_strcat(dst, "=n=");
+	return (append_song_body(dst, song));
+}
+
+char	*irp_get_song_html(t_irealpro_song *song)
+{
+	da_str	res;
 
 	if (da_str_init(&res, 512) != 0) // irealpro urls are long usually
 		return NULL;
 	da_strcat(&res, "<a href=\"irealbook://"); // we use the open url scheme
-	append_song_title(&res, song->title);
-	da_strcat(&res, "=");
-	if (song->composer[0])
-		da_strcat(&res, song->composer);
-	else
-		da_strcat(&res, "Composer Unknown");
-	da_strcat(&res, "=");
-	const char *style = get_style_str(song->style);
-	if (style != NULL)
-		da_strcat(&res, style);
-	else
-		da_strcat(&res, "Medium Swing");
-	da_strcat(&res, "=");
-	const char *key = get_note_str(song->key);
-	if (key != NULL)
-		da_strcat(&res, key);
-	else
-		da_strcat(&res, "C");
-	da_strcat(&res, "=n=");
-	append_song_body(&res, song);
+	if (append_song(&res, song) != 0) {
+		free(res.buf);
+		return NULL;
+	}
 	da_strcat(&res, "\">");
 	append_song_title(&res, song->title);
 	da_strcat(&res, "</a>");
