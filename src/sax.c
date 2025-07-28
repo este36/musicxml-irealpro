@@ -102,8 +102,8 @@ int	sax_get_attrv(t_sax_context *context, da_str_ref *dst, char *key_buf)
 
 	while (i < context->found.attrc)
 	{
-		if (str_ref_eq(&context->found.attrv[0].key, &key)) {
-			*dst = context->found.attrv[0].value;
+		if (str_ref_eq(&context->found.attrv[i].key, &key)) {
+			*dst = context->found.attrv[i].value;
 			return 0;
 		}
 		i++;
