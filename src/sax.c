@@ -253,8 +253,10 @@ int sax_parse_xml(int (*fn)(t_parser_state *parser_state, t_sax_context *ctxt),
                     // Here we are sure thats a valid OPENING tag
                     context->found.type = XML_TAG_OPEN;
                     status = fn(parser_state, context);
-                    if (status == SKIP_ENTIRE_NODE)
-                        sax_skip_content(context, context->found.target);
+                    if (status == SKIP_ENTIRE_NODE) {
+                        if (sax_skip_content(context, context->found.target) != 0)
+							return XML_FILE_CORRUPT;
+					}
                     xml_clear_node(&context->found);
                 } else {
                     return XML_FILE_CORRUPT;
