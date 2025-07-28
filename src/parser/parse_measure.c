@@ -177,8 +177,11 @@ int parse_measure(t_parser_state *parser_state, t_sax_context *context)
         }
         case XML_TAG_CLOSE:
         {
-            if (str_ref_eq(&n->target, &musicxml.measure))
+            if (str_ref_eq(&n->target, &musicxml.measure)) {
+				if (m->chords.count > 4)
+					return PARSER_STOP_ERROR;
 				return PARSER_STOP;
+			}
         }
 		default: break;
     }

@@ -56,11 +56,6 @@ static void append_time_signature(da_str *dst, const t_measure *m)
 {
 	uint32_t b = m->time_signature.beats; // 3/4 -> 4
 	uint32_t bt = m->time_signature.beat_type; // 3/4 -> 3
-	if (b < 2 || bt < 2 || bt > 8 || (bt % 2 != 0)
-		|| (b > 7 && bt == 4)
-		|| (b > 3 && bt == 2)
-		|| ((b < 5 || (b > 9 && b != 12)) && bt == 8))
-		return ;
 	char buf[4];
 	buf[0] = 'T';
 	if (b == 12) {

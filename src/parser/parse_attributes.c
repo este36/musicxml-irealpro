@@ -3,23 +3,24 @@
 int parse_time(t_parser_state *parser_state, t_sax_context *context)
 {
     const t_xml_node *n = &context->found;
-	int res;
+	t_measure *m = GET_CURR_MEASURE(parser_state);
 
     switch (n->type) {
         case XML_TAG_OPEN:
         {
+			int res;
 			if (str_ref_eq(&n->target, &musicxml.beats)) {
                 if (sax_get_int(context, &res) != 0)
 					return PARSER_STOP_ERROR;
 				if (res <= 1)
 					return PARSER_STOP_ERROR;
-				GET_CURR_MEASURE(parser_state)->time_signature.beats = (uint32_t)res;
+				m->time_signature.beats = (uint32_t)res;
 			} else if (str_ref_eq(&n->target, &musicxml.beat_type)) {
                 if (sax_get_int(context, &res) != 0)
 					return PARSER_STOP_ERROR;
 				if (res <= 1)
 					return PARSER_STOP_ERROR;
-				GET_CURR_MEASURE(parser_state)->time_signature.beat_type = (uint32_t)res;
+				m->time_signature.beat_type = (uint32_t)res;
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
@@ -27,8 +28,19 @@ int parse_time(t_parser_state *parser_state, t_sax_context *context)
         }
         case XML_TAG_CLOSE:
         {
-            if (str_ref_eq(&n->target, &musicxml.time))
+            if (str_ref_eq(&n->target, &musicxml.time)) {
+				uint32_t b = m->time_signature.beats;
+				uint32_t bt = m->time_signature.beat_type;
+				if (b && bt) {
+					if (b < 2 || bt < 2 || bt > 8 || (bt % 2 != 0)
+						|| (b > 7 && bt == 4)
+						|| (b > 3 && bt == 2)
+						|| ((b < 5 || (b > 9 && b != 12)) && bt == 8))
+						return PARSER_STOP_ERROR;
+				} else if (b != bt)
+					return PARSER_STOP_ERROR;
 				return PARSER_STOP;
+			}
 			break;
         }
 		default: break;

@@ -31,38 +31,25 @@ char* open_file(long* length, const char* path)
 }
 
 int main() {
-    // chords.musicxml
-    // complicité.musicxml
-    // DaysOfWineRoses.musicxml
-    // Grace_and_Mercy.musicxml
-    // Misty.musicxml
-    // Out_of_Nothing.musicxml
-    // sauts.musicxml
-    // timesignature.musicxml
-    // Unrealised_Love.musicxml
-
     long file_len = 0;
     // char* file = open_file(&file_len, "musicxml/chords.musicxml");
     // char* file = open_file(&file_len, "musicxml/complicité.musicxml");
     // char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
     // char* file = open_file(&file_len, "musicxml/Grace_and_Mercy.musicxml");
-    // char* file = open_file(&file_len, "musicxml/Misty.musicxml");
-    char* file = open_file(&file_len, "musicxml/test.musicxml");
+    char* file = open_file(&file_len, "musicxml/Misty.musicxml");
+    // char* file = open_file(&file_len, "musicxml/test.musicxml");
     // char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
     // char* file = open_file(&file_len, "musicxml/sauts.musicxml");
     // char* file = open_file(&file_len, "musicxml/timesignature.musicxml");
     // char* file = open_file(&file_len, "musicxml/Unrealised_Love.musicxml");
 
     if (!file) return 1;
-
     t_irealpro_song irpSong = {0};
-
     if (parse_musicxml_song(&irpSong, STR_REF("P1"), file, file_len) != 0) {
 		printf("PARSER_STOP_ERROR\n");
         free(file);
         return 1;
     }
-
 	char *url = irp_get_song_url(&irpSong);
 	printf("%s\n", url);
 	free(url);
