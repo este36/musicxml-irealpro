@@ -78,9 +78,39 @@ static void append_time_signature(da_str *dst, const t_measure *m)
 	da_strcat(dst, buf);
 }
 
-// append_rehearsal(da_str *dst, char *rehearsal)
-// {
-// }
+static void append_playback(da_str *dst, PlaybackEnum p)
+{
+	static const char *playbacks[PLAYBACK_MAX] = {
+		NULL,
+		"Q",
+		"S",
+		"<Fine>",
+		"<D.C. al Coda>",
+		"<D.C. al Fine>",
+		"<D.S. al Coda>",
+		"<D.S. al Fine>"
+	};
+	if (p > 0 && p < PLAYBACK_MAX)
+		da_strcat(dst, playbacks[p]);
+}
+
+static void append_rehearsal(da_str *dst, RehearsalEnum r)
+{
+	static const char *rehearsals[REHEARSAL_MAX] = {
+		NULL, "*i", "*V", "*A", "*B", "*C", "*D"
+	};
+	if (r > 0 && r < REHEARSAL_MAX)
+		da_strcat(dst, rehearsals[r]);
+}
+
+static void append_ending(da_str *dst, EndingEnum e)
+{
+	static const char *endings[ENDING_MAX] = {
+		NULL, "N1", "N2", "N3"
+	};
+	if (e > 0 && e < ENDING_MAX)
+		da_strcat(dst, endings[e]);
+}
 
 static int	append_song_body(da_str *dst, t_irealpro_song *song)
 {
@@ -99,6 +129,9 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 			barline_buf[0] = '|';
 		da_strcat(dst, barline_buf);
 		append_time_signature(dst, m);
+		append_ending(dst, m->ending);
+		append_rehearsal(dst, m->rehearsal);
+		append_playback(dst, m->playback);
 		da_strcat(dst, "__CHORDS__");
 		if (m->barlines[1]) {
 			barline_buf[0] = m->barlines[1];

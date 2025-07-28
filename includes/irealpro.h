@@ -88,6 +88,7 @@ typedef enum
 	ENDING_FIRST,
 	ENDING_SECOND,
 	ENDING_THIRD,
+	ENDING_MAX
 }	EndingEnum;
 
 typedef struct s_measure

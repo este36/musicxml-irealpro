@@ -154,9 +154,9 @@ int parse_barline(t_parser_state *parser_state, t_sax_context *context)
 				m->playback = PLAYBACK_CODA;
 			} else if (str_ref_eq(&n->target, &musicxml.ending)) {
 				if (sax_get_attrv(context, &val, "number") == 0) {
-					if (val.buf[0] - '0' > 0 && val.buf[0] - '0' < 4
+					if (val.buf[0] - '0' > 0 && val.buf[0] - '0' < ENDING_MAX
 						&& val.buf[1] != ',')
-						m->ending = (EndingEnum)val.buf[0] - '0';
+						m->ending = val.buf[0] - '0';
 				}
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;

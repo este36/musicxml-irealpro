@@ -35,8 +35,8 @@ int main() {
     // char* file = open_file(&file_len, "musicxml/chords.musicxml");
     // char* file = open_file(&file_len, "musicxml/complicité.musicxml");
     // char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
-    char* file = open_file(&file_len, "musicxml/Grace_and_Mercy.musicxml");
-    // char* file = open_file(&file_len, "musicxml/Misty.musicxml");
+    // char* file = open_file(&file_len, "musicxml/Grace_and_Mercy.musicxml");
+    char* file = open_file(&file_len, "musicxml/Misty.musicxml");
     // char* file = open_file(&file_len, "musicxml/test.musicxml");
     // char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
     // char* file = open_file(&file_len, "musicxml/sauts.musicxml");
