@@ -34,9 +34,9 @@ int main() {
     long file_len = 0;
     // char* file = open_file(&file_len, "musicxml/chords.musicxml");
     // char* file = open_file(&file_len, "musicxml/complicité.musicxml");
-    // char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
+    char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
     // char* file = open_file(&file_len, "musicxml/Grace_and_Mercy.musicxml");
-    char* file = open_file(&file_len, "musicxml/Misty.musicxml");
+    // char* file = open_file(&file_len, "musicxml/Misty.musicxml");
     // char* file = open_file(&file_len, "musicxml/test.musicxml");
     // char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
     // char* file = open_file(&file_len, "musicxml/sauts.musicxml");
@@ -50,7 +50,7 @@ int main() {
         free(file);
         return 1;
     }
-	printf("ZOOM: %d\n", irpSong.zoom);
+	// printf("ZOOM: %d\n", irpSong.zoom);
 	char *url = irp_get_song_html(&irpSong);
 	printf("%s\n", url);
 	free(url);

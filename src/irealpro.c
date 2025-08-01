@@ -39,6 +39,30 @@ void	irp_song_free(t_irealpro_song* song)
     free(song->measures.items);
 }
 
+static void url_strcat(da_str *dst, const char *src)
+{
+	static const char hex_base[17] = "0123456789ABCDEF";
+	char	buf[4];
+	int		i;
+
+	i = 0;
+	buf[3] = '\0';
+	while(src[i])
+	{
+		if (isalnum(src[i]) || src[i] == '-' || src[i] == '_'
+			|| src[i] == '.' || src[i] == '~') {
+			buf[0] = src[i];
+			buf[1] = '\0';
+		} else {
+			buf[0] = '%';
+			buf[1] = hex_base[src[i] >> 4];
+			buf[2] = hex_base[src[i] & 0x0F];
+		}
+		da_strcat(dst, buf);
+		i++;
+	}
+}
+
 static void	append_song_title(da_str *dst, char *title)
 {
 	char title_to_copy[MAX_CREDENTIALS];
@@ -56,7 +80,7 @@ static void	append_song_title(da_str *dst, char *title)
 	{
 		strcat(title_to_copy, title);
 	}
-	da_strcat(dst, title_to_copy);
+	url_strcat(dst, title_to_copy);
 }
 
 static void append_time_signature(da_str *dst, const t_measure *m)
@@ -91,7 +115,7 @@ static void append_playback(da_str *dst, PlaybackEnum p)
 		"<D.S. al Fine>"
 	};
 	if (p > 0 && p < PLAYBACK_MAX)
-		da_strcat(dst, playbacks[p]);
+		url_strcat(dst, playbacks[p]);
 }
 
 static void append_rehearsal(da_str *dst, RehearsalEnum r)
@@ -100,7 +124,7 @@ static void append_rehearsal(da_str *dst, RehearsalEnum r)
 		NULL, "*i", "*V", "*A", "*B", "*C", "*D"
 	};
 	if (r > 0 && r < REHEARSAL_MAX)
-		da_strcat(dst, rehearsals[r]);
+		url_strcat(dst, rehearsals[r]);
 }
 
 static void append_ending(da_str *dst, EndingEnum e)
@@ -115,18 +139,18 @@ static void append_ending(da_str *dst, EndingEnum e)
 static void append_chord(da_str *dst, t_chord *c)
 {
 	if (c->quality[0] == 'x') { // this indicate the 'repeat last chord' symbol
-		da_strcat(dst, c->quality);
+		da_strcat(dst, "x");
 		return;
 	}
 	const char *root_note = get_note_str(c->root);
 	if (root_note == NULL)
 		return;
 	const char *bass_note = get_note_str(c->bass);
-	da_strcat(dst, root_note);
-	da_strcat(dst, c->quality);
+	url_strcat(dst, root_note);
+	url_strcat(dst, c->quality);
 	if (bass_note != NULL) {
-		da_strcat(dst, "/");
-		da_strcat(dst, bass_note);
+		url_strcat(dst, "/");
+		url_strcat(dst, bass_note);
 	}
 }
 
@@ -135,23 +159,23 @@ static void	append_chords(da_str *dst, t_measure *m)
 	switch (m->chords.count) {
 	case 1:
 		append_chord(dst, &m->chords.items[0]);
-		da_strcat(dst, "   "); // 3 spaces
+		url_strcat(dst, "   "); // 3 spaces
 		break;
 	case 2:
 		if (m->chords.items[0].duration == m->chords.items[1].duration) {
 			append_chord(dst, &m->chords.items[0]);
-			da_strcat(dst, " ");
+			url_strcat(dst, " ");
 			append_chord(dst, &m->chords.items[1]);
-			da_strcat(dst, " ");
+			url_strcat(dst, " ");
 		} else {
-			da_strcat(dst, "A   ");
+			url_strcat(dst, "A   ");
 		}
 		break;
 	case 3:
-		da_strcat(dst, "B   ");
+		url_strcat(dst, "B   ");
 		break;
 	case 4:
-		da_strcat(dst, "C   ");
+		url_strcat(dst, "C   ");
 		break;
 	default: break;
 	}
@@ -172,7 +196,7 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 			barline_buf[0] = m->barlines[0];
 		else
 			barline_buf[0] = '|';
-		da_strcat(dst, barline_buf);
+		url_strcat(dst, barline_buf);
 		append_time_signature(dst, m);
 		append_ending(dst, m->ending);
 		append_rehearsal(dst, m->rehearsal);
@@ -180,87 +204,52 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 		append_chords(dst, m);
 		if (m->barlines[1]) {
 			barline_buf[0] = m->barlines[1];
-			da_strcat(dst, barline_buf);
+			url_strcat(dst, barline_buf);
 		}
 		i++;
 	}
 	return 0;
 }
 
-static int	append_song_body_zoom_out(da_str *dst, t_irealpro_song *song)
+static void append_composer(da_str *dst, char *composer)
 {
-	size_t		i;
-	t_measure	*m;
-	char		barline_buf[2];
-
-	i = 0;
-	barline_buf[1] = '\0';
-	while (i < song->measures.count)
-	{
-		m = &song->measures.items[i];
-		if (m->barlines[0])
-			barline_buf[0] = m->barlines[0];
-		else
-			barline_buf[0] = '|';
-		da_strcat(dst, barline_buf);
-		append_time_signature(dst, m);
-		append_ending(dst, m->ending);
-		append_rehearsal(dst, m->rehearsal);
-		append_playback(dst, m->playback);
-		append_chords(dst, m);
-		if (m->barlines[1]) {
-			barline_buf[0] = m->barlines[1];
-			da_strcat(dst, barline_buf);
-		}
-		i++;
+	if (composer[0] == '\0') {
+		url_strcat(dst, "Composer Unknown");
+		return;
 	}
-	return 0;
-}
 
-static int	append_song_body_zoom_in(da_str *dst, t_irealpro_song *song)
-{
-	size_t		i;
-	t_measure	*m;
-	char		barline_buf[2];
-
-	i = 0;
-	barline_buf[1] = '\0';
-	while (i < song->measures.count)
-	{
-		m = &song->measures.items[i];
-		if (m->barlines[0])
-			barline_buf[0] = m->barlines[0];
-		else
-			barline_buf[0] = '|';
-		da_strcat(dst, barline_buf);
-		append_time_signature(dst, m);
-		append_ending(dst, m->ending);
-		append_rehearsal(dst, m->rehearsal);
-		append_playback(dst, m->playback);
-		append_chords(dst, m);
-		if (m->barlines[1]) {
-			barline_buf[0] = m->barlines[1];
-			da_strcat(dst, barline_buf);
-		}
-		i++;
+	char *last_name = composer;
+	while (!isspace(*last_name) && *last_name != '\0')
+		last_name++;
+	if (*last_name == '\0') {
+		url_strcat(dst, composer);
+		return;
 	}
-	return 0;
+	*last_name = '\0';
+	last_name++;
+	while(isspace(*last_name))
+		last_name++;
+
+	if (*last_name == '\0') {
+		url_strcat(dst, composer);
+		return;
+	}
+	url_strcat(dst, last_name);
+	da_strcat(dst, "%20"); // url encoded space
+	url_strcat(dst, composer); // first name
 }
 
 static	int	append_song(da_str *dst, t_irealpro_song *song)
 {
 	append_song_title(dst, song->title);
 	da_strcat(dst, "=");
-	if (song->composer[0])
-		da_strcat(dst, song->composer);
-	else
-		da_strcat(dst, "Composer Unknown");
+	append_composer(dst, song->composer);
 	da_strcat(dst, "=");
 	const char *style = get_style_str(song->style);
 	if (style != NULL)
-		da_strcat(dst, style);
+		url_strcat(dst, style);
 	else
-		da_strcat(dst, "Medium Swing");
+		da_strcat(dst, "Medium%20Swing");
 	da_strcat(dst, "=");
 	const char *key = get_note_str(song->key);
 	if (key != NULL)
@@ -268,11 +257,7 @@ static	int	append_song(da_str *dst, t_irealpro_song *song)
 	else
 		da_strcat(dst, "C");
 	da_strcat(dst, "=n=");
-	switch (song->zoom) {
-		case ZOOM_NONE: return (append_song_body(dst, song));
-		case ZOOM_OUT: return (append_song_body_zoom_out(dst, song));
-		case ZOOM_IN: return (append_song_body_zoom_in(dst, song));
-	}
+	append_song_body(dst, song);
 	return 0;
 }
 
