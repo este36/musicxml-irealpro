@@ -121,9 +121,9 @@ typedef enum
 
 typedef enum
 {
-	ZOOM_100,
-	ZOOM_50,
-	ZOOM_200
+	ZOOM_NONE,
+	ZOOM_OUT, // divide by 2 the n of bars
+	ZOOM_IN // multiplies by 2 the n of bars
 } ZoomEnum;
 
 typedef struct s_irealpro_song

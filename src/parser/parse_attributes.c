@@ -34,13 +34,13 @@ int parse_time(t_parser_state *parser_state, t_sax_context *context)
 				if (b && bt) {
 					if (bt % 2 != 0)
 						return PARSER_STOP_ERROR;
-					if (parser_state->song->zoom == ZOOM_100
+					if (parser_state->song->zoom == ZOOM_NONE
 						&& is_unvalid_time_signature(b, bt)) {
 						// try to zoom in or out
 						if (!is_unvalid_time_signature(b, bt*2))
-							parser_state->song->zoom = ZOOM_50;
+							parser_state->song->zoom = ZOOM_OUT;
 						else if (!is_unvalid_time_signature(b, bt/2))
-							parser_state->song->zoom = ZOOM_200;
+							parser_state->song->zoom = ZOOM_IN;
 					}
 				} else if (b != bt)
 					return PARSER_STOP_ERROR;
