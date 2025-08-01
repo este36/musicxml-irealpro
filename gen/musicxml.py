@@ -18,6 +18,9 @@ def is_in_parser_c(e_str):
 
 chords = {
 "augmented": "+",
+"majorb13": "+",
+"majorb6": "+",
+"major#5": "+",
 "diminished": "o",
 "diminished-seventh": "o7",
 "dominant": "7",
@@ -78,7 +81,6 @@ chords = {
 "minor-sixth": "-6",
 "minor-sixth9": "-69",
 "minor9": "-add9",
-"minorb6": "-b6",
 "minorb13": "-b6",
 "none": "x",
 "power": "5",

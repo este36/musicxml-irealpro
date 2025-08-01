@@ -52,6 +52,9 @@ const MusicxmlKeywords musicxml = {
 };
 const char* musicxml_chords[] = {
     "+",
+    "+",
+    "+",
+    "+",
     "o",
     "o7",
     "7",
@@ -111,7 +114,6 @@ const char* musicxml_chords[] = {
     "-6",
     "-69",
     "-add9",
-    "-b6",
     "-b6",
     "x",
     "5",
