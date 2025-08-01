@@ -12,6 +12,10 @@ int parse_part(t_parser_state *parser_state, t_sax_context *context)
                 if (sax_parse_xml(parse_measure, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
 				t_measure *m = GET_CURR_MEASURE(parser_state);
+				if (parser_state->song->measures.count > 1) {
+					m->last = m - 1;
+					(m - 1)->next = m;
+				}
 				if (m->time_signature.beats == 0 && m->time_signature.beat_type == 0)
 					m->time_signature = parser_state->tmp_time_signature;
 				else 
@@ -21,6 +25,7 @@ int parse_part(t_parser_state *parser_state, t_sax_context *context)
 					&& parser_state->song->measures.count == 1)
 				{
 					parser_state->song->measures.count = 0;
+					parser_state->song->first_empty_bars += 1;
 				}
             }
         	break;

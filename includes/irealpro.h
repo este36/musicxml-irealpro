@@ -91,8 +91,11 @@ typedef enum
 	ENDING_MAX
 }	EndingEnum;
 
-typedef struct s_measure
+typedef struct s_measure t_measure;
+struct s_measure
 {
+	t_measure			*last;
+	t_measure			*next;
     uint32_t			divisions; // quarter note reference integer
     t_time_signature	time_signature;
     t_chords			chords;
@@ -100,7 +103,7 @@ typedef struct s_measure
 	RehearsalEnum		rehearsal;
 	PlaybackEnum		playback;
 	EndingEnum			ending;
-}	t_measure;
+};
 
 typedef struct s_measures
 {
@@ -136,6 +139,7 @@ typedef struct s_irealpro_song
     uint16_t	repeat_times;
     StyleEnum	style;
 	uint32_t	zoom;
+	uint32_t	first_empty_bars;
 }	t_irealpro_song;
 
 typedef struct s_irealpro_playlist

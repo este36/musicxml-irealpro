@@ -183,16 +183,14 @@ static void	append_chords(da_str *dst, t_measure *m)
 
 static int	append_song_body(da_str *dst, t_irealpro_song *song)
 {
-	size_t				i;
 	t_measure			*m;
 	char				barline_buf[2];
 	t_time_signature	curr_ts = {0};
 
-	i = 0;
 	barline_buf[1] = '\0';
-	while (i < song->measures.count)
+	m = &song->measures.items[0];
+	while (m != NULL)
 	{
-		m = &song->measures.items[i];
 		if (m->barlines[0])
 			barline_buf[0] = m->barlines[0];
 		else
@@ -211,7 +209,7 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 			barline_buf[0] = m->barlines[1];
 			url_strcat(dst, barline_buf);
 		}
-		i++;
+		m = m->next;
 	}
 	return 0;
 }

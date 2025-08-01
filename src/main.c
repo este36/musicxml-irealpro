@@ -53,6 +53,9 @@ int main() {
 	// printf("ZOOM: %d\n", irpSong.zoom);
 	char *url = irp_get_song_html(&irpSong);
 	printf("%s", "<h1>\n\t");
+	printf("Empty bars: %d\n", irpSong.first_empty_bars);
+	printf("%s", "</h1>\n");
+	printf("%s", "<h1>\n\t");
 	printf("%s\n", url);
 	printf("%s", "</h1>");
 	free(url);
