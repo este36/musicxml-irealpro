@@ -200,9 +200,10 @@ int parse_measure(t_parser_state *parser_state, t_sax_context *context)
 				if (sax_parse_xml(parse_direction, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
             } else if (str_ref_eq(&n->target, &musicxml.harmony)) { 
+				if (m->chords.count + 1 > MAX_CHORDS)
+                	return PARSER_STOP_ERROR;
                 m->chords.count++;
-                if (m->chords.count < MAX_CHORDS
-					&& sax_parse_xml(parse_harmony, parser_state, context) != 0)
+                if (sax_parse_xml(parse_harmony, parser_state, context) != 0)
                 	return PARSER_STOP_ERROR;
             } else if (str_ref_eq(&n->target, &musicxml.barline)) {
 				if (sax_parse_xml(parse_barline, parser_state, context) != 0)
@@ -215,7 +216,7 @@ int parse_measure(t_parser_state *parser_state, t_sax_context *context)
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.measure)) {
-				if (m->chords.count > 4)
+				if (m->chords.count > MAX_CHORDS)
 					return PARSER_STOP_ERROR;
 				return PARSER_STOP;
 			}

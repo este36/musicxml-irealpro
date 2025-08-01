@@ -183,9 +183,10 @@ static void	append_chords(da_str *dst, t_measure *m)
 
 static int	append_song_body(da_str *dst, t_irealpro_song *song)
 {
-	size_t		i;
-	t_measure	*m;
-	char		barline_buf[2];
+	size_t				i;
+	t_measure			*m;
+	char				barline_buf[2];
+	t_time_signature	curr_ts = {0};
 
 	i = 0;
 	barline_buf[1] = '\0';
@@ -197,7 +198,11 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 		else
 			barline_buf[0] = '|';
 		url_strcat(dst, barline_buf);
-		append_time_signature(dst, m);
+		if (curr_ts.beats != m->time_signature.beats
+			|| curr_ts.beat_type != m->time_signature.beat_type) {
+			append_time_signature(dst, m);
+			curr_ts = m->time_signature;
+		}
 		append_ending(dst, m->ending);
 		append_rehearsal(dst, m->rehearsal);
 		append_playback(dst, m->playback);
@@ -266,6 +271,7 @@ char	*irp_get_song_html(t_irealpro_song *song)
 	da_str	res;
 
 	if (((song->zoom == ZOOM_OUT) && (song->measures.count % 2 != 0))
+		|| song->measures.count == 0
 		|| da_str_init(&res, 512) != 0) // irealpro urls are long usually
 		return NULL;
 	da_strcat(&res, "<a href=\"irealbook://"); // we use the open url scheme

@@ -52,7 +52,9 @@ int main() {
     }
 	// printf("ZOOM: %d\n", irpSong.zoom);
 	char *url = irp_get_song_html(&irpSong);
+	printf("%s", "<h1>\n\t");
 	printf("%s\n", url);
+	printf("%s", "</h1>");
 	free(url);
     // printf("Song title: %s, composer: %s\n", irpSong.title, irpSong.composer);
     // printf("Number of bars: %zu\n", irpSong.measures.count);

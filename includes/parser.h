@@ -93,9 +93,10 @@ typedef struct s_mxl_chord
 
 typedef struct s_parser_state
 {
-	t_irealpro_song	*song;
-	da_str_ref		part_selected;
-	t_mxl_chord		tmp_chord;
+	t_irealpro_song		*song;
+	da_str_ref			part_selected;
+	t_mxl_chord			tmp_chord;
+	t_time_signature	tmp_time_signature; 
 }	t_parser_state;
 
 t_sax_scanner	sax_scanner_init(const char *buffer, size_t length);

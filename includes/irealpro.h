@@ -8,7 +8,7 @@
 #define MAX_CHORD_QUALITIES		16
 #define MAX_REHEARSAL_LEN		128
 #define MAX_PLAYBACK_LEN		16
-#define MAX_CHORDS 5 
+#define MAX_CHORDS 4
 
 typedef enum
 {

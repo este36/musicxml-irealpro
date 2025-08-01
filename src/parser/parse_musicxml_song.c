@@ -11,6 +11,17 @@ int parse_part(t_parser_state *parser_state, t_sax_context *context)
 				memset(&parser_state->tmp_chord, 0, sizeof(t_mxl_chord));
                 if (sax_parse_xml(parse_measure, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
+				t_measure *m = GET_CURR_MEASURE(parser_state);
+				if (m->time_signature.beats == 0 && m->time_signature.beat_type == 0)
+					m->time_signature = parser_state->tmp_time_signature;
+				else 
+					parser_state->tmp_time_signature = m->time_signature;
+				if (m->chords.count == 1
+					&& m->chords.items[0].root == NOTE_UNVALID
+					&& parser_state->song->measures.count == 1)
+				{
+					parser_state->song->measures.count = 0;
+				}
             }
         	break;
         }
