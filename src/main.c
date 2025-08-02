@@ -1,6 +1,8 @@
+#define _POSIX_C_SOURCE 199309L
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <time.h>
 
 #include "parser.h"
 
@@ -31,14 +33,16 @@ char* open_file(long* length, const char* path)
 }
 
 int main() {
+	struct timespec start, end;
+	clock_gettime(CLOCK_MONOTONIC, &start);
     long file_len = 0;
     // char* file = open_file(&file_len, "musicxml/chords.musicxml");
     // char* file = open_file(&file_len, "musicxml/complicité.musicxml");
     // char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
     // char* file = open_file(&file_len, "musicxml/Grace_and_Mercy.musicxml");
-    // char* file = open_file(&file_len, "musicxml/Misty.musicxml");
+    char* file = open_file(&file_len, "musicxml/Misty.musicxml");
     // char* file = open_file(&file_len, "musicxml/test.musicxml");
-    char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
+    // char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
     // char* file = open_file(&file_len, "musicxml/sauts.musicxml");
     // char* file = open_file(&file_len, "musicxml/timesignature.musicxml");
     // char* file = open_file(&file_len, "musicxml/Unrealised_Love.musicxml");
@@ -50,10 +54,15 @@ int main() {
         free(file);
         return 1;
     }
+	clock_gettime(CLOCK_MONOTONIC, &end);
+
+	long sec = end.tv_sec - start.tv_sec;
+	long nsec = end.tv_nsec - start.tv_nsec;
+	double elapsed = sec + nsec / 1e9;
 	// printf("ZOOM: %d\n", irpSong.zoom);
 	char *url = irp_get_song_html(&irpSong);
-	printf("%s", "<h1>\n\t");
-	printf("Empty bars: %d\n", irpSong.first_empty_bars);
+	printf("%s", "<h1>\n");
+	printf("\tElapsed: %.9f sec\n", elapsed);
 	printf("%s", "</h1>\n");
 	printf("%s", "<h1>\n\t");
 	printf("%s\n", url);

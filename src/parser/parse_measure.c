@@ -126,10 +126,7 @@ int parse_barline(t_parser_state *parser_state, t_sax_context *context)
 			if (str_ref_eq(&n->target, &musicxml.repeat)) {
 				if (sax_get_attrv(context, &val, "direction") == 0) {
 					if (strncmp(val.buf, "backward", val.len) == 0) {
-						if (m->chords.count >= 1)
-							m->barlines[1] = '}';
-						else if (parser_state->song->measures.count > 1)
-							(m - 1)->barlines[1] = '}';
+						m->barlines[1] = '}';
 					} else if (strncmp(val.buf, "forward", val.len) == 0) {
 						m->barlines[0] = '{';
 					}
@@ -218,6 +215,22 @@ int parse_measure(t_parser_state *parser_state, t_sax_context *context)
             if (str_ref_eq(&n->target, &musicxml.measure)) {
 				if (m->chords.count > MAX_CHORDS)
 					return PARSER_STOP_ERROR;
+				if (parser_state->song->measures.count > 1) {
+					m->last = m - 1;
+					(m - 1)->next = m;
+				} else if (m->chords.items[0].root == NOTE_UNVALID
+                           && parser_state->song->measures.count == 1) {
+					parser_state->song->measures.count = 0;
+					parser_state->song->first_empty_bars += 1;
+				}
+				if (m->time_signature.beats == 0 && m->time_signature.beat_type == 0)
+					m->time_signature = parser_state->tmp_time_signature;
+				else 
+					parser_state->tmp_time_signature = m->time_signature;
+				if (m->divisions == 0)
+					m->divisions = parser_state->tmp_divisions;
+				else
+					parser_state->tmp_divisions = m->divisions;
 				return PARSER_STOP;
 			}
         }

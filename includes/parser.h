@@ -97,6 +97,7 @@ typedef struct s_parser_state
 	da_str_ref			part_selected;
 	t_mxl_chord			tmp_chord;
 	t_time_signature	tmp_time_signature; 
+	uint32_t			tmp_divisions;
 }	t_parser_state;
 
 t_sax_scanner	sax_scanner_init(const char *buffer, size_t length);
