@@ -34,11 +34,11 @@ int main() {
     long file_len = 0;
     // char* file = open_file(&file_len, "musicxml/chords.musicxml");
     // char* file = open_file(&file_len, "musicxml/complicité.musicxml");
-    char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
+    // char* file = open_file(&file_len, "musicxml/DaysOfWineRoses.musicxml");
     // char* file = open_file(&file_len, "musicxml/Grace_and_Mercy.musicxml");
     // char* file = open_file(&file_len, "musicxml/Misty.musicxml");
     // char* file = open_file(&file_len, "musicxml/test.musicxml");
-    // char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
+    char* file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
     // char* file = open_file(&file_len, "musicxml/sauts.musicxml");
     // char* file = open_file(&file_len, "musicxml/timesignature.musicxml");
     // char* file = open_file(&file_len, "musicxml/Unrealised_Love.musicxml");
@@ -57,7 +57,7 @@ int main() {
 	printf("%s", "</h1>\n");
 	printf("%s", "<h1>\n\t");
 	printf("%s\n", url);
-	printf("%s", "</h1>");
+	printf("%s", "</h1>\n");
 	free(url);
     // printf("Song title: %s, composer: %s\n", irpSong.title, irpSong.composer);
     // printf("Number of bars: %zu\n", irpSong.measures.count);

@@ -42,9 +42,10 @@ int parse_harmony(t_parser_state *parser_state, t_sax_context *context)
         case XML_TAG_OPEN:
         {
             // <degree> element is checked first because there can be a lot of them inside <harmony> element.
-            if (c->degrees_count < TMP_CHORD_MAX_DEGREES
-                        && str_ref_eq(&n->target, &musicxml.degree)) {
+            if (str_ref_eq(&n->target, &musicxml.degree)) {
                 c->degrees_count++;
+				if (c->degrees_count > TMP_CHORD_MAX_DEGREES)
+					return PARSER_STOP_ERROR;
                 if (sax_parse_xml(parse_degree, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
 			} else if (str_ref_eq(&n->target, &musicxml.kind)) {
@@ -62,8 +63,7 @@ int parse_harmony(t_parser_state *parser_state, t_sax_context *context)
 					c->root += 1;
                 else if (strncmp(alter_str, "-1", 2) == 0)
 					c->root -= 1;
-            }
-            else if (str_ref_eq(&n->target, &musicxml.bass_alter)) {
+            } else if (str_ref_eq(&n->target, &musicxml.bass_alter)) {
                 // same logic as root-alter
                 char alter_str[4] = {0};
                 if (sax_copy_content(context, alter_str, 4) != 0)
@@ -113,6 +113,7 @@ int parse_harmony(t_parser_state *parser_state, t_sax_context *context)
                 curr->root = c->root;
                 curr->bass = c->bass;
 				strcpy(curr->quality, musicxml_chords[kw->id]);
+				memset(c, 0, sizeof(*c));
                 return PARSER_STOP;
             }
 			break;
