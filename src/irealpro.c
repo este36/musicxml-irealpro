@@ -143,8 +143,10 @@ static void append_chord(da_str *dst, t_chord *c)
 		return;
 	}
 	const char *root_note = get_note_str(c->root);
-	if (root_note == NULL)
+	if (root_note == NULL) {
+		da_strcat(dst, "x");
 		return;
+	}
 	const char *bass_note = get_note_str(c->bass);
 	url_strcat(dst, root_note);
 	url_strcat(dst, c->quality);
@@ -154,30 +156,35 @@ static void append_chord(da_str *dst, t_chord *c)
 	}
 }
 
-static void	append_chords(da_str *dst, t_measure *m)
+static int	append_chords(da_str *dst, t_measure *m, int is_s)
 {
+	if (is_s)
+		url_strcat(dst, "l");
 	switch (m->chords.count) {
 	case 1:
 		append_chord(dst, &m->chords.items[0]);
 		url_strcat(dst, "   "); // 3 spaces
-		break;
+		return 0;
 	case 2:
-		if (m->chords.items[0].duration == m->chords.items[1].duration) {
-			append_chord(dst, &m->chords.items[0]);
-			url_strcat(dst, " ");
+		append_chord(dst, &m->chords.items[0]);
+		url_strcat(dst, " ");
+		if (m->chords.items[1].root && m->chords.items[1].quality[0] != 'x')
 			append_chord(dst, &m->chords.items[1]);
+		else
 			url_strcat(dst, " ");
-		} else {
-			url_strcat(dst, "A   ");
-		}
-		break;
+		url_strcat(dst, " ");
+		return 0;
 	case 3:
-		url_strcat(dst, "B   ");
-		break;
+		append_chord(dst, &m->chords.items[0]);
+		url_strcat(dst, " s");
+		append_chord(dst, &m->chords.items[1]);
+		url_strcat(dst, ",");
+		append_chord(dst, &m->chords.items[2]);
+		return 1;
 	case 4:
 		url_strcat(dst, "C   ");
-		break;
-	default: break;
+		return 1;
+	default: return 0;;
 	}
 }
 
@@ -186,6 +193,7 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 	t_measure			*m;
 	char				barline_buf[2];
 	t_time_signature	curr_ts = {0};
+	int					is_s = 0;
 
 	barline_buf[1] = '\0';
 	m = &song->measures.items[0];
@@ -204,7 +212,7 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 		append_ending(dst, m->ending);
 		append_rehearsal(dst, m->rehearsal);
 		append_playback(dst, m->playback);
-		append_chords(dst, m);
+		is_s = append_chords(dst, m, is_s);
 		if (m->barlines[1]) {
 			barline_buf[0] = m->barlines[1];
 			url_strcat(dst, barline_buf);
