@@ -136,15 +136,17 @@ static void append_ending(da_str *dst, EndingEnum e)
 		da_strcat(dst, endings[e]);
 }
 
-static void append_chord(da_str *dst, t_chord *c)
+static void append_chord(da_str *dst, t_chord *c, bool should_repeat)
 {
 	if (c->quality[0] == 'x') { // this indicate the 'repeat last chord' symbol
-		da_strcat(dst, "x");
+		if (should_repeat) da_strcat(dst, "x");
+		else da_strcat(dst, " ");
 		return;
 	}
 	const char *root_note = get_note_str(c->root);
 	if (root_note == NULL) {
-		da_strcat(dst, "x");
+		if (should_repeat) da_strcat(dst, "x");
+		else url_strcat(dst, " ");
 		return;
 	}
 	const char *bass_note = get_note_str(c->bass);
@@ -156,35 +158,102 @@ static void append_chord(da_str *dst, t_chord *c)
 	}
 }
 
+static int duration_is_equiv(int d1, int d2, t_measure *m)
+{
+	double middle = (m->divisions * m->time_signature.beats) / 2;
+	double middle_range_l = middle * 0.75;
+	double middle_range_r = middle * 1.25;
+
+	if (d1 < middle_range_l
+		|| d1 > middle_range_r
+		|| d2 < middle_range_l
+		|| d2 > middle_range_r)
+	{
+		return 0;
+	}
+	return 1;
+}
+
+// return 1 if it ends with a small chord, so if the last bar was small we can put l
 static int	append_chords(da_str *dst, t_measure *m, int is_s)
 {
-	if (is_s)
-		url_strcat(dst, "l");
 	switch (m->chords.count) {
 	case 1:
-		append_chord(dst, &m->chords.items[0]);
+		if (is_s) url_strcat(dst, "l");
+		append_chord(dst, &m->chords.items[0], true);
 		url_strcat(dst, "   "); // 3 spaces
 		return 0;
 	case 2:
-		append_chord(dst, &m->chords.items[0]);
-		url_strcat(dst, " ");
-		if (m->chords.items[1].root && m->chords.items[1].quality[0] != 'x')
-			append_chord(dst, &m->chords.items[1]);
-		else
+		// three possible setup: A_B_ or A_AB or ABB_
+		if (duration_is_equiv(m->chords.items[0].duration, m->chords.items[1].duration, m)) {
+			if (is_s) url_strcat(dst, "l");
+			append_chord(dst, &m->chords.items[0], true);
 			url_strcat(dst, " ");
-		url_strcat(dst, " ");
+			append_chord(dst, &m->chords.items[1], false);
+			url_strcat(dst, " ");
+		} else if (m->chords.items[0].duration > m->chords.items[1].duration) {
+			if (is_s) url_strcat(dst, "l");
+			append_chord(dst, &m->chords.items[0], true);
+			url_strcat(dst, " s");
+			append_chord(dst, &m->chords.items[0], false);
+			url_strcat(dst, ",");
+			append_chord(dst, &m->chords.items[1], false);
+			return 1;
+		} else {
+			if (!is_s) url_strcat(dst, "s");
+			append_chord(dst, &m->chords.items[0], true);
+			url_strcat(dst, ",");
+			append_chord(dst, &m->chords.items[1], false);
+			url_strcat(dst, ",l");
+			append_chord(dst, &m->chords.items[1], false);
+			url_strcat(dst, " ");
+		}
 		return 0;
 	case 3:
-		append_chord(dst, &m->chords.items[0]);
-		url_strcat(dst, " s");
-		append_chord(dst, &m->chords.items[1]);
-		url_strcat(dst, ",");
-		append_chord(dst, &m->chords.items[2]);
-		return 1;
+		// three possible setup: A_BC or ABC_ or AB_C
+		if (duration_is_equiv(
+					m->chords.items[0].duration,
+					m->chords.items[1].duration + m->chords.items[2].duration,
+					m)) {
+			if (is_s) url_strcat(dst, "l");
+			append_chord(dst, &m->chords.items[0], true);
+			url_strcat(dst, " s");
+			append_chord(dst, &m->chords.items[1], false);
+			url_strcat(dst, ",");
+			append_chord(dst, &m->chords.items[2], false);
+			return 1;
+		} else if (duration_is_equiv(
+					m->chords.items[0].duration + m->chords.items[1].duration,
+					m->chords.items[2].duration,
+					m)) {
+			if (!is_s) url_strcat(dst, "s");
+			append_chord(dst, &m->chords.items[0], true);
+			url_strcat(dst, ",");
+			append_chord(dst, &m->chords.items[1], false);
+			url_strcat(dst, ",l");
+			append_chord(dst, &m->chords.items[2], false);
+			url_strcat(dst, " ");
+			return 0;
+		} else {
+			if (!is_s) url_strcat(dst, "s");
+			append_chord(dst, &m->chords.items[0], true);
+			url_strcat(dst, ",l");
+			append_chord(dst, &m->chords.items[1], false);
+			url_strcat(dst, " s");
+			append_chord(dst, &m->chords.items[2], false);
+			return 1;
+		}
 	case 4:
-		url_strcat(dst, "C   ");
+		if (!is_s) url_strcat(dst, "s");
+		append_chord(dst, &m->chords.items[0], true);
+		url_strcat(dst, ",");
+		append_chord(dst, &m->chords.items[1], false);
+		url_strcat(dst, ",");
+		append_chord(dst, &m->chords.items[2], false);
+		url_strcat(dst, ",");
+		append_chord(dst, &m->chords.items[3], false);
 		return 1;
-	default: return 0;;
+	default: return 0;
 	}
 }
 
