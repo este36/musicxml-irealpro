@@ -155,7 +155,13 @@ typedef struct s_irealpro_playlist
 
 int			is_unvalid_time_signature(uint32_t b, uint32_t bt);
 const char	*get_note_str(NoteEnum note);
+const char	*get_style_str(StyleEnum style);
 void		irp_song_free(t_irealpro_song *song);
+
 char		*irp_get_song_html(t_irealpro_song *song);
+void		url_strcat(da_str *dst, const char *src);
+char		*irp_get_playlist_html(char *playlist_name,
+									t_irealpro_song *songs,
+									size_t songs_len);
 
 #endif // IREALPRO_H

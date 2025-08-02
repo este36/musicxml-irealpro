@@ -15,6 +15,7 @@ SRC = main.c \
 	parser/parse_attributes.c \
 	parser/parse_musicxml_song.c \
 	irealpro.c \
+	irp_to_html.c \
 	sax.c \
 	da.c \
 
