@@ -140,6 +140,7 @@ typedef struct s_irealpro_song
     StyleEnum	style;
 	uint32_t	zoom;
 	uint32_t	first_empty_bars;
+	t_measure	*first_measure;
 }	t_irealpro_song;
 
 typedef struct s_irealpro_playlist
@@ -157,6 +158,7 @@ int			is_unvalid_time_signature(uint32_t b, uint32_t bt);
 const char	*get_note_str(NoteEnum note);
 const char	*get_style_str(StyleEnum style);
 void		irp_song_free(t_irealpro_song *song);
+int			irp_song_apply_zoom(t_irealpro_song* song);
 
 char		*irp_get_song_html(t_irealpro_song *song);
 void		url_strcat(da_str *dst, const char *src);

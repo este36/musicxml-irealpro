@@ -101,7 +101,7 @@ static void append_chord(da_str *dst, t_chord *c, bool should_repeat)
 {
 	if (c->quality[0] == 'x') { // this indicate the 'repeat last chord' symbol
 		if (should_repeat) da_strcat(dst, "x");
-		else da_strcat(dst, " ");
+		else url_strcat(dst, " ");
 		return;
 	}
 	const char *root_note = get_note_str(c->root);
@@ -276,7 +276,7 @@ static void append_composer(da_str *dst, char *composer)
 		return;
 	}
 	url_strcat(dst, last_name);
-	da_strcat(dst, "%20"); // url encoded space
+	url_strcat(dst, " "); // url encoded space
 	url_strcat(dst, composer); // first name
 }
 
@@ -290,11 +290,11 @@ static	int	append_song(da_str *dst, t_irealpro_song *song)
 	if (style != NULL)
 		url_strcat(dst, style);
 	else
-		da_strcat(dst, "Medium%20Swing");
+		url_strcat(dst, "Medium Swing");
 	da_strcat(dst, "=");
 	const char *key = get_note_str(song->key);
 	if (key != NULL)
-		da_strcat(dst, key);
+		url_strcat(dst, key);
 	else
 		da_strcat(dst, "C");
 	da_strcat(dst, "=n=");
@@ -306,10 +306,7 @@ char	*irp_get_song_html(t_irealpro_song *song)
 {
 	da_str	res;
 
-	if (((song->zoom == ZOOM_OUT) && (song->measures.count % 2 != 0))
-		|| song->measures.count == 0
-		|| da_str_init(&res, 512) != 0) // irealpro urls are long usually
-		return NULL;
+	da_str_init(&res, 512);
 	da_strcat(&res, "<a href=\"irealbook://"); // we use the open url scheme
 	if (append_song(&res, song) != 0) {
 		free(res.buf);
@@ -327,11 +324,6 @@ char	*irp_get_playlist_html(char *playlist_name,
 {
 	da_str	res;
 
-	for (size_t i = 0; i < songs_len; i++) {
-		if (((songs[i].zoom == ZOOM_OUT) && (songs[i].measures.count % 2 != 0))
-			|| songs[i].measures.count == 0)
-				return NULL;
-	}
 	da_str_init(&res, 1024);
 	da_strcat(&res, "<a href=\"irealbook://"); // we use the open url scheme
 	for (size_t i = 0; i < songs_len; i++) {
@@ -340,8 +332,10 @@ char	*irp_get_playlist_html(char *playlist_name,
 			return NULL;
 		}
 		if (i != songs_len - 1)
-			url_strcat(&res, "=");
+			da_strcat(&res, "=");
 	}
+	// da_strcat(&res, "=");
+	// da_strcat(&res, playlist_name);
 	da_strcat(&res, "\">");
 	da_strcat(&res, playlist_name);
 	da_strcat(&res, "</a>");

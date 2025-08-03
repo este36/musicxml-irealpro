@@ -48,19 +48,37 @@ int main() {
     // char* file = open_file(&file_len, "musicxml/Unrealised_Love.musicxml");
 
     if (!file) return 1;
-    t_irealpro_song irpSong = {0};
-    if (parse_musicxml_song(&irpSong, STR_REF("P1"), file, file_len) != 0) {
+    t_irealpro_song song = {0};
+    if (parse_musicxml_song(&song, STR_REF("P1"), file, file_len) != 0) {
 		printf("PARSER_STOP_ERROR\n");
         free(file);
         return 1;
     }
-	clock_gettime(CLOCK_MONOTONIC, &end);
+    // t_irealpro_song songs[2] = {0};
+    // if (parse_musicxml_song(songs, STR_REF("P1"), file, file_len) != 0) {
+	// 	printf("PARSER_STOP_ERROR\n");
+    //     free(file);
+    //     return 1;
+    // }
+    // free(file);
+    // file = open_file(&file_len, "musicxml/Out_of_Nothing.musicxml");
+    // if (parse_musicxml_song(songs + 1, STR_REF("P1"), file, file_len) != 0) {
+	// 	printf("PARSER_STOP_ERROR\n");
+    //     free(file);
+    //     return 1;
+    // }
 
+	clock_gettime(CLOCK_MONOTONIC, &end);
 	long sec = end.tv_sec - start.tv_sec;
 	long nsec = end.tv_nsec - start.tv_nsec;
 	double elapsed = sec + nsec / 1e9;
-	// printf("ZOOM: %d\n", irpSong.zoom);
-	char *url = irp_get_song_html(&irpSong);
+
+	char *url = irp_get_song_html(&song);
+	if (url == NULL) {
+		printf("%s", "HTML RENDER FAIL");
+		return 4;
+	}
+	// char *url = irp_get_playlist_html("Heyyy", songs, 2);
 	printf("%s", "<h1>\n");
 	printf("\tElapsed: %.9f sec\n", elapsed);
 	printf("%s", "</h1>\n");
@@ -93,7 +111,9 @@ int main() {
     //     }
     // }
 
-	irp_song_free(&irpSong);
+	irp_song_free(&song);
+	// irp_song_free(songs);
+	// irp_song_free(songs + 1);
     free(file);
     return 0;
 }

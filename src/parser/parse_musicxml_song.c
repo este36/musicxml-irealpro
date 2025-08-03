@@ -110,7 +110,6 @@ int parse_song_partwise(t_parser_state *parser_state, t_sax_context *context)
             return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
         }
     }
-
     return PARSER_CONTINUE;
 }
 
@@ -128,5 +127,11 @@ int parse_musicxml_song(t_irealpro_song* irp_song,
     t_sax_scanner scanner = sax_scanner_init(musicxml, musicxml_length);
     t_sax_context context = sax_context_init(&scanner);
 
-    return sax_parse_xml(parse_song_partwise, &parser_state, &context);
+	if (sax_parse_xml(parse_song_partwise, &parser_state, &context) != 0)
+		return XML_FILE_CORRUPT;
+	irp_song->first_measure = &irp_song->measures.items[0];
+	// irp_song->zoom = ZOOM_OUT;
+	if (irp_song_apply_zoom(irp_song) != 0)
+		return -1;
+    return 0;
 }
