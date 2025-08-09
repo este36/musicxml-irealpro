@@ -159,6 +159,7 @@ const char	*get_note_str(NoteEnum note);
 const char	*get_style_str(StyleEnum style);
 void		irp_song_free(t_irealpro_song *song);
 int			irp_song_apply_zoom(t_irealpro_song* song);
+int			duration_is_equiv(double d1, double d2);
 
 char		*irp_get_song_html(t_irealpro_song *song);
 void		url_strcat(da_str *dst, const char *src);

@@ -119,9 +119,9 @@ static void append_chord(da_str *dst, t_chord *c, bool should_repeat)
 	}
 }
 
-static int duration_is_equiv(int d1, int d2, t_measure *m)
+int duration_is_equiv(double d1, double d2)
 {
-	double middle = (m->divisions * m->time_signature.beats) / 2;
+	double middle = (d1 + d2) / 2;
 	double middle_range_l = middle * 0.75;
 	double middle_range_r = middle * 1.25;
 
@@ -146,7 +146,7 @@ static int	append_chords(da_str *dst, t_measure *m, int is_s)
 		return 0;
 	case 2:
 		// three possible setup: A_B_ or A_AB or ABB_
-		if (duration_is_equiv(m->chords.items[0].duration, m->chords.items[1].duration, m)) {
+		if (duration_is_equiv(m->chords.items[0].duration, m->chords.items[1].duration)) {
 			if (is_s) url_strcat(dst, "l");
 			append_chord(dst, &m->chords.items[0], true);
 			url_strcat(dst, " ");
@@ -174,8 +174,7 @@ static int	append_chords(da_str *dst, t_measure *m, int is_s)
 		// three possible setup: A_BC or ABC_ or AB_C
 		if (duration_is_equiv(
 					m->chords.items[0].duration,
-					m->chords.items[1].duration + m->chords.items[2].duration,
-					m)) {
+					m->chords.items[1].duration + m->chords.items[2].duration)) {
 			if (is_s) url_strcat(dst, "l");
 			append_chord(dst, &m->chords.items[0], true);
 			url_strcat(dst, " s");
@@ -185,8 +184,7 @@ static int	append_chords(da_str *dst, t_measure *m, int is_s)
 			return 1;
 		} else if (duration_is_equiv(
 					m->chords.items[0].duration + m->chords.items[1].duration,
-					m->chords.items[2].duration,
-					m)) {
+					m->chords.items[2].duration)) {
 			if (!is_s) url_strcat(dst, "s");
 			append_chord(dst, &m->chords.items[0], true);
 			url_strcat(dst, ",");
