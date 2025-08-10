@@ -1,4 +1,0 @@
--- create intermediary data structure for irealpro song, and particulary for measures
--- import musicxml from compressed .mxl files
--- render the irealpro song data in encoded url
--- create wasm binding
