@@ -163,6 +163,7 @@ int			duration_is_equiv(double d1, double d2);
 
 char		*irp_get_song_html(t_irealpro_song *song);
 void		url_strcat(da_str *dst, const char *src);
+void		url_scramble(char *body, size_t len);
 char		*irp_get_playlist_html(char *playlist_name,
 									t_irealpro_song *songs,
 									size_t songs_len);

@@ -1,29 +1,5 @@
 #include "irealpro.h"
 
-void url_strcat(da_str *dst, const char *src)
-{
-	static const char hex_base[17] = "0123456789ABCDEF";
-	char	buf[4];
-	int		i;
-
-	i = 0;
-	buf[3] = '\0';
-	while(src[i])
-	{
-		if (isalnum(src[i]) || src[i] == '-' || src[i] == '_'
-			|| src[i] == '.' || src[i] == '~') {
-			buf[0] = src[i];
-			buf[1] = '\0';
-		} else {
-			buf[0] = '%';
-			buf[1] = hex_base[src[i] >> 4];
-			buf[2] = hex_base[src[i] & 0x0F];
-		}
-		da_strcat(dst, buf);
-		i++;
-	}
-}
-
 static void	append_song_title(da_str *dst, char *title)
 {
 	char title_to_copy[MAX_CREDENTIALS];
@@ -76,7 +52,7 @@ static void append_playback(da_str *dst, PlaybackEnum p)
 		"<D.S. al Fine>"
 	};
 	if (p > 0 && p < PLAYBACK_MAX)
-		url_strcat(dst, playbacks[p]);
+		da_strcat(dst, playbacks[p]);
 }
 
 static void append_rehearsal(da_str *dst, RehearsalEnum r)
@@ -85,7 +61,7 @@ static void append_rehearsal(da_str *dst, RehearsalEnum r)
 		NULL, "*i", "*V", "*A", "*B", "*C", "*D"
 	};
 	if (r > 0 && r < REHEARSAL_MAX)
-		url_strcat(dst, rehearsals[r]);
+		da_strcat(dst, rehearsals[r]);
 }
 
 static void append_ending(da_str *dst, EndingEnum e)
@@ -101,21 +77,21 @@ static void append_chord(da_str *dst, t_chord *c, bool should_repeat)
 {
 	if (c->quality[0] == 'x') { // this indicate the 'repeat last chord' symbol
 		if (should_repeat) da_strcat(dst, "x");
-		else url_strcat(dst, " ");
+		else da_strcat(dst, " ");
 		return;
 	}
 	const char *root_note = get_note_str(c->root);
 	if (root_note == NULL) {
 		if (should_repeat) da_strcat(dst, "x");
-		else url_strcat(dst, " ");
+		else da_strcat(dst, " ");
 		return;
 	}
 	const char *bass_note = get_note_str(c->bass);
-	url_strcat(dst, root_note);
-	url_strcat(dst, c->quality);
+	da_strcat(dst, root_note);
+	da_strcat(dst, c->quality);
 	if (bass_note != NULL) {
-		url_strcat(dst, "/");
-		url_strcat(dst, bass_note);
+		da_strcat(dst, "/");
+		da_strcat(dst, bass_note);
 	}
 }
 
@@ -140,34 +116,34 @@ static int	append_chords(da_str *dst, t_measure *m, int is_s)
 {
 	switch (m->chords.count) {
 	case 1:
-		if (is_s) url_strcat(dst, "l");
+		if (is_s) da_strcat(dst, "l");
 		append_chord(dst, &m->chords.items[0], true);
-		url_strcat(dst, "   "); // 3 spaces
+		da_strcat(dst, ",XyQ"); // 3 spaces
 		return 0;
 	case 2:
 		// three possible setup: A_B_ or A_AB or ABB_
 		if (duration_is_equiv(m->chords.items[0].duration, m->chords.items[1].duration)) {
-			if (is_s) url_strcat(dst, "l");
+			if (is_s) da_strcat(dst, "l");
 			append_chord(dst, &m->chords.items[0], true);
-			url_strcat(dst, " ");
+			da_strcat(dst, " ");
 			append_chord(dst, &m->chords.items[1], false);
-			url_strcat(dst, " ");
+			da_strcat(dst, " ");
 		} else if (m->chords.items[0].duration > m->chords.items[1].duration) {
-			if (is_s) url_strcat(dst, "l");
+			if (is_s) da_strcat(dst, "l");
 			append_chord(dst, &m->chords.items[0], true);
-			url_strcat(dst, " s");
+			da_strcat(dst, " s");
 			append_chord(dst, &m->chords.items[0], false);
-			url_strcat(dst, ",");
+			da_strcat(dst, ",");
 			append_chord(dst, &m->chords.items[1], false);
 			return 1;
 		} else {
-			if (!is_s) url_strcat(dst, "s");
+			if (!is_s) da_strcat(dst, "s");
 			append_chord(dst, &m->chords.items[0], true);
-			url_strcat(dst, ",");
+			da_strcat(dst, ",");
 			append_chord(dst, &m->chords.items[1], false);
-			url_strcat(dst, ",l");
+			da_strcat(dst, ",l");
 			append_chord(dst, &m->chords.items[1], false);
-			url_strcat(dst, " ");
+			da_strcat(dst, " ");
 		}
 		return 0;
 	case 3:
@@ -175,41 +151,41 @@ static int	append_chords(da_str *dst, t_measure *m, int is_s)
 		if (duration_is_equiv(
 					m->chords.items[0].duration,
 					m->chords.items[1].duration + m->chords.items[2].duration)) {
-			if (is_s) url_strcat(dst, "l");
+			if (is_s) da_strcat(dst, "l");
 			append_chord(dst, &m->chords.items[0], true);
-			url_strcat(dst, " s");
+			da_strcat(dst, " s");
 			append_chord(dst, &m->chords.items[1], false);
-			url_strcat(dst, ",");
+			da_strcat(dst, ",");
 			append_chord(dst, &m->chords.items[2], false);
 			return 1;
 		} else if (duration_is_equiv(
 					m->chords.items[0].duration + m->chords.items[1].duration,
 					m->chords.items[2].duration)) {
-			if (!is_s) url_strcat(dst, "s");
+			if (!is_s) da_strcat(dst, "s");
 			append_chord(dst, &m->chords.items[0], true);
-			url_strcat(dst, ",");
+			da_strcat(dst, ",");
 			append_chord(dst, &m->chords.items[1], false);
-			url_strcat(dst, ",l");
+			da_strcat(dst, ",l");
 			append_chord(dst, &m->chords.items[2], false);
-			url_strcat(dst, " ");
+			da_strcat(dst, " ");
 			return 0;
 		} else {
-			if (!is_s) url_strcat(dst, "s");
+			if (!is_s) da_strcat(dst, "s");
 			append_chord(dst, &m->chords.items[0], true);
-			url_strcat(dst, ",l");
+			da_strcat(dst, ",l");
 			append_chord(dst, &m->chords.items[1], false);
-			url_strcat(dst, " s");
+			da_strcat(dst, " s");
 			append_chord(dst, &m->chords.items[2], false);
 			return 1;
 		}
 	case 4:
-		if (!is_s) url_strcat(dst, "s");
+		if (!is_s) da_strcat(dst, "s");
 		append_chord(dst, &m->chords.items[0], true);
-		url_strcat(dst, ",");
+		da_strcat(dst, ",");
 		append_chord(dst, &m->chords.items[1], false);
-		url_strcat(dst, ",");
+		da_strcat(dst, ",");
 		append_chord(dst, &m->chords.items[2], false);
-		url_strcat(dst, ",");
+		da_strcat(dst, ",");
 		append_chord(dst, &m->chords.items[3], false);
 		return 1;
 	default: return 0;
@@ -231,7 +207,7 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 			barline_buf[0] = m->barlines[0];
 		else
 			barline_buf[0] = '|';
-		url_strcat(dst, barline_buf);
+		da_strcat(dst, barline_buf);
 		if (curr_ts.beats != m->time_signature.beats
 			|| curr_ts.beat_type != m->time_signature.beat_type) {
 			append_time_signature(dst, m);
@@ -243,7 +219,7 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 		is_s = append_chords(dst, m, is_s);
 		if (m->barlines[1]) {
 			barline_buf[0] = m->barlines[1];
-			url_strcat(dst, barline_buf);
+			da_strcat(dst, barline_buf);
 		}
 		m = m->next;
 	}
@@ -280,23 +256,31 @@ static void append_composer(da_str *dst, char *composer)
 
 static	int	append_song(da_str *dst, t_irealpro_song *song)
 {
+	da_str raw_body;
+
+	da_str_init(&raw_body, 256);
 	append_song_title(dst, song->title);
 	da_strcat(dst, "=");
 	append_composer(dst, song->composer);
-	da_strcat(dst, "=");
+	da_strcat(dst, "==");
 	const char *style = get_style_str(song->style);
 	if (style != NULL)
 		url_strcat(dst, style);
 	else
-		url_strcat(dst, "Medium Swing");
+		url_strcat(dst, "Even 8ths");
 	da_strcat(dst, "=");
 	const char *key = get_note_str(song->key);
 	if (key != NULL)
 		url_strcat(dst, key);
 	else
 		da_strcat(dst, "C");
-	da_strcat(dst, "=n=");
-	append_song_body(dst, song);
+	da_strcat(dst, "==1r34LbKcu7");
+	append_song_body(&raw_body, song);
+	url_scramble(raw_body.buf, raw_body.len);
+	url_strcat(dst, raw_body.buf);
+	url_strcat(dst, " ");
+	da_strcat(dst, "==0=0");
+	free(raw_body.buf);
 	return 0;
 }
 
@@ -305,7 +289,7 @@ char	*irp_get_song_html(t_irealpro_song *song)
 	da_str	res;
 
 	da_str_init(&res, 512);
-	da_strcat(&res, "<a href=\"irealbook://"); // we use the open url scheme
+	da_strcat(&res, "<a href=\"irealb://"); // we use the open url scheme
 	if (append_song(&res, song) != 0) {
 		free(res.buf);
 		return NULL;
@@ -323,17 +307,17 @@ char	*irp_get_playlist_html(char *playlist_name,
 	da_str	res;
 
 	da_str_init(&res, 1024);
-	da_strcat(&res, "<a href=\"irealbook://"); // we use the open url scheme
+	da_strcat(&res, "<a href=\"irealb://"); // we use the open url scheme
 	for (size_t i = 0; i < songs_len; i++) {
 		if (append_song(&res, &songs[i]) != 0) {
 			free(res.buf);
 			return NULL;
 		}
-		if (i != songs_len - 1)
-			da_strcat(&res, "=");
+		// if (i != songs_len - 1)
+			da_strcat(&res, "===");
 	}
-	// da_strcat(&res, "=");
-	// da_strcat(&res, playlist_name);
+	// da_strcat(&res, "===");
+	da_strcat(&res, playlist_name);
 	da_strcat(&res, "\">");
 	da_strcat(&res, playlist_name);
 	da_strcat(&res, "</a>");
