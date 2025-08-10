@@ -1,4 +1,5 @@
-NAME = test
+LIB_NAME = mxl_to_irealpro
+NAME = lib$(LIB_NAME).so
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -std=c11
@@ -8,13 +9,13 @@ INCLUDES_DIR = ./includes
 OBJ_DIR = obj
 SRC_DIR = src
 
-SRC = main.c \
-	musicxml.c \
+SRC = musicxml.c \
 	parser/parse_measure.c \
 	parser/parse_harmony.c \
 	parser/parse_attributes.c \
 	parser/parse_musicxml_song.c \
 	irealpro.c \
+	url_encoder.c \
 	irp_to_html.c \
 	sax.c \
 	da.c \
@@ -22,16 +23,22 @@ SRC = main.c \
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
-all: CFLAGS += -g
+all: CFLAGS += -fPIC
 #all: CFLAGS += -O3
 all: $(NAME)
+
+test:
+	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) test.c -L. -l$(LIB_NAME) -Wl,-rpath=. -o test
+
+wasm:
+	emcc $()
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
+	$(CC) -shared $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
 
 clean:
 	rm -rf $(OBJ_DIR) $(NAME)
