@@ -6,6 +6,10 @@ CFLAGS = -Wall -Wextra -Werror -std=c11
 
 INCLUDES_DIR = ./includes
 
+EMCC_LDFLAGS = \
+		-sEXPORTED_FUNCTIONS=_parse_musicxml_song,_irp_get_song_html,_irp_get_playlist_html,_irp_song_free,_free,_malloc \
+		-sEXPORTED_RUNTIME_METHODS=ccall,cwrap,UTF8ToString,allocateUTF8,HEAPU8
+
 OBJ_DIR = obj
 SRC_DIR = src
 
@@ -27,11 +31,12 @@ all: CFLAGS += -fPIC
 #all: CFLAGS += -O3
 all: $(NAME)
 
-test:
+test: re
 	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) test.c -L. -l$(LIB_NAME) -Wl,-rpath=. -o test
 
 wasm:
-	emcc $()
+	mkdir -p build-wasm
+	emcc $(SRCS) -o build-wasm/$(LIB_NAME).js -I$(INCLUDES_DIR) $(EMCC_LDFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
@@ -41,7 +46,7 @@ $(NAME): $(OBJS)
 	$(CC) -shared $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
 
 clean:
-	rm -rf $(OBJ_DIR) $(NAME)
+	rm -rf $(OBJ_DIR) $(NAME) test
 
 re: clean all
 

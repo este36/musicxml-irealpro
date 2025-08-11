@@ -94,7 +94,7 @@ typedef struct s_mxl_chord
 typedef struct s_parser_state
 {
 	t_irealpro_song		*song;
-	da_str_ref			part_selected;
+	uint32_t			part_selected;
 	t_mxl_chord			tmp_chord;
 	t_time_signature	tmp_time_signature; 
 	uint32_t			tmp_divisions;
@@ -116,7 +116,6 @@ int parse_attributes(t_parser_state *parser_state, t_sax_context *context);
 int parse_harmony(t_parser_state *parser_state, t_sax_context *context);
 int parse_measure(t_parser_state *parser_state, t_sax_context *context);
 int parse_musicxml_song(t_irealpro_song *irp_song,
-					const da_str_ref part_id,
 					const char *musicxml,
 					const size_t musicxml_length);
 #endif // PARSER_H

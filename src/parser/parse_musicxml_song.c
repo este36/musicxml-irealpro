@@ -98,11 +98,7 @@ int parse_song_partwise(t_parser_state *parser_state, t_sax_context *context)
         } else if (str_ref_eq(&n->target, &musicxml.identification)) {
             if (sax_parse_xml(parse_identification, parser_state, context) != 0)
                 return PARSER_STOP_ERROR;
-        } else if (str_ref_eq(&n->target, &musicxml.part)
-                    && n->attrc >= 1
-                    && str_ref_eq(&n->attrv[0].key, &musicxml.id) 
-                    && str_ref_eq(&n->attrv[0].value, &parser_state->part_selected) 
-                ) {
+        } else if (str_ref_eq(&n->target, &musicxml.part)) {
             if (sax_parse_xml(parse_part, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
             return PARSER_STOP;
@@ -115,13 +111,12 @@ int parse_song_partwise(t_parser_state *parser_state, t_sax_context *context)
 
 // All of irp_song members should be init to zero.
 int parse_musicxml_song(t_irealpro_song* irp_song,
-						const da_str_ref part_id,
 						const char* musicxml,
 						const size_t musicxml_length)
 {
     t_parser_state parser_state = {
         .song = irp_song,
-        .part_selected = part_id,
+        .part_selected = 1,
     };
 
     t_sax_scanner scanner = sax_scanner_init(musicxml, musicxml_length);
