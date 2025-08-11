@@ -1,25 +1,5 @@
 #include "irealpro.h"
 
-static void	append_song_title(da_str *dst, char *title)
-{
-	char title_to_copy[MAX_CREDENTIALS];
-
-	title_to_copy[0] = '\0';
-	if (title[0] == 'T'
-		&& title[1] == 'h'
-		&& title[2] == 'e'
-		&& title[3] == ' ')
-	{
-		strcat(title_to_copy, "The, ");
-		strcat(title_to_copy, title + 4);
-	}
-	else
-	{
-		strcat(title_to_copy, title);
-	}
-	url_strcat(dst, title_to_copy);
-}
-
 static void append_time_signature(da_str *dst, const t_measure *m)
 {
 	uint32_t b = m->time_signature.beats; // 3/4 -> 4
@@ -254,6 +234,25 @@ static void append_composer(da_str *dst, char *composer)
 	url_strcat(dst, composer); // first name
 }
 
+static void	append_song_title(da_str *dst, char *title)
+{
+	if (title[0] == '\0') {
+		url_strcat(dst, "Song Title");
+		return;
+	}
+
+	char title_to_copy[MAX_CREDENTIALS];
+
+	title_to_copy[0] = '\0';
+	if (strncmp(title, "The ", 4) == 0) {
+		strcat(title_to_copy, "The, ");
+		strcat(title_to_copy, title + 4);
+	} else {
+		strcat(title_to_copy, title);
+	}
+	url_strcat(dst, title_to_copy);
+}
+
 static	int	append_song(da_str *dst, t_irealpro_song *song)
 {
 	da_str raw_body;
@@ -289,7 +288,7 @@ char	*irp_get_song_html(t_irealpro_song *song)
 	da_str	res;
 
 	da_str_init(&res, 512);
-	da_strcat(&res, "<a href=\"irealb://"); // we use the open url scheme
+	da_strcat(&res, "<a href=\"irealb://");
 	if (append_song(&res, song) != 0) {
 		free(res.buf);
 		return NULL;
@@ -300,26 +299,22 @@ char	*irp_get_song_html(t_irealpro_song *song)
 	return res.buf;
 }
 
-char	*irp_get_playlist_html(char *playlist_name,
-								t_irealpro_song *songs,
-								size_t songs_len)
+char		*irp_get_playlist_html(t_irealpro_playlist *playlist)
 {
 	da_str	res;
 
 	da_str_init(&res, 1024);
-	da_strcat(&res, "<a href=\"irealb://"); // we use the open url scheme
-	for (size_t i = 0; i < songs_len; i++) {
-		if (append_song(&res, &songs[i]) != 0) {
+	da_strcat(&res, "<a href=\"irealb://");
+	for (size_t i = 0; i < playlist->songs.count; i++) {
+		if (append_song(&res, playlist->songs.items[i]) != 0) {
 			free(res.buf);
 			return NULL;
 		}
-		// if (i != songs_len - 1)
-			da_strcat(&res, "===");
+		da_strcat(&res, "===");
 	}
-	// da_strcat(&res, "===");
-	da_strcat(&res, playlist_name);
+	da_strcat(&res, playlist->title.buf);
 	da_strcat(&res, "\">");
-	da_strcat(&res, playlist_name);
+	da_strcat(&res, playlist->title.buf);
 	da_strcat(&res, "</a>");
 	return res.buf;
 }

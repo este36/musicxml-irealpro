@@ -38,6 +38,7 @@ void	irp_song_free(t_irealpro_song* song)
 {
     free(song->measures.items);
 	song->measures.items = NULL;
+	free(song);
 }
 
 // returns 1 on failure, 0 on success
@@ -62,7 +63,7 @@ int	irp_song_apply_zoom(t_irealpro_song* song)
 				m1->time_signature.beat_type /= 2;
 				m1 = m1->next;
 			} else {
-				double bar_duration;
+				double bar_duration = 0;
 
 				for (uint32_t i = 0; i < m1->chords.count; i++)
 					bar_duration += m1->chords.items[i].duration;
@@ -166,4 +167,29 @@ int	irp_song_apply_zoom(t_irealpro_song* song)
 	default:
 		return 0;
 	}
+}
+
+void	irp_playlist_append(t_irealpro_playlist *playlist, t_irealpro_song *song)
+{
+	da_append(playlist->songs, song);
+}
+
+t_irealpro_playlist *irp_playlist_create(const char *title)
+{
+	t_irealpro_playlist *playlist = calloc(1, sizeof(t_irealpro_playlist));
+	if (playlist == NULL)
+		return NULL;
+	if (*title != '\0') da_strcat(&playlist->title, title);
+	else da_strcat(&playlist->title, "Playlist Name");
+	return playlist;
+}
+
+void	irp_playlist_free(t_irealpro_playlist *playlist)
+{
+	for (size_t i = 0; i < playlist->songs.count; i++) {
+		irp_song_free(playlist->songs.items[i]);
+	}
+	free(playlist->title.buf);
+	free(playlist->songs.items);
+	free(playlist);
 }

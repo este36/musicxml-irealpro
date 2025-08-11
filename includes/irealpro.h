@@ -150,7 +150,7 @@ typedef struct s_irealpro_playlist
 	{
         size_t			count;
         size_t			capacity;
-        t_irealpro_song	*items;
+        t_irealpro_song	**items;
     }	songs;
 }	t_irealpro_playlist;
 
@@ -164,8 +164,11 @@ int			duration_is_equiv(double d1, double d2);
 char		*irp_get_song_html(t_irealpro_song *song);
 void		url_strcat(da_str *dst, const char *src);
 void		url_scramble(char *body, size_t len);
-char		*irp_get_playlist_html(char *playlist_name,
-									t_irealpro_song *songs,
-									size_t songs_len);
+char		*irp_get_playlist_html(t_irealpro_playlist *playlist);
 
+void				irp_playlist_append(
+								t_irealpro_playlist *playlist,
+								t_irealpro_song *song);
+void				irp_playlist_free(t_irealpro_playlist *playlist);
+t_irealpro_playlist	*irp_playlist_create(const char*title);
 #endif // IREALPRO_H
