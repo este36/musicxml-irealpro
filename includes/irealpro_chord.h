@@ -34,16 +34,22 @@
 #ifndef IREALPRO_CHORD_H
 #define IREALPRO_CHORD_H
 #include <string.h>
-#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
-#line 13 "./src/musicxml_harmony.gperf"
+#if defined(__clang__)
+  #pragma clang diagnostic ignored "-Wmissing-field-initializers"
+  #pragma clang diagnostic ignored "-Wduplicate-decl-specifier"
+
+#elif defined(__GNUC__)
+  #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#endif
+#line 19 "./src/musicxml_harmony.gperf"
 struct keyword { const char *name; int id; };
 
-#define TOTAL_KEYWORDS 75
+#define TOTAL_KEYWORDS 80
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 22
-#define MIN_HASH_VALUE 11
-#define MAX_HASH_VALUE 192
-/* maximum key range = 182, duplicates = 0 */
+#define MIN_HASH_VALUE 6
+#define MAX_HASH_VALUE 146
+/* maximum key range = 141, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -57,32 +63,32 @@ my_hash (register const char *str, register size_t len)
 {
   static const unsigned char asso_values[] =
     {
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193,   5,   0, 193, 193, 193,
-      193, 193, 193, 193, 193,  45,   5, 193, 193,   0,
-      105,  20,   5,   5,  40,   0, 193,   0,   0, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193,   5,   0,  30,
-       25,   0, 193,   5,   5,  25,  15, 193, 193, 193,
-        0,  10, 193, 193,  30,  65,  45,   0,   5, 193,
-       15, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193, 193, 193, 193,
-      193, 193, 193, 193, 193, 193, 193
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147,   5,   0, 147, 147, 147,
+      147, 147, 147, 147, 147,   5,  25, 147, 147,  20,
+       40,  10,   5,   5,   0,   0, 147,   0,  15, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147,   0,   0,  50,
+        0,   5,  10,  55,   5,  45,  15, 147, 147, 147,
+       10,   5,  40, 147,   5,  40,   0,  20,   5, 147,
+       20, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147, 147, 147, 147,
+      147, 147, 147, 147, 147, 147, 147
     };
   register unsigned int hval = len;
 
@@ -100,7 +106,7 @@ my_hash (register const char *str, register size_t len)
         hval += asso_values[(unsigned char)str[10]+1];
       /*FALLTHROUGH*/
       case 10:
-        hval += asso_values[(unsigned char)str[9]];
+        hval += asso_values[(unsigned char)str[9]+1];
       /*FALLTHROUGH*/
       case 9:
         hval += asso_values[(unsigned char)str[8]];
@@ -123,194 +129,199 @@ irealpro_chord_lookup (register const char *str, register size_t len)
 {
   static const struct keyword wordlist[] =
     {
-      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-      {""}, {""},
-#line 66 "./src/musicxml_harmony.gperf"
-      {"major9", 51},
-#line 64 "./src/musicxml_harmony.gperf"
-      {"major11", 49},
-      {""},
-#line 79 "./src/musicxml_harmony.gperf"
-      {"none", 64},
-      {""}, {""},
-#line 18 "./src/musicxml_harmony.gperf"
-      {"major#5", 3},
-      {""}, {""},
-#line 42 "./src/musicxml_harmony.gperf"
-      {"dominantb9", 27},
-      {""},
-#line 44 "./src/musicxml_harmony.gperf"
-      {"dominantb9#9", 29},
-#line 43 "./src/musicxml_harmony.gperf"
-      {"dominantb9#11", 28},
-      {""},
-#line 26 "./src/musicxml_harmony.gperf"
-      {"dominant#9", 11},
-      {""},
-#line 40 "./src/musicxml_harmony.gperf"
-      {"dominantb5#9", 25},
-#line 27 "./src/musicxml_harmony.gperf"
-      {"dominant#9#11", 12},
-      {""},
-#line 38 "./src/musicxml_harmony.gperf"
-      {"dominantb5", 23},
-#line 77 "./src/musicxml_harmony.gperf"
-      {"minor9", 62},
-#line 24 "./src/musicxml_harmony.gperf"
-      {"dominant#5#9", 9},
-#line 16 "./src/musicxml_harmony.gperf"
-      {"majorb13", 1},
-      {""},
+      {""}, {""}, {""}, {""}, {""}, {""},
+#line 76 "./src/musicxml_harmony.gperf"
+      {"major9", 55},
 #line 23 "./src/musicxml_harmony.gperf"
-      {"dominant#5", 8},
-#line 39 "./src/musicxml_harmony.gperf"
-      {"dominantb5#5b9#9", 24},
-#line 68 "./src/musicxml_harmony.gperf"
-      {"minor#5", 53},
-#line 55 "./src/musicxml_harmony.gperf"
-      {"major-seventh", 40},
+      {"majorb6", 2},
+      {""}, {""},
+#line 58 "./src/musicxml_harmony.gperf"
+      {"major", 37},
+#line 92 "./src/musicxml_harmony.gperf"
+      {"repeat", 71},
+#line 24 "./src/musicxml_harmony.gperf"
+      {"major#5", 3},
+#line 27 "./src/musicxml_harmony.gperf"
+      {"dominant", 6},
+#line 90 "./src/musicxml_harmony.gperf"
+      {"none", 69},
+#line 91 "./src/musicxml_harmony.gperf"
+      {"power", 70},
       {""},
 #line 48 "./src/musicxml_harmony.gperf"
-      {"major", 33},
-#line 56 "./src/musicxml_harmony.gperf"
-      {"major-seventh#11", 41},
-#line 57 "./src/musicxml_harmony.gperf"
-      {"major-seventh9#11", 42},
-      {""}, {""},
-#line 80 "./src/musicxml_harmony.gperf"
-      {"power", 65},
-#line 37 "./src/musicxml_harmony.gperf"
-      {"dominantb13", 22},
-#line 60 "./src/musicxml_harmony.gperf"
-      {"major-seventh#5#9", 45},
-      {""}, {""},
-#line 59 "./src/musicxml_harmony.gperf"
-      {"major-seventh#5", 44},
-#line 81 "./src/musicxml_harmony.gperf"
-      {"repeat", 66},
-#line 17 "./src/musicxml_harmony.gperf"
-      {"majorb6", 2},
-#line 78 "./src/musicxml_harmony.gperf"
-      {"minorb13", 63},
-#line 72 "./src/musicxml_harmony.gperf"
-      {"minor-seventh9", 57},
+      {"dominantb5#9", 27},
+#line 22 "./src/musicxml_harmony.gperf"
+      {"majorb13", 1},
       {""},
-#line 61 "./src/musicxml_harmony.gperf"
-      {"major-seventh913", 46},
-#line 41 "./src/musicxml_harmony.gperf"
-      {"dominantb5b9", 26},
-#line 71 "./src/musicxml_harmony.gperf"
-      {"minor-seventh", 56},
-#line 15 "./src/musicxml_harmony.gperf"
-      {"augmented", 0},
-#line 67 "./src/musicxml_harmony.gperf"
-      {"minor", 52},
-#line 74 "./src/musicxml_harmony.gperf"
-      {"minor-seventhb59", 59},
-#line 25 "./src/musicxml_harmony.gperf"
-      {"dominant#5b9", 10},
-#line 21 "./src/musicxml_harmony.gperf"
-      {"dominant", 6},
-      {""}, {""}, {""}, {""},
-#line 50 "./src/musicxml_harmony.gperf"
-      {"major-13th#11", 35},
-#line 58 "./src/musicxml_harmony.gperf"
-      {"major-13th9#11", 43},
-#line 49 "./src/musicxml_harmony.gperf"
-      {"major-13th", 34},
-      {""}, {""},
 #line 46 "./src/musicxml_harmony.gperf"
-      {"dominantb9b13", 31},
+      {"dominantb5", 25},
       {""},
-#line 32 "./src/musicxml_harmony.gperf"
-      {"dominant-13thb9", 17},
-#line 73 "./src/musicxml_harmony.gperf"
-      {"minor-seventhb13", 58},
-      {""},
-#line 29 "./src/musicxml_harmony.gperf"
-      {"dominant-13th", 14},
-      {""},
-#line 31 "./src/musicxml_harmony.gperf"
-      {"dominant-13th#9", 16},
 #line 30 "./src/musicxml_harmony.gperf"
-      {"dominant-13th#11", 15},
-      {""},
-#line 20 "./src/musicxml_harmony.gperf"
-      {"diminished-seventh", 5},
-      {""},
-#line 19 "./src/musicxml_harmony.gperf"
-      {"diminished", 4},
-      {""}, {""}, {""},
-#line 54 "./src/musicxml_harmony.gperf"
-      {"major-ninth#11", 39},
-#line 69 "./src/musicxml_harmony.gperf"
-      {"minor-11th", 54},
-#line 53 "./src/musicxml_harmony.gperf"
-      {"major-ninth", 38},
-#line 52 "./src/musicxml_harmony.gperf"
-      {"major-minor9", 37},
-      {""},
-#line 33 "./src/musicxml_harmony.gperf"
-      {"dominant-ninth", 18},
-      {""},
-#line 36 "./src/musicxml_harmony.gperf"
-      {"dominant-ninthb5", 21},
-#line 34 "./src/musicxml_harmony.gperf"
-      {"dominant-ninth#11", 19},
-      {""}, {""}, {""},
-#line 35 "./src/musicxml_harmony.gperf"
-      {"dominant-ninth#5", 20},
-#line 63 "./src/musicxml_harmony.gperf"
-      {"major-sixth9", 48},
-      {""}, {""}, {""},
-#line 62 "./src/musicxml_harmony.gperf"
-      {"major-sixth", 47},
-      {""}, {""}, {""},
+      {"dominant#5#9", 9},
+      {""}, {""},
+#line 29 "./src/musicxml_harmony.gperf"
+      {"dominant#5", 8},
 #line 47 "./src/musicxml_harmony.gperf"
-      {"half-diminished", 32},
-#line 70 "./src/musicxml_harmony.gperf"
-      {"minor-ninth", 55},
-      {""}, {""}, {""}, {""},
+      {"dominantb5#5b9#9", 26},
+#line 74 "./src/musicxml_harmony.gperf"
+      {"major11", 53},
+      {""},
+#line 21 "./src/musicxml_harmony.gperf"
+      {"augmented", 0},
+#line 50 "./src/musicxml_harmony.gperf"
+      {"dominantb9", 29},
+      {""},
+#line 54 "./src/musicxml_harmony.gperf"
+      {"dominantb9#9", 33},
+      {""}, {""},
+#line 32 "./src/musicxml_harmony.gperf"
+      {"dominant#9", 11},
+      {""},
+#line 52 "./src/musicxml_harmony.gperf"
+      {"dominantb9#5", 31},
 #line 65 "./src/musicxml_harmony.gperf"
-      {"major2", 50},
-      {""}, {""}, {""}, {""},
-#line 51 "./src/musicxml_harmony.gperf"
-      {"major-minor", 36},
-#line 76 "./src/musicxml_harmony.gperf"
-      {"minor-sixth9", 61},
+      {"major-seventh", 44},
+      {""}, {""}, {""},
+#line 33 "./src/musicxml_harmony.gperf"
+      {"dominant#9#5", 12},
       {""}, {""}, {""},
 #line 75 "./src/musicxml_harmony.gperf"
-      {"minor-sixth", 60},
-      {""}, {""}, {""}, {""},
-#line 22 "./src/musicxml_harmony.gperf"
-      {"dominant#11", 7},
-      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-      {""}, {""}, {""}, {""}, {""}, {""},
-#line 45 "./src/musicxml_harmony.gperf"
-      {"dominantb913", 30},
-      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-#line 89 "./src/musicxml_harmony.gperf"
-      {"suspended-second", 74},
-#line 83 "./src/musicxml_harmony.gperf"
-      {"suspended-fourth7", 68},
-#line 85 "./src/musicxml_harmony.gperf"
-      {"suspended-fourth79", 70},
-#line 88 "./src/musicxml_harmony.gperf"
-      {"suspended-fourthb97", 73},
+      {"major2", 54},
+#line 70 "./src/musicxml_harmony.gperf"
+      {"major-seventh#5#9", 49},
+      {""}, {""},
+#line 69 "./src/musicxml_harmony.gperf"
+      {"major-seventh#5", 48},
 #line 87 "./src/musicxml_harmony.gperf"
-      {"suspended-fourthb137", 72},
+      {"minor9", 66},
+#line 89 "./src/musicxml_harmony.gperf"
+      {"minorb6", 68},
+#line 53 "./src/musicxml_harmony.gperf"
+      {"dominantb9#11", 32},
+#line 41 "./src/musicxml_harmony.gperf"
+      {"dominant-ninth", 20},
+#line 77 "./src/musicxml_harmony.gperf"
+      {"minor", 56},
+#line 44 "./src/musicxml_harmony.gperf"
+      {"dominant-ninthb5", 23},
+#line 78 "./src/musicxml_harmony.gperf"
+      {"minor#5", 57},
+#line 35 "./src/musicxml_harmony.gperf"
+      {"dominant#9#11", 14},
+      {""},
+#line 59 "./src/musicxml_harmony.gperf"
+      {"major-13th", 38},
+#line 43 "./src/musicxml_harmony.gperf"
+      {"dominant-ninth#5", 22},
+#line 67 "./src/musicxml_harmony.gperf"
+      {"major-seventh9#11", 46},
+#line 88 "./src/musicxml_harmony.gperf"
+      {"minorb13", 67},
+      {""},
+#line 25 "./src/musicxml_harmony.gperf"
+      {"diminished", 4},
+#line 71 "./src/musicxml_harmony.gperf"
+      {"major-seventh913", 50},
+#line 49 "./src/musicxml_harmony.gperf"
+      {"dominantb5b9", 28},
+      {""}, {""},
+#line 40 "./src/musicxml_harmony.gperf"
+      {"dominant-13thb9", 19},
+#line 45 "./src/musicxml_harmony.gperf"
+      {"dominantb13", 24},
+#line 31 "./src/musicxml_harmony.gperf"
+      {"dominant#5b9", 10},
+#line 37 "./src/musicxml_harmony.gperf"
+      {"dominant-13th", 16},
+      {""},
+#line 39 "./src/musicxml_harmony.gperf"
+      {"dominant-13th#9", 18},
+#line 100 "./src/musicxml_harmony.gperf"
+      {"suspended-second", 79},
+#line 42 "./src/musicxml_harmony.gperf"
+      {"dominant-ninth#11", 21},
+#line 60 "./src/musicxml_harmony.gperf"
+      {"major-13th#11", 39},
 #line 82 "./src/musicxml_harmony.gperf"
-      {"suspended-fourth", 67},
-      {""}, {""}, {""}, {""}, {""}, {""},
-#line 28 "./src/musicxml_harmony.gperf"
-      {"dominant-11th", 13},
-      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
+      {"minor-seventh9", 61},
+      {""},
+#line 66 "./src/musicxml_harmony.gperf"
+      {"major-seventh#11", 45},
+#line 55 "./src/musicxml_harmony.gperf"
+      {"dominantb913", 34},
+#line 81 "./src/musicxml_harmony.gperf"
+      {"minor-seventh", 60},
+      {""},
+#line 57 "./src/musicxml_harmony.gperf"
+      {"half-diminished", 36},
 #line 84 "./src/musicxml_harmony.gperf"
-      {"suspended-fourth73", 69},
+      {"minor-seventhb59", 63},
+#line 51 "./src/musicxml_harmony.gperf"
+      {"dominantb9b5", 30},
       {""}, {""}, {""},
+#line 63 "./src/musicxml_harmony.gperf"
+      {"major-ninth", 42},
+#line 34 "./src/musicxml_harmony.gperf"
+      {"dominant#9b5", 13},
+#line 56 "./src/musicxml_harmony.gperf"
+      {"dominantb9b13", 35},
+      {""}, {""}, {""},
+#line 73 "./src/musicxml_harmony.gperf"
+      {"major-sixth9", 52},
+      {""}, {""}, {""},
+#line 72 "./src/musicxml_harmony.gperf"
+      {"major-sixth", 51},
+#line 62 "./src/musicxml_harmony.gperf"
+      {"major-minor9", 41},
+      {""}, {""},
+#line 79 "./src/musicxml_harmony.gperf"
+      {"minor-11th", 58},
+#line 61 "./src/musicxml_harmony.gperf"
+      {"major-minor", 40},
+      {""},
+#line 36 "./src/musicxml_harmony.gperf"
+      {"dominant-11th", 15},
+      {""}, {""},
+#line 83 "./src/musicxml_harmony.gperf"
+      {"minor-seventhb13", 62},
+      {""},
+#line 26 "./src/musicxml_harmony.gperf"
+      {"diminished-seventh", 5},
+#line 68 "./src/musicxml_harmony.gperf"
+      {"major-13th9#11", 47},
+      {""},
+#line 38 "./src/musicxml_harmony.gperf"
+      {"dominant-13th#11", 17},
+      {""}, {""}, {""}, {""},
+#line 28 "./src/musicxml_harmony.gperf"
+      {"dominant#11", 7},
+#line 94 "./src/musicxml_harmony.gperf"
+      {"suspended-fourth7", 73},
+#line 96 "./src/musicxml_harmony.gperf"
+      {"suspended-fourth79", 75},
+#line 99 "./src/musicxml_harmony.gperf"
+      {"suspended-fourthb97", 78},
+#line 98 "./src/musicxml_harmony.gperf"
+      {"suspended-fourthb137", 77},
+#line 93 "./src/musicxml_harmony.gperf"
+      {"suspended-fourth", 72},
+      {""}, {""},
+#line 64 "./src/musicxml_harmony.gperf"
+      {"major-ninth#11", 43},
+      {""}, {""}, {""},
+#line 95 "./src/musicxml_harmony.gperf"
+      {"suspended-fourth73", 74},
+      {""}, {""},
+#line 80 "./src/musicxml_harmony.gperf"
+      {"minor-ninth", 59},
+#line 97 "./src/musicxml_harmony.gperf"
+      {"suspended-fourth791113", 76},
+      {""}, {""}, {""}, {""},
 #line 86 "./src/musicxml_harmony.gperf"
-      {"suspended-fourth791113", 71}
+      {"minor-sixth9", 65},
+      {""}, {""}, {""},
+#line 85 "./src/musicxml_harmony.gperf"
+      {"minor-sixth", 64}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
@@ -327,7 +338,7 @@ irealpro_chord_lookup (register const char *str, register size_t len)
     }
   return 0;
 }
-#line 90 "./src/musicxml_harmony.gperf"
+#line 101 "./src/musicxml_harmony.gperf"
 
 #endif /* IREALPRO_CHORD_H */
 
