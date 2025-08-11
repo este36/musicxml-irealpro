@@ -109,11 +109,10 @@ int parse_song_partwise(t_parser_state *parser_state, t_sax_context *context)
     return PARSER_CONTINUE;
 }
 
-// All of irp_song members should be init to zero.
-int parse_musicxml_song(t_irealpro_song* irp_song,
-						const char* musicxml,
-						const size_t musicxml_length)
-{
+t_irealpro_song *parse_musicxml_song(const char* musicxml, const size_t musicxml_length) {
+	t_irealpro_song *irp_song = calloc(1, sizeof(t_irealpro_song));
+	if (!irp_song)
+		return NULL;
     t_parser_state parser_state = {
         .song = irp_song,
         .part_selected = 1,
@@ -122,11 +121,14 @@ int parse_musicxml_song(t_irealpro_song* irp_song,
     t_sax_scanner scanner = sax_scanner_init(musicxml, musicxml_length);
     t_sax_context context = sax_context_init(&scanner);
 
-	if (sax_parse_xml(parse_song_partwise, &parser_state, &context) != 0)
-		return XML_FILE_CORRUPT;
+	if (sax_parse_xml(parse_song_partwise, &parser_state, &context) != 0) {
+		free(irp_song);
+		return NULL;
+	}
 	irp_song->first_measure = &irp_song->measures.items[0];
-	// irp_song->zoom = ZOOM_OUT;
-	if (irp_song_apply_zoom(irp_song) != 0)
-		return -1;
-    return 0;
+	if (irp_song_apply_zoom(irp_song) != 0) {
+		free(irp_song);
+		return NULL;
+	}
+    return irp_song;
 }
