@@ -1,17 +1,25 @@
-LIB_NAME = mxl_to_irealpro
-NAME = lib$(LIB_NAME).so
+NAME = mxl2irp
+LIB_NAME = lib$(NAME)
+
 CC = gcc
-
 CFLAGS = -Wall -Wextra -Werror -std=c11
-
 INCLUDES_DIR = ./includes
 
+WASM_DIR = wasm
 EMCC_LDFLAGS = \
-		-sEXPORTED_FUNCTIONS=_parse_musicxml_song,_irp_get_song_html,_irp_get_playlist_html,_irp_song_free,_free,_malloc \
-		-sEXPORTED_RUNTIME_METHODS=ccall,cwrap,UTF8ToString,allocateUTF8,HEAPU8
+	-sEXPORTED_FUNCTIONS='["_parse_musicxml_song",\
+		"_irp_get_song_html",\
+		"_irp_get_playlist_html",\
+		"_irp_song_free",\
+		"_free",\
+		"_malloc"]'\
+	-sEXPORTED_RUNTIME_METHODS=ccall,cwrap,UTF8ToString,allocateUTF8,HEAPU8
 
 OBJ_DIR = obj
 SRC_DIR = src
+BIN_DIR = bin
+
+LIB_SO = $(BIN_DIR)/$(LIB_NAME).so
 
 SRC = musicxml.c \
 	parser/parse_measure.c \
@@ -27,28 +35,30 @@ SRC = musicxml.c \
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
-all: CFLAGS += -fPIC
-#all: CFLAGS += -O3
-all: $(NAME)
-
-test: re
-	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) test.c -L. -l$(LIB_NAME) -Wl,-rpath=. -o test
+test: $(LIB_SO) wasm
+	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) test/test.c -L$$(pwd)/$(BIN_DIR) -l$(NAME) -Wl,-rpath=$$(pwd)/$(BIN_DIR) -o $(BIN_DIR)/test.out
 
 wasm:
-	mkdir -p build-wasm
-	emcc $(SRCS) -o build-wasm/$(LIB_NAME).js -I$(INCLUDES_DIR) $(EMCC_LDFLAGS)
+	mkdir -p $(BIN_DIR)
+	docker run --rm -v $$(pwd):/src emscripten/emsdk bash -c "make wasm-emcc"
+
+wasm-emcc:
+	emcc $(SRCS) -o $(BIN_DIR)/$(LIB_NAME).js -I$(INCLUDES_DIR) $(EMCC_LDFLAGS)
+
+$(LIB_SO): CFLAGS += -g
+$(LIB_SO): CFLAGS += -fPIC
+$(LIB_SO): $(OBJS)
+	mkdir -p $(BIN_DIR)
+	$(CC) -shared $(CFLAGS) $(OBJS) -o $(LIB_SO) $(LFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -c $< -o $@
 
-$(NAME): $(OBJS)
-	$(CC) -shared $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
-
 clean:
-	rm -rf $(OBJ_DIR) $(NAME) test
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
 
-re: clean all
+re: clean test
 
 run: $(NAME)
 	./$(NAME)
@@ -61,4 +71,4 @@ generate:
 	python3 gen/patch_gperf_header.py ./includes/irealpro_chord.h
 	rm ./src/musicxml_harmony.gperf
 
-.PHONY: all re run clean
+.PHONY: all re run clean wasm wasm-emcc

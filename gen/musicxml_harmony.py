@@ -7,7 +7,13 @@ print(f'''%{{
 #ifndef IREALPRO_CHORD_H
 #define IREALPRO_CHORD_H
 #include <string.h>
-#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#if defined(__clang__)
+  #pragma clang diagnostic ignored "-Wmissing-field-initializers"
+  #pragma clang diagnostic ignored "-Wduplicate-decl-specifier"
+
+#elif defined(__GNUC__)
+  #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#endif
 %}}
 %language=ANSI-C
 %struct-type
