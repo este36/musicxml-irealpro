@@ -125,7 +125,17 @@ t_irealpro_song *parse_musicxml_song(const char* musicxml, const size_t musicxml
 		free(irp_song);
 		return NULL;
 	}
+	if (irp_song->measures.count == 0) {
+		free(irp_song);
+		return NULL;
+	}
 	irp_song->first_measure = &irp_song->measures.items[0];
+	irp_song->first_measure = &irp_song->measures.items[0];
+	irp_song->first_measure->next = NULL;
+	for (size_t i = 0; i < irp_song->measures.count - 1; i++) {
+		irp_song->measures.items[i].next = &irp_song->measures.items[i + 1];
+	}
+	irp_song->measures.items[irp_song->measures.count - 1].next = NULL;
 	if (irp_song_apply_zoom(irp_song) != 0) {
 		free(irp_song);
 		return NULL;

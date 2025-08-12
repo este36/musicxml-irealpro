@@ -70,7 +70,6 @@ int	irp_song_apply_zoom(t_irealpro_song* song)
 				da_append(song->measures, (t_measure){0});
 				song->measures.items[song->measures.count - 1].next = m1->next;
 				m1->next = &song->measures.items[song->measures.count - 1];
-				m1->next->last = m1;
 				m2 = m1->next;
 				m2->divisions = m1->divisions;
 				m2->time_signature = m1->time_signature;
@@ -192,4 +191,5 @@ void	irp_playlist_free(t_irealpro_playlist *playlist)
 	free(playlist->title.buf);
 	free(playlist->songs.items);
 	free(playlist);
+
 }

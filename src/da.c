@@ -38,9 +38,10 @@ int	da_strcat(da_str *dst, const char *src)
         size_t new_cap = dst->cap ? dst->cap : DA_MIN_CAPACITY;
         while (new_cap < needed)
 			new_cap *= 2;
-        dst->buf = (char *)realloc(dst->buf, new_cap);
-        if (dst->buf == NULL)
+        char *tmp = (char *)realloc(dst->buf, new_cap);
+        if (tmp == NULL)
 			return -1;
+        dst->buf = tmp;
         dst->cap = new_cap;
     }
 

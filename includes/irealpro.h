@@ -94,7 +94,6 @@ typedef enum
 typedef struct s_measure t_measure;
 struct s_measure
 {
-	t_measure			*last;
 	t_measure			*next;
     uint32_t			divisions; // quarter note reference integer
     t_time_signature	time_signature;

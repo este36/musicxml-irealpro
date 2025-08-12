@@ -215,10 +215,7 @@ int parse_measure(t_parser_state *parser_state, t_sax_context *context)
             if (str_ref_eq(&n->target, &musicxml.measure)) {
 				if (m->chords.count > MAX_CHORDS)
 					return PARSER_STOP_ERROR;
-				if (parser_state->song->measures.count > 1) {
-					m->last = m - 1;
-					(m - 1)->next = m;
-				} else if (m->chords.items[0].root == NOTE_UNVALID
+				if (m->chords.items[0].root == NOTE_UNVALID
                            && parser_state->song->measures.count == 1) {
 					parser_state->song->measures.count = 0;
 					parser_state->song->first_empty_bars += 1;
