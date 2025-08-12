@@ -16,8 +16,8 @@ void url_strcat(da_str *dst, const char *src)
 			buf[1] = '\0';
 		} else {
 			buf[0] = '%';
-			buf[1] = hex_base[src[i] >> 4];
-			buf[2] = hex_base[src[i] & 0x0F];
+			buf[1] = hex_base[(unsigned char)src[i] >> 4];
+			buf[2] = hex_base[(unsigned char)src[i] & 0x0F];
 		}
 		da_strcat(dst, buf);
 		i++;
