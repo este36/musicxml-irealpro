@@ -1,3 +1,11 @@
+// This code implements the `-sMODULARIZE` settings by taking the generated
+// JS program code (INNER_JS_CODE) and wrapping it in a factory function.
+
+// When targetting node and ES6 we use `await import ..` in the generated code
+// so the outer function needs to be marked as async.
+async function Module(moduleArg = {}) {
+  var moduleRtn;
+
 // include: shell.js
 // The Module object: Our interface to the outside world. We import
 // and export values on it. There are various ways Module can be used:
@@ -12,7 +20,7 @@
 // after the generated code, you will need to define   var Module = {};
 // before the code. Then that object will be used in the code, and you
 // can continue to use Module afterwards as well.
-var Module = typeof Module != 'undefined' ? Module : {};
+var Module = moduleArg;
 
 // Determine the runtime environment we are in. You can customize this by
 // setting the ENVIRONMENT setting at compile time (see settings.js).
@@ -25,6 +33,15 @@ var ENVIRONMENT_IS_WORKER = typeof WorkerGlobalScope != 'undefined';
 var ENVIRONMENT_IS_NODE = typeof process == 'object' && process.versions?.node && process.type != 'renderer';
 var ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONMENT_IS_WORKER;
 
+if (ENVIRONMENT_IS_NODE) {
+  // When building an ES module `require` is not normally available.
+  // We need to use `createRequire()` to construct the require()` function.
+  const { createRequire } = await import('module');
+  /** @suppress{duplicate} */
+  var require = createRequire(import.meta.url);
+
+}
+
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
 
@@ -35,16 +52,7 @@ var quit_ = (status, toThrow) => {
   throw toThrow;
 };
 
-// In MODULARIZE mode _scriptName needs to be captured already at the very top of the page immediately when the page is parsed, so it is generated there
-// before the page load. In non-MODULARIZE modes generate it here.
-var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;
-
-if (typeof __filename != 'undefined') { // Node
-  _scriptName = __filename;
-} else
-if (ENVIRONMENT_IS_WORKER) {
-  _scriptName = self.location.href;
-}
+var _scriptName = import.meta.url;
 
 // `/` should be present at the end if `scriptDirectory` is not empty
 var scriptDirectory = '';
@@ -73,7 +81,9 @@ if (ENVIRONMENT_IS_NODE) {
   // the complexity of lazy-loading.
   var fs = require('fs');
 
-  scriptDirectory = __dirname + '/';
+  if (_scriptName.startsWith('file:')) {
+    scriptDirectory = require('path').dirname(require('url').fileURLToPath(_scriptName)) + '/';
+  }
 
 // include: node_shell_read.js
 readBinary = (filename) => {
@@ -97,11 +107,6 @@ readAsync = async (filename, binary = true) => {
   }
 
   arguments_ = process.argv.slice(2);
-
-  // MODULARIZE will export the module in the proper place outside, we don't need to export here
-  if (typeof module != 'undefined') {
-    module['exports'] = Module;
-  }
 
   quit_ = (status, toThrow) => {
     process.exitCode = status;
@@ -409,6 +414,8 @@ function unexportedRuntimeSymbol(sym) {
 }
 
 // end include: runtime_debug.js
+var readyPromiseResolve, readyPromiseReject;
+
 // Memory management
 
 var wasmMemory;
@@ -603,6 +610,7 @@ function abort(what) {
   /** @suppress {checkTypes} */
   var e = new WebAssembly.RuntimeError(what);
 
+  readyPromiseReject?.(e);
   // Throw the error whether or not MODULARIZE is set because abort is used
   // in code paths apart from instantiation where an exception is expected
   // to be thrown when abort is called.
@@ -641,7 +649,11 @@ function createExportWrapper(name, nargs) {
 var wasmBinaryFile;
 
 function findWasmBinary() {
+  if (Module['locateFile']) {
     return locateFile('libmxl2irp.wasm');
+  }
+  // Use bundler-friendly `new URL(..., import.meta.url)` pattern; works in browsers too.
+  return new URL('libmxl2irp.wasm', import.meta.url).href;
 }
 
 function getBinarySync(file) {
@@ -1182,19 +1194,6 @@ async function createWasm() {
   var cwrap = (ident, returnType, argTypes, opts) => {
       return (...args) => ccall(ident, returnType, argTypes, args, opts);
     };
-
-
-  
-  
-  
-  /** @suppress {duplicate } */
-  var stringToNewUTF8 = (str) => {
-      var size = lengthBytesUTF8(str) + 1;
-      var ret = _malloc(size);
-      if (ret) stringToUTF8(str, ret, size);
-      return ret;
-    };
-  var allocateUTF8 = stringToNewUTF8;
 // End JS library code
 
 // include: postlibrary.js
@@ -1240,8 +1239,6 @@ Module['FS_createPreloadedFile'] = FS.createPreloadedFile;
 // Begin runtime exports
   Module['ccall'] = ccall;
   Module['cwrap'] = cwrap;
-  Module['UTF8ToString'] = UTF8ToString;
-  Module['allocateUTF8'] = allocateUTF8;
   var missingLibrarySymbols = [
   'writeI53ToI64',
   'writeI53ToI64Clamped',
@@ -1310,6 +1307,7 @@ Module['FS_createPreloadedFile'] = FS.createPreloadedFile;
   'UTF32ToString',
   'stringToUTF32',
   'lengthBytesUTF32',
+  'stringToNewUTF8',
   'registerKeyEventCallback',
   'maybeCStringToJsString',
   'findEventTarget',
@@ -1465,11 +1463,11 @@ missingLibrarySymbols.forEach(missingLibrarySymbol)
   'PATH_FS',
   'UTF8Decoder',
   'UTF8ArrayToString',
+  'UTF8ToString',
   'stringToUTF8Array',
   'stringToUTF8',
   'lengthBytesUTF8',
   'UTF16Decoder',
-  'stringToNewUTF8',
   'stringToUTF8OnStack',
   'writeArrayToMemory',
   'JSEvents',
@@ -1634,6 +1632,7 @@ missingLibrarySymbols.forEach(missingLibrarySymbol)
   'IDBStore',
   'SDL',
   'SDL_gfx',
+  'allocateUTF8',
   'allocateUTF8OnStack',
   'print',
   'printErr',
@@ -1655,6 +1654,9 @@ function checkIncomingModuleAPI() {
 var _parse_musicxml_song = Module['_parse_musicxml_song'] = makeInvalidEarlyAccess('_parse_musicxml_song');
 var _free = Module['_free'] = makeInvalidEarlyAccess('_free');
 var _irp_song_free = Module['_irp_song_free'] = makeInvalidEarlyAccess('_irp_song_free');
+var _irp_playlist_append = Module['_irp_playlist_append'] = makeInvalidEarlyAccess('_irp_playlist_append');
+var _irp_playlist_create = Module['_irp_playlist_create'] = makeInvalidEarlyAccess('_irp_playlist_create');
+var _irp_playlist_free = Module['_irp_playlist_free'] = makeInvalidEarlyAccess('_irp_playlist_free');
 var _irp_get_song_html = Module['_irp_get_song_html'] = makeInvalidEarlyAccess('_irp_get_song_html');
 var _irp_get_playlist_html = Module['_irp_get_playlist_html'] = makeInvalidEarlyAccess('_irp_get_playlist_html');
 var _malloc = Module['_malloc'] = makeInvalidEarlyAccess('_malloc');
@@ -1672,6 +1674,9 @@ function assignWasmExports(wasmExports) {
   Module['_parse_musicxml_song'] = _parse_musicxml_song = createExportWrapper('parse_musicxml_song', 2);
   Module['_free'] = _free = createExportWrapper('free', 1);
   Module['_irp_song_free'] = _irp_song_free = createExportWrapper('irp_song_free', 1);
+  Module['_irp_playlist_append'] = _irp_playlist_append = createExportWrapper('irp_playlist_append', 2);
+  Module['_irp_playlist_create'] = _irp_playlist_create = createExportWrapper('irp_playlist_create', 1);
+  Module['_irp_playlist_free'] = _irp_playlist_free = createExportWrapper('irp_playlist_free', 1);
   Module['_irp_get_song_html'] = _irp_get_song_html = createExportWrapper('irp_get_song_html', 1);
   Module['_irp_get_playlist_html'] = _irp_get_playlist_html = createExportWrapper('irp_get_playlist_html', 1);
   Module['_malloc'] = _malloc = createExportWrapper('malloc', 1);
@@ -1697,8 +1702,7 @@ var wasmImports = {
   /** @export */
   fd_write: _fd_write
 };
-var wasmExports;
-createWasm();
+var wasmExports = await createWasm();
 
 
 // include: postamble.js
@@ -1743,6 +1747,7 @@ function run() {
 
     initRuntime();
 
+    readyPromiseResolve?.(Module);
     Module['onRuntimeInitialized']?.();
     consumedModuleProp('onRuntimeInitialized');
 
@@ -1807,4 +1812,46 @@ preInit();
 run();
 
 // end include: postamble.js
+
+// include: postamble_modularize.js
+// In MODULARIZE mode we wrap the generated code in a factory function
+// and return either the Module itself, or a promise of the module.
+//
+// We assign to the `moduleRtn` global here and configure closure to see
+// this as and extern so it won't get minified.
+
+if (runtimeInitialized)  {
+  moduleRtn = Module;
+} else {
+  // Set up the promise that indicates the Module is initialized
+  moduleRtn = new Promise((resolve, reject) => {
+    readyPromiseResolve = resolve;
+    readyPromiseReject = reject;
+  });
+}
+
+// Assertion for attempting to access module properties on the incoming
+// moduleArg.  In the past we used this object as the prototype of the module
+// and assigned properties to it, but now we return a distinct object.  This
+// keeps the instance private until it is ready (i.e the promise has been
+// resolved).
+for (const prop of Object.keys(Module)) {
+  if (!(prop in moduleArg)) {
+    Object.defineProperty(moduleArg, prop, {
+      configurable: true,
+      get() {
+        abort(`Access to module property ('${prop}') is no longer possible via the module constructor argument; Instead, use the result of the module constructor.`)
+      }
+    });
+  }
+}
+// end include: postamble_modularize.js
+
+
+
+  return moduleRtn;
+}
+
+// Export using a UMD style export, or ES6 exports if selected
+export default Module;
 
