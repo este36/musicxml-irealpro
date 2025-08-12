@@ -7,13 +7,18 @@ INCLUDES_DIR = ./includes
 
 WASM_DIR = wasm
 EMCC_LDFLAGS = \
+	-sMODULARIZE=1\
+	-sEXPORT_ES6=1\
 	-sEXPORTED_FUNCTIONS='["_parse_musicxml_song",\
 		"_irp_get_song_html",\
 		"_irp_get_playlist_html",\
+		"_irp_playlist_create",\
+		"_irp_playlist_append",\
 		"_irp_song_free",\
+		"_irp_playlist_free",\
 		"_free",\
 		"_malloc"]'\
-	-sEXPORTED_RUNTIME_METHODS=ccall,cwrap,UTF8ToString,allocateUTF8,HEAPU8
+	-sEXPORTED_RUNTIME_METHODS=ccall,cwrap,HEAPU8
 
 OBJ_DIR = obj
 SRC_DIR = src
@@ -37,6 +42,7 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
 test: $(LIB_SO) wasm
 	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) test/test.c -L$$(pwd)/$(BIN_DIR) -l$(NAME) -Wl,-rpath=$$(pwd)/$(BIN_DIR) -o $(BIN_DIR)/test.out
+	python3 ./test/do_tests.py
 
 wasm:
 	mkdir -p $(BIN_DIR)

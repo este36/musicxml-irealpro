@@ -42,7 +42,7 @@ void	print_url(const char *url)
 
 int main(int argc, char **argv) {
 	if (argc == 1) {
-		printf("Usage: %s (1 or more)[path-to-musicxml]\n", argv[0]);
+		fprintf(stderr, "Usage: %s (1 or more)[path-to-musicxml]\n", argv[0]);
 		return 1;
 	}
 
@@ -50,12 +50,12 @@ int main(int argc, char **argv) {
 		
 		t_irealpro_song *irp_song = get_song_from_path(argv[1]);
 		if (irp_song == NULL) {
-			printf("%s: PARSE SONG FAIL\n", argv[1]);
+			fprintf(stderr, "%s: PARSE SONG FAIL\n", argv[1]);
 			return 1;
 		}
 		char *url = irp_get_song_html(irp_song);
 		if (url == NULL) {
-			printf("HTML RENDER FAIL\n");
+			fprintf(stderr, "HTML RENDER FAIL\n");
 			return 1;
 		}
 		print_url(url);
@@ -68,14 +68,14 @@ int main(int argc, char **argv) {
 			t_irealpro_song *irp_song = get_song_from_path(argv[i]);
 			if (irp_song == NULL) {
 				irp_playlist_free(playlist);
-				printf("%s: PARSE SONG FAIL\n", argv[i]);
+				fprintf(stderr, "%s: PARSE SONG FAIL\n", argv[i]);
 				return 1;
 			}
 			irp_playlist_append(playlist, irp_song);
 		}
 		char *url = irp_get_playlist_html(playlist);
 		if (url == NULL) {
-			printf("HTML RENDER FAIL\n");
+			fprintf(stderr, "HTML RENDER FAIL\n");
 			return 1;
 		}
 		print_url(url);
