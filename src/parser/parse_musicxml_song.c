@@ -129,6 +129,15 @@ t_irealpro_song *parse_musicxml_song(const char* musicxml, const size_t musicxml
 		free(irp_song);
 		return NULL;
 	}
+	if (irp_song->zoom == ZOOM_IN) {
+		t_measure *tmp = realloc(irp_song->measures.items, sizeof(t_measure) * irp_song->measures.count * 2);
+		if (tmp == NULL) {
+			free(irp_song);
+			return NULL;
+		}
+		irp_song->measures.items = tmp;
+		irp_song->measures.capacity = irp_song->measures.count * 2;
+	}
 	irp_song->first_measure = &irp_song->measures.items[0];
 	irp_song->first_measure = &irp_song->measures.items[0];
 	irp_song->first_measure->next = NULL;
