@@ -2,7 +2,6 @@ gen/__pycache__
 node_modules
 package-lock.json
 obj
-bin
 libmxl_to_irealpro.so
 result
 result.html
