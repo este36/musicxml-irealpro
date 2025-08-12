@@ -84,6 +84,7 @@ const char* musicxml_chords[] = {
     "7b9b5",
     "7b9#5",
     "7b9#11",
+    "7b9#11",
     "7b9#9",
     "13b9",
     "7b9b13",

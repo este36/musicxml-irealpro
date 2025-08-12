@@ -50,6 +50,7 @@ chords = {
 "dominantb9b5": "7b9b5",
 "dominantb9#5": "7b9#5",
 "dominantb9#11": "7b9#11",
+"dominantb9b13#11": "7b9#11",
 "dominantb9#9": "7b9#9",
 "dominantb913": "13b9",
 "dominantb9b13": "7b9b13",
