@@ -60,8 +60,8 @@ clean:
 
 re: clean test
 
-run: $(NAME)
-	./$(NAME)
+serve: result.html
+	nohup python3 -m http.server 8080 --bind 0.0.0.0 >/dev/null 2>&1 &
 
 generate:
 	python3 ./gen/musicxml.c.py > ./src/musicxml.c
