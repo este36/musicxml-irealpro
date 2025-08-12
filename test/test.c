@@ -59,6 +59,7 @@ int main(int argc, char **argv) {
 			return 1;
 		}
 		print_url(url);
+		irp_song_free(irp_song);
 		free(url);
 	} else {
 		t_irealpro_playlist *playlist = irp_playlist_create("Test");
