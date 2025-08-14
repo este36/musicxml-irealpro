@@ -1,4 +1,4 @@
-import Module from '../bin/libmxl2irp.js';
+import Module from './../bin/libmxl2irp.js';
 
 export let parse_musicxml_song = null;
 export let irp_get_song_html = null;
@@ -29,19 +29,14 @@ export class WasmString
 	}
 }
 
-/**
- * Initialise le module WASM et expose mxl2irp.
- * Utilisation : await initWasm();
- * mxl2irp sera alors disponible.
- */
-export async function initWasm() {
+export async function initWasm(wasmPath) {
 	const isNode = typeof process !== 'undefined' && process.versions && process.versions.node;
 
 	let m;
 	if (isNode) {
         m = await import('../bin/libmxl2irp.js').then(mod => mod.default());
 	} else {
-		m = window.Module || {};
+		m = await Module({ locateFile: f => f.endsWith('.wasm') ? wasmPath : f});
 	}
 
     parse_musicxml_song = m.cwrap('parse_musicxml_song', 'number', ['number', 'number']);
