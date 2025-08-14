@@ -6,9 +6,10 @@ import {
 	irp_song_free,
 	free,
 } from '/js/mxl2irp.js'
+import wasmUrl from '/bin/libmxl2irp.wasm?url'
 
 (async () =>{
-	await initWasm('/bin/libmxl2irp.wasm');
+	await initWasm(wasmUrl);
 	window.target = document.getElementById('target');
 	window.input = document.getElementById('file-input');
 	input.addEventListener('change', (event) => {
