@@ -156,18 +156,18 @@ typedef struct s_irealpro_playlist
 int			is_unvalid_time_signature(uint32_t b, uint32_t bt);
 const char	*get_note_str(NoteEnum note);
 const char	*get_style_str(StyleEnum style);
-void		irp_song_free(t_irealpro_song *song);
-int			irp_song_apply_zoom(t_irealpro_song* song);
 int			duration_is_equiv(double d1, double d2);
-
-char		*irp_get_song_html(t_irealpro_song *song);
 void		url_strcat(da_str *dst, const char *src);
 void		url_scramble(char *body, size_t len);
-char		*irp_get_playlist_html(t_irealpro_playlist *playlist);
 
+int			irp_song_apply_zoom(t_irealpro_song* song);
+char		*irp_song_get_html(t_irealpro_song *song);
+void		irp_song_free(t_irealpro_song *song);
+
+t_irealpro_playlist	*irp_playlist_create(const char*title);
 void				irp_playlist_append(
 								t_irealpro_playlist *playlist,
 								t_irealpro_song *song);
+char				*irp_playlist_get_html(t_irealpro_playlist *playlist);
 void				irp_playlist_free(t_irealpro_playlist *playlist);
-t_irealpro_playlist	*irp_playlist_create(const char*title);
 #endif // IREALPRO_H

@@ -9,9 +9,9 @@ WASM_DIR = wasm
 EMCC_LDFLAGS = \
 	-sMODULARIZE=1\
 	-sEXPORT_ES6=1\
-	-sEXPORTED_FUNCTIONS='["_parse_musicxml_song",\
-		"_irp_get_song_html",\
-		"_irp_get_playlist_html",\
+	-sEXPORTED_FUNCTIONS='["_parse_musicxml",\
+		"_irp_song_get_html",\
+		"_irp_playlist_get_html",\
 		"_irp_playlist_create",\
 		"_irp_playlist_append",\
 		"_irp_song_free",\
@@ -30,7 +30,7 @@ SRC = musicxml.c \
 	parser/parse_measure.c \
 	parser/parse_harmony.c \
 	parser/parse_attributes.c \
-	parser/parse_musicxml_song.c \
+	parser/parse_musicxml.c \
 	irealpro.c \
 	url_encoder.c \
 	irp_to_html.c \

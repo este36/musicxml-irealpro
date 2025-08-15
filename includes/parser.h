@@ -116,6 +116,6 @@ int parse_attributes(t_parser_state *parser_state, t_sax_context *context);
 int parse_harmony(t_parser_state *parser_state, t_sax_context *context);
 int parse_measure(t_parser_state *parser_state, t_sax_context *context);
 
-t_irealpro_song *parse_musicxml_song(const char* musicxml, const size_t musicxml_length);
+t_irealpro_song *parse_musicxml(const char* musicxml, const size_t musicxml_length);
 
 #endif // PARSER_H

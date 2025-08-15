@@ -1,15 +1,15 @@
 import Module from '../dist/libmxl2irp.js';
 
-export let parse_musicxml_song = null;
-export let irp_get_song_html = null;
-export let irp_get_playlist_html = null;
-export let irp_playlist_create = null;
-export let irp_playlist_append = null;
-export let irp_playlist_free = null;
-export let irp_song_free = null;
-export let free = null;
-export let malloc = null;
-export let Wasm = null;
+let parse_musicxml = null;
+let irp_song_get_html = null;
+let irp_playlist_get_html = null;
+let irp_playlist_create = null;
+let irp_playlist_append = null;
+let irp_playlist_free = null;
+let irp_song_free = null;
+let free = null;
+let malloc = null;
+let Wasm = null;
 
 export class WasmString
 {
@@ -39,9 +39,9 @@ export async function initWasm(wasmPath) {
 		m = await Module({ locateFile: f => f.endsWith('.wasm') ? wasmPath : f});
 	}
 
-    parse_musicxml_song = m.cwrap('parse_musicxml_song', 'number', ['number', 'number']);
-    irp_get_song_html = m.cwrap('irp_get_song_html', 'string', ['number']);
-    irp_get_playlist_html = m.cwrap('irp_get_playlist_html', 'string', ['number']);
+    parse_musicxml = m.cwrap('parse_musicxml', 'number', ['number', 'number']);
+    irp_song_get_html = m.cwrap('irp_song_get_html', 'string', ['number']);
+    irp_playlist_get_html = m.cwrap('irp_playlist_get_html', 'string', ['number']);
 	irp_playlist_create = m.cwrap('irp_playlist_create', 'number', ['string']);
 	irp_playlist_append = m.cwrap('irp_playlist_append', null, ['number', 'number']);
 	irp_playlist_free = m.cwrap('irp_playlist_free', null, ['number']);
@@ -49,4 +49,17 @@ export async function initWasm(wasmPath) {
     free = m.cwrap('free', null, ['number']);
     malloc = m.cwrap('malloc', 'number', ['number']);
 	Wasm = m;
+}
+
+export {
+	parse_musicxml,
+	irp_song_get_html,
+	irp_song_free,
+	irp_playlist_create,
+	irp_playlist_append,
+	irp_playlist_get_html,
+	irp_playlist_free,
+	free,
+	malloc,
+	Wasm,
 }

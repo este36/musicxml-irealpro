@@ -6,7 +6,7 @@ function get_song_from_path(path)
 {
 	try {
 		const file = new WasmString(readFileSync(path, 'utf8'));
-		const irp_song = mxl2irp.parse_musicxml_song(file.buf, file.len);
+		const irp_song = mxl2irp.parse_musicxml(file.buf, file.len);
 		file.free();
 		return irp_song != 0 ? irp_song : null;
 	} catch (err) {
@@ -33,7 +33,7 @@ function main(argc, argv)
 			console.error(`${argv[1]}: PARSE SONG FAIL`);
 			return 1;
 		}
-		const url = mxl2irp.irp_get_song_html(irp_song);
+		const url = mxl2irp.irp_song_get_html(irp_song);
 		if (url === null) {
 			console.error(`HTML RENDER FAIL`);
 			return 1;
@@ -52,7 +52,7 @@ function main(argc, argv)
 			}
 			mxl2irp.irp_playlist_append(irp_playlist, irp_song);
 		}
-		const url = mxl2irp.irp_get_playlist_html(irp_playlist);
+		const url = mxl2irp.irp_playlist_get_html(irp_playlist);
 		if (url === null) {
 			console.error(`HTML RENDER FAIL`);
 			return 1;

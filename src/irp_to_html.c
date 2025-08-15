@@ -283,7 +283,7 @@ static	int	append_song(da_str *dst, t_irealpro_song *song)
 	return 0;
 }
 
-char	*irp_get_song_html(t_irealpro_song *song)
+char	*irp_song_get_html(t_irealpro_song *song)
 {
 	da_str	res;
 
@@ -299,7 +299,7 @@ char	*irp_get_song_html(t_irealpro_song *song)
 	return res.buf;
 }
 
-char		*irp_get_playlist_html(t_irealpro_playlist *playlist)
+char		*irp_playlist_get_html(t_irealpro_playlist *playlist)
 {
 	da_str	res;
 

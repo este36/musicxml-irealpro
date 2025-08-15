@@ -109,7 +109,7 @@ int parse_song_partwise(t_parser_state *parser_state, t_sax_context *context)
     return PARSER_CONTINUE;
 }
 
-t_irealpro_song *parse_musicxml_song(const char* musicxml, const size_t musicxml_length) {
+t_irealpro_song *parse_musicxml(const char* musicxml, const size_t musicxml_length) {
 	t_irealpro_song *irp_song = calloc(1, sizeof(t_irealpro_song));
 	if (!irp_song)
 		return NULL;

@@ -28,7 +28,7 @@ t_irealpro_song *get_song_from_path(const char* path)
     file_buf[file_len] = '\0';
     fclose(f);
 
-	t_irealpro_song *irp_song = parse_musicxml_song(file_buf, file_len);
+	t_irealpro_song *irp_song = parse_musicxml(file_buf, file_len);
 	free(file_buf);
 	return irp_song;
 }
@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
 			fprintf(stderr, "%s: PARSE SONG FAIL\n", argv[1]);
 			return 1;
 		}
-		char *url = irp_get_song_html(irp_song);
+		char *url = irp_song_get_html(irp_song);
 		if (url == NULL) {
 			fprintf(stderr, "HTML RENDER FAIL\n");
 			return 1;
@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
 			}
 			irp_playlist_append(playlist, irp_song);
 		}
-		char *url = irp_get_playlist_html(playlist);
+		char *url = irp_playlist_get_html(playlist);
 		if (url == NULL) {
 			fprintf(stderr, "HTML RENDER FAIL\n");
 			return 1;

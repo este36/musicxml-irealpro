@@ -1651,14 +1651,14 @@ function checkIncomingModuleAPI() {
 }
 
 // Imports from the Wasm binary.
-var _parse_musicxml_song = Module['_parse_musicxml_song'] = makeInvalidEarlyAccess('_parse_musicxml_song');
+var _parse_musicxml = Module['_parse_musicxml'] = makeInvalidEarlyAccess('_parse_musicxml');
 var _free = Module['_free'] = makeInvalidEarlyAccess('_free');
 var _irp_song_free = Module['_irp_song_free'] = makeInvalidEarlyAccess('_irp_song_free');
 var _irp_playlist_append = Module['_irp_playlist_append'] = makeInvalidEarlyAccess('_irp_playlist_append');
 var _irp_playlist_create = Module['_irp_playlist_create'] = makeInvalidEarlyAccess('_irp_playlist_create');
 var _irp_playlist_free = Module['_irp_playlist_free'] = makeInvalidEarlyAccess('_irp_playlist_free');
-var _irp_get_song_html = Module['_irp_get_song_html'] = makeInvalidEarlyAccess('_irp_get_song_html');
-var _irp_get_playlist_html = Module['_irp_get_playlist_html'] = makeInvalidEarlyAccess('_irp_get_playlist_html');
+var _irp_song_get_html = Module['_irp_song_get_html'] = makeInvalidEarlyAccess('_irp_song_get_html');
+var _irp_playlist_get_html = Module['_irp_playlist_get_html'] = makeInvalidEarlyAccess('_irp_playlist_get_html');
 var _malloc = Module['_malloc'] = makeInvalidEarlyAccess('_malloc');
 var _fflush = makeInvalidEarlyAccess('_fflush');
 var _strerror = makeInvalidEarlyAccess('_strerror');
@@ -1671,14 +1671,14 @@ var __emscripten_stack_alloc = makeInvalidEarlyAccess('__emscripten_stack_alloc'
 var _emscripten_stack_get_current = makeInvalidEarlyAccess('_emscripten_stack_get_current');
 
 function assignWasmExports(wasmExports) {
-  Module['_parse_musicxml_song'] = _parse_musicxml_song = createExportWrapper('parse_musicxml_song', 2);
+  Module['_parse_musicxml'] = _parse_musicxml = createExportWrapper('parse_musicxml', 2);
   Module['_free'] = _free = createExportWrapper('free', 1);
   Module['_irp_song_free'] = _irp_song_free = createExportWrapper('irp_song_free', 1);
   Module['_irp_playlist_append'] = _irp_playlist_append = createExportWrapper('irp_playlist_append', 2);
   Module['_irp_playlist_create'] = _irp_playlist_create = createExportWrapper('irp_playlist_create', 1);
   Module['_irp_playlist_free'] = _irp_playlist_free = createExportWrapper('irp_playlist_free', 1);
-  Module['_irp_get_song_html'] = _irp_get_song_html = createExportWrapper('irp_get_song_html', 1);
-  Module['_irp_get_playlist_html'] = _irp_get_playlist_html = createExportWrapper('irp_get_playlist_html', 1);
+  Module['_irp_song_get_html'] = _irp_song_get_html = createExportWrapper('irp_song_get_html', 1);
+  Module['_irp_playlist_get_html'] = _irp_playlist_get_html = createExportWrapper('irp_playlist_get_html', 1);
   Module['_malloc'] = _malloc = createExportWrapper('malloc', 1);
   _fflush = createExportWrapper('fflush', 1);
   _strerror = createExportWrapper('strerror', 1);
