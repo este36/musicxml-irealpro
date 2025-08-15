@@ -1,14 +1,17 @@
 {
-  "name": "mxl2irp",
-  "private": true,
-  "version": "0.0.0",
+  "name": "example-bare",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "vinxi dev --host",
+    "build": "vinxi build",
+    "start": "vinxi start"
   },
-  "devDependencies": {
-    "vite": "^7.1.2"
+  "dependencies": {
+    "@solidjs/start": "^1.1.0",
+    "solid-js": "^1.9.5",
+    "vinxi": "^0.5.7"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
