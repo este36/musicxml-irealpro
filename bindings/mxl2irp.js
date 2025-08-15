@@ -1,4 +1,4 @@
-import Module from './../bin/libmxl2irp.js';
+import Module from '../dist/libmxl2irp.js';
 
 export let parse_musicxml_song = null;
 export let irp_get_song_html = null;
@@ -34,7 +34,7 @@ export async function initWasm(wasmPath) {
 
 	let m;
 	if (isNode) {
-        m = await import('../bin/libmxl2irp.js').then(mod => mod.default());
+        m = await import('../dist/libmxl2irp.js').then(mod => mod.default());
 	} else {
 		m = await Module({ locateFile: f => f.endsWith('.wasm') ? wasmPath : f});
 	}

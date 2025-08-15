@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
-import * as mxl2irp from '../js/mxl2irp.js';
-import {WasmString } from '../js/mxl2irp.js';
+import * as mxl2irp from '../bindings/mxl2irp.js';
+import { WasmString } from '../bindings/mxl2irp.js';
 
 function get_song_from_path(path)
 {

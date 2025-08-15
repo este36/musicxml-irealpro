@@ -22,7 +22,7 @@ EMCC_LDFLAGS = \
 
 OBJ_DIR = obj
 SRC_DIR = src
-BIN_DIR = bin
+BIN_DIR = dist
 
 LIB_SO = $(BIN_DIR)/$(LIB_NAME).so
 
@@ -41,7 +41,7 @@ SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
 test: $(LIB_SO) wasm
-	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) test/test.c -L$$(pwd)/$(BIN_DIR) -l$(NAME) -Wl,-rpath=$$(pwd)/$(BIN_DIR) -o $(BIN_DIR)/test.out
+	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) test/test.c -L$$(pwd)/$(BIN_DIR) -l$(NAME) -Wl,-rpath=$$(pwd)/$(BIN_DIR) -o test/test.out
 	python3 ./test/do_tests.py
 
 wasm:

@@ -14,7 +14,7 @@ def js_cmd(args):
 
 def c_cmd(args):
     args = args[:]
-    args.insert(0, "./bin/test.out")
+    args.insert(0, "./test/test.out")
     return exec_cmd(args)
 
 def do_test(args, should_fail):
