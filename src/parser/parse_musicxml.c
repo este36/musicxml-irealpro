@@ -1,7 +1,8 @@
 #include "parser.h"
 
-int parse_part(t_parser_state *parser_state, t_sax_context *context)
+int parse_part(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
     const t_xml_node *n = &context->found;
     switch (n->type) {
         case XML_TAG_OPEN:
@@ -24,8 +25,9 @@ int parse_part(t_parser_state *parser_state, t_sax_context *context)
     return PARSER_CONTINUE;
 }
 
-int parse_work(t_parser_state *parser_state, t_sax_context *context)
+int parse_work(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
     const t_xml_node *n = &context->found;
 
     switch (n->type) {
@@ -51,8 +53,9 @@ int parse_work(t_parser_state *parser_state, t_sax_context *context)
     return PARSER_CONTINUE;
 }
 
-int parse_identification(t_parser_state *parser_state, t_sax_context *context)
+int parse_identification(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
     const t_xml_node *n = &context->found;
     switch (n->type) {
         case XML_TAG_OPEN:
@@ -85,8 +88,9 @@ int parse_identification(t_parser_state *parser_state, t_sax_context *context)
     return PARSER_CONTINUE;
 }
 
-int parse_song_partwise(t_parser_state *parser_state, t_sax_context *context)
+int parse_song_partwise(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
     const t_xml_node *n = &context->found;
 
     if (n->type == XML_TAG_OPEN) {

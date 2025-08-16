@@ -1653,13 +1653,13 @@ function checkIncomingModuleAPI() {
 // Imports from the Wasm binary.
 var _parse_musicxml = Module['_parse_musicxml'] = makeInvalidEarlyAccess('_parse_musicxml');
 var _free = Module['_free'] = makeInvalidEarlyAccess('_free');
+var _malloc = Module['_malloc'] = makeInvalidEarlyAccess('_malloc');
 var _irp_song_free = Module['_irp_song_free'] = makeInvalidEarlyAccess('_irp_song_free');
 var _irp_playlist_append = Module['_irp_playlist_append'] = makeInvalidEarlyAccess('_irp_playlist_append');
 var _irp_playlist_create = Module['_irp_playlist_create'] = makeInvalidEarlyAccess('_irp_playlist_create');
 var _irp_playlist_free = Module['_irp_playlist_free'] = makeInvalidEarlyAccess('_irp_playlist_free');
 var _irp_song_get_html = Module['_irp_song_get_html'] = makeInvalidEarlyAccess('_irp_song_get_html');
 var _irp_playlist_get_html = Module['_irp_playlist_get_html'] = makeInvalidEarlyAccess('_irp_playlist_get_html');
-var _malloc = Module['_malloc'] = makeInvalidEarlyAccess('_malloc');
 var _fflush = makeInvalidEarlyAccess('_fflush');
 var _strerror = makeInvalidEarlyAccess('_strerror');
 var _emscripten_stack_get_end = makeInvalidEarlyAccess('_emscripten_stack_get_end');
@@ -1673,13 +1673,13 @@ var _emscripten_stack_get_current = makeInvalidEarlyAccess('_emscripten_stack_ge
 function assignWasmExports(wasmExports) {
   Module['_parse_musicxml'] = _parse_musicxml = createExportWrapper('parse_musicxml', 2);
   Module['_free'] = _free = createExportWrapper('free', 1);
+  Module['_malloc'] = _malloc = createExportWrapper('malloc', 1);
   Module['_irp_song_free'] = _irp_song_free = createExportWrapper('irp_song_free', 1);
   Module['_irp_playlist_append'] = _irp_playlist_append = createExportWrapper('irp_playlist_append', 2);
   Module['_irp_playlist_create'] = _irp_playlist_create = createExportWrapper('irp_playlist_create', 1);
   Module['_irp_playlist_free'] = _irp_playlist_free = createExportWrapper('irp_playlist_free', 1);
   Module['_irp_song_get_html'] = _irp_song_get_html = createExportWrapper('irp_song_get_html', 1);
   Module['_irp_playlist_get_html'] = _irp_playlist_get_html = createExportWrapper('irp_playlist_get_html', 1);
-  Module['_malloc'] = _malloc = createExportWrapper('malloc', 1);
   _fflush = createExportWrapper('fflush', 1);
   _strerror = createExportWrapper('strerror', 1);
   _emscripten_stack_get_end = wasmExports['emscripten_stack_get_end'];

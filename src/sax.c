@@ -209,8 +209,8 @@ int sax_parse_tag_body(t_sax_context *context)
     return IS_EOF(context->scanner) ? XML_FILE_CORRUPT : 0;
 }
 
-int sax_parse_xml(int (*fn)(t_parser_state *parser_state, t_sax_context *ctxt),
-					t_parser_state *parser_state, t_sax_context *context) 
+int sax_parse_xml(int (*fn)(void *user_data, t_sax_context *ctxt),
+					void *user_data, t_sax_context *context) 
 {
     while (!IS_EOF(context->scanner)) {
         if (GET_CHAR(context->scanner) == '<') { // we found a tag
@@ -229,7 +229,7 @@ int sax_parse_xml(int (*fn)(t_parser_state *parser_state, t_sax_context *ctxt),
                 context->found.target.len = GET_PTR(context->scanner) - context->found.target.buf;
                 context->found.type = XML_TAG_CLOSE;
                 // Here we are sure thats a valid CLOSING tag
-                status = fn(parser_state, context);
+                status = fn(user_data, context);
                 xml_clear_node(&context->found);
 
             } else if (isalpha(nc)) { // continue... (first char of musicxml tags are only alphabetical)
@@ -246,13 +246,13 @@ int sax_parse_xml(int (*fn)(t_parser_state *parser_state, t_sax_context *ctxt),
                     ADVANCE(context->scanner);
                     // Here we are sure thats a valid SELF_CLOSING tag
                     context->found.type = XML_SELF_CLOSING;
-                    status = fn(parser_state, context);
+                    status = fn(user_data, context);
                     xml_clear_node(&context->found);
                 } else if (closing == '>') { // this is parent or variable opening tag
                     ADVANCE(context->scanner);
                     // Here we are sure thats a valid OPENING tag
                     context->found.type = XML_TAG_OPEN;
-                    status = fn(parser_state, context);
+                    status = fn(user_data, context);
                     if (status == SKIP_ENTIRE_NODE) {
                         if (sax_skip_content(context, context->found.target) != 0)
 							return XML_FILE_CORRUPT;

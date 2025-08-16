@@ -2,7 +2,7 @@ NAME = mxl2irp
 LIB_NAME = lib$(NAME)
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -std=c11
+CFLAGS = -Wall -Wextra -Werror
 INCLUDES_DIR = ./includes
 
 WASM_DIR = wasm
@@ -31,6 +31,7 @@ SRC = musicxml.c \
 	parser/parse_harmony.c \
 	parser/parse_attributes.c \
 	parser/parse_musicxml.c \
+	mxl_archive.c \
 	irealpro.c \
 	url_encoder.c \
 	irp_to_html.c \

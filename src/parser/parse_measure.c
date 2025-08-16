@@ -1,8 +1,9 @@
 #include "parser.h"
 #include <strings.h>
 
-int parse_note(t_parser_state *parser_state, t_sax_context *context)
+int parse_note(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
     const t_xml_node *n = &context->found;
 
     switch (n->type) {
@@ -76,8 +77,9 @@ PlaybackEnum get_playback_enum(char *xml_content)
 	return (PLAYBACK_NONE);
 }
 
-int parse_direction(t_parser_state *parser_state, t_sax_context *context)
+int parse_direction(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
 	const t_xml_node *n = &context->found;
 	t_measure	*m = GET_CURR_MEASURE(parser_state);
 
@@ -113,8 +115,9 @@ int parse_direction(t_parser_state *parser_state, t_sax_context *context)
 	return PARSER_CONTINUE;
 }
 
-int parse_barline(t_parser_state *parser_state, t_sax_context *context)
+int parse_barline(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
 	const t_xml_node *n = &context->found;
 	t_measure	*m = GET_CURR_MEASURE(parser_state);
 	char content[128];
@@ -176,8 +179,9 @@ int parse_barline(t_parser_state *parser_state, t_sax_context *context)
 // count act as a flag for note element parsing if there is more than IRP_MAX_CHORDS chords
 // Also, the first chords[0] act as empty chord when there is no chords
 // in the begining of the bar but only notes
-int parse_measure(t_parser_state *parser_state, t_sax_context *context)
+int parse_measure(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
     const t_xml_node *n = &context->found;
     t_measure *m = GET_CURR_MEASURE(parser_state);
 

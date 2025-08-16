@@ -1,7 +1,8 @@
 #include "parser.h"
 
-int parse_time(t_parser_state *parser_state, t_sax_context *context)
+int parse_time(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
     const t_xml_node *n = &context->found;
 	t_measure *m = GET_CURR_MEASURE(parser_state);
 
@@ -73,8 +74,9 @@ NoteEnum get_key_from_fifths(int mxl_fifths)
 	return (fifths[mxl_fifths] + alter);
 }
 
-int parse_key(t_parser_state *parser_state, t_sax_context *context)
+int parse_key(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
     const t_xml_node *n = &context->found;
 	int res;
 
@@ -105,8 +107,9 @@ int parse_key(t_parser_state *parser_state, t_sax_context *context)
 }
 
 
-int parse_attributes(t_parser_state *parser_state, t_sax_context *context)
+int parse_attributes(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
     const t_xml_node *n = &context->found;
 	int res;
 

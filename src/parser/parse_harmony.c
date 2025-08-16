@@ -1,7 +1,8 @@
 #include "parser.h"
 
-int parse_degree(t_parser_state *parser_state, t_sax_context *context)
+int parse_degree(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
     const t_xml_node *n = &context->found;
     t_mxl_degree *curr_deg = GET_TMP_CURR_DEGREE(parser_state);
 
@@ -33,8 +34,9 @@ int parse_degree(t_parser_state *parser_state, t_sax_context *context)
     return PARSER_CONTINUE;
 }
 
-int parse_harmony(t_parser_state *parser_state, t_sax_context *context)
+int parse_harmony(void *user_data, t_sax_context *context)
 {
+	t_parser_state *parser_state = (t_parser_state *)user_data;
     const t_xml_node *n = &context->found;
 	t_mxl_chord *c = &parser_state->tmp_chord;
 

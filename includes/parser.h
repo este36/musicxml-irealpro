@@ -108,13 +108,13 @@ int				sax_copy_content(t_sax_context *context, char *buf, size_t buf_len);
 int				sax_get_int(t_sax_context *context, int *res);
 int				sax_get_attrv(t_sax_context *context, da_str_ref *dst, char *key_buf);
 int				sax_skip_content(t_sax_context *context, da_str_ref node_name);
-int				sax_parse_xml(int (*fn)(t_parser_state *parser_state, t_sax_context *ctxt),
-							t_parser_state *parser_state, t_sax_context *context);
+int				sax_parse_xml(int (*fn)(void *user_data, t_sax_context *ctxt),
+							void *user_data, t_sax_context *context);
 
-int	parse_direction(t_parser_state *parser_state, t_sax_context *context);
-int parse_attributes(t_parser_state *parser_state, t_sax_context *context);
-int parse_harmony(t_parser_state *parser_state, t_sax_context *context);
-int parse_measure(t_parser_state *parser_state, t_sax_context *context);
+int	parse_direction(void *user_data, t_sax_context *context);
+int parse_attributes(void *user_data, t_sax_context *context);
+int parse_harmony(void *user_data, t_sax_context *context);
+int parse_measure(void *user_data, t_sax_context *context);
 
 t_irealpro_song *parse_musicxml(const char* musicxml, const size_t musicxml_length);
 
