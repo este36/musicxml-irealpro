@@ -13,9 +13,15 @@ let Wasm = null;
 
 export class WasmString
 {
-    constructor(js_str)
+    constructor(str)
 	{
-		let encoded_buf = (new TextEncoder()).encode(js_str);
+		let encoded_buf;
+		if (typeof str === 'string') 
+			encoded_buf = (new TextEncoder()).encode(str);
+		else if (str instanceof Uint8Array)
+			encoded_buf = str;
+		else
+			throw new Error("WasmString: cannot convert input");
         this.len = encoded_buf.length;
         this.buf = malloc(this.len + 1);
         for (let i = 0; i < this.len; i++) {
@@ -23,10 +29,6 @@ export class WasmString
         }
         Wasm.HEAPU8[this.buf + this.len] = 0;
     }
-	free()
-	{
-		free(this.buf);
-	}
 }
 
 export async function initWasm(wasmPath) {

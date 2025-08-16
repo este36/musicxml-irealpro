@@ -1653,7 +1653,14 @@ function checkIncomingModuleAPI() {
 // Imports from the Wasm binary.
 var _parse_musicxml = Module['_parse_musicxml'] = makeInvalidEarlyAccess('_parse_musicxml');
 var _free = Module['_free'] = makeInvalidEarlyAccess('_free');
+var _mxl_archive_create = Module['_mxl_archive_create'] = makeInvalidEarlyAccess('_mxl_archive_create');
+var _mxl_archive_free = Module['_mxl_archive_free'] = makeInvalidEarlyAccess('_mxl_archive_free');
+var _mxl_archive_append_file = Module['_mxl_archive_append_file'] = makeInvalidEarlyAccess('_mxl_archive_append_file');
 var _malloc = Module['_malloc'] = makeInvalidEarlyAccess('_malloc');
+var _mxl_archive_get_file_buf = Module['_mxl_archive_get_file_buf'] = makeInvalidEarlyAccess('_mxl_archive_get_file_buf');
+var _mxl_archive_get_file_len = Module['_mxl_archive_get_file_len'] = makeInvalidEarlyAccess('_mxl_archive_get_file_len');
+var _mxl_archive_get_files_count = Module['_mxl_archive_get_files_count'] = makeInvalidEarlyAccess('_mxl_archive_get_files_count');
+var _mxl_archive_get_musicxml_index = Module['_mxl_archive_get_musicxml_index'] = makeInvalidEarlyAccess('_mxl_archive_get_musicxml_index');
 var _irp_song_free = Module['_irp_song_free'] = makeInvalidEarlyAccess('_irp_song_free');
 var _irp_playlist_append = Module['_irp_playlist_append'] = makeInvalidEarlyAccess('_irp_playlist_append');
 var _irp_playlist_create = Module['_irp_playlist_create'] = makeInvalidEarlyAccess('_irp_playlist_create');
@@ -1673,7 +1680,14 @@ var _emscripten_stack_get_current = makeInvalidEarlyAccess('_emscripten_stack_ge
 function assignWasmExports(wasmExports) {
   Module['_parse_musicxml'] = _parse_musicxml = createExportWrapper('parse_musicxml', 2);
   Module['_free'] = _free = createExportWrapper('free', 1);
+  Module['_mxl_archive_create'] = _mxl_archive_create = createExportWrapper('mxl_archive_create', 0);
+  Module['_mxl_archive_free'] = _mxl_archive_free = createExportWrapper('mxl_archive_free', 1);
+  Module['_mxl_archive_append_file'] = _mxl_archive_append_file = createExportWrapper('mxl_archive_append_file', 4);
   Module['_malloc'] = _malloc = createExportWrapper('malloc', 1);
+  Module['_mxl_archive_get_file_buf'] = _mxl_archive_get_file_buf = createExportWrapper('mxl_archive_get_file_buf', 2);
+  Module['_mxl_archive_get_file_len'] = _mxl_archive_get_file_len = createExportWrapper('mxl_archive_get_file_len', 2);
+  Module['_mxl_archive_get_files_count'] = _mxl_archive_get_files_count = createExportWrapper('mxl_archive_get_files_count', 1);
+  Module['_mxl_archive_get_musicxml_index'] = _mxl_archive_get_musicxml_index = createExportWrapper('mxl_archive_get_musicxml_index', 1);
   Module['_irp_song_free'] = _irp_song_free = createExportWrapper('irp_song_free', 1);
   Module['_irp_playlist_append'] = _irp_playlist_append = createExportWrapper('irp_playlist_append', 2);
   Module['_irp_playlist_create'] = _irp_playlist_create = createExportWrapper('irp_playlist_create', 1);

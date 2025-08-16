@@ -5,6 +5,16 @@
 
 #include "parser.h"
 
+int is_mxl_file(const char *f)
+{
+	const size_t len = strlen(f);
+	return (len > 4
+			&& f[len - 4] == '.'
+			&& f[len - 3] == 'm'
+			&& f[len - 2] == 'x'
+			&& f[len - 1] == 'l');
+}
+
 t_irealpro_song *get_song_from_path(const char* path)
 {
     FILE* f = fopen(path, "rb");

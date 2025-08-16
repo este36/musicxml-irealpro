@@ -9,7 +9,15 @@ WASM_DIR = wasm
 EMCC_LDFLAGS = \
 	-sMODULARIZE=1\
 	-sEXPORT_ES6=1\
-	-sEXPORTED_FUNCTIONS='["_parse_musicxml",\
+	-sEXPORTED_FUNCTIONS='[\
+		"_mxl_archive_create",\
+		"_mxl_archive_free",\
+		"_mxl_archive_append_file",\
+		"_mxl_archive_get_musicxml_index",\
+		"_mxl_archive_get_file_buf",\
+		"_mxl_archive_get_file_len",\
+		"_mxl_archive_get_files_count",\
+		"_parse_musicxml",\
 		"_irp_song_get_html",\
 		"_irp_playlist_get_html",\
 		"_irp_playlist_create",\

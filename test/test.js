@@ -1,13 +1,24 @@
 import { readFileSync } from 'fs';
 import * as mxl2irp from '../bindings/mxl2irp.js';
 import { WasmString } from '../bindings/mxl2irp.js';
+import * as fflate from './vendors/fflate-0.8.2/lib/index.cjs';
+
+function is_mxl_file(f)
+{
+	const len = f.len;
+	return (len > 4
+			&& f[len - 4] === '.'
+			&& f[len - 3] === 'm'
+			&& f[len - 2] === 'x'
+			&& f[len - 1] === 'l');
+}
 
 function get_song_from_path(path)
 {
 	try {
 		const file = new WasmString(readFileSync(path, 'utf8'));
 		const irp_song = mxl2irp.parse_musicxml(file.buf, file.len);
-		file.free();
+		mxl2irp.free(file.buf);
 		return irp_song != 0 ? irp_song : null;
 	} catch (err) {
 		console.error(err);

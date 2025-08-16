@@ -9,7 +9,7 @@ t_mxl_archive	*mxl_archive_create()
 
 void	mxl_archive_free(t_mxl_archive	*mxl_archive)
 {
-	for (size_t i = 0; i < mxl_archive->count; i++) {
+	for (size_t i = 0; i < mxl_archive->files_count; i++) {
 		free(mxl_archive->files[i].content.buf);
 		free(mxl_archive->files[i].filename);
 	}
@@ -19,20 +19,20 @@ void	mxl_archive_free(t_mxl_archive	*mxl_archive)
 
 void	mxl_archive_append_file(t_mxl_archive *mxl_archive, char *filename, char *file_buf, size_t file_len)
 {
-	if (mxl_archive->count == 0) {
+	if (mxl_archive->files_count == 0) {
 		mxl_archive->files = malloc(sizeof(t_archive_file) * 4);
-	} else if (mxl_archive->count > 3 && mxl_archive->count % 2 == 0) {
+	} else if (mxl_archive->files_count > 3 && mxl_archive->files_count % 2 == 0) {
 		t_archive_file	*tmp;
-		tmp = realloc(mxl_archive->files, sizeof(t_archive_file) * mxl_archive->count * 2);
+		tmp = realloc(mxl_archive->files, sizeof(t_archive_file) * mxl_archive->files_count * 2);
 		if (tmp) mxl_archive->files = tmp;
 	}
 	if (!mxl_archive->files)
 		return;
-	mxl_archive->files[mxl_archive->count].content.buf = file_buf;
-	mxl_archive->files[mxl_archive->count].content.len = file_len;
-	mxl_archive->files[mxl_archive->count].content.cap = 1;
-	mxl_archive->files[mxl_archive->count].filename = strdup(filename);
-	mxl_archive->count += 1;
+	mxl_archive->files[mxl_archive->files_count].content.buf = file_buf;
+	mxl_archive->files[mxl_archive->files_count].content.len = file_len;
+	mxl_archive->files[mxl_archive->files_count].content.cap = 1;
+	mxl_archive->files[mxl_archive->files_count].filename = strdup(filename);
+	mxl_archive->files_count += 1;
 }
 
 char	*mxl_archive_get_file_buf(t_mxl_archive *mxl_archive, size_t file_index)
@@ -45,11 +45,18 @@ size_t	mxl_archive_get_file_len(t_mxl_archive *mxl_archive, size_t file_index)
 	return mxl_archive->files[file_index].content.len;
 }
 
+size_t	mxl_archive_get_files_count(t_mxl_archive *mxl_archive)
+{
+	return mxl_archive->files_count;
+}
+
 int parse_container_xml(void *user_data, t_sax_context *context)
 {
 	char **musicxml_filename = (char **)user_data;
+	const da_str_ref rootfile = STR_REF("rootfile");
 
-	if (context->found.type == XML_SELF_CLOSING) {
+	if (context->found.type == XML_SELF_CLOSING
+		&& str_ref_eq(&context->found.target, &rootfile)) {
 		da_str_ref val = {0};
 		if (sax_get_attrv(context, &val, "full-name") != 0)
 			return PARSER_STOP_ERROR;
@@ -68,9 +75,9 @@ int	mxl_archive_get_musicxml_index(t_mxl_archive *mxl_archive)
 	char *musicxml_filename = NULL;
 	int container_fileindex = -1;
 
-	if (mxl_archive->count == 0)
+	if (mxl_archive->files_count == 0)
 		return -1;
-	for (size_t i = 0; i < mxl_archive->count; ++i) {
+	for (size_t i = 0; i < mxl_archive->files_count; ++i) {
 		if (strcmp(mxl_archive->files[i].filename, "META-INF/container.xml") == 0)
 			container_fileindex = i;
 	}
@@ -83,7 +90,7 @@ int	mxl_archive_get_musicxml_index(t_mxl_archive *mxl_archive)
 
 	if (sax_parse_xml(parse_container_xml, &musicxml_filename, &context) != 0)
 		return -1;
-	for (size_t i = 0; i < mxl_archive->count; ++i) {
+	for (size_t i = 0; i < mxl_archive->files_count; ++i) {
 		if (strcmp(mxl_archive->files[i].filename, musicxml_filename) == 0)
 			return i;
 	}
