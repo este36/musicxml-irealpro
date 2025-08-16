@@ -12,6 +12,7 @@
   "type": "module",
   "exports": {
 	".": "./bindings/mxl2irp.js",
+	"./wasm-module": "./dist/libmxl2irp.wasm",
     "./package.json": "./package.json"
   },
   "files": [
