@@ -1,5 +1,12 @@
 import Module from '../dist/libmxl2irp.js';
 
+let mxl_archive_create = null;
+let mxl_archive_free = null;
+let mxl_archive_append_file = null;
+let mxl_archive_get_musicxml_index = null;
+let mxl_archive_get_file_buf = null;
+let mxl_archive_get_file_len = null;
+let mxl_archive_get_files_count = null;
 let parse_musicxml = null;
 let irp_song_get_html = null;
 let irp_playlist_get_html = null;
@@ -41,6 +48,13 @@ export async function initWasm(wasmPath) {
 		m = await Module({ locateFile: f => f.endsWith('.wasm') ? wasmPath : f});
 	}
 
+	mxl_archive_create = m.cwrap('mxl_archive_create', 'number', null);
+	mxl_archive_free = m.cwrap('mxl_archive_free', null, ['number']);
+	mxl_archive_append_file = m.cwrap('mxl_archive_append_file', null, ['number', 'number','number','number']);
+	mxl_archive_get_musicxml_index = m.cwrap('mxl_archive_get_musicxml_index', 'number', ['number']);
+	mxl_archive_get_file_buf = m.cwrap('mxl_archive_get_file_buf', 'number', ['number', 'number']);
+	mxl_archive_get_file_len = m.cwrap('mxl_archive_get_file_len', 'number', ['number', 'number']);
+	mxl_archive_get_files_count = m.cwrap('mxl_archive_get_files_count', 'number', ['number']);
     parse_musicxml = m.cwrap('parse_musicxml', 'number', ['number', 'number']);
     irp_song_get_html = m.cwrap('irp_song_get_html', 'string', ['number']);
     irp_playlist_get_html = m.cwrap('irp_playlist_get_html', 'string', ['number']);
@@ -54,6 +68,13 @@ export async function initWasm(wasmPath) {
 }
 
 export {
+	mxl_archive_create,
+	mxl_archive_free,
+	mxl_archive_append_file,
+	mxl_archive_get_musicxml_index,
+	mxl_archive_get_file_buf,
+	mxl_archive_get_file_len,
+	mxl_archive_get_files_count,
 	parse_musicxml,
 	irp_song_get_html,
 	irp_song_free,
