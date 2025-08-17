@@ -11,9 +11,9 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-	".": "./bindings/mxl2irp.js",
-	"./lib": "./build/libmxl2irp.js",
-	"./wasm-module": "./build/libmxl2irp.wasm",
+    ".": "./bindings/mxl2irp.js",
+    "./lib": "./build/libmxl2irp.js",
+    "./wasm-module": "./build/libmxl2irp.wasm",
     "./package.json": "./package.json"
   },
   "files": [
@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/este36/mxl2irp/issues"
   },
-  "homepage": "https://github.com/este36/mxl2irp#readme"
+  "homepage": "https://github.com/este36/mxl2irp#readme",
+  "devDependencies": {
+    "fflate": "^0.8.2"
+  }
 }

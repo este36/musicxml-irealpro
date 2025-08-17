@@ -2,7 +2,7 @@
 
 import { readFileSync } from 'fs';
 import * as mxl2irp from 'musicxml-irealpro';
-import * as fflate from './vendors/fflate-0.8.2/lib/index.cjs';
+import * as fflate from 'fflate';
 
 function is_mxl_file(f)
 {
