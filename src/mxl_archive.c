@@ -53,7 +53,7 @@ size_t	mxl_archive_get_files_count(t_mxl_archive *mxl_archive)
 int parse_container_xml(void *user_data, t_sax_context *context)
 {
 	char **musicxml_filename = (char **)user_data;
-	const da_str_ref rootfile = STR_REF("rootfile");
+	static const da_str_ref rootfile = STR_REF("rootfile");
 
 	if ((context->found.type == XML_SELF_CLOSING || context->found.type == XML_TAG_OPEN)
 		&& str_ref_eq(&context->found.target, &rootfile)) {
@@ -89,12 +89,18 @@ int	mxl_archive_get_musicxml_index(t_mxl_archive *mxl_archive)
     t_sax_context context = sax_context_init(&scanner);
 
 	if (sax_parse_xml(parse_container_xml, &musicxml_filename, &context) != 0
-		&& musicxml_filename == NULL)
+		|| musicxml_filename == NULL) {
+		if (musicxml_filename)
+			free(musicxml_filename);
 		return -1;
-	for (size_t i = 0; i < mxl_archive->files_count; ++i) {
-		if (strcmp(mxl_archive->files[i].filename, musicxml_filename) == 0)
-			return i;
 	}
+	for (size_t i = 0; i < mxl_archive->files_count; ++i) {
+		if (strcmp(mxl_archive->files[i].filename, musicxml_filename) == 0) {
+			free(musicxml_filename);
+			return i;
+		}
+	}
+	free(musicxml_filename);
 	return -1;
 }
 
