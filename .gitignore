@@ -3,6 +3,7 @@ test/test.out
 node_modules
 package-lock.json
 obj
+build
 libmxl_to_irealpro.so
 result
 result.html
