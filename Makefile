@@ -29,11 +29,15 @@ EMCC_LDFLAGS = \
 		"_malloc"]'\
 	-sEXPORTED_RUNTIME_METHODS=ccall,cwrap,HEAPU8
 
-OBJ_DIR = obj
+OBJ_DIR_STATIC = obj/static
+OBJ_DIR_SHARED = obj/shared
+
 SRC_DIR = src
-BIN_DIR = dist
+BIN_DIR = build
 
 LIB_SO = $(BIN_DIR)/$(LIB_NAME).so
+LIB = $(BIN_DIR)/$(LIB_NAME).a
+LIB_JS = $(BIN_DIR)/$(LIB_NAME).js
 
 SRC = musicxml.c \
 	parser/parse_measure.c \
@@ -48,49 +52,62 @@ SRC = musicxml.c \
 	da.c \
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
+OBJS_STATIC = $(addprefix $(OBJ_DIR_STATIC)/, $(SRC:%.c=%.o))
+OBJS_SHARED = $(addprefix $(OBJ_DIR_SHARED)/, $(SRC:%.c=%.o))
 
-test: $(LIB_SO) wasm
+lib_a: $(LIB)
+lib_js: $(LIB_JS)
+lib_so: $(LIB_SO)
+
+do_tests: test/test.out
+	python3 ./test/do_tests.py
+
+test/test.out: $(LIB) $(LIB_JS)
 	$(CC) $(CFLAGS) \
  		test/test.c \
 		-I./$(MINIZ)/build -I./$(MINIZ) \
 		-L./$(BIN_DIR) -L./$(MINIZ)/build \
 		-l$(NAME) -lminiz \
-		-Wl,-rpath=$$(pwd)/$(BIN_DIR) \
-		-o test/test.out
-	python3 ./test/do_tests.py
+		-o $@
 
-wasm:
+$(LIB_JS): $(SRCS)
 	mkdir -p $(BIN_DIR)
 	docker run --rm -v $$(pwd):/src emscripten/emsdk bash -c "make wasm-emcc"
 
-wasm-emcc:
-	emcc $(CFLAGS) $(SRCS) -o $(BIN_DIR)/$(LIB_NAME).js $(EMCC_LDFLAGS)
+wasm-emcc: $(SRCS)
+	emcc $(CFLAGS) $(SRCS) -o $(LIB_JS) $(EMCC_LDFLAGS)
 
-$(LIB_SO): CFLAGS += -g
-$(LIB_SO): CFLAGS += -fPIC
-$(LIB_SO): $(OBJS)
+$(LIB): CFLAGS += -g
+$(LIB): $(OBJS_STATIC)
 	mkdir -p $(BIN_DIR)
-	$(CC) -shared $(CFLAGS) $(OBJS) -o $(LIB_SO) $(LFLAGS)
+	ar -rc $@ $^
+	
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(LIB_SO): CFLAGS += -fPIC
+$(LIB_SO): $(OBJS_SHARED)
+	mkdir -p $(BIN_DIR)
+	$(CC) -shared $(CFLAGS) $^ -o $@ $(LFLAGS)
+
+clean:
+	rm -rf obj $(BIN_DIR)
+
+$(OBJ_DIR_STATIC)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -c $< -o $@
 
-clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
-
-re: clean test
+$(OBJ_DIR_SHARED)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -c $< -o $@
 
 serve: result.html
 	nohup python3 -m http.server 8080 --bind 0.0.0.0 >/dev/null 2>&1 &
 
 generate:
-	python3 ./gen/musicxml.c.py > ./src/musicxml.c
-	python3 ./gen/musicxml.h.py > ./includes/musicxml.h
-	python3 ./gen/musicxml_harmony.py > ./src/musicxml_harmony.gperf
+	python3 ./meta/musicxml.c.py > ./src/musicxml.c
+	python3 ./meta/musicxml.h.py > ./includes/musicxml.h
+	python3 ./meta/musicxml_harmony.py > ./src/musicxml_harmony.gperf
 	gperf --language=ANSI-C ./src/musicxml_harmony.gperf > ./includes/irealpro_chord.h
-	python3 gen/patch_gperf_header.py ./includes/irealpro_chord.h
+	python3 meta/patch_gperf_header.py ./includes/irealpro_chord.h
 	rm ./src/musicxml_harmony.gperf
 
-.PHONY: all re run clean wasm wasm-emcc
+.PHONY: do_tests lib_js lib_so lib_a serve clean wasm-emcc
