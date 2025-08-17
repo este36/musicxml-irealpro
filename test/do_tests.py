@@ -10,7 +10,6 @@ def exec_cmd(args):
 def js_cmd(args):
     args = args[:]
     args.insert(0, "./test/test.js")
-    args.insert(0, "node")
     return exec_cmd(args)
 
 def c_cmd(args):

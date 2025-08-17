@@ -1,5 +1,7 @@
+#!/usr/bin/env node
+
 import { readFileSync } from 'fs';
-import * as mxl2irp from '../bindings/mxl2irp.js';
+import * as mxl2irp from 'musicxml-irealpro';
 import * as fflate from './vendors/fflate-0.8.2/lib/index.cjs';
 
 function is_mxl_file(f)

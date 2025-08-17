@@ -12,13 +12,14 @@
   "type": "module",
   "exports": {
 	".": "./bindings/mxl2irp.js",
-	"./wasm-module": "./dist/libmxl2irp.wasm",
+	"./lib": "./build/libmxl2irp.js",
+	"./wasm-module": "./build/libmxl2irp.wasm",
     "./package.json": "./package.json"
   },
   "files": [
     "./bindings/mxl2irp.js",
-    "./dist/libmxl2irp.js",
-    "./dist/libmxl2irp.wasm"
+    "./build/libmxl2irp.js",
+    "./build/libmxl2irp.wasm"
   ],
   "bugs": {
     "url": "https://github.com/este36/mxl2irp/issues"

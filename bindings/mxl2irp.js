@@ -1,4 +1,4 @@
-import Module from '../dist/libmxl2irp.js';
+import Module from 'musicxml-irealpro/lib';
 
 let mxl_archive_create = null;
 let mxl_archive_free = null;
@@ -43,7 +43,7 @@ export async function initWasm(wasmPath) {
 
 	let m;
 	if (isNode) {
-        m = await import('../dist/libmxl2irp.js').then(mod => mod.default());
+        m = await import('musicxml-irealpro/lib').then(mod => mod.default());
 	} else {
 		m = await Module({ locateFile: f => f.endsWith('.wasm') ? wasmPath : f});
 	}
