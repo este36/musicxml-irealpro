@@ -2,8 +2,9 @@ NAME = mxl2irp
 LIB_NAME = lib$(NAME)
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
 INCLUDES_DIR = ./includes
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES_DIR)
+MINIZ = test/vendors/miniz
 
 WASM_DIR = wasm
 EMCC_LDFLAGS = \
@@ -50,7 +51,13 @@ SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
 test: $(LIB_SO) wasm
-	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) test/test.c -L$$(pwd)/$(BIN_DIR) -l$(NAME) -Wl,-rpath=$$(pwd)/$(BIN_DIR) -o test/test.out
+	$(CC) $(CFLAGS) \
+ 		test/test.c \
+		-I./$(MINIZ)/build -I./$(MINIZ) \
+		-L./$(BIN_DIR) -L./$(MINIZ)/build \
+		-l$(NAME) -lminiz \
+		-Wl,-rpath=$$(pwd)/$(BIN_DIR) \
+		-o test/test.out
 	python3 ./test/do_tests.py
 
 wasm:
@@ -58,7 +65,7 @@ wasm:
 	docker run --rm -v $$(pwd):/src emscripten/emsdk bash -c "make wasm-emcc"
 
 wasm-emcc:
-	emcc $(SRCS) -o $(BIN_DIR)/$(LIB_NAME).js -I$(INCLUDES_DIR) $(EMCC_LDFLAGS)
+	emcc $(CFLAGS) $(SRCS) -o $(BIN_DIR)/$(LIB_NAME).js $(EMCC_LDFLAGS)
 
 $(LIB_SO): CFLAGS += -g
 $(LIB_SO): CFLAGS += -fPIC
