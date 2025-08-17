@@ -1,5 +1,5 @@
 # musicxml-irealpro
-### Musicxml to Irealpro File Converter.
+### Musicxml to iReal Pro File Converter.
 Provides a library written in C, wasm bindings for both nodejs and the browser.
 
 Both compressed `.mxl` files and `.musicxml` are supported.
