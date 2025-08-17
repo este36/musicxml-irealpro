@@ -54,7 +54,7 @@ SRC = musicxml.c \
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS_STATIC = $(addprefix $(OBJ_DIR_STATIC)/, $(SRC:%.c=%.o))
 OBJS_SHARED = $(addprefix $(OBJ_DIR_SHARED)/, $(SRC:%.c=%.o))
-
+all: lib_a lib_js lib_so
 lib_a: $(LIB)
 lib_js: $(LIB_JS)
 lib_so: $(LIB_SO)
@@ -110,4 +110,4 @@ generate:
 	python3 meta/patch_gperf_header.py ./includes/irealpro_chord.h
 	rm ./src/musicxml_harmony.gperf
 
-.PHONY: do_tests lib_js lib_so lib_a serve clean wasm-emcc
+.PHONY: do_tests all lib_js lib_so lib_a serve clean wasm-emcc
