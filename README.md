@@ -9,6 +9,11 @@ This makes easier to import directly your scores to IrealPro especially if you a
 
 # Installation
 
+#### Dependencies :
+* gcc
+* make
+* docker
+
 The Makefile provides three main rules: `lib_a` (static lib), `lib_so` (shared lib), and `lib_js` for the wasm target.
 
 By default, every libraries are built.
