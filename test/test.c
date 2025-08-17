@@ -33,10 +33,10 @@ t_mxl_archive	*get_mxl_archive_from_mxl_file(const char *file_buf, size_t file_l
 		mz_zip_archive_file_stat file_stat;
 		if (!mz_zip_reader_file_stat(&zip, i, &file_stat))
 			continue;
-		size_t uncomp_len = (size_t)file_stat.m_uncomp_size;
-		unsigned char *uncomp_buf = malloc(uncomp_len);
-		if (mz_zip_reader_extract_to_mem(&zip, i, uncomp_buf, uncomp_len, 0)) {
-			mxl_archive_append_file(mxl_archive, file_stat.m_filename, (char *)uncomp_buf, strlen((char *)uncomp_buf));
+		size_t uncomp_len = 0;
+		char *uncomp_buf = (char *)mz_zip_reader_extract_to_heap(&zip, i, &uncomp_len, 0);
+		if (uncomp_buf) {
+			mxl_archive_append_file(mxl_archive, file_stat.m_filename, uncomp_buf, uncomp_len);
 		}
 	}
 	mz_zip_reader_end(&zip);
