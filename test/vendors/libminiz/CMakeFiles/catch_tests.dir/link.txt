@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/catch_tests.dir/link.d CMakeFiles/catch_tests.dir/tests/main.cpp.o CMakeFiles/catch_tests.dir/tests/catch_amalgamated.cpp.o -o bin/catch_tests  libminiz.a

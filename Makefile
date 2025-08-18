@@ -65,8 +65,8 @@ do_tests: test/test.out
 test/test.out: $(LIB) $(LIB_JS)
 	$(CC) $(CFLAGS) \
  		test/test.c \
-		-I./$(MINIZ)/build -I./$(MINIZ) \
-		-L./$(BIN_DIR) -L./$(MINIZ)/build \
+		-I./$(MINIZ) -I./$(MINIZ) \
+		-L./$(BIN_DIR) -L./$(MINIZ) \
 		-l$(NAME) -lminiz \
 		-o $@
 
