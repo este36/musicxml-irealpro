@@ -25,7 +25,7 @@
     "url": "https://github.com/este36/mxl2irp/issues"
   },
   "homepage": "https://github.com/este36/mxl2irp#readme",
-  "devDependencies": {
+  "dependencies": {
     "fflate": "^0.8.2"
   }
 }

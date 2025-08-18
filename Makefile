@@ -99,8 +99,8 @@ $(OBJ_DIR_SHARED)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -c $< -o $@
 
-serve: result.html
-	nohup python3 -m http.server 8080 --bind 0.0.0.0 >/dev/null 2>&1 &
+serve:
+	python3 -m http.server 8080 --bind 0.0.0.0 >/dev/null 2>&1 &
 
 generate:
 	python3 ./meta/musicxml.c.py > ./src/musicxml.c
