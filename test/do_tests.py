@@ -77,3 +77,6 @@ do_test([mxl_files[2]], True)
 do_test(mxl_files, True)
 mxl_files.pop()
 do_test(mxl_files, False)
+
+all_files = mxl_files + musicxml_files
+do_test(all_files, False)
