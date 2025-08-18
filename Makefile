@@ -4,7 +4,7 @@ LIB_NAME = lib$(NAME)
 CC = gcc
 INCLUDES_DIR = ./includes
 CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES_DIR)
-MINIZ = test/vendors/miniz
+MINIZ = test/vendors/libminiz
 
 WASM_DIR = wasm
 EMCC_LDFLAGS = \
