@@ -17,8 +17,11 @@ int parse_part(void *user_data, t_sax_context *context)
         }
         case XML_TAG_CLOSE:
         {
-            if (str_ref_eq(&n->target, &musicxml.part))
-				return PARSER_STOP;
+            if (str_ref_eq(&n->target, &musicxml.part)) {
+				// Continue to check for another eventual part if no chords found.
+				if (parser_state->song->measures.count != 0)
+					return PARSER_STOP;
+			}
         }
         default: break;
     }
