@@ -68,12 +68,15 @@ do_test(musicxml_files, False)
 mxl_files = [
 	"./test/mxl/Out_of_Nothing.mxl",
 	"./test/mxl/complicité.mxl",
+	"./test/mxl/multipart.mxl",
 	"./test/mxl/timesignature.mxl"
 ]
 
 do_test([mxl_files[0]], False)
 do_test([mxl_files[1]], False)
-do_test([mxl_files[2]], True)
+do_test([mxl_files[2]], False)
+do_test([mxl_files[3]], True)
+
 do_test(mxl_files, True)
 mxl_files.pop()
 do_test(mxl_files, False)
