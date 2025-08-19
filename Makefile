@@ -70,7 +70,7 @@ $(LIB_JS):
 	docker run --rm -v $$(pwd):/src emscripten/emsdk bash -c "make wasm-emcc"
 
 wasm-emcc:
-	emcc $(CFLAGS) $(SRCS) -I$(INCLUDES_DIR) -o $(LIB_JS) $(EMCC_LDFLAGS)
+	emcc $(CFLAGS) -Oz $(SRCS) -I$(INCLUDES_DIR) -o $(LIB_JS) $(EMCC_LDFLAGS)
 
 $(LIB): CFLAGS += -g
 $(LIB): $(OBJS_STATIC)
