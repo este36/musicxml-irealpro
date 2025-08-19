@@ -1,12 +1,12 @@
 {
   "name": "musicxml-irealpro",
   "version": "1.0.0",
-  "description": "Musicxml to Irealpro File Converter",
+  "description": "Musicxml to Irealpro File Converter.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/este36/mxl2irp.git"
+    "url": "git+https://github.com/este36/musicxml-irealpro.git"
   },
-  "keywords": [],
+  "keywords": ["musicxml", "irealpro", "converter", "jazz"],
   "author": "Esteban Mercier",
   "license": "MIT",
   "type": "module",
@@ -19,12 +19,16 @@
   "files": [
     "./bindings/mxl2irp.js",
     "./build/libmxl2irp.js",
-    "./build/libmxl2irp.wasm"
+    "./build/libmxl2irp.wasm",
+    "./test/test.js"
   ],
-  "bugs": {
-    "url": "https://github.com/este36/mxl2irp/issues"
+  "bin": {
+	  "mxl2irp": "./test/test.js"
   },
-  "homepage": "https://github.com/este36/mxl2irp#readme",
+  "bugs": {
+    "url": "https://github.com/este36/musicxml-irealpro/issues"
+  },
+  "homepage": "https://github.com/este36/musicxml-irealpro#readme",
   "dependencies": {
     "fflate": "^0.8.2"
   }
