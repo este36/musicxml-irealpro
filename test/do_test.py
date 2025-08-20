@@ -28,17 +28,17 @@ def do_test(args, should_fail):
 	print(("\033[32mOK\033[0m" if res else "\033[31mKO\033[0m") + (" (Should fail)" if should_fail else ""))
 	if not res:
 		print("C result:\n")
-		print("stdout:")
-		print(repr(c_res.stdout))
-		print("stderr:")
-		print(repr(c_res.stderr))
+		print("    " + "stdout:")
+		print("    " + repr(c_res.stdout))
+		print("    " + "stderr:")
+		print("    " + repr(c_res.stderr))
 		print("JS result:\n")
-		print("stdout:")
-		print(repr(js_res.stdout))
-		print("stderr:")
-		print(repr(js_res.stderr))
+		print("    " + "stdout:")
+		print("    " + repr(js_res.stdout))
+		print("    " + "stderr:")
+		print("    " + repr(js_res.stderr))
 		if js_res.stdout != c_res.stdout:
-		    print("diff stdout:")
+		    print("\ndiff stdout:")
 		    diff = difflib.unified_diff(
 		        js_res.stdout.splitlines(),
 		        c_res.stdout.splitlines(),
@@ -48,7 +48,7 @@ def do_test(args, should_fail):
 		    )
 		    print('\n'.join(diff))
 		if js_res.stderr != c_res.stderr:
-		    print("diff stderr:")
+		    print("\ndiff stderr:")
 		    diff = difflib.unified_diff(
 		        js_res.stdout.splitlines(),
 		        c_res.stdout.splitlines(),
@@ -57,4 +57,4 @@ def do_test(args, should_fail):
 		        lineterm=''
 		    )
 		    print('\n'.join(diff))
-#sys.exit(1)
+		sys.exit(1)

@@ -13,14 +13,18 @@ int parse_time(void *user_data, t_sax_context *context)
 			if (str_ref_eq(&n->target, &musicxml.beats)) {
                 if (sax_get_int(context, &res) != 0)
 					return PARSER_STOP_ERROR;
-				if (res <= 1)
+				if (res <= 1) {
+					parser_state->result->error_code = ERROR_UNVALID_TIME_SIGNATURE;
 					return PARSER_STOP_ERROR;
+				}
 				m->time_signature.beats = (uint32_t)res;
 			} else if (str_ref_eq(&n->target, &musicxml.beat_type)) {
                 if (sax_get_int(context, &res) != 0)
 					return PARSER_STOP_ERROR;
-				if (res <= 1)
+				if (res <= 1) {
+					parser_state->result->error_code = ERROR_UNVALID_TIME_SIGNATURE;
 					return PARSER_STOP_ERROR;
+				}
 				m->time_signature.beat_type = (uint32_t)res;
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
@@ -33,8 +37,10 @@ int parse_time(void *user_data, t_sax_context *context)
 				uint32_t b = m->time_signature.beats;
 				uint32_t bt = m->time_signature.beat_type;
 				if (b && bt) {
-					if (bt % 2 != 0)
+					if (bt % 2 != 0) {
+						parser_state->result->error_code = ERROR_UNVALID_TIME_SIGNATURE;
 						return PARSER_STOP_ERROR;
+					}
 					if (parser_state->song->zoom == ZOOM_NONE
 						&& is_unvalid_time_signature(b, bt)) {
 						// try to zoom in or out
@@ -43,8 +49,10 @@ int parse_time(void *user_data, t_sax_context *context)
 						else if (!is_unvalid_time_signature(b, bt/2))
 							parser_state->song->zoom = ZOOM_IN;
 					}
-				} else if (b != bt)
+				} else if (b != bt) {
+					parser_state->result->error_code = ERROR_UNVALID_TIME_SIGNATURE;
 					return PARSER_STOP_ERROR;
+				}
 				return PARSER_STOP;
 			}
 			break;
@@ -87,8 +95,10 @@ int parse_key(void *user_data, t_sax_context *context)
                 if (sax_get_int(context, &res) != 0)
 					return PARSER_STOP_ERROR;
 				NoteEnum key = get_key_from_fifths(res);
-				if (key == NOTE_UNVALID)
+				if (key == NOTE_UNVALID) {
+					parser_state->result->error_code = ERROR_UNVALID_KEY;
 					return PARSER_STOP_ERROR;
+				}
 				parser_state->song->key = key;
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
@@ -122,8 +132,10 @@ int parse_attributes(void *user_data, t_sax_context *context)
 			} else if (str_ref_eq(&n->target, &musicxml.divisions)) {
                 if (sax_get_int(context, &res) != 0)
 					return PARSER_STOP_ERROR;
-				if (res <= 0)
+				if (res <= 0) {
+					parser_state->result->error_code = ERROR_UNVALID_DIVISIONS;
 					return PARSER_STOP_ERROR;
+				}
 				GET_CURR_MEASURE(parser_state)->divisions = res;
 			} else if (parser_state->song->key == NOTE_UNVALID
 					&& str_ref_eq(&n->target, &musicxml.key)) {

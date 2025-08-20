@@ -3,11 +3,11 @@
 #include <stdarg.h>
 #include <time.h>
 
-#include "parser.h"
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-function"
 #include "miniz.h"
 #pragma GCC diagnostic pop
+#include "mxl2irp.h"
 #include "mxl_archive.h"
 
 int is_mxl_file(const char *f)
@@ -43,7 +43,7 @@ t_mxl_archive	*get_mxl_archive_from_mxl_file(const char *file_buf, size_t file_l
 	return mxl_archive;
 }
 
-t_irealpro_song *get_song_from_path(const char* path)
+t_irealpro_song	*get_song_from_path(const char* path)
 {
     FILE* f = fopen(path, "rb");
     if (!f) return NULL;
@@ -59,7 +59,7 @@ t_irealpro_song *get_song_from_path(const char* path)
     file_buf[file_len] = '\0';
     fclose(f);
 
-	t_irealpro_song *irp_song;
+	t_mxl2irp_result *result;
 	if (is_mxl_file(path)) {
 		t_mxl_archive *mxl_archive = get_mxl_archive_from_mxl_file(file_buf, file_len);
 		if (!mxl_archive) {
@@ -74,13 +74,23 @@ t_irealpro_song *get_song_from_path(const char* path)
 		}
 		char *musicxml_buf = mxl_archive_get_file_buf(mxl_archive, musicxml_file_index);
 		size_t musicxml_len = mxl_archive_get_file_len(mxl_archive, musicxml_file_index);
-		irp_song = parse_musicxml(musicxml_buf, musicxml_len);
+		result = parse_musicxml(musicxml_buf, musicxml_len);
 		mxl_archive_free(mxl_archive);
 	} else {
-		irp_song = parse_musicxml(file_buf, file_len);
+		result = parse_musicxml(file_buf, file_len);
 	}
 	free(file_buf);
-	return irp_song;
+
+	if (result->error_code != ERROR_UNSET) {
+		fprintf(stderr, "Error: %s\n", get_error_code_str(result->error_code));
+		if (result->error_details) {
+			fprintf(stderr, "Details: %s\n", result->error_details);
+			free(result->error_details);
+		}
+		free(result);
+		return NULL;
+	}
+	return result->item;
 }
 
 void	print_url(const char *url)
@@ -98,10 +108,8 @@ int main(int argc, char **argv) {
 
 	if (argc == 2) {
 		t_irealpro_song *irp_song = get_song_from_path(argv[1]);
-		if (irp_song == NULL) {
-			fprintf(stderr, "%s: PARSE SONG FAIL\n", argv[1]);
+		if (!irp_song)
 			return 1;
-		}
 		char *url = irp_song_get_html(irp_song);
 		if (url == NULL) {
 			fprintf(stderr, "HTML RENDER FAIL\n");
@@ -115,9 +123,8 @@ int main(int argc, char **argv) {
 
 		for (int i = 1; i < argc; i++) {
 			t_irealpro_song *irp_song = get_song_from_path(argv[i]);
-			if (irp_song == NULL) {
+			if (!irp_song) {
 				irp_playlist_free(playlist);
-				fprintf(stderr, "%s: PARSE SONG FAIL\n", argv[i]);
 				return 1;
 			}
 			irp_playlist_append(playlist, irp_song);
