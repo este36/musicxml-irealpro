@@ -46,8 +46,10 @@ int parse_harmony(void *user_data, t_sax_context *context)
             // <degree> element is checked first because there can be a lot of them inside <harmony> element.
             if (str_ref_eq(&n->target, &musicxml.degree)) {
                 c->degrees_count++;
-				if (c->degrees_count > TMP_CHORD_MAX_DEGREES)
+				if (c->degrees_count > TMP_CHORD_MAX_DEGREES) {
+					parser_state->result->error_code = ERROR_TOO_MUCH_DEGREES;
 					return PARSER_STOP_ERROR;
+				}
                 if (sax_parse_xml(parse_degree, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
 			} else if (str_ref_eq(&n->target, &musicxml.kind)) {
@@ -108,8 +110,11 @@ int parse_harmony(void *user_data, t_sax_context *context)
 					ref += strlen(ref);
 				}
 				const struct keyword *kw = irealpro_chord_lookup(kind, ref - kind);
-				if (kw == NULL)
+				if (kw == NULL) {
+					parser_state->result->error_code = ERROR_UNVALID_CHORD_KIND;
+					parser_state->result->error_details = strdup(kind);
 					return PARSER_STOP_ERROR;
+				}
                 // we copy the content of what we found to the current chord.
                 t_chord* curr = GET_CURR_CHORD(parser_state);
                 curr->root = c->root;

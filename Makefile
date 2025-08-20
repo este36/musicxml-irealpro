@@ -23,7 +23,8 @@ LIB_SO = $(BIN_DIR)/$(LIB_NAME).so
 LIB = $(BIN_DIR)/$(LIB_NAME).a
 LIB_JS = $(BIN_DIR)/$(LIB_NAME).js
 
-SRC = musicxml.c \
+SRC = mxl2irp.c \
+	musicxml.c \
 	parser/parse_measure.c \
 	parser/parse_harmony.c \
 	parser/parse_attributes.c \

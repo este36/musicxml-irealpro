@@ -12,6 +12,7 @@ extern "C" {
 	#define WASM_EXPORT 
 #endif
 
+#include "mxl2irp.h"
 #include "irealpro_chord.h"
 #include "da.h"
 #include "musicxml.h"
@@ -104,6 +105,7 @@ typedef struct s_mxl_chord
 
 typedef struct s_parser_state
 {
+	t_mxl2irp_result	*result;
 	t_irealpro_song		*song;
 	uint32_t			part_selected;
 	t_mxl_chord			tmp_chord;
@@ -127,7 +129,7 @@ int parse_attributes(void *user_data, t_sax_context *context);
 int parse_harmony(void *user_data, t_sax_context *context);
 int parse_measure(void *user_data, t_sax_context *context);
 
-WASM_EXPORT	t_irealpro_song *parse_musicxml(const char* musicxml, const size_t musicxml_length);
+WASM_EXPORT	t_mxl2irp_result	*parse_musicxml(const char* musicxml, const size_t musicxml_length);
 
 #ifdef __cplusplus
 }

@@ -116,11 +116,13 @@ int parse_song_partwise(void *user_data, t_sax_context *context)
     return PARSER_CONTINUE;
 }
 
-t_irealpro_song *parse_musicxml(const char* musicxml, const size_t musicxml_length) {
+t_mxl2irp_result	*parse_musicxml(const char* musicxml, const size_t musicxml_length) {
 	t_irealpro_song *irp_song = calloc(1, sizeof(t_irealpro_song));
-	if (!irp_song)
+	t_mxl2irp_result *result = calloc(1, sizeof(t_mxl2irp_result));
+	if (!irp_song || !result)
 		return NULL;
     t_parser_state parser_state = {
+		.result = result,
         .song = irp_song,
         .part_selected = 1,
     };
@@ -129,12 +131,15 @@ t_irealpro_song *parse_musicxml(const char* musicxml, const size_t musicxml_leng
     t_sax_context context = sax_context_init(&scanner);
 
 	if (sax_parse_xml(parse_song_partwise, &parser_state, &context) != 0) {
+		if (result->error_code == ERROR_UNSET)
+			result->error_code = ERROR_XML_FILE_CORRUPT;
 		free(irp_song);
-		return NULL;
+		return result;
 	}
 	if (irp_song->measures.count == 0) {
+		result->error_code = ERROR_EMPTY_SCORE;
 		free(irp_song);
-		return NULL;
+		return result;
 	}
 	if (irp_song->zoom == ZOOM_IN) {
 		t_measure *tmp = realloc(irp_song->measures.items, sizeof(t_measure) * irp_song->measures.count * 2);
@@ -153,8 +158,10 @@ t_irealpro_song *parse_musicxml(const char* musicxml, const size_t musicxml_leng
 	}
 	irp_song->measures.items[irp_song->measures.count - 1].next = NULL;
 	if (irp_song_apply_zoom(irp_song) != 0) {
+		result->error_code = ERROR_ZOOM_FAILED;
 		free(irp_song);
-		return NULL;
+		return result;
 	}
-    return irp_song;
+	result->item = irp_song;
+    return result;
 }
