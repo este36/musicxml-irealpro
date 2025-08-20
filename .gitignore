@@ -1,4 +1,5 @@
 meta/__pycache__
+test/__pycache__
 test/test.out
 node_modules
 package-lock.json
