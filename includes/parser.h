@@ -1,6 +1,17 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __EMSCRIPTEN__
+	#include <emscripten/emscripten.h>
+	#define WASM_EXPORT EMSCRIPTEN_KEEPALIVE
+#else
+	#define WASM_EXPORT 
+#endif
+
 #include "irealpro_chord.h"
 #include "da.h"
 #include "musicxml.h"
@@ -116,6 +127,10 @@ int parse_attributes(void *user_data, t_sax_context *context);
 int parse_harmony(void *user_data, t_sax_context *context);
 int parse_measure(void *user_data, t_sax_context *context);
 
-t_irealpro_song *parse_musicxml(const char* musicxml, const size_t musicxml_length);
+WASM_EXPORT	t_irealpro_song *parse_musicxml(const char* musicxml, const size_t musicxml_length);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // PARSER_H

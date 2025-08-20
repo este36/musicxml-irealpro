@@ -1,6 +1,17 @@
 #ifndef IREALPRO_H
 #define IREALPRO_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __EMSCRIPTEN__
+	#include <emscripten/emscripten.h>
+	#define WASM_EXPORT EMSCRIPTEN_KEEPALIVE
+#else
+	#define WASM_EXPORT 
+#endif
+
 #include "da.h"
 #include <ctype.h>
 
@@ -159,15 +170,19 @@ const char	*get_style_str(StyleEnum style);
 int			duration_is_equiv(double d1, double d2);
 void		url_strcat(da_str *dst, const char *src);
 void		url_scramble(char *body, size_t len);
-
 int			irp_song_apply_zoom(t_irealpro_song* song);
-char		*irp_song_get_html(t_irealpro_song *song);
-void		irp_song_free(t_irealpro_song *song);
 
-t_irealpro_playlist	*irp_playlist_create(const char*title);
-void				irp_playlist_append(
-								t_irealpro_playlist *playlist,
-								t_irealpro_song *song);
-char				*irp_playlist_get_html(t_irealpro_playlist *playlist);
-void				irp_playlist_free(t_irealpro_playlist *playlist);
+WASM_EXPORT	t_irealpro_playlist	*irp_playlist_create(const char*title);
+WASM_EXPORT	char				*irp_song_get_html(t_irealpro_song *song);
+WASM_EXPORT	void				irp_song_free(t_irealpro_song *song);
+WASM_EXPORT	void				irp_playlist_append(
+											t_irealpro_playlist *playlist,
+											t_irealpro_song *song);
+WASM_EXPORT	char				*irp_playlist_get_html(t_irealpro_playlist *playlist);
+WASM_EXPORT	void				irp_playlist_free(t_irealpro_playlist *playlist);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif // IREALPRO_H

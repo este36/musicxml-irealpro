@@ -10,23 +10,7 @@ WASM_DIR = wasm
 EMCC_LDFLAGS = \
 	-sMODULARIZE=1\
 	-sEXPORT_ES6=1\
-	-sEXPORTED_FUNCTIONS='[\
-		"_mxl_archive_create",\
-		"_mxl_archive_free",\
-		"_mxl_archive_append_file",\
-		"_mxl_archive_get_musicxml_index",\
-		"_mxl_archive_get_file_buf",\
-		"_mxl_archive_get_file_len",\
-		"_mxl_archive_get_files_count",\
-		"_parse_musicxml",\
-		"_irp_song_get_html",\
-		"_irp_playlist_get_html",\
-		"_irp_playlist_create",\
-		"_irp_playlist_append",\
-		"_irp_song_free",\
-		"_irp_playlist_free",\
-		"_free",\
-		"_malloc"]'\
+	-sEXPORTED_FUNCTIONS='["_free", "_malloc"]'\
 	-sEXPORTED_RUNTIME_METHODS=ccall,cwrap,HEAPU8
 
 OBJ_DIR_STATIC = obj/static
@@ -55,7 +39,7 @@ SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS_STATIC = $(addprefix $(OBJ_DIR_STATIC)/, $(SRC:%.c=%.o))
 OBJS_SHARED = $(addprefix $(OBJ_DIR_SHARED)/, $(SRC:%.c=%.o))
 
-all: lib_a lib_js lib_so do_tests
+all: lib_a lib_js lib_so
 lib_a: $(LIB)
 lib_js: $(LIB_JS)
 lib_so: $(LIB_SO)
