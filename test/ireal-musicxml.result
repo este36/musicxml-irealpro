@@ -1,0 +1,1020 @@
+[ireal-musicxml] [A Ballad#40] Unhandled alternate chord {"note":"Ab","modifiers":"o","over":null,"alternate":null}
+[ireal-musicxml] [A Ballad#40] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"o","over":null,"alternate":null}}
+[ireal-musicxml] [A Ballad#40] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"o","over":null,"alternate":null}}
+[ireal-musicxml] [A Ballad#40] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"o","over":null,"alternate":null}}
+[ireal-musicxml] [A Felicidade#1] Unhandled alternate chord {"note":"A","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [A Felicidade#14] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [A Felicidade#39] Cannot add more beats to the current measure.
+[ireal-musicxml] [A Felicidade#40] Cannot add more beats to the current measure.
+[ireal-musicxml] [A Flower Is A Lovesome Thing#7] Unhandled alternate chord {"note":"F#","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [A Flower Is A Lovesome Thing#13] Unhandled alternate chord {"note":"G#","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [A Flower Is A Lovesome Thing#13] Unhandled alternate chord {"note":"C#","modifiers":"7#5","over":null,"alternate":null}
+[ireal-musicxml] [A Flower Is A Lovesome Thing#14] Unhandled alternate chord {"note":"D","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [A Flower Is A Lovesome Thing#23] Unhandled alternate chord {"note":"F#","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Afternoon In Paris#17] Unhandled alternate chord {"note":"C#","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Afternoon In Paris#17] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F#","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Ahmid-6#32] Cannot add more beats to the current measure.
+[ireal-musicxml] [Ahmid-6#33] Cannot add more beats to the current measure.
+[ireal-musicxml] [All God's Chillun Got Rhythm#31] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [All God's Chillun Got Rhythm#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [All God's Chillun Got Rhythm#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [All My Tomorrows#4] Unhandled alternate chord {"note":"Bb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [All My Tomorrows#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [All My Tomorrows#12] Unhandled alternate chord {"note":"Bb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [All My Tomorrows#12] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [All My Tomorrows#28] Unhandled alternate chord {"note":"Bb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [All My Tomorrows#28] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [All Of A Sudden My Heart Sings#10] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [All Of A Sudden My Heart Sings#10] No chord found. Skipping current measure.
+[ireal-musicxml] [All Of Me#26] Unhandled alternate chord {"note":"F#","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [All Of Me#27] Unhandled alternate chord {"note":"C","modifiers":"^7","over":{"note":"G","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [All Or Nothing At All#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [All Or Nothing At All#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [All Or Nothing At All#10] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"h7","over":null,"alternate":null}}
+[ireal-musicxml] [All Or Nothing At All#10] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [All Or Nothing At All#35] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [All Or Nothing At All#35] No chord found. Skipping current measure.
+[ireal-musicxml] [Almost Like Being In Love#3] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Almost Like Being In Love#4] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Almost Like Being In Love#17] Unhandled alternate chord {"note":"C","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Almost Like Being In Love#18] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Almost Like Being In Love#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Almost Like Being In Love#21] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Almost Like Being In Love#22] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Alone Together#14] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"h7","over":null,"alternate":null}}
+[ireal-musicxml] [Alone Together#14] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [Always#20] Cannot add more beats to the current measure.
+[ireal-musicxml] [Angel Eyes#1] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Angel Eyes#5] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Angel Eyes#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"h","over":null,"alternate":null}}
+[ireal-musicxml] [Angel Eyes#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Angel Eyes#17] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Angel Eyes#21] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Angel Eyes#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"h","over":null,"alternate":null}}
+[ireal-musicxml] [Angel Eyes#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#17] Unhandled alternate chord {"note":"C","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Anything Goes#17] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"^7","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#20] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Anything Goes#20] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"9","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#22] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Anything Goes#22] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"9sus","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#29] Unhandled alternate chord {"note":"C","modifiers":"^9","over":null,"alternate":null}
+[ireal-musicxml] [Anything Goes#32] Unhandled alternate chord {"note":"E","modifiers":"-7","over":{"note":"D","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [Anything Goes#33] Unhandled alternate chord {"note":"C#","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Anything Goes#34] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Anything Goes#34] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#35] Unhandled alternate chord {"note":"C","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Anything Goes#35] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#36] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#36] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#37] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"^7","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#37] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#38] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Anything Goes#38] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"9","over":null,"alternate":null}}
+[ireal-musicxml] [Anything Goes#40] Unhandled alternate chord {"note":"Bb","modifiers":"9","over":null,"alternate":null}
+[ireal-musicxml] [Armando's Rhumba#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"7#9","over":null,"alternate":null}}
+[ireal-musicxml] [Armando's Rhumba#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"","over":null,"alternate":null}}
+[ireal-musicxml] [Armando's Rhumba#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"","over":null,"alternate":null}}
+[ireal-musicxml] [Armando's Rhumba#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F#","modifiers":"","over":null,"alternate":null}}
+[ireal-musicxml] [As Time Goes By#2] Unhandled alternate chord {"note":"Bb","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [As Time Goes By#3] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [As Time Goes By#4] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [As Time Goes By#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [As Time Goes By#5] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [As Time Goes By#7] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [As Time Goes By#20] Unhandled alternate chord {"note":"Bb","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [As Time Goes By#21] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [As Time Goes By#22] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [As Time Goes By#22] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [At Long Last Love#2] Unhandled alternate chord {"note":"G","modifiers":"6","over":{"note":"B","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [At Long Last Love#3] Unhandled alternate chord {"note":"A","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [At Long Last Love#4] Unhandled alternate chord {"note":"G","modifiers":"6","over":null,"alternate":null}
+[ireal-musicxml] [At Long Last Love#5] Unhandled alternate chord {"note":"F","modifiers":"6","over":null,"alternate":null}
+[ireal-musicxml] [At Long Last Love#8] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [At Long Last Love#10] Unhandled alternate chord {"note":"A","modifiers":"7","over":{"note":"C#","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [At Long Last Love#11] Unhandled alternate chord {"note":"F","modifiers":"6","over":{"note":"C","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [At Long Last Love#12] Unhandled alternate chord {"note":"B","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [At Long Last Love#13] Unhandled alternate chord {"note":"F","modifiers":"6","over":{"note":"A","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [At Long Last Love#15] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7#9","over":null,"alternate":null}}
+[ireal-musicxml] [At Long Last Love#16] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [At Long Last Love#18] Unhandled alternate chord {"note":"G","modifiers":"6","over":{"note":"B","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [At Long Last Love#19] Unhandled alternate chord {"note":"A","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [At Long Last Love#20] Unhandled alternate chord {"note":"G","modifiers":"6","over":null,"alternate":null}
+[ireal-musicxml] [At Long Last Love#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"6","over":{"note":"D","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [At Long Last Love#22] Unhandled alternate chord {"note":"Eb","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [At Long Last Love#22] Unhandled alternate chord {"note":"C","modifiers":"9","over":{"note":"E","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [At Long Last Love#23] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [At Long Last Love#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"o7","over":null,"alternate":null}}
+[ireal-musicxml] [At Long Last Love#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"6","over":{"note":"A","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [At Long Last Love#25] Unhandled alternate chord {"note":"F#","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [At Long Last Love#26] Unhandled alternate chord {"note":"F","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [Autumn Nocturne#5] Unhandled alternate chord {"note":"E","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Autumn Nocturne#6] Unhandled alternate chord {"note":"G","modifiers":"7#5","over":null,"alternate":null}
+[ireal-musicxml] [Autumn Nocturne#18] Unhandled alternate chord {"note":"Bb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Autumn Nocturne#18] Unhandled alternate chord {"note":"A","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Ballade#9] Unhandled alternate chord {"note":"A","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Baltimore Oriole#32] Unhandled alternate chord {"note":"Eb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Baltimore Oriole#32] Unhandled alternate chord {"note":"D","modifiers":"7b13","over":null,"alternate":null}
+[ireal-musicxml] [Baltimore Oriole#34] Unhandled alternate chord {"note":"Eb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Baltimore Oriole#34] Unhandled alternate chord {"note":"D","modifiers":"7b13","over":null,"alternate":null}
+[ireal-musicxml] [Bean And The Boys#47] Cannot add more beats to the current measure.
+[ireal-musicxml] [Bean And The Boys#49] Cannot add more beats to the current measure.
+[ireal-musicxml] [Bean And The Boys#51] Cannot add more beats to the current measure.
+[ireal-musicxml] [Beautiful Love#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Begin The Beguine#6] Cannot add more beats to the current measure.
+[ireal-musicxml] [Benny's Tune#23] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Benny's Tune#23] No chord found. Skipping current measure.
+[ireal-musicxml] [Bernie's Tune#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"h7","over":null,"alternate":null}}
+[ireal-musicxml] [Bernie's Tune#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [Bewitched#1] Unhandled alternate chord {"note":"C#","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [Bewitched#3] Unhandled alternate chord {"note":"C","modifiers":"^7","over":{"note":"E","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [Bewitched#3] Unhandled alternate chord {"note":"E","modifiers":"7#5","over":null,"alternate":null}
+[ireal-musicxml] [Bewitched#4] Unhandled alternate chord {"note":"Bb","modifiers":"7#11","over":null,"alternate":null}
+[ireal-musicxml] [Bewitched#5] Unhandled alternate chord {"note":"C","modifiers":"6","over":null,"alternate":null}
+[ireal-musicxml] [Bewitched#5] Unhandled alternate chord {"note":"Eb","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [Bewitched#16] Unhandled alternate chord {"note":"F","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Bewitched#16] Unhandled alternate chord {"note":"E","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Bewitched#20] Unhandled alternate chord {"note":"C#","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [Bewitched#22] Unhandled alternate chord {"note":"C","modifiers":"^7","over":{"note":"E","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [Bewitched#22] Unhandled alternate chord {"note":"E","modifiers":"7#5","over":null,"alternate":null}
+[ireal-musicxml] [Bewitched#23] Unhandled alternate chord {"note":"Bb","modifiers":"7#11","over":null,"alternate":null}
+[ireal-musicxml] [Bewitched#24] Unhandled alternate chord {"note":"C","modifiers":"6","over":null,"alternate":null}
+[ireal-musicxml] [Bewitched#24] Unhandled alternate chord {"note":"Eb","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [Black And Blue#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"h7","over":null,"alternate":null}}
+[ireal-musicxml] [Black And Blue#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Blueberry Hill#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Blues For Alice#3] Unhandled alternate chord {"note":"Db","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Blues March#25] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Blues March#25] No chord found. Skipping current measure.
+[ireal-musicxml] [Body And Soul#17] Cannot add more beats to the current measure.
+[ireal-musicxml] [Bolivia#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"^","over":null,"alternate":null}}
+[ireal-musicxml] [Bolivia#9] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7sus","over":null,"alternate":null}}
+[ireal-musicxml] [Bolivia#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"^","over":null,"alternate":null}}
+[ireal-musicxml] [Brazil (Aquarela Do Brasil)#65] Unhandled alternate chord {"note":"G","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [Brazilian Suite#45] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Brazilian Suite#45] No chord found. Skipping current measure.
+[ireal-musicxml] [Bud Powell#43] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Bud Powell#43] No chord found. Skipping current measure.
+[ireal-musicxml] [Budo#1] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Budo#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Budo#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Budo#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Budo#20] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Budo#20] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [But Beautiful#1] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [But Beautiful#5] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [But Beautiful#12] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [But Beautiful#17] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [But Beautiful#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [But Not For Me#1] Unhandled alternate chord {"note":"Eb","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [But Not For Me#1] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [But Not For Me#2] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [But Not For Me#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [But Not For Me#17] Unhandled alternate chord {"note":"Eb","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [But Not For Me#17] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [But Not For Me#18] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [But Not For Me#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Bye Bye Blackbird#5] Unhandled alternate chord {"note":"A","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Bye Bye Blackbird#6] Unhandled alternate chord {"note":"D","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [Bye Bye Blackbird#18] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Bye Bye Blackbird#27] Unhandled alternate chord {"note":"A","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Bye Bye Blackbird#28] Unhandled alternate chord {"note":"D","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [Captain Marvel#22] Cannot add more beats to the current measure.
+[ireal-musicxml] [Captain Marvel#35] Cannot add more beats to the current measure.
+[ireal-musicxml] [Captain Marvel#36] Cannot add more beats to the current measure.
+[ireal-musicxml] [Captain Marvel#37] Cannot add more beats to the current measure.
+[ireal-musicxml] [Captain Marvel#38] Cannot add more beats to the current measure.
+[ireal-musicxml] [Cheese Cake#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [Chega De Saudade (No More Blues)#4] Cannot add more beats to the current measure.
+[ireal-musicxml] [Chega De Saudade (No More Blues)#6] Cannot add more beats to the current measure.
+[ireal-musicxml] [Chega De Saudade (No More Blues)#16] Cannot add more beats to the current measure.
+[ireal-musicxml] [Chega De Saudade (No More Blues)#18] Cannot add more beats to the current measure.
+[ireal-musicxml] [Chega De Saudade (No More Blues)#40] Cannot add more beats to the current measure.
+[ireal-musicxml] [Chega De Saudade (No More Blues)#63] Cannot add more beats to the current measure.
+[ireal-musicxml] [Chega De Saudade (No More Blues)#64] Cannot add more beats to the current measure.
+[ireal-musicxml] [Chelsea Bridge#13] Unhandled alternate chord {"note":"C","modifiers":"7","over":{"note":"Bb","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [Chelsea Bridge#14] Unhandled alternate chord {"note":"G","modifiers":"^7","over":{"note":"B","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [Chucho#11] Cannot add more beats to the current measure.
+[ireal-musicxml] [Come Rain Or Come Shine#13] Unhandled alternate chord {"note":"D","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Come Rain Or Come Shine#13] Unhandled alternate chord {"note":"G","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [Come Rain Or Come Shine#14] Unhandled alternate chord {"note":"C","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [Corcovado#35] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Corcovado#35] No chord found. Skipping current measure.
+[ireal-musicxml] [Countdown#16] Unhandled alternate chord {"note":"Eb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Country#3] Unhandled alternate chord {"note":"C","modifiers":"-","over":null,"alternate":null}
+[ireal-musicxml] [Country#4] Unhandled alternate chord {"note":"C","modifiers":"-","over":null,"alternate":null}
+[ireal-musicxml] [Creole Love Call#4] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Creole Love Call#4] No chord found. Skipping current measure.
+[ireal-musicxml] [Crepuscule With Nellie#14] Cannot add more beats to the current measure.
+[ireal-musicxml] [Crepuscule With Nellie#25] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Crepuscule With Nellie#25] No chord found. Skipping current measure.
+[ireal-musicxml] [Crosscurrent#14] Unhandled alternate chord {"note":"Bb","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Crosscurrent#14] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"o7","over":null,"alternate":null}}
+[ireal-musicxml] [Crosscurrent#15] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7us","over":null,"alternate":null}}
+[ireal-musicxml] [Crosscurrent#15] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Crosscurrent#30] Unhandled alternate chord {"note":"Bb","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Crosscurrent#30] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"o7","over":null,"alternate":null}}
+[ireal-musicxml] [Crosscurrent#31] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7sus","over":null,"alternate":null}}
+[ireal-musicxml] [Crosscurrent#31] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Cute#12] Cannot add more beats to the current measure.
+[ireal-musicxml] [Daahoud#5] Unhandled alternate chord {"note":"Ab","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Daahoud#5] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Gb","modifiers":"6","over":null,"alternate":null}}
+[ireal-musicxml] [Daahoud#6] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Daahoud#6] Unhandled alternate chord {"note":"E","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Daahoud#21] Unhandled alternate chord {"note":"Ab","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Daahoud#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Gb","modifiers":"6","over":null,"alternate":null}}
+[ireal-musicxml] [Daahoud#22] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Daahoud#22] Unhandled alternate chord {"note":"E","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Daahoud#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Daahoud#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Dance Of The Infidels#2] Unhandled alternate chord {"note":"Bb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Dance Of The Infidels#2] Unhandled alternate chord {"note":"Eb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Dance Of The Infidels#16] Unhandled alternate chord {"note":"Bb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Dance Of The Infidels#16] Unhandled alternate chord {"note":"Eb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Darn That Dream#15] Unhandled alternate chord {"note":"A","modifiers":"h","over":null,"alternate":null}
+[ireal-musicxml] [Darn That Dream#15] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Darn That Dream#15] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-","over":null,"alternate":null}}
+[ireal-musicxml] [Dat Dere#8] Unhandled alternate chord {"note":"F","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [Dat Dere#8] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Dat Dere#10] Unhandled alternate chord {"note":"F","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [Dat Dere#10] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Dat Dere#18] Unhandled alternate chord {"note":"F","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [Dat Dere#18] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Dat Dere#26] Unhandled alternate chord {"note":"F","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [Dat Dere#26] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Day By Day#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Day By Day#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Day Waves#14] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Day Waves#14] No chord found. Skipping current measure.
+[ireal-musicxml] [Days Of Wine And Roses#3] Unhandled alternate chord {"note":"D","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Days Of Wine And Roses#19] Unhandled alternate chord {"note":"D","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Dedicated To You#2] Unhandled alternate chord {"note":"E","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Dedicated To You#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Dedicated To You#5] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Dedicated To You#5] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Dedicated To You#8] Unhandled alternate chord {"note":"F#","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Dedicated To You#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Dedicated To You#18] Unhandled alternate chord {"note":"F#","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Dedicated To You#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Dedicated To You#20] Unhandled alternate chord {"note":"E","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Dedicated To You#20] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Dedicated To You#23] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Dedicated To You#23] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Desafinado#66] Cannot add more beats to the current measure.
+[ireal-musicxml] [Desafinado (Original)#66] Cannot add more beats to the current measure.
+[ireal-musicxml] [Desert Air#59] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Desert Air#59] No chord found. Skipping current measure.
+[ireal-musicxml] [Devil May Care#43] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"h7","over":null,"alternate":null}}
+[ireal-musicxml] [Devil May Care#44] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [Devil May Care#44] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [Down For Double#25] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Down For Double#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"o7","over":null,"alternate":null}}
+[ireal-musicxml] [Down For Double#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"6","over":null,"alternate":null}}
+[ireal-musicxml] [Doxy#1] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Doxy#5] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Doxy#13] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Driftin'#14] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Driftin'#15] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Driftin'#16] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Driftin'#27] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Driftin'#27] No chord found. Skipping current measure.
+[ireal-musicxml] [East Of The Sun#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [East Of The Sun#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Eighty One#11] Unhandled alternate chord {"note":"Db","modifiers":"^7#11","over":null,"alternate":null}
+[ireal-musicxml] [El Cajon#1] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [El Cajon#5] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Gb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [El Cajon#17] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [El Cajon#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Gb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Fascinating Rhythm#17] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Fascinating Rhythm#17] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Fascinating Rhythm#21] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Fascinating Rhythm#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Fascinating Rhythm#37] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Fascinating Rhythm#37] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Fascinating Rhythm#38] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Fascinating Rhythm#38] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Fee-Fi-Fo-Fum#7] Unhandled alternate chord {"note":"Gb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [For Minors Only#20] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"h7","over":null,"alternate":null}}
+[ireal-musicxml] [For Minors Only#20] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Four In One#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Four In One#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Four In One#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Four In One#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Fuchsia Swing Song#1] Unhandled alternate chord {"note":"F","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Fuchsia Swing Song#5] Unhandled alternate chord {"note":"F","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Full House#7] Unhandled alternate chord {"note":"Db","modifiers":"9","over":null,"alternate":null}
+[ireal-musicxml] [Full House#15] Unhandled alternate chord {"note":"Db","modifiers":"9","over":null,"alternate":null}
+[ireal-musicxml] [Full House#16] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7#9","over":null,"alternate":null}}
+[ireal-musicxml] [Full House#31] Unhandled alternate chord {"note":"Db","modifiers":"9","over":null,"alternate":null}
+[ireal-musicxml] [Full House#39] Unhandled alternate chord {"note":"Db","modifiers":"9","over":null,"alternate":null}
+[ireal-musicxml] [Full House#40] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7#9","over":null,"alternate":null}}
+[ireal-musicxml] [The Gentle Rain#3] Unhandled alternate chord {"note":"B","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [The Gentle Rain#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [The Gentle Rain#5] Unhandled alternate chord {"note":"A","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [The Gentle Rain#5] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [The Gentle Rain#6] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [The Gentle Rain#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Georgia On My Mind#11] Unhandled alternate chord {"note":"G","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [Georgia On My Mind#13] Unhandled alternate chord {"note":"G","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [Georgia On My Mind#15] Unhandled alternate chord {"note":"G","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [Gone With The Wind#27] Unhandled alternate chord {"note":"Ab","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Harlem Nocturne#18] Cannot add more beats to the current measure.
+[ireal-musicxml] [Heat Wave#8] Cannot add more beats to the current measure.
+[ireal-musicxml] [Heat Wave#24] Cannot add more beats to the current measure.
+[ireal-musicxml] [Hello#5] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"-7","over":{"note":"C","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [Hello Young Lovers#56] Cannot add more beats to the current measure.
+[ireal-musicxml] [Here's That Rainy Day#1] Unhandled alternate chord {"note":"G","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Here's That Rainy Day#2] Unhandled alternate chord {"note":"Bb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Here's That Rainy Day#17] Unhandled alternate chord {"note":"G","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Here's That Rainy Day#18] Unhandled alternate chord {"note":"Bb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Home Cookin'#17] Unhandled alternate chord {"note":"D","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Home Cookin'#18] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Home Cookin'#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [How About You#10] Unhandled alternate chord {"note":"E","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [How About You#10] Unhandled alternate chord {"note":"A","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [How About You#11] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [How About You#26] Unhandled alternate chord {"note":"Ab","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [How About You#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [How About You#27] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [How About You#27] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-7","over":{"note":"F","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [How Long Has This Been Going On?#1] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#1] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F#","modifiers":"o7","over":null,"alternate":null}}
+[ireal-musicxml] [How Long Has This Been Going On?#2] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [How Long Has This Been Going On?#3] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#3] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#4] Unhandled alternate chord {"note":"Bb","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#6] Unhandled alternate chord {"note":"A","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#6] Unhandled alternate chord {"note":"D","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#7] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#18] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F#","modifiers":"o7","over":null,"alternate":null}}
+[ireal-musicxml] [How Long Has This Been Going On?#19] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [How Long Has This Been Going On?#20] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#20] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#21] Unhandled alternate chord {"note":"Bb","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#23] Unhandled alternate chord {"note":"A","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#23] Unhandled alternate chord {"note":"D","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [How Long Has This Been Going On?#24] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I Believe In You#14] Unhandled alternate chord {"note":"C","modifiers":"7#11","over":null,"alternate":null}
+[ireal-musicxml] [I Concentrate On You#16] Cannot add more beats to the current measure.
+[ireal-musicxml] [I Concentrate On You#22] Cannot add more beats to the current measure.
+[ireal-musicxml] [I Concentrate On You#32] Cannot add more beats to the current measure.
+[ireal-musicxml] [I Concentrate On You#36] Cannot add more beats to the current measure.
+[ireal-musicxml] [I Concentrate On You#40] Cannot add more beats to the current measure.
+[ireal-musicxml] [I Concentrate On You#64] Cannot add more beats to the current measure.
+[ireal-musicxml] [I Didn't Know What Time It Was#8] Unhandled alternate chord {"note":"D","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [I Didn't Know What Time It Was#13] Unhandled alternate chord {"note":"E","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I Didn't Know What Time It Was#13] Unhandled alternate chord {"note":"A","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [I Didn't Know What Time It Was#14] Unhandled alternate chord {"note":"A","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I Didn't Know What Time It Was#14] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [I Didn't Know What Time It Was#17] Unhandled alternate chord {"note":"D","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [I Feel Pretty#37] Cannot add more beats to the current measure.
+[ireal-musicxml] [I Gotta Right To Sing The Blues#7] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#7] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#8] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#13] Unhandled alternate chord {"note":"Eb","modifiers":"-6","over":{"note":"Bb","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#14] Unhandled alternate chord {"note":"Bb","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#14] Unhandled alternate chord {"note":"Bb","modifiers":"6","over":null,"alternate":null}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#15] Unhandled alternate chord {"note":"C","modifiers":"-7","over":{"note":"Bb","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#15] Unhandled alternate chord {"note":"Bb","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#16] Unhandled alternate chord {"note":"Bb","modifiers":"6","over":null,"alternate":null}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#16] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#16] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#23] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#23] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#24] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [I Gotta Right To Sing The Blues#27] Unhandled alternate chord {"note":"Eb","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [I Guess I'll Hang My Tears Out To Dry#4] Unhandled alternate chord {"note":"B","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [I Guess I'll Hang My Tears Out To Dry#4] Unhandled alternate chord {"note":"E","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [I Guess I'll Hang My Tears Out To Dry#22] Unhandled alternate chord {"note":"B","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [I Guess I'll Hang My Tears Out To Dry#22] Unhandled alternate chord {"note":"E","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [I Hear A Rhapsody#1] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Gb","modifiers":"7#11","over":null,"alternate":null}}
+[ireal-musicxml] [I Hear A Rhapsody#5] Unhandled alternate chord {"note":"F","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [I Hear A Rhapsody#6] Unhandled alternate chord {"note":"Bb","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [I Hear A Rhapsody#16] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [I Hear A Rhapsody#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Gb","modifiers":"7#11","over":null,"alternate":null}}
+[ireal-musicxml] [I Hear A Rhapsody#23] Unhandled alternate chord {"note":"F","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [I Hear A Rhapsody#24] Unhandled alternate chord {"note":"Bb","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [I Love Being Here With You#7] Unhandled alternate chord {"note":"C","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [I Love Being Here With You#24] Unhandled alternate chord {"note":"C","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [I Remember You#7] Unhandled alternate chord {"note":"Ab","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [I Remember You#7] Unhandled alternate chord {"note":"Ab","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [I Should Care#17] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I Should Care#17] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [I Should Care#28] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"o7","over":null,"alternate":null}}
+[ireal-musicxml] [I Thought About You#1] Unhandled alternate chord {"note":"F","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [I Thought About You#17] Unhandled alternate chord {"note":"F","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [I'll Be Seeing You#3] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I'll Be Seeing You#4] Unhandled alternate chord {"note":"C","modifiers":"7b13","over":null,"alternate":null}
+[ireal-musicxml] [I'll Be Seeing You#19] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I'll Be Seeing You#20] Unhandled alternate chord {"note":"C","modifiers":"7b13","over":null,"alternate":null}
+[ireal-musicxml] [I'll Be Seeing You#23] Unhandled alternate chord {"note":"Bb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I'll Be Seeing You#24] Unhandled alternate chord {"note":"G","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [I'll Be Seeing You#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [I'll Be Seeing You#25] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I'm All Smiles#4] Cannot add more beats to the current measure.
+[ireal-musicxml] [I'm All Smiles#30] Cannot add more beats to the current measure.
+[ireal-musicxml] [I'm All Smiles#36] Cannot add more beats to the current measure.
+[ireal-musicxml] [I'm All Smiles#49] Cannot add more beats to the current measure.
+[ireal-musicxml] [I'm All Smiles#56] Cannot add more beats to the current measure.
+[ireal-musicxml] [I'm Glad There Is You#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [I'm Glad There Is You#28] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [I'm Glad There Is You#31] Unhandled alternate chord {"note":"A","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [I'm Glad There Is You#32] Unhandled alternate chord {"note":"D","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [I'm Glad There Is You#33] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [I've Got You Under My Skin#39] Unhandled alternate chord {"note":"G","modifiers":"","over":null,"alternate":null}
+[ireal-musicxml] [I've Got You Under My Skin#42] Cannot add more beats to the current measure.
+[ireal-musicxml] [I've Got You Under My Skin#47] Unhandled alternate chord {"note":"G","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [I've Got You Under My Skin#48] Unhandled alternate chord {"note":"C","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [I've Got You Under My Skin#48] Cannot add more beats to the current measure.
+[ireal-musicxml] [I've Got You Under My Skin#49] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I've Got You Under My Skin#50] Unhandled alternate chord {"note":"F#","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [I've Got You Under My Skin#51] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [I've Got You Under My Skin#52] Unhandled alternate chord {"note":"C","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [I've Got You Under My Skin#52] Cannot add more beats to the current measure.
+[ireal-musicxml] [If Ever I Would Leave You#37] Unhandled alternate chord {"note":"E","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [If Ever I Would Leave You#38] Unhandled alternate chord {"note":"Eb","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [If I Should Lose You#3] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Gb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [If I Should Lose You#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Gb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [If You Ever Should Leave#23] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [If You Ever Should Leave#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [If You Ever Should Leave#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [In Your Own Sweet Way#25] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [In Your Own Sweet Way#29] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Invitation#33] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Invitation#33] No chord found. Skipping current measure.
+[ireal-musicxml] [Israel#5] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Israel#6] Unhandled alternate chord {"note":"C","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Israel#7] Unhandled alternate chord {"note":"F","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Israel#8] Unhandled alternate chord {"note":"Bb","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Israel#9] Unhandled alternate chord {"note":"E","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Israel#12] Unhandled alternate chord {"note":"A","modifiers":"7b13","over":null,"alternate":null}
+[ireal-musicxml] [It Could Happen To You#2] Unhandled alternate chord {"note":"G","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [It Could Happen To You#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [It Could Happen To You#4] Unhandled alternate chord {"note":"A","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [It Could Happen To You#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [It Could Happen To You#10] Unhandled alternate chord {"note":"Db","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [It Could Happen To You#15] Unhandled alternate chord {"note":"F#","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [It Could Happen To You#15] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [It Could Happen To You#16] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [It Could Happen To You#16] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [It Could Happen To You#18] Unhandled alternate chord {"note":"G","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [It Could Happen To You#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [It Could Happen To You#20] Unhandled alternate chord {"note":"A","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [It Could Happen To You#20] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [It Could Happen To You#26] Unhandled alternate chord {"note":"Db","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [It Don't Mean A Thing#1] Unhandled alternate chord {"note":"G","modifiers":"-","over":null,"alternate":null}
+[ireal-musicxml] [It Don't Mean A Thing#2] Unhandled alternate chord {"note":"G","modifiers":"-^7","over":null,"alternate":null}
+[ireal-musicxml] [It Don't Mean A Thing#3] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [It Don't Mean A Thing#21] Unhandled alternate chord {"note":"G","modifiers":"-","over":null,"alternate":null}
+[ireal-musicxml] [It Don't Mean A Thing#22] Unhandled alternate chord {"note":"G","modifiers":"-^7","over":null,"alternate":null}
+[ireal-musicxml] [It Don't Mean A Thing#23] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [It Might As Well Be Spring#26] Cannot add more beats to the current measure.
+[ireal-musicxml] [It Never Entered My Mind#3] Unhandled alternate chord {"note":"A","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [It Never Entered My Mind#3] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [It Never Entered My Mind#4] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [It Never Entered My Mind#4] Unhandled alternate chord {"note":"C","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [It Never Entered My Mind#10] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [It Never Entered My Mind#10] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [It Never Entered My Mind#11] Unhandled alternate chord {"note":"Bb","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [It Never Entered My Mind#11] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"^7","over":{"note":"A","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [It Never Entered My Mind#21] Unhandled alternate chord {"note":"A","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [It Never Entered My Mind#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [It Never Entered My Mind#22] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [It Never Entered My Mind#22] Unhandled alternate chord {"note":"C","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [It's A Dance#8] Cannot add more beats to the current measure.
+[ireal-musicxml] [It's A Dance#16] Cannot add more beats to the current measure.
+[ireal-musicxml] [It's A Dance#24] Cannot add more beats to the current measure.
+[ireal-musicxml] [It's A Dance#32] Cannot add more beats to the current measure.
+[ireal-musicxml] [It's All Right With Me#21] Unhandled alternate chord {"note":"G","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [It's All Right With Me#23] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [It's All Right With Me#25] Unhandled alternate chord {"note":"F","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [It's All Right With Me#29] Unhandled alternate chord {"note":"G","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [It's All Right With Me#31] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [It's All Right With Me#33] Unhandled alternate chord {"note":"F","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [It's Only a Paper Moon#9] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [It's Only a Paper Moon#9] No chord found. Skipping current measure.
+[ireal-musicxml] [It's You Or No One#23] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [It's You Or No One#24] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [It's You Or No One#25] Unhandled alternate chord {"note":"Bb","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [It's You Or No One#28] Unhandled alternate chord {"note":"Bb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [It's You Or No One#28] Unhandled alternate chord {"note":"Eb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Jackie-ing#12] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Jackie-ing#12] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Jaco#5] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"9","over":null,"alternate":null}}
+[ireal-musicxml] [Jaco#5] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Jaco#13] Unhandled alternate chord {"note":"Ab","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Jaco#14] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Jaco#16] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [James#39] Cannot add more beats to the current measure.
+[ireal-musicxml] [James#40] Cannot add more beats to the current measure.
+[ireal-musicxml] [James#41] Cannot add more beats to the current measure.
+[ireal-musicxml] [James#42] Cannot add more beats to the current measure.
+[ireal-musicxml] [James#43] Cannot add more beats to the current measure.
+[ireal-musicxml] [James#44] Cannot add more beats to the current measure.
+[ireal-musicxml] [Katrina Ballerina#7] Cannot add more beats to the current measure.
+[ireal-musicxml] [Lady Sings The Blues#25] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Lady Sings The Blues#25] No chord found. Skipping current measure.
+[ireal-musicxml] [Lament#7] Unhandled alternate chord {"note":"E","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Lament#8] Unhandled alternate chord {"note":"A","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [Lament#23] Unhandled alternate chord {"note":"E","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Lament#24] Unhandled alternate chord {"note":"A","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [The Lamp Is Low#1] Unhandled alternate chord {"note":"G","modifiers":"13sus","over":null,"alternate":null}
+[ireal-musicxml] [The Lamp Is Low#9] Unhandled alternate chord {"note":"G","modifiers":"13sus","over":null,"alternate":null}
+[ireal-musicxml] [The Lamp Is Low#25] Unhandled alternate chord {"note":"G","modifiers":"13sus","over":null,"alternate":null}
+[ireal-musicxml] [Last Night When We Were Young#16] Cannot add more beats to the current measure.
+[ireal-musicxml] [Let There Be You#16] Cannot add more beats to the current measure.
+[ireal-musicxml] [Let's Cool One#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Let's Cool One#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Let's Cool One#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Let's Cool One#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Let's Do It (Let's Fall In Love)#4] Unhandled alternate chord {"note":"Ab","modifiers":"9","over":null,"alternate":null}
+[ireal-musicxml] [Let's Do It (Let's Fall In Love)#12] Unhandled alternate chord {"note":"Eb","modifiers":"9","over":null,"alternate":null}
+[ireal-musicxml] [Let's Fall In Love#4] Unhandled alternate chord {"note":"F","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [Let's Fall In Love#22] Unhandled alternate chord {"note":"F","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [Like Someone In Love#6] Unhandled alternate chord {"note":"Bb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Little B's Poem#15] Cannot add more beats to the current measure.
+[ireal-musicxml] [Little B's Poem#16] Cannot add more beats to the current measure.
+[ireal-musicxml] [Little Girl Blue#28] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Little Girl Blue#28] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Lotus Blossom#6] Cannot add more beats to the current measure.
+[ireal-musicxml] [Lotus Blossom#30] Cannot add more beats to the current measure.
+[ireal-musicxml] [Lotus Blossom#31] Cannot add more beats to the current measure.
+[ireal-musicxml] [Love Letters#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Love Letters#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Lover Man#9] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Lover Man#9] No chord found. Skipping current measure.
+[ireal-musicxml] [Lover Man#25] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"h7","over":null,"alternate":null}}
+[ireal-musicxml] [Lover Man#25] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Lullaby Of The Leaves#11] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Lullaby Of The Leaves#15] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Lush Life#12] Cannot add more beats to the current measure.
+[ireal-musicxml] [Make Someone Happy#11] Unhandled alternate chord {"note":"F","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Make Someone Happy#12] Unhandled alternate chord {"note":"Bb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [The Masquerade Is Over#5] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"h7","over":null,"alternate":null}}
+[ireal-musicxml] [The Masquerade Is Over#5] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Mc Jolt#17] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Mc Jolt#17] No chord found. Skipping current measure.
+[ireal-musicxml] [The Meaning Of The Blues#28] Unhandled alternate chord {"note":"A","modifiers":"7#9","over":null,"alternate":null}
+[ireal-musicxml] [Meditation#12] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Meditation#20] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Memories Of Tomorrow#20] Unhandled alternate chord {"note":"F","modifiers":"sus","over":null,"alternate":null}
+[ireal-musicxml] [Memories Of You#3] Unhandled alternate chord {"note":"C","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Memories Of You#4] Unhandled alternate chord {"note":"D","modifiers":"7#11","over":null,"alternate":null}
+[ireal-musicxml] [Memories Of You#5] Unhandled alternate chord {"note":"C","modifiers":"^7","over":{"note":"E","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [Memories Of You#5] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Memories Of You#6] Unhandled alternate chord {"note":"E","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Midnight Sun#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Midnight Sun#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Midnight Sun#28] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Midnight Sun#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Minuano (Six Eight)#7] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Minuano (Six Eight)#8] Unhandled alternate chord {"note":"E","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Moon River#25] Unhandled alternate chord {"note":"E","modifiers":"7#9","over":null,"alternate":null}
+[ireal-musicxml] [Moon River#26] Unhandled alternate chord {"note":"A","modifiers":"7#9","over":null,"alternate":null}
+[ireal-musicxml] [The More I See You#13] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [My Foolish Heart#4] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [My Foolish Heart#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [My Foolish Heart#20] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [My Foolish Heart#22] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [My Funny Valentine#2] Unhandled alternate chord {"note":"C","modifiers":"-^7","over":{"note":"B","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [My Funny Valentine#3] Unhandled alternate chord {"note":"C","modifiers":"-7","over":{"note":"Bb","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [My Funny Valentine#4] Unhandled alternate chord {"note":"C","modifiers":"-6","over":{"note":"A","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [My Funny Valentine#10] Unhandled alternate chord {"note":"C","modifiers":"-^7","over":{"note":"B","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [My Funny Valentine#11] Unhandled alternate chord {"note":"C","modifiers":"-7","over":{"note":"Bb","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [My Funny Valentine#12] Unhandled alternate chord {"note":"C","modifiers":"-6","over":{"note":"A","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [My Funny Valentine#15] Unhandled alternate chord {"note":"B","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [My Funny Valentine#26] Unhandled alternate chord {"note":"C","modifiers":"-^7","over":{"note":"B","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [My Funny Valentine#27] Unhandled alternate chord {"note":"C","modifiers":"-7","over":{"note":"Bb","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [My Funny Valentine#28] Unhandled alternate chord {"note":"C","modifiers":"-6","over":{"note":"A","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [My One And Only Love#5] Unhandled alternate chord {"note":"B","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [My One And Only Love#5] Unhandled alternate chord {"note":"E","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [My One And Only Love#9] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [My One And Only Love#9] No chord found. Skipping current measure.
+[ireal-musicxml] [My One And Only Love#10] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C#","modifiers":"h7","over":null,"alternate":null}}
+[ireal-musicxml] [My One And Only Love#12] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C#","modifiers":"h7","over":null,"alternate":null}}
+[ireal-musicxml] [My One And Only Love#22] Unhandled alternate chord {"note":"B","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [My One And Only Love#22] Unhandled alternate chord {"note":"E","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [My Way#29] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"","over":{"note":"G","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [The Nearness Of You#4] Unhandled alternate chord {"note":"B","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [The Nearness Of You#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [Nefertiti#2] Unhandled alternate chord {"note":"Db","modifiers":"7sus","over":null,"alternate":null}
+[ireal-musicxml] [Never Will I Marry#8] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Nice 'n Easy#6] Unhandled alternate chord {"note":"E","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Nice 'n Easy#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7#9","over":null,"alternate":null}}
+[ireal-musicxml] [Night And Day#1] Unhandled alternate chord {"note":"D","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Night And Day#5] Unhandled alternate chord {"note":"D","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [The Night We Called It A Day#5] Unhandled alternate chord {"note":"E","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [The Night We Called It A Day#5] Unhandled alternate chord {"note":"A","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Nobody Else But Me#8] Unhandled alternate chord {"note":"F","modifiers":"7#11","over":null,"alternate":null}
+[ireal-musicxml] [Nobody Else But Me#24] Unhandled alternate chord {"note":"C#","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Nobody Else But Me#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F#","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Nobody Else But Me#35] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"^7","over":null,"alternate":null}}
+[ireal-musicxml] [Nobody Else But Me#36] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"^7","over":null,"alternate":null}}
+[ireal-musicxml] [Nobody Else But Me#36] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"^7","over":null,"alternate":null}}
+[ireal-musicxml] [Nobody Knows You When You're Down And Out#4] Cannot add more beats to the current measure.
+[ireal-musicxml] [Nobody Knows You When You're Down And Out#6] Cannot add more beats to the current measure.
+[ireal-musicxml] [Nobody Knows You When You're Down And Out#12] Cannot add more beats to the current measure.
+[ireal-musicxml] [Nobody Knows You When You're Down And Out#14] Cannot add more beats to the current measure.
+[ireal-musicxml] [Nothing Personal#13] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Oblivion#7] Unhandled alternate chord {"note":"Eb","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Oblivion#8] Unhandled alternate chord {"note":"E","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Oblivion#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Oblivion#10] Unhandled alternate chord {"note":"Db","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Oblivion#11] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Oh! Look At Me Now#6] Cannot add more beats to the current measure.
+[ireal-musicxml] [Oh! Look At Me Now#8] Cannot add more beats to the current measure.
+[ireal-musicxml] [Oh! Look At Me Now#24] Cannot add more beats to the current measure.
+[ireal-musicxml] [Oliloqui Valley#9] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [On The Street Where You Live#2] Cannot add more beats to the current measure.
+[ireal-musicxml] [On The Street Where You Live#4] Cannot add more beats to the current measure.
+[ireal-musicxml] [On The Street Where You Live#15] Cannot add more beats to the current measure.
+[ireal-musicxml] [On The Street Where You Live#16] Cannot add more beats to the current measure.
+[ireal-musicxml] [On The Street Where You Live#27] Cannot add more beats to the current measure.
+[ireal-musicxml] [On The Street Where You Live#31] Cannot add more beats to the current measure.
+[ireal-musicxml] [On The Street Where You Live#36] Cannot add more beats to the current measure.
+[ireal-musicxml] [On The Street Where You Live#38] Cannot add more beats to the current measure.
+[ireal-musicxml] [On The Sunny Side Of The Street#9] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [On The Sunny Side Of The Street#9] No chord found. Skipping current measure.
+[ireal-musicxml] [One By One#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [One By One#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [One By One#7] Unhandled alternate chord {"note":"Eb","modifiers":"","over":null,"alternate":null}
+[ireal-musicxml] [One By One#7] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [One By One#7] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [One By One#22] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [One By One#22] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [One By One#23] Unhandled alternate chord {"note":"Eb","modifiers":"","over":null,"alternate":null}
+[ireal-musicxml] [One By One#23] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [One By One#23] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [The Opener#12] Unhandled alternate chord {"note":"D","modifiers":"9","over":null,"alternate":null}
+[ireal-musicxml] [Oriental Folk Song#12] Unhandled alternate chord {"note":"A","modifiers":"-69","over":null,"alternate":null}
+[ireal-musicxml] [Over The Rainbow (Somewhere)#23] Unhandled alternate chord {"note":"Bb","modifiers":"7sus","over":null,"alternate":null}
+[ireal-musicxml] [Over The Rainbow (Somewhere)#37] Unhandled alternate chord {"note":"A","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Over The Rainbow (Somewhere)#37] Unhandled alternate chord {"note":"D","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [Over The Rainbow (Somewhere)#39] Unhandled alternate chord {"note":"Bb","modifiers":"7sus","over":null,"alternate":null}
+[ireal-musicxml] [Over The Rainbow (Somewhere)#43] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [The Peacocks#3] Cannot add more beats to the current measure.
+[ireal-musicxml] [The Peacocks#20] Cannot add more beats to the current measure.
+[ireal-musicxml] [Pee Wee#5] Unhandled alternate chord {"note":"Eb","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Pee Wee#6] Unhandled alternate chord {"note":"E","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Pee Wee#9] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Pee Wee#11] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Pee Wee#17] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"","over":{"note":"Gb","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [Pensativa#16] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Pensativa#16] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [People Will Say We're In Love#35] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [People Will Say We're In Love#35] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Pinocchio#3] Unhandled alternate chord {"note":"E","modifiers":"^7#11","over":null,"alternate":null}
+[ireal-musicxml] [Pinocchio#9] Unhandled alternate chord {"note":"Bb","modifiers":"^7#11","over":null,"alternate":null}
+[ireal-musicxml] [Pinocchio#15] Unhandled alternate chord {"note":"B","modifiers":"7alt","over":null,"alternate":null}
+[ireal-musicxml] [Polkadots And Moonbeams#9] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Polkadots And Moonbeams#9] No chord found. Skipping current measure.
+[ireal-musicxml] [Prelude To A Kiss#9] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Prelude To A Kiss#9] No chord found. Skipping current measure.
+[ireal-musicxml] [Punjab#15] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Punjab#15] No chord found. Skipping current measure.
+[ireal-musicxml] [Quiet Now#34] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"h","over":null,"alternate":null}}
+[ireal-musicxml] [Quiet Now#34] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"E","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Reincarnation Of A Lovebird#16] Cannot add more beats to the current measure.
+[ireal-musicxml] [Reincarnation Of A Lovebird#39] Cannot add more beats to the current measure.
+[ireal-musicxml] [Reincarnation Of A Lovebird#40] Cannot add more beats to the current measure.
+[ireal-musicxml] [Reincarnation Of A Lovebird#60] Cannot add more beats to the current measure.
+[ireal-musicxml] [Remember#2] Unhandled alternate chord {"note":"Gb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Remember#3] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Remember#14] Unhandled alternate chord {"note":"Ab","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Remember#15] Unhandled alternate chord {"note":"G","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Remember#16] Unhandled alternate chord {"note":"C","modifiers":"7b13","over":null,"alternate":null}
+[ireal-musicxml] [Remember#18] Unhandled alternate chord {"note":"Gb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Remember#19] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Round Midnight#10] Unhandled alternate chord {"note":"C","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Round Midnight#11] Unhandled alternate chord {"note":"C","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Round Midnight#25] Unhandled alternate chord {"note":"Bb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Round Midnight#25] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Round Midnight#25] Unhandled alternate chord {"note":"Ab","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Round Midnight#25] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Round Midnight#26] Unhandled alternate chord {"note":"F#","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Round Midnight#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F#","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"6","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"6","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#13] Cannot add more beats to the current measure.
+[ireal-musicxml] [Ruby, My Dear#14] Cannot add more beats to the current measure.
+[ireal-musicxml] [Ruby, My Dear#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F#","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"6","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"6","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#23] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#23] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Ruby, My Dear#23] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Sail Away#10] Cannot add more beats to the current measure.
+[ireal-musicxml] [Sail Away#28] Cannot add more beats to the current measure.
+[ireal-musicxml] [Sail Away#32] Cannot add more beats to the current measure.
+[ireal-musicxml] [Sail Away#39] Cannot add more beats to the current measure.
+[ireal-musicxml] [Sail Away#40] Cannot add more beats to the current measure.
+[ireal-musicxml] [Sail Away#52] Cannot add more beats to the current measure.
+[ireal-musicxml] [Sail Away#61] Cannot add more beats to the current measure.
+[ireal-musicxml] [Sail Away#62] Cannot add more beats to the current measure.
+[ireal-musicxml] [Sail Away#63] Cannot add more beats to the current measure.
+[ireal-musicxml] [Samba De Orfeu#9] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Samba De Orfeu#10] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Samba De Orfeu#11] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Samba De Orfeu#12] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [San Francisco Holiday#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"69","over":null,"alternate":null}}
+[ireal-musicxml] [Scotch And Soda#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Scotch And Soda#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [The Second Time Around#1] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [The Second Time Around#5] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"^7","over":null,"alternate":null}}
+[ireal-musicxml] [The Second Time Around#6] Unhandled alternate chord {"note":"E","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [The Second Time Around#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [The Second Time Around#7] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [The Second Time Around#9] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [The Second Time Around#10] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [The Second Time Around#10] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [The Second Time Around#17] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [The Second Time Around#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"o7","over":null,"alternate":null}}
+[ireal-musicxml] [The Second Time Around#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Sentimental Journey#3] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Sentimental Journey#6] Unhandled alternate chord {"note":"Bb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Sentimental Journey#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Sentimental Journey#22] Unhandled alternate chord {"note":"Bb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Serenity#7] Unhandled alternate chord {"note":"A","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Seven Come Eleven#1] Unhandled alternate chord {"note":"Ab","modifiers":"","over":null,"alternate":null}
+[ireal-musicxml] [Seven Come Eleven#1] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#3] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#3] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#5] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#5] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7","over":{"note":"C","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#6] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"o7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#7] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"-7","over":{"note":"Eb","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#7] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#17] Unhandled alternate chord {"note":"Ab","modifiers":"","over":null,"alternate":null}
+[ireal-musicxml] [Seven Come Eleven#17] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#20] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#20] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7","over":{"note":"C","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#22] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#22] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"o7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#23] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"-7","over":{"note":"Eb","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#23] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Seven Come Eleven#24] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"","over":null,"alternate":null}}
+[ireal-musicxml] [Sister Sadie#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7#11","over":null,"alternate":null}}
+[ireal-musicxml] [Sister Sadie#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7#11","over":null,"alternate":null}}
+[ireal-musicxml] [Skylark#11] Unhandled alternate chord {"note":"Ab","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Skylark#11] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [So Many Stars#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"69","over":null,"alternate":null}}
+[ireal-musicxml] [So Sorry Please#7] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [So Sorry Please#7] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [So Sorry Please#7] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [So Sorry Please#7] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [So Sorry Please#8] Unhandled alternate chord {"note":"Db","modifiers":"6","over":null,"alternate":null}
+[ireal-musicxml] [So Sorry Please#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"6","over":null,"alternate":null}}
+[ireal-musicxml] [So Sorry Please#8] Unhandled alternate chord {"note":"Eb","modifiers":"6","over":null,"alternate":null}
+[ireal-musicxml] [So Sorry Please#15] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [So Sorry Please#15] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [So Sorry Please#15] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [So Sorry Please#15] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [So Sorry Please#16] Unhandled alternate chord {"note":"Db","modifiers":"6","over":null,"alternate":null}
+[ireal-musicxml] [So Sorry Please#16] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"6","over":null,"alternate":null}}
+[ireal-musicxml] [So Sorry Please#16] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"6","over":null,"alternate":null}}
+[ireal-musicxml] [So Sorry Please#31] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [So Sorry Please#31] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [So Sorry Please#31] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [So Sorry Please#31] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [So Sorry Please#32] Unhandled alternate chord {"note":"Db","modifiers":"6","over":null,"alternate":null}
+[ireal-musicxml] [So Sorry Please#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"D","modifiers":"6","over":null,"alternate":null}}
+[ireal-musicxml] [So Sorry Please#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Eb","modifiers":"6","over":null,"alternate":null}}
+[ireal-musicxml] [Some Other Spring#5] Cannot add more beats to the current measure.
+[ireal-musicxml] [Some Other Spring#24] Cannot add more beats to the current measure.
+[ireal-musicxml] [Someone To Watch Over Me#5] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Someone To Watch Over Me#5] Unhandled alternate chord {"note":"C","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Someone To Watch Over Me#6] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Someone To Watch Over Me#23] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Someone To Watch Over Me#23] Unhandled alternate chord {"note":"C","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Someone To Watch Over Me#24] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Soon#2] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"^7","over":null,"alternate":null}}
+[ireal-musicxml] [Soon#7] Unhandled alternate chord {"note":"Ab","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Soon#7] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Soon#8] Unhandled alternate chord {"note":"B","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Soon#14] Unhandled alternate chord {"note":"D","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Soon#14] Unhandled alternate chord {"note":"G","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [Soon#15] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Soon#18] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"^7","over":null,"alternate":null}}
+[ireal-musicxml] [Soon#23] Unhandled alternate chord {"note":"Ab","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Soon#23] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Db","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Soon#24] Unhandled alternate chord {"note":"B","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [The Sorcerer#11] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [The Sorcerer#12] Unhandled alternate chord {"note":"A","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [The Sorcerer#14] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [The Sorcerer#15] Unhandled alternate chord {"note":"E","modifiers":"-9","over":null,"alternate":null}
+[ireal-musicxml] [Speak Low#27] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Speak Low#27] No chord found. Skipping current measure.
+[ireal-musicxml] [Spring Can Really Hang You Up The Most#27] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Spring Can Really Hang You Up The Most#27] No chord found. Skipping current measure.
+[ireal-musicxml] [Stella By Starlight#14] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Stella By Starlight#14] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Stella By Starlight#15] Unhandled alternate chord {"note":"A","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [Street Of Dreams#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Strike Up The Band#7] Unhandled alternate chord {"note":"Bb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Strike Up The Band#8] Unhandled alternate chord {"note":"Eb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Strollin'#16] Unhandled alternate chord {"note":"D","modifiers":"7#9","over":null,"alternate":null}
+[ireal-musicxml] [Taking A Chance On Love#12] Unhandled alternate chord {"note":"B","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [Taking A Chance On Love#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-","over":null,"alternate":null}}
+[ireal-musicxml] [Taking A Chance On Love#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Taking A Chance On Love#26] Cannot add more beats to the current measure.
+[ireal-musicxml] [Tautology#9] Unhandled alternate chord {"note":"B","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Tautology#9] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"^7","over":null,"alternate":null}}
+[ireal-musicxml] [Tautology#10] Unhandled alternate chord {"note":"Ab","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [Tautology#10] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Gb","modifiers":"^7","over":null,"alternate":null}}
+[ireal-musicxml] [Tell Me A Bedtime Story#7] Cannot add more beats to the current measure.
+[ireal-musicxml] [That Old Black Magic#15] Cannot add more beats to the current measure.
+[ireal-musicxml] [That Old Black Magic#16] Cannot add more beats to the current measure.
+[ireal-musicxml] [That Old Black Magic#32] Cannot add more beats to the current measure.
+[ireal-musicxml] [That Old Black Magic#47] Cannot add more beats to the current measure.
+[ireal-musicxml] [That Old Black Magic#48] Cannot add more beats to the current measure.
+[ireal-musicxml] [That Old Black Magic#72] Cannot add more beats to the current measure.
+[ireal-musicxml] [That Old Feeling#3] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [That Old Feeling#3] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [That Old Feeling#4] Unhandled alternate chord {"note":"E","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [That Old Feeling#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [That Old Feeling#7] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [That Old Feeling#7] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [That Old Feeling#8] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [That Old Feeling#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [That Old Feeling#19] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [That Old Feeling#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [That Old Feeling#20] Unhandled alternate chord {"note":"E","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [That Old Feeling#20] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7b9","over":null,"alternate":null}}
+[ireal-musicxml] [That Old Feeling#23] Unhandled alternate chord {"note":"F#","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [That Old Feeling#24] Unhandled alternate chord {"note":"B","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [That Old Feeling#25] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [That Old Feeling#25] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [That Old Feeling#26] Unhandled alternate chord {"note":"E","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [That Old Feeling#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"A","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [That Old Feeling#28] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [That Old Feeling#28] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [That's All#9] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [That's All#9] No chord found. Skipping current measure.
+[ireal-musicxml] [There's A Lull In My Life#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [There's A Lull In My Life#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [There's No You#26] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Three Flowers#25] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Three Flowers#25] No chord found. Skipping current measure.
+[ireal-musicxml] [Tones For Joan's Bones#8] Cannot add more beats to the current measure.
+[ireal-musicxml] [Toy Tune#1] Cannot add more beats to the current measure.
+[ireal-musicxml] [Toy Tune#14] Cannot add more beats to the current measure.
+[ireal-musicxml] [Toys#1] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Toys#14] Unhandled alternate chord {"note":"D","modifiers":"-","over":null,"alternate":null}
+[ireal-musicxml] [Travels#26] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Travels#26] No chord found. Skipping current measure.
+[ireal-musicxml] [Trinkle Tinkle#12] Unhandled alternate chord {"note":"C","modifiers":"7b9","over":{"note":"G","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#14] Unhandled alternate chord {"note":"Db","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#14] Unhandled alternate chord {"note":"D","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#15] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#15] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#16] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#16] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#36] Unhandled alternate chord {"note":"C","modifiers":"7b9","over":{"note":"G","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#38] Unhandled alternate chord {"note":"Db","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#38] Unhandled alternate chord {"note":"D","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#39] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#39] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#40] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Trinkle Tinkle#40] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Under A Blanket Of Blue#8] Unhandled alternate chord {"note":"A","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [Valse Hot#1] Cannot add more beats to the current measure.
+[ireal-musicxml] [Valse Hot#2] Cannot add more beats to the current measure.
+[ireal-musicxml] [Valse Hot#3] Cannot add more beats to the current measure.
+[ireal-musicxml] [Valse Hot#5] Cannot add more beats to the current measure.
+[ireal-musicxml] [Valse Hot#6] Cannot add more beats to the current measure.
+[ireal-musicxml] [Valse Hot#7] Cannot add more beats to the current measure.
+[ireal-musicxml] [Walkin' My Baby Back Home#9] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Walkin' My Baby Back Home#9] No chord found. Skipping current measure.
+[ireal-musicxml] [Watermelon Man#15] Unhandled alternate chord {"note":"Ab","modifiers":"13","over":null,"alternate":null}
+[ireal-musicxml] [Well You Needn't#9] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Well You Needn't#11] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Well You Needn't#13] Unhandled alternate chord {"note":"A","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Well You Needn't#13] Unhandled alternate chord {"note":"Bb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Well You Needn't#14] Unhandled alternate chord {"note":"B","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Well You Needn't#14] Unhandled alternate chord {"note":"Bb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Well You Needn't#15] Unhandled alternate chord {"note":"A","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Well You Needn't#15] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Well You Needn't#16] Unhandled alternate chord {"note":"G","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Well You Needn't#16] Unhandled alternate chord {"note":"C","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [When I Fall In Love#9] Unhandled alternate chord {"note":"A","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [When I Fall In Love#10] Unhandled alternate chord {"note":"Ab","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [When I Fall In Love#10] Unhandled alternate chord {"note":"Ab","modifiers":"-6","over":null,"alternate":null}
+[ireal-musicxml] [When I Fall In Love#11] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [When I Fall In Love#11] Unhandled alternate chord {"note":"Ab","modifiers":"^7","over":null,"alternate":null}
+[ireal-musicxml] [When I Fall In Love#12] Unhandled alternate chord {"note":"Db","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [When I Fall In Love#28] Unhandled alternate chord {"note":"Db","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [When I Fall In Love#29] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [When You're Smilin'#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [When You're Smilin'#32] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [Woody'n You#10] Unhandled alternate chord {"note":"A","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Woody'n You#10] Unhandled alternate chord {"note":"D","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Woody'n You#14] Unhandled alternate chord {"note":"B","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [Woody'n You#14] Unhandled alternate chord {"note":"E","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [Wouldn't It Be Loverly#29] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Wouldn't It Be Loverly#29] No chord found. Skipping current measure.
+[ireal-musicxml] [Yesterday's Gardenias#33] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [Yesterday's Gardenias#33] No chord found. Skipping current measure.
+[ireal-musicxml] [You Do Something To Me#2] Unhandled alternate chord {"note":"Bb","modifiers":"7#5","over":null,"alternate":null}
+[ireal-musicxml] [You Do Something To Me#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F","modifiers":"-7","over":null,"alternate":null}}
+[ireal-musicxml] [You Do Something To Me#4] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [You Do Something To Me#6] Unhandled alternate chord {"note":"Eb","modifiers":"6","over":null,"alternate":null}
+[ireal-musicxml] [You Do Something To Me#6] Unhandled alternate chord {"note":"E","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [You Do Something To Me#10] Unhandled alternate chord {"note":"E","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [You Do Something To Me#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"6","over":{"note":"D#","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [You Do Something To Me#22] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Bb","modifiers":"7","over":{"note":"D","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [You Do Something To Me#23] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"Ab","modifiers":"6","over":{"note":"C","modifiers":"","over":null,"alternate":null},"alternate":null}}
+[ireal-musicxml] [You Do Something To Me#26] Unhandled alternate chord {"note":"Bb","modifiers":"7#5","over":null,"alternate":null}
+[ireal-musicxml] [You Go To My Head#3] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"7#11","over":null,"alternate":null}}
+[ireal-musicxml] [You Go To My Head#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"B","modifiers":"7#11","over":null,"alternate":null}}
+[ireal-musicxml] [You Go To My Head#29] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Go To My Head#30] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Go To My Head#30] Unhandled alternate chord {"note":"C","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [You Go To My Head#31] Unhandled alternate chord {"note":"F","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Go To My Head#32] Unhandled alternate chord {"note":"Bb","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#1] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#1] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [You Know I Care#2] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#2] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#3] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#3] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [You Know I Care#4] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#4] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#5] Unhandled alternate chord {"note":"Ab","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#5] Unhandled alternate chord {"note":"Db","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#19] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#19] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [You Know I Care#20] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#20] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#21] Unhandled alternate chord {"note":"G","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#21] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"C","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [You Know I Care#22] Unhandled alternate chord {"note":"Eb","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#22] Unhandled alternate chord {"note":"Ab","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#23] Unhandled alternate chord {"note":"Ab","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#23] Unhandled alternate chord {"note":"Db","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [You Know I Care#27] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [You Know I Care#27] No chord found. Skipping current measure.
+[ireal-musicxml] [You Make Me Feel So Young#1] Unhandled alternate chord {"note":"G","modifiers":"7b9#5","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#2] Unhandled alternate chord {"note":"C#","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#3] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#3] Unhandled alternate chord {"note":"G","modifiers":"7#5","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#4] Unhandled alternate chord {"note":"Gb","modifiers":"9","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#5] Unhandled alternate chord {"note":"E","modifiers":"7b5","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#6] Unhandled alternate chord {"note":"E","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#7] Unhandled alternate chord {"note":"Bb","modifiers":"6","over":{"note":"F","modifiers":"","over":null,"alternate":null},"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#7] Unhandled alternate chord {"note":"G","modifiers":"7#5","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#17] Unhandled alternate chord {"note":"G","modifiers":"7b9#5","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#18] Unhandled alternate chord {"note":"C#","modifiers":"o7","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#19] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#19] Unhandled alternate chord {"note":"G","modifiers":"7#5","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#20] Unhandled alternate chord {"note":"Gb","modifiers":"9","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#22] Unhandled alternate chord {"note":"Ab","modifiers":"9","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#23] Unhandled alternate chord {"note":"D","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#24] Unhandled alternate chord {"note":"G","modifiers":"7b9","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#25] Unhandled alternate chord {"note":"C","modifiers":"-7","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#26] Unhandled alternate chord {"note":"F","modifiers":"7","over":null,"alternate":null}
+[ireal-musicxml] [You Make Me Feel So Young#27] Unhandled alternate chord {"note":"Bb","modifiers":"9","over":null,"alternate":null}
+[ireal-musicxml] [You Must Believe In Spring#8] Unhandled alternate chord {"note":"C#","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [You Must Believe In Spring#8] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"F#","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [You Must Believe In Spring#16] Unhandled alternate chord {"note":"D","modifiers":"h7","over":null,"alternate":null}
+[ireal-musicxml] [You Must Believe In Spring#16] Unhandled empty/alternate chord {"note":" ","modifiers":"","over":null,"alternate":{"note":"G","modifiers":"7","over":null,"alternate":null}}
+[ireal-musicxml] [You Taught My Heart To Sing#14] Cannot add more beats to the current measure.
+[ireal-musicxml] [You Took Advantage Of Me#9] Starting a new measure over existing measure. Closing current measure first.
+[ireal-musicxml] [You Took Advantage Of Me#9] No chord found. Skipping current measure.
+[ireal-musicxml] [Zing Went The Strings Of My Heart#18] Cannot add more beats to the current measure.
+[ireal-musicxml] [Zing Went The Strings Of My Heart#42] Cannot add more beats to the current measure.
+[ireal-musicxml] [Zing Went The Strings Of My Heart#44] Cannot add more beats to the current measure.

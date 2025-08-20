@@ -2,7 +2,6 @@
 
 import { readFileSync } from 'fs';
 import * as mxl2irp from 'musicxml-irealpro';
-import * as fflate from 'fflate';
 
 function get_song_from_path(path)
 {
