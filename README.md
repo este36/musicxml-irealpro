@@ -10,10 +10,13 @@ This makes it easier to import your scores directly into iReal Pro, especially i
 ---
 
 ## Installation
-
+```bash
+npm install musicxml-irealpro
+```
 ### Dependencies
 * [gcc](https://gcc.gnu.org/)
 * [make](https://en.wikipedia.org/wiki/Make_(software))
+##### For building the javascript library:
 * [docker](https://www.docker.com/)
 * [node](https://nodejs.org/en)
 * [npm](https://www.npmjs.com/)
@@ -26,9 +29,9 @@ The `Makefile` provides three main rules :
 By default, all libraries are built.
 
 ```bash
-git clone https://github.com/este36/musicxml-irealpro.git --depth=1
-cd musicxml-irealpro
-make -B
+$ git clone https://github.com/este36/musicxml-irealpro.git --depth=1
+$ cd musicxml-irealpro
+$ make -B
 ```
 # Usage
 
