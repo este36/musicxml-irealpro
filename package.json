@@ -35,7 +35,9 @@
   },
   "homepage": "https://github.com/este36/musicxml-irealpro#readme",
   "devDependencies": {
-    "ireal-musicxml": "^2.0.6"
+    "ireal-musicxml": "^2.0.6",
+    "sanitize-filename": "^1.6.3",
+    "validate-with-xmllint": "^1.2.1"
   },
   "dependencies": {
     "fflate": "^0.8.2"
