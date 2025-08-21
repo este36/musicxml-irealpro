@@ -45,13 +45,19 @@ int parse_harmony(void *user_data, t_sax_context *context)
         {
             // <degree> element is checked first because there can be a lot of them inside <harmony> element.
             if (str_ref_eq(&n->target, &musicxml.degree)) {
-                c->degrees_count++;
-				if (c->degrees_count > TMP_CHORD_MAX_DEGREES) {
+				if (c->degrees_count + 1 > TMP_CHORD_MAX_DEGREES) {
 					parser_state->result->error_code = ERROR_TOO_MUCH_DEGREES;
 					return PARSER_STOP_ERROR;
 				}
+                c->degrees_count++;
                 if (sax_parse_xml(parse_degree, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
+				t_mxl_degree *curr_deg = GET_TMP_CURR_DEGREE(parser_state);
+				if (curr_deg->value == 3) {
+					curr_deg->value = 0;
+					curr_deg->alter = 0;
+                	c->degrees_count--;
+				}
 			} else if (str_ref_eq(&n->target, &musicxml.kind)) {
 				if (sax_get_content(context, &c->qual) != 0)
 					return PARSER_STOP_ERROR; 
