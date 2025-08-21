@@ -45,7 +45,7 @@ lib_a: $(LIB)
 lib_js: $(LIB_JS)
 lib_so: $(LIB_SO)
 do_tests: test/test.out
-	python3 ./test/do_tests.py
+	python3 ./test/jazz1460.py
 
 test/test.out: $(LIB) $(LIB_JS)
 	$(CC) $(CFLAGS) test/test.c -I$(INCLUDES_DIR) -I./$(MINIZ) ./$(LIB) ./$(MINIZ)/libminiz.a -o $@

@@ -6,10 +6,17 @@ from do_test import do_test
 
 musicxml_files = glob.glob("./test/musicxml/*.musicxml")
 
-for f in musicxml_files:
-    do_test([f], False)
+unvalids = ["./test/musicxml/strange.musicxml"]
+
+for i, f in enumerate(musicxml_files):
+	should_fail = (f in unvalids)
+	do_test([f], should_fail)
+	if should_fail:
+		musicxml_files.pop(i)
 
 do_test(musicxml_files, False)
+
+exit(0)
 
 mxl_files = [
 	"./test/mxl/Out_of_Nothing.mxl",

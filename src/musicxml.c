@@ -125,6 +125,7 @@ const char* musicxml_chords[] = {
     "-9",
     "h9",
     "-7",
+    "h",
     "-9",
     "-b6",
     "h9",
