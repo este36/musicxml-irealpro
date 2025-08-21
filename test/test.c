@@ -90,7 +90,9 @@ t_irealpro_song	*get_song_from_path(const char* path)
 		free(result);
 		return NULL;
 	}
-	return result->item;
+	t_irealpro_song	*song = result->item;
+	free(result);
+	return song;
 }
 
 void	print_url(const char *url)
