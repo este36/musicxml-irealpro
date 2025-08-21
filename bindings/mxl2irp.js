@@ -130,7 +130,7 @@ export async function getIRealProSong(file_content, file_name)
 		item: mxl2irp_result_get_item(result),
 	};
 	if (result.error_code != 0) {
-		const msg = "Error: " + get_error_code_str(result.error_code)
+		const msg = "Error: " + file_name + ': ' + get_error_code_str(result.error_code)
 				  + (result.error_details ? "\nDetails: " + result.error_details : '');
 		console.error(msg);
 		free(result.error_details);

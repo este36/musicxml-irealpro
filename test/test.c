@@ -82,7 +82,7 @@ t_irealpro_song	*get_song_from_path(const char* path)
 	free(file_buf);
 
 	if (result->error_code != ERROR_UNSET) {
-		fprintf(stderr, "Error: %s\n", get_error_code_str(result->error_code));
+		fprintf(stderr, "Error: %s: %s\n", path, get_error_code_str(result->error_code));
 		if (result->error_details) {
 			fprintf(stderr, "Details: %s\n", result->error_details);
 			free(result->error_details);
