@@ -100,7 +100,7 @@ static int	append_chords(da_str *dst, t_measure *m, int is_s)
 	// quick fix, temporary
 	if (m->is_too_much_chords) {
 		if (is_s) da_strcat(dst, "l");
-		da_strcat(dst, "<*65(4+ chords)>n   ");
+		da_strcat(dst, "n   ");
 		return 0;
 	}
 	switch (m->chords.count) {
