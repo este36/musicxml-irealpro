@@ -59,6 +59,9 @@ static void append_chord(da_str *dst, t_chord *c, bool should_repeat)
 		if (should_repeat) da_strcat(dst, "x");
 		else da_strcat(dst, " ");
 		return;
+	} else if (c->quality[0] == 'n') {
+		da_strcat(dst, "n");
+		return;
 	}
 	const char *root_note = get_note_str(c->root);
 	if (root_note == NULL) {
@@ -210,6 +213,8 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 			else
 				barline_buf[0] = m->barlines[1];
 			da_strcat(dst, barline_buf);
+		} else if (m->next != NULL && (m->next->barlines[0] == '{' || m->next->barlines[0] == '[')){
+			da_strcat(dst, "|");
 		}
 		m = m->next;
 	}
