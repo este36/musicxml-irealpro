@@ -223,6 +223,19 @@ static void append_composer(da_str *dst, char *composer)
 		return;
 	}
 
+	// check if there is more than 1 space.
+	// if yes, then just print the composer name as is.
+	size_t composer_len = strlen(composer);
+	int num_spaces = 0;
+	for (size_t i = 0; i < composer_len; i++) {
+		if (composer[i] == ' ')
+			num_spaces++;
+	}
+	if (num_spaces > 1) {
+		url_strcat(dst, composer);
+		return;
+	}
+
 	char *last_name = composer;
 	while (!isspace(*last_name) && *last_name != '\0')
 		last_name++;
@@ -255,8 +268,8 @@ static void	append_song_title(da_str *dst, char *title)
 
 	title_to_copy[0] = '\0';
 	if (strncmp(title, "The ", 4) == 0) {
-		strcat(title_to_copy, "The, ");
 		strcat(title_to_copy, title + 4);
+		strcat(title_to_copy, ", The");
 	} else {
 		strcat(title_to_copy, title);
 	}

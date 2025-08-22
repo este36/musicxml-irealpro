@@ -109,6 +109,7 @@ struct s_measure
     uint32_t			divisions; // quarter note reference integer
     t_time_signature	time_signature;
     t_chords			chords;
+	bool				is_too_much_chords;
     char				barlines[2];
 	RehearsalEnum		rehearsal;
 	PlaybackEnum		playback;
