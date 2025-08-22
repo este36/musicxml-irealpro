@@ -105,6 +105,7 @@ elements = [
 "concert-score",
 "container",
 "creator",
+"composer",
 "credit",
 "credit-image",
 "credit-symbol",

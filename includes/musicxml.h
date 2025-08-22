@@ -13,6 +13,10 @@ typedef struct {
     da_str_ref chord;
     da_str_ref coda;
     da_str_ref creator;
+    da_str_ref composer;
+    da_str_ref credit;
+    da_str_ref credit_type;
+    da_str_ref credit_words;
     da_str_ref degree;
     da_str_ref degree_alter;
     da_str_ref degree_value;
@@ -44,6 +48,7 @@ typedef struct {
     da_str_ref score_partwise;
     da_str_ref segno;
     da_str_ref time;
+    da_str_ref title;
     da_str_ref type;
     da_str_ref words;
     da_str_ref work;
