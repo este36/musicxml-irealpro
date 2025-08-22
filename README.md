@@ -59,3 +59,4 @@ or
 * https://www.w3.org/2021/06/musicxml40/musicxml-reference/element-tree/
 * https://www.irealpro.com/ireal-pro-custom-chord-chart-protocol
 * https://github.com/infojunkie/ireal-musicxml
+* https://effendi.me/jazz/
