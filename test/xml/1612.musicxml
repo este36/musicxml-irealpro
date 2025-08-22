@@ -131,7 +131,7 @@ kinda gave up on this one... </credit-words>
       <direction placement="above">
         <direction-type>
           <rehearsal default-x="0" default-y="33" enclosure="none" font-size="15" xml:space="preserve">Intro
-</rehearsal>
+		  </rehearsal>
         </direction-type>
       </direction>
       <note default-x="90">
