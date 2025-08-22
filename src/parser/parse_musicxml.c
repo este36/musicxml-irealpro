@@ -56,6 +56,60 @@ int parse_work(void *user_data, t_sax_context *context)
     return PARSER_CONTINUE;
 }
 
+int	parse_credit(void *user_data, t_sax_context *context)
+{
+	t_parser_state *parser_state = (t_parser_state *)user_data;
+    const t_xml_node *n = &context->found;
+	static bool credit_type_is_composer = false;
+	static bool credit_type_is_title = false;
+
+    switch (n->type) {
+        case XML_TAG_OPEN:
+        {
+			if (str_ref_eq(&n->target, &musicxml.credit_type)) {
+				da_str_ref content;
+				if (sax_get_content(context, &content) != 0)
+					return PARSER_STOP_ERROR;
+				if (str_ref_eq(&content, &musicxml.composer) && parser_state->song->composer[0] == '\0') {
+					credit_type_is_composer = true;
+				} else if (str_ref_eq(&content, &musicxml.title) && parser_state->song->title[0] == '\0') {
+					credit_type_is_title = true;
+				}
+			} else if (str_ref_eq(&n->target, &musicxml.credit_words)) {
+				da_str_ref words_content;
+				if (sax_get_content(context, &words_content) != 0)
+					return PARSER_STOP_ERROR;
+				if (words_content.len > MAX_CREDENTIALS) {
+					parser_state->result->error_code = ERROR_CREDENTIALS_OVERFLOW;
+					return PARSER_STOP_ERROR;
+				}
+				if (credit_type_is_title) {
+					memcpy(parser_state->song->title, words_content.buf, words_content.len);
+					parser_state->song->title[words_content.len] = '\0';
+					credit_type_is_title = false;
+				} else if (credit_type_is_composer) {
+					memcpy(parser_state->song->title, words_content.buf, words_content.len);
+					parser_state->song->title[words_content.len] = '\0';
+					credit_type_is_composer = false;
+				}
+			} else {
+				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
+			}
+			break;
+		}
+		case XML_TAG_CLOSE:
+		{
+			if (str_ref_eq(&n->target, &musicxml.credit)) {
+				credit_type_is_composer = false;
+				credit_type_is_title = false;
+				return PARSER_STOP;
+			}
+		}
+		default: break; 
+	}
+	return PARSER_CONTINUE;
+}
+
 int parse_identification(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -63,12 +117,11 @@ int parse_identification(void *user_data, t_sax_context *context)
     switch (n->type) {
         case XML_TAG_OPEN:
         {
-            da_str_ref composer_str = STR_REF("composer");
-            if (!parser_state->song->composer[0]
+            if (parser_state->song->composer[0] == '\0'
                 && str_ref_eq(&n->target, &musicxml.creator)
                 && n->attrc >= 1 
                 && str_ref_eq(&n->attrv[0].key, &musicxml.type)
-                && str_ref_eq(&n->attrv[0].value, &composer_str)
+                && str_ref_eq(&n->attrv[0].value, &musicxml.composer)
             ) {
                 if (sax_copy_content(context, parser_state->song->composer, MAX_CREDENTIALS) != 0)
 					return PARSER_STOP_ERROR;
@@ -104,6 +157,12 @@ int parse_song_partwise(void *user_data, t_sax_context *context)
                 return PARSER_STOP_ERROR;
         } else if (str_ref_eq(&n->target, &musicxml.identification)) {
             if (sax_parse_xml(parse_identification, parser_state, context) != 0)
+                return PARSER_STOP_ERROR;
+        } else if (str_ref_eq(&n->target, &musicxml.credit)) {
+			if (parser_state->song->composer[0] != 0
+				&& parser_state->song->title[0] != 0)
+            	return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
+            if (sax_parse_xml(parse_credit, parser_state, context) != 0)
                 return PARSER_STOP_ERROR;
         } else if (str_ref_eq(&n->target, &musicxml.part)) {
             if (sax_parse_xml(parse_part, parser_state, context) != 0)
