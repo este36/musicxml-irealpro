@@ -198,7 +198,11 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 		append_playback(dst, m->playback);
 		is_s = append_chords(dst, m, is_s);
 		if (m->barlines[1]) {
-			barline_buf[0] = m->barlines[1];
+			// if we are at the end of song and there is a light-heavy, then put a Z
+			if (m->next == NULL && m->barlines[1] == ']')
+				barline_buf[0] = 'Z'; 
+			else
+				barline_buf[0] = m->barlines[1];
 			da_strcat(dst, barline_buf);
 		}
 		m = m->next;
