@@ -31,7 +31,7 @@ extern "C" {
 #define SKIP_UNTIL(scanner, c) while(!IS_EOF(scanner) && GET_CHAR(scanner) != c) ADVANCE(scanner)
 #define SKIP_WHILE(scanner, fn) while(!IS_EOF(scanner) && fn(GET_CHAR(scanner))) ADVANCE(scanner)
 #define SKIP_WHILE_NOT(scanner, fn) while(!IS_EOF(scanner) && !fn(GET_CHAR(scanner))) ADVANCE(scanner)
-#define SKIP_VALID_MXL_NAME(scanner) while (!IS_EOF(scanner) && (isalpha(GET_CHAR(scanner)) || GET_CHAR(scanner) == '-')) ADVANCE(scanner)
+#define SKIP_VALID_MXL_NAME(scanner) while (!IS_EOF(scanner) && ((isalpha(GET_CHAR(scanner)) || GET_CHAR(scanner) == '-') || GET_CHAR(scanner) == ':')) ADVANCE(scanner)
 
 #define XML_MAX_ATTRIBUTES	32
 
