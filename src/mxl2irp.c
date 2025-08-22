@@ -13,6 +13,7 @@ const char *get_error_code_str(ErrorEnum err)
 		"ERROR_UNVALID_KEY",
 		"ERROR_UNVALID_DIVISIONS",
 		"ERROR_UNVALID_TIME_SIGNATURE",
+		"ERROR_CREDENTIALS_OVERFLOW",
 		NULL
 	};
 	return (err < 0 || err > ERROR_COUNT ?  NULL : error_codes[err]);
