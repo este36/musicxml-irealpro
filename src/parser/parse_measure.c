@@ -125,6 +125,7 @@ int parse_barline(void *user_data, t_sax_context *context)
 
     switch (n->type) {
 		case XML_SELF_CLOSING:
+        case XML_TAG_OPEN:
 		{
 			if (str_ref_eq(&n->target, &musicxml.repeat)) {
 				if (sax_get_attrv(context, &val, "direction") == 0) {
@@ -134,12 +135,7 @@ int parse_barline(void *user_data, t_sax_context *context)
 						m->barlines[0] = '{';
 					}
 				}
-			}
-			break;
-		}
-        case XML_TAG_OPEN:
-		{
-			if (str_ref_eq(&n->target, &musicxml.bar_style)) {
+			} else if (str_ref_eq(&n->target, &musicxml.bar_style)) {
 				if (sax_copy_content(context, content, 128) != 0)
 					return PARSER_STOP_ERROR;
 				if (strcmp(content, "heavy-light") == 0)
@@ -153,8 +149,13 @@ int parse_barline(void *user_data, t_sax_context *context)
 			} else if (str_ref_eq(&n->target, &musicxml.coda)) {
 				m->playback = PLAYBACK_CODA;
 			} else if (str_ref_eq(&n->target, &musicxml.ending)) {
-				if (sax_get_attrv(context, &val, "number") == 0) {
-					if (val.buf[0] - '0' > 0 && val.buf[0] - '0' < ENDING_MAX
+				da_str_ref type;
+				if (sax_get_attrv(context, &val, "number") == 0
+					&& sax_get_attrv(context, &type, "type") == 0) {
+					da_str_ref stop = STR_REF("stop");
+					if (!str_ref_eq(&type, &stop)
+						&& val.buf[0] - '0' > 0
+						&& val.buf[0] - '0' < ENDING_MAX
 						&& val.buf[1] != ',')
 						m->ending = val.buf[0] - '0';
 				}
