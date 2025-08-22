@@ -50,11 +50,15 @@ void	url_scramble(char *body, size_t len)
 
 	pos = 0;
 	tmp = 0;
-	str_replace(body, "   ", "XyQ");
-	str_replace(body, " |", "LZ");
-	str_replace(body, "| x", "Kcl");
 
-	while (len - pos >= 50)
+	str_replace(body, "| x", "Kcl");
+	str_replace(body, " |", "LZ");
+	str_replace(body, "   ", "XyQ");
+	//str_replace(body, "   ", "XyQ");
+	//str_replace(body, " |", "LZ");
+	//str_replace(body, "| x", "Kcl");
+
+	while ((len - pos) > 50)
 	{
 		for (int i = 0; i < 5; i++) {
 			tmp = body[pos + 49 - i];
