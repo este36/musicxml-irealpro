@@ -203,8 +203,9 @@ int parse_measure(void *user_data, t_sax_context *context)
 					return PARSER_STOP_ERROR;
             } else if (str_ref_eq(&n->target, &musicxml.harmony)) { 
 				if (m->chords.count + 1 > MAX_CHORDS) {
-					parser_state->result->error_code = ERROR_TOO_MUCH_CHORDS;
-					return PARSER_STOP_ERROR;
+					m->is_too_much_chords = true;
+					// parser_state->result->error_code = ERROR_TOO_MUCH_CHORDS;
+					// return PARSER_STOP_ERROR;
 				}
                 m->chords.count++;
                 if (sax_parse_xml(parse_harmony, parser_state, context) != 0)

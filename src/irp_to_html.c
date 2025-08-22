@@ -94,6 +94,12 @@ int duration_is_equiv(double d1, double d2)
 // return 1 if it ends with a small chord, so if the last bar was small we can put l
 static int	append_chords(da_str *dst, t_measure *m, int is_s)
 {
+	// quick fix, temporary
+	if (m->is_too_much_chords) {
+		if (is_s) da_strcat(dst, "l");
+		da_strcat(dst, "<*65(4+ chords)>n   ");
+		return 0;
+	}
 	switch (m->chords.count) {
 	case 1:
 		if (is_s) da_strcat(dst, "l");
