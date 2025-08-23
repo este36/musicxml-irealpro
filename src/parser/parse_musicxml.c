@@ -36,7 +36,7 @@ int parse_work(void *user_data, t_sax_context *context)
     switch (n->type) {
         case XML_TAG_OPEN:
         {
-            if (!parser_state->song->title[0] && str_ref_eq(&n->target, &musicxml.work_title)) { 
+            if (parser_state->song->title[0] == '\0' && str_ref_eq(&n->target, &musicxml.work_title)) { 
                 if (sax_copy_content(context, parser_state->song->title, MAX_CREDENTIALS) != 0)
 					return PARSER_STOP_ERROR;
                 // we have what we need, so we skip the rest of parent content
@@ -76,20 +76,13 @@ int	parse_credit(void *user_data, t_sax_context *context)
 					credit_type_is_title = true;
 				}
 			} else if (str_ref_eq(&n->target, &musicxml.credit_words)) {
-				da_str_ref words_content;
-				if (sax_get_content(context, &words_content) != 0)
-					return PARSER_STOP_ERROR;
-				if (words_content.len > MAX_CREDENTIALS) {
-					parser_state->result->error_code = ERROR_CREDENTIALS_OVERFLOW;
-					return PARSER_STOP_ERROR;
-				}
 				if (credit_type_is_title) {
-					memcpy(parser_state->song->title, words_content.buf, words_content.len);
-					parser_state->song->title[words_content.len] = '\0';
+					if (sax_copy_content(context, parser_state->song->title, MAX_CREDENTIALS) != 0)
+						return PARSER_STOP_ERROR;
 					credit_type_is_title = false;
 				} else if (credit_type_is_composer) {
-					memcpy(parser_state->song->title, words_content.buf, words_content.len);
-					parser_state->song->title[words_content.len] = '\0';
+					if (sax_copy_content(context, parser_state->song->composer, MAX_CREDENTIALS) != 0)
+						return PARSER_STOP_ERROR;
 					credit_type_is_composer = false;
 				}
 			} else {
@@ -159,9 +152,6 @@ int parse_song_partwise(void *user_data, t_sax_context *context)
             if (sax_parse_xml(parse_identification, parser_state, context) != 0)
                 return PARSER_STOP_ERROR;
         } else if (str_ref_eq(&n->target, &musicxml.credit)) {
-			if (parser_state->song->composer[0] != 0
-				&& parser_state->song->title[0] != 0)
-            	return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
             if (sax_parse_xml(parse_credit, parser_state, context) != 0)
                 return PARSER_STOP_ERROR;
         } else if (str_ref_eq(&n->target, &musicxml.part)) {
@@ -216,6 +206,8 @@ t_mxl2irp_result	*parse_musicxml(const char* musicxml, const size_t musicxml_len
 		irp_song->measures.items[i].next = &irp_song->measures.items[i + 1];
 	}
 	irp_song->measures.items[irp_song->measures.count - 1].next = NULL;
+
+	irp_song_cleanup_and_factor_out(irp_song);
 	if (irp_song_apply_zoom(irp_song) != 0) {
 		result->error_code = ERROR_ZOOM_FAILED;
 		free(irp_song);
