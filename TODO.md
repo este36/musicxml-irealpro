@@ -1,0 +1,2 @@
+ - Support Line breaks if enough space (max 16 chords / line)
+ - Refactor static variables for thread safety
