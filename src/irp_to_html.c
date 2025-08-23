@@ -53,23 +53,51 @@ static void append_ending(da_str *dst, EndingEnum e)
 		da_strcat(dst, endings[e]);
 }
 
-static void append_chord(da_str *dst, t_chord *c, bool should_repeat)
+static void append_repeat_or_last_chord(da_str *dst, t_measure *last)
 {
+    if (last == NULL || last->chords.count == 0) {
+		da_strcat(dst, "x");
+		return;
+	}
+
+	// we need to print the last chord.
+	t_chord *last_chord = &last->chords.items[last->chords.count - 1];
+	const char *root_note = get_note_str(last_chord->root);
+	const char *bass_note = get_note_str(last_chord->bass);
+	if (root_note == NULL) {
+		da_strcat(dst, "x");
+		return;
+	}
+	da_strcat(dst, root_note);
+	da_strcat(dst, last_chord->quality);
+	if (bass_note != NULL) {
+		da_strcat(dst, "/");
+		da_strcat(dst, bass_note);
+	}
+}
+
+static void append_chord(da_str *dst, size_t chords_index, t_measure *m, t_measure *last)
+{
+	const t_chord *c = &m->chords.items[chords_index];
+	const char *root_note = get_note_str(c->root);
+	const char *bass_note = get_note_str(c->bass);
 	if (c->quality[0] == 'x') { // this indicate the 'repeat last chord' symbol
-		if (should_repeat) da_strcat(dst, "x");
-		else da_strcat(dst, " ");
+		if (chords_index == 0)
+			append_repeat_or_last_chord(dst, last);
+		else
+			da_strcat(dst, " ");
 		return;
 	} else if (c->quality[0] == 'n') {
 		da_strcat(dst, "n");
 		return;
 	}
-	const char *root_note = get_note_str(c->root);
 	if (root_note == NULL) {
-		if (should_repeat) da_strcat(dst, "x");
-		else da_strcat(dst, " ");
+		if (chords_index == 0)
+			append_repeat_or_last_chord(dst, last);
+		else
+			da_strcat(dst, " ");
 		return;
 	}
-	const char *bass_note = get_note_str(c->bass);
 	da_strcat(dst, root_note);
 	da_strcat(dst, c->quality);
 	if (bass_note != NULL) {
@@ -95,7 +123,7 @@ int duration_is_equiv(double d1, double d2)
 }
 
 // return 1 if it ends with a small chord, so if the last bar was small we can put l
-static int	append_chords(da_str *dst, t_measure *m, int is_s)
+static int	append_chords(da_str *dst, int is_s, t_measure *m, t_measure *last)
 {
 	// quick fix, temporary
 	if (m->is_too_much_chords) {
@@ -106,32 +134,32 @@ static int	append_chords(da_str *dst, t_measure *m, int is_s)
 	switch (m->chords.count) {
 	case 1:
 		if (is_s) da_strcat(dst, "l");
-		append_chord(dst, &m->chords.items[0], true);
+		append_chord(dst, 0, m, last);
 		da_strcat(dst, ",XyQ"); // 3 spaces
 		return 0;
 	case 2:
 		// three possible setup: A_B_ or A_AB or ABB_
 		if (duration_is_equiv(m->chords.items[0].duration, m->chords.items[1].duration)) {
 			if (is_s) da_strcat(dst, "l");
-			append_chord(dst, &m->chords.items[0], true);
+			append_chord(dst, 0, m, last);
 			da_strcat(dst, " ");
-			append_chord(dst, &m->chords.items[1], false);
+			append_chord(dst, 1, m, last);
 			da_strcat(dst, " ");
 		} else if (m->chords.items[0].duration > m->chords.items[1].duration) {
 			if (is_s) da_strcat(dst, "l");
-			append_chord(dst, &m->chords.items[0], true);
+			append_chord(dst, 0, m, last);
 			da_strcat(dst, " s");
-			append_chord(dst, &m->chords.items[0], false);
+			append_chord(dst, 0, m, last);
 			da_strcat(dst, ",");
-			append_chord(dst, &m->chords.items[1], false);
+			append_chord(dst, 1, m, last);
 			return 1;
 		} else {
 			if (!is_s) da_strcat(dst, "s");
-			append_chord(dst, &m->chords.items[0], true);
+			append_chord(dst, 0, m, last);
 			da_strcat(dst, ",");
-			append_chord(dst, &m->chords.items[1], false);
+			append_chord(dst, 1, m, last);
 			da_strcat(dst, ",l");
-			append_chord(dst, &m->chords.items[1], false);
+			append_chord(dst, 1, m, last);
 			da_strcat(dst, " ");
 		}
 		return 0;
@@ -141,41 +169,41 @@ static int	append_chords(da_str *dst, t_measure *m, int is_s)
 					m->chords.items[0].duration,
 					m->chords.items[1].duration + m->chords.items[2].duration)) {
 			if (is_s) da_strcat(dst, "l");
-			append_chord(dst, &m->chords.items[0], true);
+			append_chord(dst, 0, m, last);
 			da_strcat(dst, " s");
-			append_chord(dst, &m->chords.items[1], false);
+			append_chord(dst, 1, m, last);
 			da_strcat(dst, ",");
-			append_chord(dst, &m->chords.items[2], false);
+			append_chord(dst, 2, m, last);
 			return 1;
 		} else if (duration_is_equiv(
 					m->chords.items[0].duration + m->chords.items[1].duration,
 					m->chords.items[2].duration)) {
 			if (!is_s) da_strcat(dst, "s");
-			append_chord(dst, &m->chords.items[0], true);
+			append_chord(dst, 0, m, last);
 			da_strcat(dst, ",");
-			append_chord(dst, &m->chords.items[1], false);
+			append_chord(dst, 1, m, last);
 			da_strcat(dst, ",l");
-			append_chord(dst, &m->chords.items[2], false);
+			append_chord(dst, 2, m, last);
 			da_strcat(dst, " ");
 			return 0;
 		} else {
 			if (!is_s) da_strcat(dst, "s");
-			append_chord(dst, &m->chords.items[0], true);
+			append_chord(dst, 0, m, last);
 			da_strcat(dst, ",l");
-			append_chord(dst, &m->chords.items[1], false);
+			append_chord(dst, 1, m, last);
 			da_strcat(dst, " s");
-			append_chord(dst, &m->chords.items[2], false);
+			append_chord(dst, 2, m, last);
 			return 1;
 		}
 	case 4:
 		if (!is_s) da_strcat(dst, "s");
-		append_chord(dst, &m->chords.items[0], true);
+		append_chord(dst, 0, m, last);
 		da_strcat(dst, ",");
-		append_chord(dst, &m->chords.items[1], false);
+		append_chord(dst, 1, m, last);
 		da_strcat(dst, ",");
-		append_chord(dst, &m->chords.items[2], false);
+		append_chord(dst, 2, m, last);
 		da_strcat(dst, ",");
-		append_chord(dst, &m->chords.items[3], false);
+		append_chord(dst, 3, m, last);
 		return 1;
 	default: return 0;
 	}
@@ -184,6 +212,7 @@ static int	append_chords(da_str *dst, t_measure *m, int is_s)
 static int	append_song_body(da_str *dst, t_irealpro_song *song)
 {
 	t_measure			*m;
+	t_measure			*last = NULL;
 	char				barline_buf[2];
 	t_time_signature	curr_ts = {0};
 	int					is_s = 0;
@@ -205,7 +234,7 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 		append_ending(dst, m->ending);
 		append_rehearsal(dst, m->rehearsal);
 		append_playback(dst, m->playback);
-		is_s = append_chords(dst, m, is_s);
+		is_s = append_chords(dst, is_s, m, last);
 		if (m->barlines[1]) {
 			// if we are at the end of song and there is a light-heavy, then put a Z
 			if (m->next == NULL && m->barlines[1] == ']')
@@ -216,6 +245,7 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 		} else if (m->next != NULL && (m->next->barlines[0] == '{' || m->next->barlines[0] == '[')){
 			da_strcat(dst, "|");
 		}
+		last = m;
 		m = m->next;
 	}
 	return 0;
