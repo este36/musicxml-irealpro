@@ -34,6 +34,37 @@ const char *get_style_str(StyleEnum style)
 	return (style >= 1 && style < STYLE_MAX ? styles[style] : NULL);
 }
 
+bool	chord_eq(t_chord *c1, t_chord *c2)
+{
+	return (c1->root == c2->root && c1->bass == c2->bass && strcmp(c1->quality, c2->quality) == 0);
+}
+
+void	chord_cpy(t_chord *dest, t_chord *src)
+{
+	dest->root = src->root;
+	dest->bass = src->bass;
+	size_t src_quality_len = strlen(src->quality);
+	memcpy(dest->quality, src->quality, src_quality_len);
+	dest->quality[src_quality_len] = '\0';
+}
+
+void	chords_remove(t_chords *chords, size_t index_to_remove)
+{
+	if (index_to_remove >= chords->count || chords->count == 0)
+		return;
+	if (index_to_remove == (chords->count - 1)) {
+		chords->count -= 1;
+		return;
+	}
+	size_t i = index_to_remove;
+	while (i < chords->count - 1)
+	{
+		chord_cpy(&chords->items[i], &chords->items[i + 1]);
+		i++;
+	}
+	chords->count -= 1;
+}
+
 void	irp_song_free(t_irealpro_song* song)
 {
     free(song->measures.items);
@@ -165,6 +196,56 @@ int	irp_song_apply_zoom(t_irealpro_song* song)
 	}
 	default:
 		return 0;
+	}
+}
+
+void	irp_song_cleanup_and_factor_out(t_irealpro_song *song)
+{
+	// 1. we should se if there is chords with root == NULL. if yes we copy the last printable chord in it.
+	// 2. check for pairs of chords that are consecutive and equals inside a measure.
+	//    If found, remove the last one and add the duration of first chord by the second.
+	//    Do this until there is no similar and consecutive chords.
+	// Note: theses two operations should never fail.
+
+	t_chord		*last_chord = NULL;
+	size_t		last_measure_chords_count = 0;
+	t_measure	*m = song->first_measure;
+	while (m != NULL)
+	{
+		if (!m->is_too_much_chords && last_measure_chords_count > 1) {
+			for (size_t i = 0; i < m->chords.count; ++i) {
+				if (m->chords.items[i].root == NOTE_UNVALID) {
+					if (last_chord != NULL) {
+						chord_cpy(&m->chords.items[i], last_chord);
+						// chord_cpy(last_chord, last_chord);
+					}
+				}
+			}
+		}
+		if (!m->is_too_much_chords && m->chords.items[m->chords.count - 1].quality[0] != 'x') {
+			last_chord = &m->chords.items[m->chords.count - 1];
+		}
+		last_measure_chords_count = m->chords.count;
+		m = m->next;
+	}
+	m = song->first_measure;
+	while (m != NULL)
+	{
+		if (!m->is_too_much_chords) {
+			if (m->chords.count > 1) {
+				size_t i = 0;
+				while (i < m->chords.count - 1)
+				{
+					if (chord_eq(&m->chords.items[i], &m->chords.items[i + 1])) {
+						m->chords.items[i].duration += m->chords.items[i + 1].duration;
+						chords_remove(&m->chords, i + 1);
+					} else {
+						i++;
+					}
+				}
+			}
+		}
+		m = m->next;
 	}
 }
 
