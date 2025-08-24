@@ -196,8 +196,7 @@ int	irp_song_apply_zoom(t_irealpro_song* song)
 	}
 	default:
 		return 0;
-	}
-}
+	}}
 
 void	irp_song_cleanup_and_factor_out(t_irealpro_song *song)
 {
@@ -212,12 +211,15 @@ void	irp_song_cleanup_and_factor_out(t_irealpro_song *song)
 	t_measure	*m = song->first_measure;
 	while (m != NULL)
 	{
-		if (!m->is_too_much_chords && last_measure_chords_count > 1) {
+		if (!m->is_too_much_chords) {
 			for (size_t i = 0; i < m->chords.count; ++i) {
-				if (m->chords.items[i].root == NOTE_UNVALID) {
-					if (last_chord != NULL) {
+				if (m->chords.items[i].root == NOTE_UNVALID
+					|| m->chords.items[i].quality[0] == 'x') {
+					if (last_measure_chords_count > 1 && last_chord != NULL) {
 						chord_cpy(&m->chords.items[i], last_chord);
-						// chord_cpy(last_chord, last_chord);
+					} else if (i + 1 < m->chords.count) {
+						m->chords.items[i + 1].duration += m->chords.items[i].duration;
+						chords_remove(&m->chords, i);
 					}
 				}
 			}
