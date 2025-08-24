@@ -40,10 +40,11 @@ SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS_STATIC = $(addprefix $(OBJ_DIR_STATIC)/, $(SRC:%.c=%.o))
 OBJS_SHARED = $(addprefix $(OBJ_DIR_SHARED)/, $(SRC:%.c=%.o))
 
-all: lib_a lib_js lib_so
+all: lib_a lib_js lib_so test/test.out
 lib_a: $(LIB)
 lib_js: $(LIB_JS)
 lib_so: $(LIB_SO)
+
 do_tests: test/test.out
 	python3 ./test/jazz1460.py
 

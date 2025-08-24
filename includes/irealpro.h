@@ -15,10 +15,9 @@ extern "C" {
 #include "da.h"
 #include <ctype.h>
 
-#define MAX_CREDENTIALS			256 
-#define MAX_CHORD_QUALITIES		16
-#define MAX_REHEARSAL_LEN		128
-#define MAX_PLAYBACK_LEN		16
+// Apparently 62 chars seems to be the max. We need more testing to make sure this is right.
+#define MAX_CREDENTIALS			62
+#define MAX_CHORD_QUALITY		30
 #define MAX_CHORDS 4
 
 typedef enum
@@ -53,7 +52,7 @@ typedef struct s_chord
     double		duration;
     NoteEnum	root;
     NoteEnum	bass;
-    char		quality[MAX_CHORD_QUALITIES];
+    char		quality[MAX_CHORD_QUALITY + 2];
 }	t_chord;
 
 typedef struct s_chords
@@ -118,7 +117,7 @@ struct s_measure
 
 typedef struct s_measures
 {
-    size_t		count;
+size_t		count;
     size_t		capacity;
     t_measure	*items;
 }	t_measures;
@@ -144,8 +143,8 @@ typedef struct s_irealpro_song
 {
     NoteEnum	key;
     t_measures	measures;
-    char		composer[MAX_CREDENTIALS];
-    char		title[MAX_CREDENTIALS];
+    char		composer[MAX_CREDENTIALS + 2];
+    char		title[MAX_CREDENTIALS + 2];
     uint16_t	tempo;
     uint16_t	repeat_times;
     StyleEnum	style;
@@ -165,12 +164,16 @@ typedef struct s_irealpro_playlist
     }	songs;
 }	t_irealpro_playlist;
 
+bool		chord_eq(t_chord *c1, t_chord *c2);
+void		chord_cpy(t_chord *dest, t_chord *src);
+void		chords_remove(t_chords *chords, size_t index);
 int			is_unvalid_time_signature(uint32_t b, uint32_t bt);
 const char	*get_note_str(NoteEnum note);
 const char	*get_style_str(StyleEnum style);
 int			duration_is_equiv(double d1, double d2);
 void		url_strcat(da_str *dst, const char *src);
 void		url_scramble(char *body, size_t len);
+void		irp_song_cleanup_and_factor_out(t_irealpro_song *song);
 int			irp_song_apply_zoom(t_irealpro_song* song);
 
 WASM_EXPORT	t_irealpro_playlist	*irp_playlist_create(const char*title);
