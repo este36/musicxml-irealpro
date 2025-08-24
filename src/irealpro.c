@@ -228,22 +228,16 @@ void	irp_song_cleanup_and_factor_out(t_irealpro_song *song)
 			last_chord = &m->chords.items[m->chords.count - 1];
 		}
 		last_measure_chords_count = m->chords.count;
-		m = m->next;
-	}
-	m = song->first_measure;
-	while (m != NULL)
-	{
-		if (!m->is_too_much_chords) {
-			if (m->chords.count > 1) {
-				size_t i = 0;
-				while (i < m->chords.count - 1)
-				{
-					if (chord_eq(&m->chords.items[i], &m->chords.items[i + 1])) {
-						m->chords.items[i].duration += m->chords.items[i + 1].duration;
-						chords_remove(&m->chords, i + 1);
-					} else {
-						i++;
-					}
+
+		if (!m->is_too_much_chords && m->chords.count > 1) {
+			size_t i = 0;
+			while (i < m->chords.count - 1)
+			{
+				if (chord_eq(&m->chords.items[i], &m->chords.items[i + 1])) {
+					m->chords.items[i].duration += m->chords.items[i + 1].duration;
+					chords_remove(&m->chords, i + 1);
+				} else {
+					i++;
 				}
 			}
 		}
