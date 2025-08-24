@@ -60,8 +60,6 @@ int	parse_credit(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
     const t_xml_node *n = &context->found;
-	static bool credit_type_is_composer = false;
-	static bool credit_type_is_title = false;
 
     switch (n->type) {
         case XML_TAG_OPEN:
@@ -71,19 +69,19 @@ int	parse_credit(void *user_data, t_sax_context *context)
 				if (sax_get_content(context, &content) != 0)
 					return PARSER_STOP_ERROR;
 				if (str_ref_eq(&content, &musicxml.composer) && parser_state->song->composer[0] == '\0') {
-					credit_type_is_composer = true;
+					parser_state->credit_type_is_composer = true;
 				} else if (str_ref_eq(&content, &musicxml.title) && parser_state->song->title[0] == '\0') {
-					credit_type_is_title = true;
+					parser_state->credit_type_is_title = true;
 				}
 			} else if (str_ref_eq(&n->target, &musicxml.credit_words)) {
-				if (credit_type_is_title) {
+				if (parser_state->credit_type_is_title) {
 					if (sax_copy_content(context, parser_state->song->title, MAX_CREDENTIALS) != 0)
 						return PARSER_STOP_ERROR;
-					credit_type_is_title = false;
-				} else if (credit_type_is_composer) {
+					parser_state->credit_type_is_title = false;
+				} else if (parser_state->credit_type_is_composer) {
 					if (sax_copy_content(context, parser_state->song->composer, MAX_CREDENTIALS) != 0)
 						return PARSER_STOP_ERROR;
-					credit_type_is_composer = false;
+					parser_state->credit_type_is_composer = false;
 				}
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
@@ -93,8 +91,8 @@ int	parse_credit(void *user_data, t_sax_context *context)
 		case XML_TAG_CLOSE:
 		{
 			if (str_ref_eq(&n->target, &musicxml.credit)) {
-				credit_type_is_composer = false;
-				credit_type_is_title = false;
+				parser_state->credit_type_is_composer = false;
+				parser_state->credit_type_is_title = false;
 				return PARSER_STOP;
 			}
 		}
