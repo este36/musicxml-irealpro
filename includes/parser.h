@@ -111,6 +111,11 @@ typedef struct s_parser_state
 	t_mxl_chord			tmp_chord;
 	t_time_signature	tmp_time_signature; 
 	uint32_t			tmp_divisions;
+	double				tmp_note_duration;
+	int					tmp_note_voice;
+	int					curr_voice;
+	bool				credit_type_is_composer;
+	bool				credit_type_is_title;
 }	t_parser_state;
 
 t_sax_scanner	sax_scanner_init(const char *buffer, size_t length);

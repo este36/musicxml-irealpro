@@ -51,6 +51,7 @@ const MusicxmlKeywords musicxml = {
     .time = STR_REF("time"),
     .title = STR_REF("title"),
     .type = STR_REF("type"),
+    .voice = STR_REF("voice"),
     .words = STR_REF("words"),
     .work = STR_REF("work"),
     .work_title = STR_REF("work-title"),

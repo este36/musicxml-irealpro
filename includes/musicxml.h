@@ -50,6 +50,7 @@ typedef struct {
     da_str_ref time;
     da_str_ref title;
     da_str_ref type;
+    da_str_ref voice;
     da_str_ref words;
     da_str_ref work;
     da_str_ref work_title;
