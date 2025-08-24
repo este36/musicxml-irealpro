@@ -120,19 +120,15 @@ static int	append_chords(da_str *dst, t_measure *m, int is_s)
 		} else if (m->chords.items[0].duration > m->chords.items[1].duration) {
 			if (is_s) da_strcat(dst, "l");
 			append_chord(dst, &m->chords.items[0], true);
-			da_strcat(dst, " s");
-			append_chord(dst, &m->chords.items[0], false);
-			da_strcat(dst, ",");
+			da_strcat(dst, "  s");
 			append_chord(dst, &m->chords.items[1], false);
 			return 1;
 		} else {
 			if (!is_s) da_strcat(dst, "s");
 			append_chord(dst, &m->chords.items[0], true);
-			da_strcat(dst, ",");
-			append_chord(dst, &m->chords.items[1], false);
 			da_strcat(dst, ",l");
 			append_chord(dst, &m->chords.items[1], false);
-			da_strcat(dst, " ");
+			da_strcat(dst, "  ");
 		}
 		return 0;
 	case 3:
