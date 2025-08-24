@@ -219,10 +219,20 @@ int parse_measure(void *user_data, t_sax_context *context)
 					m->is_too_much_chords = true;
 					// parser_state->result->error_code = ERROR_TOO_MUCH_CHORDS;
 					// return PARSER_STOP_ERROR;
+				} else {
+					m->chords.count++;
+					if (sax_parse_xml(parse_harmony, parser_state, context) != 0)
+						return PARSER_STOP_ERROR;
+					if (m->chords.count >= 2) {
+						t_chord *chord_last = &m->chords.items[m->chords.count - 1];
+						t_chord *chord_last_before = &m->chords.items[m->chords.count - 2];
+						if (chord_eq(chord_last, chord_last_before)) {
+							chord_last_before->duration += chord_last->duration;
+							m->chords.count--;
+							memset(chord_last, 0, sizeof(t_chord));
+						}
+					}
 				}
-                m->chords.count++;
-                if (sax_parse_xml(parse_harmony, parser_state, context) != 0)
-                	return PARSER_STOP_ERROR;
             } else if (str_ref_eq(&n->target, &musicxml.barline)) {
 				if (sax_parse_xml(parse_barline, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
