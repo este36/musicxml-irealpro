@@ -28,13 +28,15 @@ int parse_note(void *user_data, t_sax_context *context)
 					return PARSER_STOP_ERROR;
 				parser_state->tmp_note_duration += strtod(note_duration_buf, NULL);
 			} else if (str_ref_eq(&n->target, &musicxml.voice)) {
-				if (parser_state->tmp_note_voice == 0) {
-					int note_voice = 0;
+				int note_voice = 0;
 
-					if (sax_get_int(context, &note_voice) != 0)
-						return PARSER_STOP_ERROR;
-					parser_state->tmp_note_voice = note_voice;
-				}
+				if (sax_get_int(context, &note_voice) != 0)
+					return PARSER_STOP_ERROR;
+				parser_state->tmp_note_voice = note_voice;
+				if (parser_state->curr_voice == 0
+					&& GET_CURR_MEASURE(parser_state)->chords.count == 0
+					&& GET_CURR_CHORD(parser_state)->duration == 0)
+					parser_state->curr_voice = note_voice;
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
@@ -43,7 +45,8 @@ int parse_note(void *user_data, t_sax_context *context)
 		case XML_TAG_CLOSE:
 		{
 			if (str_ref_eq(&n->target, &musicxml.note)) {
-				if (parser_state->tmp_note_voice == parser_state->curr_voice) {
+				if (parser_state->tmp_note_voice == parser_state->curr_voice
+					|| parser_state->curr_voice == 0) {
 					GET_CURR_CHORD(parser_state)->duration += parser_state->tmp_note_duration;
 					parser_state->tmp_note_voice = 0;
 					parser_state->tmp_note_duration = 0;
@@ -226,8 +229,12 @@ int parse_measure(void *user_data, t_sax_context *context)
 					if (m->chords.count >= 2) {
 						t_chord *chord_last = &m->chords.items[m->chords.count - 1];
 						t_chord *chord_last_before = &m->chords.items[m->chords.count - 2];
-						if (chord_eq(chord_last, chord_last_before)) {
-							chord_last_before->duration += chord_last->duration;
+						if (chord_eq(chord_last_before, chord_last)
+							|| chord_last_before->root == NOTE_UNVALID
+							|| chord_last_before->quality[0] == 'x') {
+							double last_before_duration = chord_last_before->duration;
+							chord_cpy(chord_last_before, chord_last);
+							chord_last_before->duration += last_before_duration;
 							m->chords.count--;
 							memset(chord_last, 0, sizeof(t_chord));
 						}
@@ -257,6 +264,7 @@ int parse_measure(void *user_data, t_sax_context *context)
 					m->divisions = parser_state->tmp_divisions;
 				else
 					parser_state->tmp_divisions = m->divisions;
+				parser_state->curr_voice = 0;
 				return PARSER_STOP;
 			}
         }

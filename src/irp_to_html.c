@@ -81,8 +81,8 @@ static void append_chord(da_str *dst, t_chord *c, bool should_repeat)
 int duration_is_equiv(double d1, double d2)
 {
 	double middle = (d1 + d2) / 2;
-	double middle_range_l = middle * 0.75;
-	double middle_range_r = middle * 1.25;
+	double middle_range_l = middle * 0.67;
+	double middle_range_r = middle * 1.33;
 
 	if (d1 < middle_range_l
 		|| d1 > middle_range_r
