@@ -188,7 +188,7 @@ int	irp_song_apply_zoom(t_irealpro_song* song)
 			m2->ending = 0;
 			m1 = m2->next;
 			if (m1) new->next = new + 1;
-			else new->next = NULL;
+		else new->next = NULL;
 			new = new->next;
 		}
 		song->measures.count /= 2;
@@ -196,21 +196,36 @@ int	irp_song_apply_zoom(t_irealpro_song* song)
 	}
 	default:
 		return 0;
-	}}
+	}
+}
 
 void	irp_song_cleanup_and_factor_out(t_irealpro_song *song)
 {
-	// 1. we should se if there is chords with root == NULL. if yes we copy the last printable chord in it.
-	// 2. check for pairs of chords that are consecutive and equals inside a measure.
-	//    If found, remove the last one and add the duration of first chord by the second.
-	//    Do this until there is no similar and consecutive chords.
-	// Note: theses two operations should never fail.
-
 	t_chord		*last_chord = NULL;
 	size_t		last_measure_chords_count = 0;
 	t_measure	*m = song->first_measure;
+	int			ending_length = 0;
+	int			endings_count = 0;
+
 	while (m != NULL)
 	{
+		if (m->ending == ENDING_FIRST)
+			ending_length = 1;
+		if (ending_length != 0) {
+			if (m->barlines[1] == '}') {
+				if (endings_count != MAX_ENDINGS) {
+					ending_length -= 4;
+					if (ending_length < 0)
+						ending_length *= -1;
+					song->endings_lengths[endings_count] = ending_length;
+					endings_count++;
+				}
+				ending_length = 0;
+			} else {
+				ending_length++;
+			}
+		}
+		/**/
 		if (!m->is_too_much_chords) {
 			for (size_t i = 0; i < m->chords.count; ++i) {
 				if (m->chords.items[i].root == NOTE_UNVALID
@@ -228,7 +243,7 @@ void	irp_song_cleanup_and_factor_out(t_irealpro_song *song)
 			last_chord = &m->chords.items[m->chords.count - 1];
 		}
 		last_measure_chords_count = m->chords.count;
-
+		/**/
 		if (!m->is_too_much_chords && m->chords.count > 1) {
 			size_t i = 0;
 			while (i < m->chords.count - 1)

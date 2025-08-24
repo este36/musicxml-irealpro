@@ -183,11 +183,25 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 	char				barline_buf[2];
 	t_time_signature	curr_ts = {0};
 	int					is_s = 0;
+	int					endings_found = 0;
+	size_t				curr_measures_pos = 0;
 
 	barline_buf[1] = '\0';
 	m = &song->measures.items[0];
 	while (m != NULL)
 	{
+		curr_measures_pos++;
+		if (m->ending == ENDING_FIRST) {
+			endings_found++;
+		} else if (m->ending != ENDING_NONE
+					&& endings_found != 0
+					&& song->endings_lengths[endings_found - 1] < 4
+					&& (curr_measures_pos - 1) % 4 == 0
+					&& song->measures.count - curr_measures_pos > 4) {
+			for (int i = 0; i < song->endings_lengths[endings_found - 1]; ++i) {
+				da_strcat(dst, "    ");
+			}
+		}
 		if (m->barlines[0])
 			barline_buf[0] = m->barlines[0];
 		else

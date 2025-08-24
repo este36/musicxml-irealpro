@@ -18,7 +18,8 @@ extern "C" {
 // Apparently 62 chars seems to be the max. We need more testing to make sure this is right.
 #define MAX_CREDENTIALS			62
 #define MAX_CHORD_QUALITY		30
-#define MAX_CHORDS 4
+#define MAX_CHORDS				4
+#define MAX_ENDINGS				16
 
 typedef enum
 {
@@ -145,6 +146,7 @@ typedef struct s_irealpro_song
     t_measures	measures;
     char		composer[MAX_CREDENTIALS + 2];
     char		title[MAX_CREDENTIALS + 2];
+	int			endings_lengths[MAX_ENDINGS];
     uint16_t	tempo;
     uint16_t	repeat_times;
     StyleEnum	style;
