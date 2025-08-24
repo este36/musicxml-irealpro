@@ -22,12 +22,19 @@ int parse_note(void *user_data, t_sax_context *context)
 		case XML_TAG_OPEN:
 		{
 			if (str_ref_eq(&n->target, &musicxml.duration)) {
-				t_chord* c = GET_CURR_CHORD(parser_state);
 				char note_duration_buf[128] = {0};
 
 				if (sax_copy_content(context, note_duration_buf, 128) != 0)
 					return PARSER_STOP_ERROR;
-				c->duration += strtod(note_duration_buf, NULL);
+				parser_state->tmp_note_duration += strtod(note_duration_buf, NULL);
+			} else if (str_ref_eq(&n->target, &musicxml.voice)) {
+				if (parser_state->tmp_note_voice == 0) {
+					int note_voice = 0;
+
+					if (sax_get_int(context, &note_voice) != 0)
+						return PARSER_STOP_ERROR;
+					parser_state->tmp_note_voice = note_voice;
+				}
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
@@ -35,8 +42,14 @@ int parse_note(void *user_data, t_sax_context *context)
 		}
 		case XML_TAG_CLOSE:
 		{
-			if (str_ref_eq(&n->target, &musicxml.note))
+			if (str_ref_eq(&n->target, &musicxml.note)) {
+				if (parser_state->tmp_note_voice == parser_state->curr_voice) {
+					GET_CURR_CHORD(parser_state)->duration += parser_state->tmp_note_duration;
+					parser_state->tmp_note_voice = 0;
+					parser_state->tmp_note_duration = 0;
+				}
 				return PARSER_STOP;
+			}
 		}
 		default: break;
 	}
