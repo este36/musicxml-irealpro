@@ -48,9 +48,9 @@ int parse_note(void *user_data, t_sax_context *context)
 				if (parser_state->tmp_note_voice == parser_state->curr_voice
 					|| parser_state->curr_voice == 0) {
 					GET_CURR_CHORD(parser_state)->duration += parser_state->tmp_note_duration;
-					parser_state->tmp_note_voice = 0;
-					parser_state->tmp_note_duration = 0;
 				}
+				parser_state->tmp_note_voice = 0;
+				parser_state->tmp_note_duration = 0;
 				return PARSER_STOP;
 			}
 		}
@@ -229,9 +229,12 @@ int parse_measure(void *user_data, t_sax_context *context)
 					if (m->chords.count >= 2) {
 						t_chord *chord_last = &m->chords.items[m->chords.count - 1];
 						t_chord *chord_last_before = &m->chords.items[m->chords.count - 2];
-						if (chord_eq(chord_last_before, chord_last)
-							|| chord_last_before->root == NOTE_UNVALID
-							|| chord_last_before->quality[0] == 'x') {
+						if (chord_eq(chord_last_before, chord_last)) {
+							chord_last_before->duration += chord_last->duration;
+							m->chords.count--;
+							memset(chord_last, 0, sizeof(t_chord));
+						} else if (chord_last_before->root == NOTE_UNVALID
+								|| chord_last_before->quality[0] == 'x') {
 							double last_before_duration = chord_last_before->duration;
 							chord_cpy(chord_last_before, chord_last);
 							chord_last_before->duration += last_before_duration;

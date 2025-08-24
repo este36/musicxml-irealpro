@@ -9,6 +9,7 @@ int parse_part(void *user_data, t_sax_context *context)
         {
             if (str_ref_eq(&n->target, &musicxml.measure)) { 
                 da_append(parser_state->song->measures, (t_measure){0});
+				memset(GET_CURR_MEASURE(parser_state), 0, sizeof(t_measure));
 				memset(&parser_state->tmp_chord, 0, sizeof(t_mxl_chord));
                 if (sax_parse_xml(parse_measure, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
