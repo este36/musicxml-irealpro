@@ -23,6 +23,7 @@ async function main(argc, argv)
 	if (argc === 2) {
 		const irp_song = await get_song_from_path(argv[1]);
 		if (irp_song === null) {
+			console.log("ERROR: Stopping.");
 			return 1;
 		}
 		const url = mxl2irp.irp_song_get_html(irp_song);

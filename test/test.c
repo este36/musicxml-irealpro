@@ -110,8 +110,10 @@ int main(int argc, char **argv) {
 
 	if (argc == 2) {
 		t_irealpro_song *irp_song = get_song_from_path(argv[1]);
-		if (!irp_song)
+		if (!irp_song) {
+			printf("ERROR: Stopping.\n");
 			return 1;
+		}
 		char *url = irp_song_get_html(irp_song);
 		if (url == NULL) {
 			fprintf(stderr, "HTML RENDER FAIL\n");
