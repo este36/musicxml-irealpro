@@ -34,6 +34,38 @@ int parse_degree(void *user_data, t_sax_context *context)
     return PARSER_CONTINUE;
 }
 
+const struct keyword *get_keyword_from_chord(t_mxl_chord *c)
+{
+	// We must prepare the chord quality and convert it for irealpro:
+	// 1. concatenate every degrees and qual into kind
+	// 2. hashtable lookup for the irealpro chord quality.
+	char kind[256] = {0};
+	char *ref = kind;
+	memcpy(kind, c->qual.buf, c->qual.len);
+	ref += strlen(ref);
+	for (uint32_t i = 0; i < c->degrees_count; i++) {
+		// -4 bc we can append 4 chars at once
+		size_t len_left = (ref - kind) < (256 - 4) ? 256 - (ref - kind) : 0;
+		if (len_left == 0)
+			break ;
+		if (c->degrees[i].alter > 0)
+			strcpy(ref, "#");
+		else if (c->degrees[i].alter < 0)
+			strcpy(ref, "b");
+		ref += strlen(ref);
+		char nb[3] = {0};
+		if (c->degrees[i].value > 10) {
+			nb[0] = (c->degrees[i].value / 10) + '0';
+			nb[1] = (c->degrees[i].value % 10) + '0';
+		} else {
+			nb[0] = c->degrees[i].value + '0';
+		}
+		strcpy(ref, nb);
+		ref += strlen(ref);
+	}
+	return irealpro_chord_lookup(kind, ref - kind);
+}
+
 int parse_harmony(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -88,44 +120,27 @@ int parse_harmony(void *user_data, t_sax_context *context)
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.harmony)) {
-                // We must prepare the chord quality and convert it for irealpro:
-                // 1. concatenate every degrees and qual into kind
-                // 2. hashtable lookup for the irealpro chord quality.
-                char kind[256] = {0};
-				char *ref = kind;
-                memcpy(kind, c->qual.buf, c->qual.len);
-				ref += strlen(ref);
-				for (uint32_t i = 0; i < c->degrees_count; i++) {
-					// -4 bc we can append 4 chars at once
-					size_t len_left = (ref - kind) < (256 - 4) ? 256 - (ref - kind) : 0;
-					if (len_left == 0)
+				int musicxml_chords_index = -1;
+				while (1)
+				{
+					const struct keyword *kw = get_keyword_from_chord(c);
+					if (kw != NULL) {
+						musicxml_chords_index = kw->id;
 						break ;
-					if (c->degrees[i].alter > 0)
-						strcpy(ref, "#");
-					else if (c->degrees[i].alter < 0)
-						strcpy(ref, "b");
-					ref += strlen(ref);
-					char nb[3] = {0};
-					if (c->degrees[i].value > 10) {
-						nb[0] = (c->degrees[i].value / 10) + '0';
-						nb[1] = (c->degrees[i].value % 10) + '0';
-					} else {
-						nb[0] = c->degrees[i].value + '0';
+					} else if (c->degrees_count == 0) {
+						break ;
 					}
-					strcpy(ref, nb);
-					ref += strlen(ref);
+					c->degrees_count--;
 				}
-				const struct keyword *kw = irealpro_chord_lookup(kind, ref - kind);
-				if (kw == NULL) {
+				if (musicxml_chords_index == -1) {
 					parser_state->result->error_code = ERROR_UNVALID_CHORD_KIND;
-					parser_state->result->error_details = strdup(kind);
 					return PARSER_STOP_ERROR;
 				}
                 // we copy the content of what we found to the current chord.
                 t_chord* curr = GET_CURR_CHORD(parser_state);
                 curr->root = c->root;
                 curr->bass = c->bass;
-				strcpy(curr->quality, musicxml_chords[kw->id]);
+				strcpy(curr->quality, musicxml_chords[musicxml_chords_index]);
 				memset(c, 0, sizeof(*c));
                 return PARSER_STOP;
             }
