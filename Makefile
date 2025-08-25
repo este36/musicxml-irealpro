@@ -8,6 +8,9 @@ MINIZ = test/vendors/libminiz
 
 WASM_DIR = wasm
 EMCC_LDFLAGS = \
+	-sINITIAL_MEMORY=64MB\
+	-sALLOW_MEMORY_GROWTH\
+	-sMAXIMUM_MEMORY=256MB\
 	-sMODULARIZE=1\
 	-sEXPORT_ES6=1\
 	-sEXPORTED_FUNCTIONS='["_free", "_malloc"]'\
