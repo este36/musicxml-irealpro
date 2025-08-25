@@ -291,6 +291,14 @@ static void	append_song_title(da_str *dst, char *title)
 	url_strcat(dst, title_to_copy);
 }
 
+static char *utoa(char *dest, uint16_t src)
+{
+    if (src >= 10)
+        dest = utoa(dest, src / 10); // on descend récursivement
+    *dest = (src % 10) + '0';  // écrit le chiffre actuel
+    return dest + 1;            // retourne le pointeur pour le prochain chiffre
+}
+
 static	int	append_song(da_str *dst, t_irealpro_song *song)
 {
 	da_str raw_body;
@@ -316,7 +324,15 @@ static	int	append_song(da_str *dst, t_irealpro_song *song)
 	url_scramble(raw_body.buf, raw_body.len);
 	url_strcat(dst, raw_body.buf);
 	url_strcat(dst, " ");
-	da_strcat(dst, "==0=0");
+	da_strcat(dst, "==");
+	if (song->tempo != 0) {
+		char tempo[16] = {0};
+		utoa(tempo, song->tempo);
+		da_strcat(dst, tempo);
+		da_strcat(dst, "=1");
+	} else {
+		da_strcat(dst, "0=0");
+	}
 	free(raw_body.buf);
 	return 0;
 }
@@ -338,7 +354,7 @@ char	*irp_song_get_html(t_irealpro_song *song)
 	return res.buf;
 }
 
-char		*irp_playlist_get_html(t_irealpro_playlist *playlist)
+char	*irp_playlist_get_html(t_irealpro_playlist *playlist)
 {
 	da_str	res;
 

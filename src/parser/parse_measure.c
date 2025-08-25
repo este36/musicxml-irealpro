@@ -59,6 +59,31 @@ int parse_note(void *user_data, t_sax_context *context)
 	return PARSER_CONTINUE;
 }
 
+int parse_sound(void *user_data, t_sax_context *context)
+{
+	t_parser_state *parser_state = (t_parser_state *)user_data;
+    const t_xml_node *n = &context->found;
+
+    switch (n->type) {
+		case XML_TAG_OPEN:
+		{
+			if (str_ref_eq(&n->target, &musicxml.swing)) {
+				parser_state->song->style = STYLE_MEDIUM_SWING;
+			} else {
+				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
+			}
+			break;
+		}
+		case XML_TAG_CLOSE:
+		{
+			if (str_ref_eq(&n->target, &musicxml.sound)) {
+				return PARSER_STOP;
+			}
+		}
+		default: break;
+	}
+	return PARSER_CONTINUE;
+}
 static char *trim(char *buf)
 {
 	unsigned char *start = (unsigned char *)buf;
@@ -125,6 +150,17 @@ int parse_direction(void *user_data, t_sax_context *context)
 				m->playback = PLAYBACK_SEGNO;
 			} else if (str_ref_eq(&n->target, &musicxml.coda)) {
 				m->playback = PLAYBACK_CODA;
+			} else if (str_ref_eq(&n->target, &musicxml.sound)) {
+				char buf[16];
+				da_str_ref tempo;
+				if (sax_get_attrv(context, &tempo, "tempo") == 0
+					&& parser_state->song->tempo == 0) {
+					for (size_t i = 0; i < tempo.len; i++) {
+						buf[i] = tempo.buf[i];
+					}
+					buf[tempo.len] = '\0';
+					parser_state->song->tempo = (uint16_t)atoi(buf);
+				}
 			}
 			break;
 		}
@@ -140,6 +176,9 @@ int parse_direction(void *user_data, t_sax_context *context)
 				if (sax_copy_content(context, buf, 128) != 0)
 					return PARSER_STOP_ERROR;
 				m->playback = get_playback_enum(buf);
+			} else if (str_ref_eq(&n->target, &musicxml.sound)) {
+				if (sax_parse_xml(parse_sound, user_data, context) != 0)
+					return PARSER_STOP_ERROR;
 			} else if (!str_ref_eq(&n->target, &musicxml.direction_type)) {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}

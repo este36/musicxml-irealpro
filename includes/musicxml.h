@@ -47,6 +47,8 @@ typedef struct {
     da_str_ref score_part;
     da_str_ref score_partwise;
     da_str_ref segno;
+    da_str_ref sound;
+    da_str_ref swing;
     da_str_ref time;
     da_str_ref title;
     da_str_ref type;
