@@ -29,9 +29,9 @@ The `Makefile` provides three main rules :
 By default, all libraries are built.
 
 ```bash
-$ git clone https://github.com/este36/musicxml-irealpro.git --depth=1
-$ cd musicxml-irealpro
-$ make -B
+git clone https://github.com/este36/musicxml-irealpro.git --depth=1
+cd musicxml-irealpro
+make -B
 ```
 # Usage
 
