@@ -50,6 +50,8 @@
 	"dominantb9b13": "7b9",
 	"half-diminished": "-7b5",
 	"major": "",
+	"pedal": "",
+	"major-11th": "sus",
 	"major-13th": "^13",
 	"major-13th#11": "^7#11",
 	"major-minor": "-^7",
@@ -89,6 +91,7 @@
 	"minorb13": "-b6",
 	"minorb6": "-b6",
 	"none": "n",
+	"other": "n",
 	"power": "5",
 	"repeat": "x",
 	"suspended-fourth": "sus4",
@@ -99,6 +102,11 @@
 	"suspended-fourthb137": "7b13sus",
 	"suspended-fourthb97": "7b9sus",
 	"suspended-fourthb57": "7sus",
-	"suspended-second": "sus2"
+	"suspended-second": "sus2",
+	"French": "7#11",
+	"German": "7#11",
+	"Italian": "7",
+	"Neapolitan": "^7",
+	"Tristan": "7#9b5"
 }
 
