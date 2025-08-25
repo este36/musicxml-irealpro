@@ -329,7 +329,7 @@ static	int	append_song(da_str *dst, t_irealpro_song *song)
 		char tempo[16] = {0};
 		utoa(tempo, song->tempo);
 		da_strcat(dst, tempo);
-		da_strcat(dst, "=1");
+		da_strcat(dst, "=3");
 	} else {
 		da_strcat(dst, "0=0");
 	}
