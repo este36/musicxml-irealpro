@@ -59,8 +59,26 @@ int parse_note(void *user_data, t_sax_context *context)
 	return PARSER_CONTINUE;
 }
 
+static char *trim(char *buf)
+{
+	unsigned char *start = (unsigned char *)buf;
+
+    while (*start && isspace(*start)) {
+        start++;
+	}
+
+	unsigned char *end = start + strlen((char *)start) - 1;
+    while (end >= start && isspace(*end)) {
+        end--;
+	}
+	*(end + 1) = '\0';
+
+	return (char *)start;
+}
+
 RehearsalEnum get_rehearsal_enum(char *xml_content)
 {
+	xml_content = trim(xml_content);
 	if (strcasecmp(xml_content, "intro") == 0)
 		return (REHEARSAL_INTRO);
 	if (strcasecmp(xml_content, "in") == 0)
@@ -80,15 +98,16 @@ RehearsalEnum get_rehearsal_enum(char *xml_content)
 
 PlaybackEnum get_playback_enum(char *xml_content)
 {
+	xml_content = trim(xml_content);
 	if (strcasecmp(xml_content, "fine") == 0)
 		return (PLAYBACK_FINE);
-	else if (strcasecmp(xml_content, "d.c al coda") == 0)
+	else if (strcasecmp(xml_content, "d.c. al coda") == 0)
 		return (PLAYBACK_DC_AL_CODA);
-	else if (strcasecmp(xml_content, "d.c al fine") == 0)
+	else if (strcasecmp(xml_content, "d.c. al fine") == 0)
 		return (PLAYBACK_DC_AL_FINE);
-	else if (strcasecmp(xml_content, "d.s al coda") == 0)
+	else if (strcasecmp(xml_content, "d.s. al coda") == 0)
 		return (PLAYBACK_DS_AL_CODA);
-	else if (strcasecmp(xml_content, "d.s al fine") == 0)
+	else if (strcasecmp(xml_content, "d.s. al fine") == 0)
 		return (PLAYBACK_DS_AL_FINE);
 	return (PLAYBACK_NONE);
 }
@@ -100,18 +119,23 @@ int parse_direction(void *user_data, t_sax_context *context)
 	t_measure	*m = GET_CURR_MEASURE(parser_state);
 
 	switch (n->type) {
-		case XML_TAG_OPEN:
+		case XML_SELF_CLOSING:
 		{
-			char buf[128];
-
-			if (str_ref_eq(&n->target, &musicxml.rehearsal)) {
-				if (sax_copy_content(context, buf, 128) != 0)
-					return PARSER_STOP_ERROR;
-				m->rehearsal = get_rehearsal_enum(buf);
-			} else if (str_ref_eq(&n->target, &musicxml.segno)) {
+			if (str_ref_eq(&n->target, &musicxml.segno)) {
 				m->playback = PLAYBACK_SEGNO;
 			} else if (str_ref_eq(&n->target, &musicxml.coda)) {
 				m->playback = PLAYBACK_CODA;
+			}
+			break;
+		}
+		case XML_TAG_OPEN:
+		{
+			char buf[256];
+
+			if (str_ref_eq(&n->target, &musicxml.rehearsal)) {
+				if (sax_copy_content(context, buf, 256) != 0)
+					return PARSER_STOP_ERROR;
+				m->rehearsal = get_rehearsal_enum(buf);
 			} else if (str_ref_eq(&n->target, &musicxml.words)) {
 				if (sax_copy_content(context, buf, 128) != 0)
 					return PARSER_STOP_ERROR;
