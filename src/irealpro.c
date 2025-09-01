@@ -260,6 +260,41 @@ void	irp_song_cleanup_and_factor_out(t_irealpro_song *song)
 	}
 }
 
+char	*irp_song_get_composer(t_irealpro_song *song)
+{
+	return song->composer;
+}
+
+void	irp_song_set_composer(t_irealpro_song *song, const char *composer)
+{
+	size_t len_to_cpy = strlen(composer);
+	if (len_to_cpy > MAX_CREDENTIALS)
+		len_to_cpy = MAX_CREDENTIALS;
+	memcpy(song->composer, composer, len_to_cpy);
+    song->composer[len_to_cpy] = '\0';
+}
+
+uint16_t	irp_song_get_tempo(t_irealpro_song *song)
+{
+	return (song->tempo);
+}
+
+void	irp_song_set_tempo(t_irealpro_song *song, uint16_t tempo)
+{
+	song->tempo = tempo;
+}
+
+StyleEnum	irp_song_get_style(t_irealpro_song *song)
+{
+	return (song->style);
+}
+
+void	irp_song_set_style(t_irealpro_song *song, StyleEnum style)
+{
+	song->style = style;
+}
+
+
 void	irp_playlist_append(t_irealpro_playlist *playlist, t_irealpro_song *song)
 {
 	da_append(playlist->songs, song);

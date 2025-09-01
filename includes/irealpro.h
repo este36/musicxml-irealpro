@@ -150,7 +150,7 @@ typedef struct s_irealpro_song
     uint16_t	tempo;
     uint16_t	repeat_times;
     StyleEnum	style;
-	uint32_t	zoom;
+	ZoomEnum	zoom;
 	uint32_t	first_empty_bars;
 	t_measure	*first_measure;
 }	t_irealpro_song;
@@ -171,16 +171,24 @@ void		chord_cpy(t_chord *dest, t_chord *src);
 void		chords_remove(t_chords *chords, size_t index);
 int			is_unvalid_time_signature(uint32_t b, uint32_t bt);
 const char	*get_note_str(NoteEnum note);
-const char	*get_style_str(StyleEnum style);
 int			duration_is_equiv(double d1, double d2);
 void		url_strcat(da_str *dst, const char *src);
 void		url_scramble(char *body, size_t len);
 void		irp_song_cleanup_and_factor_out(t_irealpro_song *song);
 int			irp_song_apply_zoom(t_irealpro_song* song);
 
-WASM_EXPORT	t_irealpro_playlist	*irp_playlist_create(const char*title);
+WASM_EXPORT	const char			*get_style_str(StyleEnum style);
+
 WASM_EXPORT	char				*irp_song_get_html(t_irealpro_song *song);
+WASM_EXPORT	char				*irp_song_get_composer(t_irealpro_song *song);
+WASM_EXPORT	void				irp_song_set_composer(t_irealpro_song *song, const char *composer);
+WASM_EXPORT	uint16_t			irp_song_get_tempo(t_irealpro_song *song);
+WASM_EXPORT	void				irp_song_set_tempo(t_irealpro_song *song, uint16_t tempo);
+WASM_EXPORT	StyleEnum			irp_song_get_style(t_irealpro_song *song);
+WASM_EXPORT	void				irp_song_set_style(t_irealpro_song *song, StyleEnum style);
 WASM_EXPORT	void				irp_song_free(t_irealpro_song *song);
+
+WASM_EXPORT	t_irealpro_playlist	*irp_playlist_create(const char*title);
 WASM_EXPORT	void				irp_playlist_append(
 											t_irealpro_playlist *playlist,
 											t_irealpro_song *song);
