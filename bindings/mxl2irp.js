@@ -1,6 +1,7 @@
 import { unzipSync } from 'fflate'
 
 export let get_error_code_str = null;
+export let get_style_str = null;
 export let mxl2irp_result_get_error_code = null;
 export let mxl2irp_result_get_item = null;
 export let mxl2irp_result_get_error_details = null;
@@ -13,6 +14,12 @@ export let mxl_archive_get_file_len = null;
 export let mxl_archive_get_files_count = null;
 export let parse_musicxml = null;
 export let irp_song_get_html = null;
+export let irp_song_get_composer = null;
+export let irp_song_set_composer = null;
+export let irp_song_get_tempo = null;
+export let irp_song_set_tempo = null;
+export let irp_song_get_style = null;
+export let irp_song_set_style = null;
 export let irp_playlist_get_html = null;
 export let irp_playlist_create = null;
 export let irp_playlist_append = null;
@@ -46,6 +53,7 @@ export async function initWasm(wasmPath)
 	else m = await Module({ locateFile: f => f.endsWith('.wasm') ? wasmPath : f});
 
 	get_error_code_str = m.cwrap('get_error_code_str', 'string', ['number']);
+	get_style_str = m.cwrap('get_style_str', 'string', ['number']);
 	mxl2irp_result_get_error_code = m.cwrap('mxl2irp_result_get_error_code', 'number', ['number']);
 	mxl2irp_result_get_item =  m.cwrap('mxl2irp_result_get_item', 'number', ['number']);
 	mxl2irp_result_get_error_details = m.cwrap('mxl2irp_result_get_error_details', 'string', ['number']);
@@ -58,6 +66,12 @@ export async function initWasm(wasmPath)
 	mxl_archive_get_files_count = m.cwrap('mxl_archive_get_files_count', 'number', ['number']);
     parse_musicxml = m.cwrap('parse_musicxml', 'number', ['number', 'number']);
     irp_song_get_html = m.cwrap('irp_song_get_html', 'string', ['number']);
+	irp_song_get_composer = m.cwrap('irp_song_get_composer', 'string', ['number']);
+	irp_song_set_composer = m.cwrap('irp_song_set_composer', null, ['number', 'string']);
+	irp_song_get_tempo = m.cwrap('irp_song_get_tempo', 'number', ['number']);
+	irp_song_set_tempo = m.cwrap('irp_song_set_tempo', 'number', ['number', 'number']);
+	irp_song_get_style = m.cwrap('irp_song_get_style', 'number', ['number']);
+	irp_song_set_style = m.cwrap('irp_song_set_style', 'number', ['number', 'number']);
     irp_playlist_get_html = m.cwrap('irp_playlist_get_html', 'string', ['number']);
 	irp_playlist_create = m.cwrap('irp_playlist_create', 'number', ['string']);
 	irp_playlist_append = m.cwrap('irp_playlist_append', null, ['number', 'number']);
