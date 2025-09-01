@@ -1,4 +1,3 @@
-
 import { unzipSync } from 'fflate'
 
 export let get_error_code_str = null;
@@ -22,6 +21,21 @@ export let irp_song_free = null;
 export let free = null;
 export let malloc = null;
 export let Wasm = null;
+
+export const ErrorEnum = {
+	ERROR_UNSET: 1,
+	ERROR_XML_FILE_CORRUPT: 2,
+	ERROR_EMPTY_SCORE: 3,
+	ERROR_ZOOM_FAILED: 3,
+	ERROR_TOO_MUCH_CHORDS: 4,
+	ERROR_TOO_MUCH_DEGREES: 5,
+	ERROR_UNVALID_CHORD_KIND: 6,
+	ERROR_UNVALID_KEY: 7,
+	ERROR_UNVALID_DIVISIONS: 8,
+	ERROR_UNVALID_TIME_SIGNATURE: 9,
+	ERROR_CREDENTIALS_OVERFLOW: 10,
+	ERROR_COUNT: 11
+};
 
 export async function initWasm(wasmPath)
 {
@@ -80,7 +94,12 @@ export function get_mxl_archive_from_mxl_file(file_content)
 	const mxl_archive = mxl_archive_create();
 	if (!mxl_archive)
 		return null;
-	const unzipped = unzipSync(mxl_file);
+	let unzipped;
+	try {
+		unzipped = unzipSync(mxl_file);
+	} catch (err) {
+		return null;
+	}
 	for (const file_name in unzipped) {
 		const wasmFile = new WasmString(unzipped[file_name]);
 		const wasmFilename = new WasmString(file_name);
@@ -89,29 +108,20 @@ export function get_mxl_archive_from_mxl_file(file_content)
 	return mxl_archive;
 }
 
-function getFileContent(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsArrayBuffer(file);
-  });
-}
-
-export async function getIRealProSong(file_content, file_name)
+export function getIRealProSong(file_content, file_name)
 {
-	if (file_content instanceof File) {
-		file_content = await getFileContent(file_content);
+	const error = {
+		error_code: ErrorEnum.ERROR_XML_FILE_CORRUPT
 	}
-	let result;
+	let result = {};
 	if (file_name.endsWith('.mxl')) {
 		const mxl_archive = get_mxl_archive_from_mxl_file(file_content); 
 		if (!mxl_archive)
-			return null;
+			return error;
 		const musicxml_file_index = mxl_archive_get_musicxml_index(mxl_archive);
 		if (musicxml_file_index < 0) {
 			mxl_archive_free(mxl_archive);
-			return null;
+			return error;
 		}
 		const musicxml_buf = mxl_archive_get_file_buf(mxl_archive, musicxml_file_index);
 		const musicxml_len = mxl_archive_get_file_len(mxl_archive, musicxml_file_index);
@@ -123,7 +133,7 @@ export async function getIRealProSong(file_content, file_name)
 		free(musicxml_file.buf);
 	}
 	if (!result)
-		return null;
+		return error;
 	result = {
 		error_code: mxl2irp_result_get_error_code(result),
 		error_details: mxl2irp_result_get_error_details(result),
@@ -133,8 +143,8 @@ export async function getIRealProSong(file_content, file_name)
 		const msg = "Error: " + file_name + ': ' + get_error_code_str(result.error_code)
 				  + (result.error_details ? "\nDetails: " + result.error_details : '');
 		console.error(msg);
-		free(result.error_details);
-		return null;
+		if (result.error_details)
+			free(result.error_details);
 	}
-	return result.item;
+	return result;
 }
