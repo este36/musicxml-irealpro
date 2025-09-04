@@ -180,6 +180,8 @@ int			irp_song_apply_zoom(t_irealpro_song* song);
 WASM_EXPORT	const char			*get_style_str(StyleEnum style);
 
 WASM_EXPORT	char				*irp_song_get_html(t_irealpro_song *song);
+WASM_EXPORT	char				*irp_song_get_title(t_irealpro_song *song);
+WASM_EXPORT	void				irp_song_set_title(t_irealpro_song *song, const char *title);
 WASM_EXPORT	char				*irp_song_get_composer(t_irealpro_song *song);
 WASM_EXPORT	void				irp_song_set_composer(t_irealpro_song *song, const char *composer);
 WASM_EXPORT	uint16_t			irp_song_get_tempo(t_irealpro_song *song);

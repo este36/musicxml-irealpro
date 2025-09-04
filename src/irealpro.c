@@ -260,6 +260,20 @@ void	irp_song_cleanup_and_factor_out(t_irealpro_song *song)
 	}
 }
 
+char	*irp_song_get_title(t_irealpro_song *song)
+{
+	return song->title;
+}
+
+void	irp_song_set_title(t_irealpro_song *song, const char *title)
+{
+	size_t len_to_cpy = strlen(title);
+	if (len_to_cpy > MAX_CREDENTIALS)
+		len_to_cpy = MAX_CREDENTIALS;
+	memcpy(song->title, title, len_to_cpy);
+    song->title[len_to_cpy] = '\0';
+}
+
 char	*irp_song_get_composer(t_irealpro_song *song)
 {
 	return song->composer;

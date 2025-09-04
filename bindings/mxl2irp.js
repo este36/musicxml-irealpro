@@ -15,6 +15,8 @@ export let mxl_archive_get_file_len = null;
 export let mxl_archive_get_files_count = null;
 export let parse_musicxml = null;
 export let irp_song_get_html = null;
+export let irp_song_get_title = null;
+export let irp_song_set_title = null;
 export let irp_song_get_composer = null;
 export let irp_song_set_composer = null;
 export let irp_song_get_tempo = null;
@@ -67,6 +69,8 @@ export async function initWasm(wasmPath)
 	mxl_archive_get_files_count = m.cwrap('mxl_archive_get_files_count', 'number', ['number']);
     parse_musicxml = m.cwrap('parse_musicxml', 'number', ['number', 'number']);
     irp_song_get_html = m.cwrap('irp_song_get_html', 'string', ['number']);
+	irp_song_get_title = m.cwrap('irp_song_get_title', 'string', ['number']);
+	irp_song_set_title = m.cwrap('irp_song_set_title', null, ['number', 'string']);
 	irp_song_get_composer = m.cwrap('irp_song_get_composer', 'string', ['number']);
 	irp_song_set_composer = m.cwrap('irp_song_set_composer', null, ['number', 'string']);
 	irp_song_get_tempo = m.cwrap('irp_song_get_tempo', 'number', ['number']);
