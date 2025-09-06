@@ -186,6 +186,7 @@ WASM_EXPORT	char				*irp_song_get_composer(t_irealpro_song *song);
 WASM_EXPORT	void				irp_song_set_composer(t_irealpro_song *song, const char *composer);
 WASM_EXPORT	uint16_t			irp_song_get_tempo(t_irealpro_song *song);
 WASM_EXPORT	void				irp_song_set_tempo(t_irealpro_song *song, uint16_t tempo);
+WASM_EXPORT	char				*irp_song_get_key(t_irealpro_song *song);
 WASM_EXPORT	StyleEnum			irp_song_get_style(t_irealpro_song *song);
 WASM_EXPORT	void				irp_song_set_style(t_irealpro_song *song, StyleEnum style);
 WASM_EXPORT	void				irp_song_free(t_irealpro_song *song);

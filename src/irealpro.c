@@ -260,6 +260,11 @@ void	irp_song_cleanup_and_factor_out(t_irealpro_song *song)
 	}
 }
 
+char	*irp_song_get_key(t_irealpro_song *song)
+{
+	return strdup(get_note_str(song->key));
+}
+
 char	*irp_song_get_title(t_irealpro_song *song)
 {
 	return song->title;

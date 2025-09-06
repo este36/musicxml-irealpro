@@ -19,6 +19,7 @@ export let irp_song_get_title = null;
 export let irp_song_set_title = null;
 export let irp_song_get_composer = null;
 export let irp_song_set_composer = null;
+export let irp_song_get_key = null;
 export let irp_song_get_tempo = null;
 export let irp_song_set_tempo = null;
 export let irp_song_get_style = null;
@@ -73,6 +74,7 @@ export async function initWasm(wasmPath)
 	irp_song_set_title = m.cwrap('irp_song_set_title', null, ['number', 'string']);
 	irp_song_get_composer = m.cwrap('irp_song_get_composer', 'string', ['number']);
 	irp_song_set_composer = m.cwrap('irp_song_set_composer', null, ['number', 'string']);
+	irp_song_get_key = m.cwrap('irp_song_get_key', 'string', ['number']);
 	irp_song_get_tempo = m.cwrap('irp_song_get_tempo', 'number', ['number']);
 	irp_song_set_tempo = m.cwrap('irp_song_set_tempo', 'number', ['number', 'number']);
 	irp_song_get_style = m.cwrap('irp_song_get_style', 'number', ['number']);
