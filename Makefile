@@ -14,7 +14,7 @@ EMCC_LDFLAGS = \
 	-sMODULARIZE=1\
 	-sEXPORT_ES6=1\
 	-sEXPORTED_FUNCTIONS='["_free", "_malloc"]'\
-	-sEXPORTED_RUNTIME_METHODS=ccall,cwrap,HEAPU8
+	-sEXPORTED_RUNTIME_METHODS=ccall,cwrap,HEAPU8,UTF8ToString
 
 OBJ_DIR_STATIC = obj/static
 OBJ_DIR_SHARED = obj/shared

@@ -8,9 +8,9 @@ function get_song_from_path(path)
 	return mxl2irp.getIRealProSong(readFileSync(path), path);
 }
 
-function print_url(url)
+function print_url(url_ptr)
 {
-	console.log(`<h1>${url}</h1>`);
+	console.log(`<h1>${mxl2irp.Wasm.UTF8ToString(url_ptr)}</h1>`);
 }
 
 function main(argc, argv)
@@ -30,6 +30,9 @@ function main(argc, argv)
 			console.error(`HTML RENDER FAIL`);
 			return 1;
 		}
+		// console.log("Key:",mxl2irp.get_note_str(mxl2irp.irp_song_get_key(result.item)));
+		// console.log("Composer:",mxl2irp.irp_song_get_composer(result.item));
+		// console.log("Title:",mxl2irp.irp_song_get_title(result.item));
 		print_url(url);
 		mxl2irp.irp_song_free(result.item);
 		mxl2irp.free(url);

@@ -3,6 +3,7 @@ import Module from 'musicxml-irealpro/lib'
 
 export let get_error_code_str = null;
 export let get_style_str = null;
+export let get_note_str = null;
 export let mxl2irp_result_get_error_code = null;
 export let mxl2irp_result_get_item = null;
 export let mxl2irp_result_get_error_details = null;
@@ -58,9 +59,10 @@ export async function initWasm(wasmPath)
 
 	get_error_code_str = m.cwrap('get_error_code_str', 'string', ['number']);
 	get_style_str = m.cwrap('get_style_str', 'string', ['number']);
+	get_note_str = m.cwrap('get_note_str', 'string', ['number']);
 	mxl2irp_result_get_error_code = m.cwrap('mxl2irp_result_get_error_code', 'number', ['number']);
 	mxl2irp_result_get_item =  m.cwrap('mxl2irp_result_get_item', 'number', ['number']);
-	mxl2irp_result_get_error_details = m.cwrap('mxl2irp_result_get_error_details', 'string', ['number']);
+	mxl2irp_result_get_error_details = m.cwrap('mxl2irp_result_get_error_details', 'number', ['number']);
 	mxl_archive_create = m.cwrap('mxl_archive_create', 'number', null);
 	mxl_archive_free = m.cwrap('mxl_archive_free', null, ['number']);
 	mxl_archive_append_file = m.cwrap('mxl_archive_append_file', null, ['number', 'number','number','number']);
@@ -69,17 +71,17 @@ export async function initWasm(wasmPath)
 	mxl_archive_get_file_len = m.cwrap('mxl_archive_get_file_len', 'number', ['number', 'number']);
 	mxl_archive_get_files_count = m.cwrap('mxl_archive_get_files_count', 'number', ['number']);
     parse_musicxml = m.cwrap('parse_musicxml', 'number', ['number', 'number']);
-    irp_song_get_html = m.cwrap('irp_song_get_html', 'string', ['number']);
+    irp_song_get_html = m.cwrap('irp_song_get_html', 'number', ['number']);
 	irp_song_get_title = m.cwrap('irp_song_get_title', 'string', ['number']);
 	irp_song_set_title = m.cwrap('irp_song_set_title', null, ['number', 'string']);
 	irp_song_get_composer = m.cwrap('irp_song_get_composer', 'string', ['number']);
 	irp_song_set_composer = m.cwrap('irp_song_set_composer', null, ['number', 'string']);
-	irp_song_get_key = m.cwrap('irp_song_get_key', 'string', ['number']);
+	irp_song_get_key = m.cwrap('irp_song_get_key', 'number', ['number']);
 	irp_song_get_tempo = m.cwrap('irp_song_get_tempo', 'number', ['number']);
 	irp_song_set_tempo = m.cwrap('irp_song_set_tempo', 'number', ['number', 'number']);
 	irp_song_get_style = m.cwrap('irp_song_get_style', 'number', ['number']);
 	irp_song_set_style = m.cwrap('irp_song_set_style', 'number', ['number', 'number']);
-    irp_playlist_get_html = m.cwrap('irp_playlist_get_html', 'string', ['number']);
+    irp_playlist_get_html = m.cwrap('irp_playlist_get_html', 'number', ['number']);
 	irp_playlist_create = m.cwrap('irp_playlist_create', 'number', ['string']);
 	irp_playlist_append = m.cwrap('irp_playlist_append', null, ['number', 'number']);
 	irp_playlist_free = m.cwrap('irp_playlist_free', null, ['number']);
@@ -162,7 +164,7 @@ export function getIRealProSong(file_content, file_name)
 	};
 	if (result.error_code != 0) {
 		const msg = "Error: " + file_name + ': ' + get_error_code_str(result.error_code)
-				  + (result.error_details ? "\nDetails: " + result.error_details : '');
+				  + (result.error_details ? "\nDetails: " + Wasm.UTF8ToString(result.error_details) : '');
 		console.error(msg);
 		if (result.error_details)
 			free(result.error_details);
