@@ -107,6 +107,9 @@ int main(int argc, char **argv) {
 		fprintf(stderr, "Usage: %s (1 or more)[path-to-musicxml]\n", argv[0]);
 		return 1;
 	}
+	clock_t start, end;
+	double cpu_time_used;
+	start = clock();
 
 	if (argc == 2) {
 		t_irealpro_song *irp_song = get_song_from_path(argv[1]);
@@ -142,5 +145,8 @@ int main(int argc, char **argv) {
 		irp_playlist_free(playlist);
 		free(url);
 	}
+	end = clock();
+	cpu_time_used = ((double)(end - start)) * 1000 / CLOCKS_PER_SEC;
+	printf("Temps d'exécution : %fms\n", cpu_time_used);
     return 0;
 }
