@@ -126,7 +126,7 @@ int main(int argc, char **argv) {
 		irp_song_free(irp_song);
 		free(url);
 	} else {
-		t_irealpro_playlist *playlist = irp_playlist_create("Test");
+		t_irealpro_playlist *playlist = irp_playlist_create("This is a Test");
 
 		for (int i = 1; i < argc; i++) {
 			t_irealpro_song *irp_song = get_song_from_path(argv[i]);

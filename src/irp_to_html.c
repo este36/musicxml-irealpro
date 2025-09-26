@@ -367,7 +367,7 @@ char	*irp_playlist_get_html(t_irealpro_playlist *playlist)
 		}
 		da_strcat(&res, "===");
 	}
-	da_strcat(&res, playlist->title.buf);
+	url_strcat(&res, playlist->title.buf);
 	da_strcat(&res, "\">");
 	da_strcat(&res, playlist->title.buf);
 	da_strcat(&res, "</a>");
