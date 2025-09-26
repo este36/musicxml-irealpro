@@ -1,6 +1,8 @@
 import { unzipSync } from 'fflate'
 import Module from 'musicxml-irealpro/lib'
 
+export const STYLE_DEFAULT = 13;
+
 export let get_error_code_str = null;
 export let get_style_str = null;
 export let get_note_str = null;
