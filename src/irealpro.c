@@ -26,9 +26,11 @@ const char *get_style_str(StyleEnum style)
 {
 	static const char *styles[STYLE_MAX] = {
 		NULL,
+		"Bossa Nova"
 		"Waltz",
 		"Up Tempo Swing",
 		"Slow Rock",
+		"Slow Swing",
 		"Shuffle",
 		"Samba",
 		"Rock Pop",
@@ -45,6 +47,34 @@ const char *get_style_str(StyleEnum style)
 	};
 	return (style >= 1 && style < STYLE_MAX ? styles[style] : NULL);
 }
+
+
+uint16_t	get_style_default_tempo(StyleEnum style)
+{
+	static const uint16_t tempos[STYLE_MAX] = {
+		0,
+		140,
+		120,
+		240,
+		70,
+		80,
+		130,
+		200,
+		115,
+		160,
+		120,
+		120,
+		180,
+		180,
+		140,
+		140,
+		90,
+		120,
+		60,
+	};
+	return (style >= 1 && style < STYLE_MAX ? tempos[style] : 0);
+}
+
 
 bool	chord_eq(t_chord *c1, t_chord *c2)
 {

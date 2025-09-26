@@ -5,6 +5,7 @@ export const STYLE_DEFAULT = 13;
 
 export let get_error_code_str = null;
 export let get_style_str = null;
+export let get_style_default_tempo = null;
 export let get_note_str = null;
 export let mxl2irp_result_get_error_code = null;
 export let mxl2irp_result_get_item = null;
@@ -61,6 +62,7 @@ export async function initWasm(wasmPath)
 
 	get_error_code_str = m.cwrap('get_error_code_str', 'string', ['number']);
 	get_style_str = m.cwrap('get_style_str', 'string', ['number']);
+	get_style_default_tempo = m.cwrap('get_style_default_tempo', 'number', ['number']);
 	get_note_str = m.cwrap('get_note_str', 'string', ['number']);
 	mxl2irp_result_get_error_code = m.cwrap('mxl2irp_result_get_error_code', 'number', ['number']);
 	mxl2irp_result_get_item =  m.cwrap('mxl2irp_result_get_item', 'number', ['number']);

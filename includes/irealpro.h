@@ -126,9 +126,11 @@ size_t		count;
 typedef enum
 {
     STYLE_UNSET,
+	STYLE_BOSSA_NOVA,
 	STYLE_WALTZ,
 	STYLE_UP_TEMPO_SWING,
 	STYLE_SLOW_ROCK,
+	STYLE_SLOW_SWING,
 	STYLE_SHUFFLE,
 	STYLE_SAMBA,
 	STYLE_ROCK_POP,
@@ -190,6 +192,7 @@ int			irp_song_apply_zoom(t_irealpro_song* song);
 
 WASM_EXPORT const char			*get_note_str(NoteEnum note);
 WASM_EXPORT	const char			*get_style_str(StyleEnum style);
+WASM_EXPORT	uint16_t			get_style_default_tempo(StyleEnum style);
 
 WASM_EXPORT	char				*irp_song_get_html(t_irealpro_song *song);
 WASM_EXPORT	char				*irp_song_get_title(t_irealpro_song *song);
