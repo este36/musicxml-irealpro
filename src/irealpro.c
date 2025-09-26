@@ -26,10 +26,22 @@ const char *get_style_str(StyleEnum style)
 {
 	static const char *styles[STYLE_MAX] = {
 		NULL,
+		"Waltz",
+		"Up Tempo Swing",
+		"Slow Rock",
+		"Shuffle",
+		"Samba",
+		"Rock Pop",
+		"Medium Up Swing",
 		"Medium Swing",
+		"Medium Slow",
+		"Latin-Swing",
+		"Latin",
+		"Funk",
+		"Even 8ths",
+		"Even 16ths",
+		"Calypso",
 		"Ballad",
-		"Rock",
-		"Pop"
 	};
 	return (style >= 1 && style < STYLE_MAX ? styles[style] : NULL);
 }
