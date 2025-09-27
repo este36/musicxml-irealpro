@@ -26,7 +26,7 @@ const char *get_style_str(StyleEnum style)
 {
 	static const char *styles[STYLE_MAX] = {
 		NULL,
-		"Bossa Nova"
+		"Bossa Nova",
 		"Waltz",
 		"Up Tempo Swing",
 		"Slow Rock",
