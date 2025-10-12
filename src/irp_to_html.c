@@ -231,8 +231,9 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 	return 0;
 }
 
-static void append_composer(da_str *dst, char *composer)
+static void append_composer(da_str *dst, char *composer_ref)
 {
+    char *composer = strdup(composer_ref);
 	if (composer[0] == '\0') {
 		url_strcat(dst, "Composer Unknown");
 		return;
@@ -270,6 +271,7 @@ static void append_composer(da_str *dst, char *composer)
 	url_strcat(dst, last_name);
 	url_strcat(dst, " "); // url encoded space
 	url_strcat(dst, composer); // first name
+    free(composer);
 }
 
 static void	append_song_title(da_str *dst, char *title)
