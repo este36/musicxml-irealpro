@@ -13,7 +13,7 @@
     "jazz"
   ],
   "author": "Esteban Mercier",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "type": "module",
   "exports": {
     ".": "./bindings/mxl2irp.js",
