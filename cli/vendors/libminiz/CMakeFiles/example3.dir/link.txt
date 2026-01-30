@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wshadow -Wformat=2 -Wall -Wno-overlength-strings -pedantic -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/example3.dir/link.d CMakeFiles/example3.dir/examples/example3.c.o -o bin/example3  libminiz.a

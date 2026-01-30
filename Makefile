@@ -4,7 +4,7 @@ LIB_NAME = lib$(NAME)
 CC = gcc
 INCLUDES_DIR = ./includes
 CFLAGS = -Wall -Wextra -Werror
-MINIZ = test/vendors/libminiz
+MINIZ = cli/vendors/libminiz
 
 WASM_DIR = wasm
 EMCC_LDFLAGS = \
@@ -43,16 +43,13 @@ SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS_STATIC = $(addprefix $(OBJ_DIR_STATIC)/, $(SRC:%.c=%.o))
 OBJS_SHARED = $(addprefix $(OBJ_DIR_SHARED)/, $(SRC:%.c=%.o))
 
-all: lib_a lib_js lib_so test/test.out
+all: lib_a lib_js lib_so $(NAME)
 lib_a: $(LIB)
 lib_js: $(LIB_JS)
 lib_so: $(LIB_SO)
 
-do_tests: test/test.out
-	python3 ./test/jazz1460.py
-
-test/test.out: $(LIB) $(LIB_JS)
-	$(CC) $(CFLAGS) test/test.c -I$(INCLUDES_DIR) -I./$(MINIZ) ./$(LIB) ./$(MINIZ)/libminiz.a -o $@
+$(NAME): $(LIB) $(LIB_JS)
+	$(CC) $(CFLAGS) cli/main.c -I$(INCLUDES_DIR) -I./$(MINIZ) ./$(LIB) ./$(MINIZ)/libminiz.a -o $@
 
 $(LIB_JS):
 	mkdir -p $(BIN_DIR)
@@ -73,7 +70,7 @@ $(LIB_SO): $(OBJS_SHARED)
 	$(CC) -shared $(CFLAGS) $^ -o $@ $(LFLAGS)
 
 clean:
-	rm -rf obj $(BIN_DIR) ./test/test.out
+	rm -rf obj $(BIN_DIR)
 
 re: clean all
 
@@ -85,9 +82,6 @@ $(OBJ_DIR_SHARED)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -c $< -o $@
 
-serve:
-	python3 -m http.server 8080 --bind 0.0.0.0 >/dev/null 2>&1 &
-
 generate:
 	python3 ./meta/musicxml.c.py > ./src/musicxml.c
 	python3 ./meta/musicxml.h.py > ./includes/musicxml.h
@@ -96,4 +90,4 @@ generate:
 	python3 meta/patch_gperf_header.py ./includes/irealpro_chord.h
 	rm ./src/musicxml_harmony.gperf
 
-.PHONY: do_tests all re lib_js lib_so lib_a serve clean wasm-emcc
+.PHONY: all re lib_js lib_so lib_a serve clean wasm-emcc
