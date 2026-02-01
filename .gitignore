@@ -9,3 +9,7 @@ libmxl_to_irealpro.so
 result
 mxl2irp
 result.html
+*.mxl
+*.musicxml
+*.xml
+*.txt
