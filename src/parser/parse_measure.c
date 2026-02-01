@@ -1,6 +1,9 @@
 #include "parser.h"
 #include <strings.h>
 
+/*
+ * https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/note/
+*/
 int parse_note(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -33,9 +36,7 @@ int parse_note(void *user_data, t_sax_context *context)
 				if (sax_get_int(context, &note_voice) != 0)
 					return PARSER_STOP_ERROR;
 				parser_state->tmp_note_voice = note_voice;
-				if (parser_state->curr_voice == 0
-					&& GET_CURR_MEASURE(parser_state)->chords.count == 0
-					&& GET_CURR_CHORD(parser_state)->duration == 0)
+				if (parser_state->curr_voice == 0)
 					parser_state->curr_voice = note_voice;
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
@@ -59,6 +60,9 @@ int parse_note(void *user_data, t_sax_context *context)
 	return PARSER_CONTINUE;
 }
 
+/*
+ * https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/sound/
+*/
 int parse_sound(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -84,6 +88,7 @@ int parse_sound(void *user_data, t_sax_context *context)
 	}
 	return PARSER_CONTINUE;
 }
+
 static char *trim(char *buf)
 {
 	unsigned char *start = (unsigned char *)buf;
