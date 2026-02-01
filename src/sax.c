@@ -191,12 +191,13 @@ int sax_parse_tag_body(t_sax_context *context)
         if (GET_CHAR(context->scanner) != '=')
             return XML_FILE_CORRUPT;
         ADVANCE(context->scanner);
-        if (GET_CHAR(context->scanner) != '"')
+		char c = GET_CHAR(context->scanner);
+        if (c != '"' && c != '\'')
             return XML_FILE_CORRUPT;
         ADVANCE(context->scanner);
         a->value.buf = GET_PTR(context->scanner);
         // " chars are escaped only with &quot so its safe.
-        SKIP_UNTIL(context->scanner, '"');
+        SKIP_UNTIL(context->scanner, c);
         if (IS_EOF(context->scanner))
             return XML_FILE_CORRUPT;
         a->value.len = GET_PTR(context->scanner) - a->value.buf;

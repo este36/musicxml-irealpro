@@ -48,7 +48,7 @@ lib_a: $(LIB)
 lib_js: $(LIB_JS)
 lib_so: $(LIB_SO)
 
-$(NAME): $(LIB) $(LIB_JS)
+$(NAME): $(LIB) 
 	$(CC) $(CFLAGS) cli/main.c -I$(INCLUDES_DIR) -I./$(MINIZ) ./$(LIB) ./$(MINIZ)/libminiz.a -o $@
 
 $(LIB_JS):
@@ -72,7 +72,7 @@ $(LIB_SO): $(OBJS_SHARED)
 clean:
 	rm -rf obj $(BIN_DIR)
 
-re: clean all
+re: clean $(NAME)
 
 $(OBJ_DIR_STATIC)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
