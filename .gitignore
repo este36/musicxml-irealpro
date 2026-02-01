@@ -1,6 +1,6 @@
 meta/__pycache__
 test/__pycache__
-test/test.out
+test
 node_modules
 package-lock.json
 obj
@@ -13,3 +13,4 @@ result.html
 *.musicxml
 *.xml
 *.txt
+*.html

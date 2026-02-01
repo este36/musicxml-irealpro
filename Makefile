@@ -2,9 +2,9 @@ NAME = mxl2irp
 LIB_NAME = lib$(NAME)
 
 CC = gcc
-INCLUDES_DIR = ./includes
 CFLAGS = -Wall -Wextra -Werror
-MINIZ = cli/vendors/libminiz
+MINIZ_DIR = vendors/libminiz
+INCLUDES = -I./includes -I./$(MINIZ_DIR)
 
 WASM_DIR = wasm
 EMCC_LDFLAGS = \
@@ -39,9 +39,17 @@ SRC = mxl2irp.c \
 	sax.c \
 	da.c \
 
-SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
-OBJS_STATIC = $(addprefix $(OBJ_DIR_STATIC)/, $(SRC:%.c=%.o))
-OBJS_SHARED = $(addprefix $(OBJ_DIR_SHARED)/, $(SRC:%.c=%.o))
+MINIZ_FILES = miniz.c \
+	miniz_zip.c \
+	miniz_tinfl.c \
+	miniz_tdef.c \
+
+SRCS = $(addprefix $(SRC_DIR)/, $(SRC)) \
+	$(addprefix $(MINIZ_DIR)/, $(MINIZ_FILES))
+OBJS_STATIC = $(addprefix $(OBJ_DIR_STATIC)/, $(SRC:%.c=%.o)) \
+	$(addprefix $(OBJ_DIR_STATIC)/$(MINIZ_DIR)/, $(MINIZ_FILES:%.c=%.o))
+OBJS_SHARED = $(addprefix $(OBJ_DIR_SHARED)/, $(SRC:%.c=%.o)) \
+	$(addprefix $(OBJ_DIR_SHARED)/$(MINIZ_DIR)/, $(MINIZ_FILES:%.c=%.o))
 
 all: lib_a lib_js lib_so $(NAME)
 lib_a: $(LIB)
@@ -49,14 +57,14 @@ lib_js: $(LIB_JS)
 lib_so: $(LIB_SO)
 
 $(NAME): $(LIB) 
-	$(CC) $(CFLAGS) cli/main.c -I$(INCLUDES_DIR) -I./$(MINIZ) ./$(LIB) ./$(MINIZ)/libminiz.a -o $@
+	$(CC) $(CFLAGS) cli/main.c $(INCLUDES) ./$(LIB) -o $@
 
 $(LIB_JS):
 	mkdir -p $(BIN_DIR)
 	docker run --rm -v $$(pwd):/src emscripten/emsdk bash -c "make wasm-emcc"
 
 wasm-emcc:
-	emcc $(CFLAGS) -Oz $(SRCS) -I$(INCLUDES_DIR) -o $(LIB_JS) $(EMCC_LDFLAGS)
+	emcc $(CFLAGS) -Oz $(SRCS) $(INCLUDES) -o $(LIB_JS) $(EMCC_LDFLAGS)
 
 $(LIB): CFLAGS += -g
 $(LIB): $(OBJS_STATIC)
@@ -74,13 +82,23 @@ clean:
 
 re: clean $(NAME)
 
+OPTI = -O2
+
 $(OBJ_DIR_STATIC)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) $(OPTI) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR_SHARED)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) $(OPTI) $(INCLUDES) -c $< -o $@
+
+$(OBJ_DIR_STATIC)/$(MINIZ_DIR)/%.o: $(MINIZ_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(OPTI) $(INCLUDES) -c $< -o $@
+
+$(OBJ_DIR_SHARED)/$(MINIZ_DIR)/%.o: $(MINIZ_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(OPTI) $(INCLUDES) -c $< -o $@
 
 generate:
 	python3 ./meta/musicxml.c.py > ./src/musicxml.c
@@ -89,5 +107,11 @@ generate:
 	gperf --language=ANSI-C ./src/musicxml_harmony.gperf > ./includes/irealpro_chord.h
 	python3 meta/patch_gperf_header.py ./includes/irealpro_chord.h
 	rm ./src/musicxml_harmony.gperf
+
+init_tests:
+	git clone https://github.com/este36/musicxml-irealpro-test-files.git test
+
+do_tests:
+	python3 test/do_tests.py
 
 .PHONY: all re lib_js lib_so lib_a serve clean wasm-emcc
