@@ -25,7 +25,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Build wasm lib
-        run: make lib_js
+        run: make wasm-emcc
 
       - name: Bump version
         run: |
