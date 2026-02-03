@@ -1,6 +1,6 @@
 {
   "name": "musicxml-irealpro",
-  "version": "1.0.21",
+  "version": "0.1.0",
   "description": "Musicxml to Irealpro File Converter.",
   "repository": {
     "type": "git",
@@ -25,7 +25,7 @@
     "./bindings/mxl2irp.js",
     "./build/libmxl2irp.js",
     "./build/libmxl2irp.wasm",
-    "./test/test.js"
+    "./cli/index.js"
   ],
   "bin": {
     "mxl2irp": "./cli/index.js"
