@@ -28,7 +28,7 @@
     "./test/test.js"
   ],
   "bin": {
-    "mxl2irp": "./test/test.js"
+    "mxl2irp": "./cli/index.js"
   },
   "bugs": {
     "url": "https://github.com/este36/musicxml-irealpro/issues"
