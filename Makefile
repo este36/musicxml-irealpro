@@ -44,14 +44,15 @@ MINIZ_FILES = miniz.c \
 	miniz_tinfl.c \
 	miniz_tdef.c \
 
-SRCS = $(addprefix $(SRC_DIR)/, $(SRC)) \
-	$(addprefix $(MINIZ_DIR)/, $(MINIZ_FILES))
-OBJS_STATIC = $(addprefix $(OBJ_DIR_STATIC)/, $(SRC:%.c=%.o)) \
-	$(addprefix $(OBJ_DIR_STATIC)/$(MINIZ_DIR)/, $(MINIZ_FILES:%.c=%.o))
-OBJS_SHARED = $(addprefix $(OBJ_DIR_SHARED)/, $(SRC:%.c=%.o)) \
-	$(addprefix $(OBJ_DIR_SHARED)/$(MINIZ_DIR)/, $(MINIZ_FILES:%.c=%.o))
+MINIZ_SRCS = $(addprefix $(MINIZ_DIR)/, $(MINIZ_FILES))
+MINIZ_OBJS_STATIC =	$(addprefix $(OBJ_DIR_STATIC)/$(MINIZ_DIR)/, $(MINIZ_FILES:%.c=%.o))
+MINIZ_OBJS_SHARED = $(addprefix $(OBJ_DIR_SHARED)/$(MINIZ_DIR)/, $(MINIZ_FILES:%.c=%.o))
 
-all: lib_a lib_js lib_so $(NAME)
+SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
+OBJS_STATIC = $(addprefix $(OBJ_DIR_STATIC)/, $(SRC:%.c=%.o))
+OBJS_SHARED = $(addprefix $(OBJ_DIR_SHARED)/, $(SRC:%.c=%.o))
+
+all: lib_a lib_so $(NAME) lib_js 
 lib_a: $(LIB)
 lib_js: $(LIB_JS)
 lib_so: $(LIB_SO)
@@ -63,15 +64,15 @@ $(LIB_JS): $(BIN_DIR)
 	docker run --rm -v $$(pwd):/src emscripten/emsdk bash -c "make wasm-emcc"
 
 wasm-emcc: $(BIN_DIR)
-	emcc $(CFLAGS) -Oz $(SRCS) $(INCLUDES) -o $(LIB_JS) $(EMCC_LDFLAGS)
+	emcc $(CFLAGS) -Oz $(SRCS) $(MINIZ_SRCS) $(INCLUDES) -o $(LIB_JS) $(EMCC_LDFLAGS)
 
 $(LIB): CFLAGS += -g
-$(LIB): $(OBJS_STATIC)
+$(LIB): $(OBJS_STATIC) $(MINIZ_OBJS_STATIC)
 	mkdir -p $(BIN_DIR)
 	ar -rc $@ $^
 	
 $(LIB_SO): CFLAGS += -fPIC
-$(LIB_SO): $(OBJS_SHARED)
+$(LIB_SO): $(OBJS_SHARED) $(MINIZ_OBJS_SHARED)
 	mkdir -p $(BIN_DIR)
 	$(CC) -shared $(CFLAGS) $^ -o $@ $(LFLAGS)
 
@@ -79,6 +80,9 @@ $(BIN_DIR):
 	mkdir -p $@
 
 clean:
+	rm -rf $(OBJS_SHARED) $(OBJS_STATIC)
+
+fclean:
 	rm -rf obj $(BIN_DIR)
 
 re: clean $(NAME)
