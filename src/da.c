@@ -1,11 +1,11 @@
 #include "da.h"
 #include <string.h>
 
-da_str da_str_c(const char* c, size_t l)
+t_dstr dstr_c(const char* c, size_t l)
 {
-    if (!c) return (da_str){0};
+    if (!c) return (t_dstr){0};
 
-    da_str s = {0};
+    t_dstr s = {0};
     s.len = l != DA_UNSET ? l :strlen(c);
     s.cap = s.len + 1;
     if (s.cap < DA_MIN_CAPACITY) s.cap = DA_MIN_CAPACITY;
@@ -19,7 +19,7 @@ da_str da_str_c(const char* c, size_t l)
     return s;
 }
 
-int		da_str_init(da_str *dst, size_t capacity)
+int		dstr_init(t_dstr *dst, size_t capacity)
 {
     dst->buf = (char *)malloc(sizeof(char) * capacity);
 	if (dst->buf == NULL)
@@ -29,7 +29,7 @@ int		da_str_init(da_str *dst, size_t capacity)
 	return 0;
 }
 
-int	da_strcat(da_str *dst, const char *src)
+int	dstrcat(t_dstr *dst, const char *src)
 {
 	size_t	src_len = strlen(src);
     size_t needed = dst->len + src_len + 1;
@@ -51,14 +51,14 @@ int	da_strcat(da_str *dst, const char *src)
     return 0;
 }
 
-void da_str_free(da_str *s) 
+void dstr_free(t_dstr *s) 
 {
     free(s->buf);
     s->buf = NULL;
     s->len = s->cap = 0;
 }
 
-void str_ref_copy(const da_str_ref* ref, char* dest, size_t length) 
+void str_ref_copy(const t_str_ref* ref, char* dest, size_t length) 
 {
     size_t cpy_len = ref->len < length - 1 ? ref->len : length - 1;
     for (size_t i = 0; i < cpy_len; ++i) {
@@ -67,7 +67,7 @@ void str_ref_copy(const da_str_ref* ref, char* dest, size_t length)
     dest[cpy_len] = '\0';
 }
 
-bool str_ref_eq(const da_str_ref* a, const da_str_ref* b)
+bool str_ref_eq(const t_str_ref* a, const t_str_ref* b)
 {
     return a->len == b->len && memcmp(a->buf, b->buf, a->len) == 0;
 }

@@ -37,29 +37,29 @@
         (da)->count = (da)->capacity = 0; \
     } while (0) 
 
-#define DA_STR(s) da_str_c(s, DA_UNSET)
-#define DA_STRCPY(s, l) da_str_c(s, l)
-// Use this for evaluating string and string length at compile time
-#define STR_REF(cstr) (da_str_ref){.buf = cstr, (sizeof(cstr) - 1)}
-
 typedef struct
 {
     char	*buf;
     size_t	len;
     size_t	cap;
-}	da_str;
+}	t_dstr;
 
 typedef struct
 {
     const char	*buf;
     size_t		len;
-}	da_str_ref;
+}	t_str_ref;
 
-da_str	da_str_c(const char* c, size_t l);
-int		da_str_init(da_str *dst, size_t capacity);
-int		da_strcat(da_str *dst, const char *src);
-void	da_str_free(da_str *s);
-void	str_ref_copy(const da_str_ref* ref, char* dest, size_t length);
-bool	str_ref_eq(const da_str_ref* a, const da_str_ref* b);
+#define DA_STR(s) da_str_c(s, DA_UNSET)
+#define DA_STRCPY(s, l) da_str_c(s, l)
+// Use this for evaluating string and string length at compile time
+#define STR_REF(cstr) (t_str_ref){.buf = cstr, .len = (sizeof(cstr) - 1)}
+
+t_dstr	dstr_c(const char* c, size_t l);
+int		dstr_init(t_dstr *dst, size_t capacity);
+int		dstrcat(t_dstr *dst, const char *src);
+void	dstr_free(t_dstr *s);
+void	str_ref_copy(const t_str_ref* ref, char* dest, size_t length);
+bool	str_ref_eq(const t_str_ref* a, const t_str_ref* b);
 
 #endif

@@ -53,11 +53,11 @@ size_t	mxl_archive_get_files_count(t_mxl_archive *mxl_archive)
 int parse_container_xml(void *user_data, t_sax_context *context)
 {
 	char **musicxml_filename = (char **)user_data;
-	static const da_str_ref rootfile = STR_REF("rootfile");
+	static const t_str_ref rootfile = STR_REF("rootfile");
 
 	if ((context->found.type == XML_SELF_CLOSING || context->found.type == XML_TAG_OPEN)
 		&& str_ref_eq(&context->found.target, &rootfile)) {
-		da_str_ref val = {0};
+		t_str_ref val = {0};
 		if (sax_get_attrv(context, &val, "full-path") != 0)
 			return PARSER_STOP_ERROR;
 		*musicxml_filename = malloc(sizeof(char) * val.len + 1);

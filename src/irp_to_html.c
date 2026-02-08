@@ -1,6 +1,6 @@
 #include "irealpro.h"
 
-static void append_time_signature(da_str *dst, const t_measure *m)
+static void append_time_signature(t_dstr *dst, const t_measure *m)
 {
 	uint32_t b = m->time_signature.beats; // 3/4 -> 4
 	uint32_t bt = m->time_signature.beat_type; // 3/4 -> 3
@@ -16,10 +16,10 @@ static void append_time_signature(da_str *dst, const t_measure *m)
 		buf[2] = bt + '0';
 	}
 	buf[3] = '\0';
-	da_strcat(dst, buf);
+	dstrcat(dst, buf);
 }
 
-static void append_playback(da_str *dst, PlaybackEnum p)
+static void append_playback(t_dstr *dst, PlaybackEnum p)
 {
 	static const char *playbacks[PLAYBACK_MAX] = {
 		NULL,
@@ -32,49 +32,49 @@ static void append_playback(da_str *dst, PlaybackEnum p)
 		"<D.S. al Fine>"
 	};
 	if (p > 0 && p < PLAYBACK_MAX)
-		da_strcat(dst, playbacks[p]);
+		dstrcat(dst, playbacks[p]);
 }
 
-static void append_rehearsal(da_str *dst, RehearsalEnum r)
+static void append_rehearsal(t_dstr *dst, RehearsalEnum r)
 {
 	static const char *rehearsals[REHEARSAL_MAX] = {
 		NULL, "*i", "*V", "*A", "*B", "*C", "*D"
 	};
 	if (r > 0 && r < REHEARSAL_MAX)
-		da_strcat(dst, rehearsals[r]);
+		dstrcat(dst, rehearsals[r]);
 }
 
-static void append_ending(da_str *dst, EndingEnum e)
+static void append_ending(t_dstr *dst, EndingEnum e)
 {
 	static const char *endings[ENDING_MAX] = {
 		NULL, "N1", "N2", "N3"
 	};
 	if (e > 0 && e < ENDING_MAX)
-		da_strcat(dst, endings[e]);
+		dstrcat(dst, endings[e]);
 }
 
-static void append_chord(da_str *dst, t_chord *c, bool should_repeat)
+static void append_chord(t_dstr *dst, t_chord *c, bool should_repeat)
 {
 	if (c->quality[0] == 'x') { // this indicate the 'repeat last chord' symbol
-		if (should_repeat) da_strcat(dst, "x");
-		else da_strcat(dst, " ");
+		if (should_repeat) dstrcat(dst, "x");
+		else dstrcat(dst, " ");
 		return;
 	} else if (c->quality[0] == 'n') {
-		da_strcat(dst, "n");
+		dstrcat(dst, "n");
 		return;
 	}
 	const char *root_note = get_note_str(c->root);
 	if (root_note == NULL) {
-		if (should_repeat) da_strcat(dst, "x");
-		else da_strcat(dst, " ");
+		if (should_repeat) dstrcat(dst, "x");
+		else dstrcat(dst, " ");
 		return;
 	}
 	const char *bass_note = get_note_str(c->bass);
-	da_strcat(dst, root_note);
-	da_strcat(dst, c->quality);
+	dstrcat(dst, root_note);
+	dstrcat(dst, c->quality);
 	if (bass_note != NULL) {
-		da_strcat(dst, "/");
-		da_strcat(dst, bass_note);
+		dstrcat(dst, "/");
+		dstrcat(dst, bass_note);
 	}
 }
 
@@ -95,40 +95,40 @@ int duration_is_equiv(double d1, double d2)
 }
 
 // return 1 if it ends with a small chord, so if the last bar was small we can put l
-static int	append_chords(da_str *dst, t_measure *m, int is_s)
+static int	append_chords(t_dstr *dst, t_measure *m, int is_s)
 {
 	// quick fix, temporary
 	if (m->is_too_much_chords) {
-		if (is_s) da_strcat(dst, "l");
-		da_strcat(dst, "n   ");
+		if (is_s) dstrcat(dst, "l");
+		dstrcat(dst, "n   ");
 		return 0;
 	}
 	switch (m->chords.count) {
 	case 1:
-		if (is_s) da_strcat(dst, "l");
+		if (is_s) dstrcat(dst, "l");
 		append_chord(dst, &m->chords.items[0], true);
-		da_strcat(dst, ",XyQ"); // 3 spaces
+		dstrcat(dst, ",XyQ"); // 3 spaces
 		return 0;
 	case 2:
 		// three possible setup: A_B_ or A_AB or ABB_
 		if (duration_is_equiv(m->chords.items[0].duration, m->chords.items[1].duration)) {
-			if (is_s) da_strcat(dst, "l");
+			if (is_s) dstrcat(dst, "l");
 			append_chord(dst, &m->chords.items[0], true);
-			da_strcat(dst, " ");
+			dstrcat(dst, " ");
 			append_chord(dst, &m->chords.items[1], false);
-			da_strcat(dst, " ");
+			dstrcat(dst, " ");
 		} else if (m->chords.items[0].duration > m->chords.items[1].duration) {
-			if (is_s) da_strcat(dst, "l");
+			if (is_s) dstrcat(dst, "l");
 			append_chord(dst, &m->chords.items[0], true);
-			da_strcat(dst, "  s");
+			dstrcat(dst, "  s");
 			append_chord(dst, &m->chords.items[1], false);
 			return 1;
 		} else {
-			if (!is_s) da_strcat(dst, "s");
+			if (!is_s) dstrcat(dst, "s");
 			append_chord(dst, &m->chords.items[0], true);
-			da_strcat(dst, ",l");
+			dstrcat(dst, ",l");
 			append_chord(dst, &m->chords.items[1], false);
-			da_strcat(dst, "  ");
+			dstrcat(dst, "  ");
 		}
 		return 0;
 	case 3:
@@ -136,48 +136,48 @@ static int	append_chords(da_str *dst, t_measure *m, int is_s)
 		if (duration_is_equiv(
 					m->chords.items[0].duration,
 					m->chords.items[1].duration + m->chords.items[2].duration)) {
-			if (is_s) da_strcat(dst, "l");
+			if (is_s) dstrcat(dst, "l");
 			append_chord(dst, &m->chords.items[0], true);
-			da_strcat(dst, " s");
+			dstrcat(dst, " s");
 			append_chord(dst, &m->chords.items[1], false);
-			da_strcat(dst, ",");
+			dstrcat(dst, ",");
 			append_chord(dst, &m->chords.items[2], false);
 			return 1;
 		} else if (duration_is_equiv(
 					m->chords.items[0].duration + m->chords.items[1].duration,
 					m->chords.items[2].duration)) {
-			if (!is_s) da_strcat(dst, "s");
+			if (!is_s) dstrcat(dst, "s");
 			append_chord(dst, &m->chords.items[0], true);
-			da_strcat(dst, ",");
+			dstrcat(dst, ",");
 			append_chord(dst, &m->chords.items[1], false);
-			da_strcat(dst, ",l");
+			dstrcat(dst, ",l");
 			append_chord(dst, &m->chords.items[2], false);
-			da_strcat(dst, " ");
+			dstrcat(dst, " ");
 			return 0;
 		} else {
-			if (!is_s) da_strcat(dst, "s");
+			if (!is_s) dstrcat(dst, "s");
 			append_chord(dst, &m->chords.items[0], true);
-			da_strcat(dst, ",l");
+			dstrcat(dst, ",l");
 			append_chord(dst, &m->chords.items[1], false);
-			da_strcat(dst, " s");
+			dstrcat(dst, " s");
 			append_chord(dst, &m->chords.items[2], false);
 			return 1;
 		}
 	case 4:
-		if (!is_s) da_strcat(dst, "s");
+		if (!is_s) dstrcat(dst, "s");
 		append_chord(dst, &m->chords.items[0], true);
-		da_strcat(dst, ",");
+		dstrcat(dst, ",");
 		append_chord(dst, &m->chords.items[1], false);
-		da_strcat(dst, ",");
+		dstrcat(dst, ",");
 		append_chord(dst, &m->chords.items[2], false);
-		da_strcat(dst, ",");
+		dstrcat(dst, ",");
 		append_chord(dst, &m->chords.items[3], false);
 		return 1;
 	default: return 0;
 	}
 }
 
-static int	append_song_body(da_str *dst, t_irealpro_song *song)
+static int	append_song_body(t_dstr *dst, t_irealpro_song *song)
 {
 	t_measure			*m;
 	char				barline_buf[2];
@@ -199,14 +199,14 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 					&& (curr_measures_pos - 1) % 4 == 0
 					&& song->measures.count - curr_measures_pos > 4) {
 			for (int i = 0; i < song->endings_lengths[endings_found - 1]; ++i) {
-				da_strcat(dst, "    ");
+				dstrcat(dst, "    ");
 			}
 		}
 		if (m->barlines[0])
 			barline_buf[0] = m->barlines[0];
 		else
 			barline_buf[0] = '|';
-		da_strcat(dst, barline_buf);
+		dstrcat(dst, barline_buf);
 		if (curr_ts.beats != m->time_signature.beats
 			|| curr_ts.beat_type != m->time_signature.beat_type) {
 			append_time_signature(dst, m);
@@ -222,16 +222,16 @@ static int	append_song_body(da_str *dst, t_irealpro_song *song)
 				barline_buf[0] = 'Z'; 
 			else
 				barline_buf[0] = m->barlines[1];
-			da_strcat(dst, barline_buf);
+			dstrcat(dst, barline_buf);
 		} else if (m->next != NULL && (m->next->barlines[0] == '{' || m->next->barlines[0] == '[')){
-			da_strcat(dst, "|");
+			dstrcat(dst, "|");
 		}
 		m = m->next;
 	}
 	return 0;
 }
 
-static void append_composer(da_str *dst, char *composer_ref)
+static void append_composer(t_dstr *dst, char *composer_ref)
 {
     char *composer = strdup(composer_ref);
 	if (composer[0] == '\0') {
@@ -274,7 +274,7 @@ static void append_composer(da_str *dst, char *composer_ref)
     free(composer);
 }
 
-static void	append_song_title(da_str *dst, char *title)
+static void	append_song_title(t_dstr *dst, char *title)
 {
 	if (title[0] == '\0') {
 		url_strcat(dst, "Song Title");
@@ -301,39 +301,39 @@ static char *utoa(char *dest, uint16_t src)
     return dest + 1;            // retourne le pointeur pour le prochain chiffre
 }
 
-static	int	append_song(da_str *dst, t_irealpro_song *song)
+static	int	append_song(t_dstr *dst, t_irealpro_song *song)
 {
-	da_str raw_body;
+	t_dstr raw_body;
 
-	da_str_init(&raw_body, 256);
+	dstr_init(&raw_body, 256);
 	append_song_title(dst, song->title);
-	da_strcat(dst, "=");
+	dstrcat(dst, "=");
 	append_composer(dst, song->composer);
-	da_strcat(dst, "==");
+	dstrcat(dst, "==");
 	const char *style = get_style_str(song->style);
 	if (style != NULL)
 		url_strcat(dst, style);
 	else
 		url_strcat(dst, "Even 8ths");
-	da_strcat(dst, "=");
+	dstrcat(dst, "=");
 	const char *key = get_note_str(song->key);
 	if (key != NULL)
 		url_strcat(dst, key);
 	else
-		da_strcat(dst, "C");
-	da_strcat(dst, "==1r34LbKcu7");
+		dstrcat(dst, "C");
+	dstrcat(dst, "==1r34LbKcu7");
 	append_song_body(&raw_body, song);
 	url_scramble(raw_body.buf, raw_body.len);
 	url_strcat(dst, raw_body.buf);
 	url_strcat(dst, " ");
-	da_strcat(dst, "==");
+	dstrcat(dst, "==");
 	if (song->tempo != 0) {
 		char tempo[16] = {0};
 		utoa(tempo, song->tempo);
-		da_strcat(dst, tempo);
-		da_strcat(dst, "=3");
+		dstrcat(dst, tempo);
+		dstrcat(dst, "=3");
 	} else {
-		da_strcat(dst, "0=0");
+		dstrcat(dst, "0=0");
 	}
 	free(raw_body.buf);
 	return 0;
@@ -341,37 +341,37 @@ static	int	append_song(da_str *dst, t_irealpro_song *song)
 
 char	*irp_song_get_html(t_irealpro_song *song)
 {
-	da_str	res;
+	t_dstr	res;
 
-	da_str_init(&res, 512);
-	da_strcat(&res, "<a href=\"irealb://");
+	dstr_init(&res, 512);
+	dstrcat(&res, "<a href=\"irealb://");
 	if (append_song(&res, song) != 0) {
 		free(res.buf);
 		return NULL;
 	}
-	da_strcat(&res, "\">");
-	if (*song->title) da_strcat(&res, song->title);
-	else da_strcat(&res, "Song Title");
-	da_strcat(&res, "</a>");
+	dstrcat(&res, "\">");
+	if (*song->title) dstrcat(&res, song->title);
+	else dstrcat(&res, "Song Title");
+	dstrcat(&res, "</a>");
 	return res.buf;
 }
 
 char	*irp_playlist_get_html(t_irealpro_playlist *playlist)
 {
-	da_str	res;
+	t_dstr	res;
 
-	da_str_init(&res, 1024);
-	da_strcat(&res, "<a href=\"irealb://");
+	dstr_init(&res, 1024);
+	dstrcat(&res, "<a href=\"irealb://");
 	for (size_t i = 0; i < playlist->songs.count; i++) {
 		if (append_song(&res, playlist->songs.items[i]) != 0) {
 			free(res.buf);
 			return NULL;
 		}
-		da_strcat(&res, "===");
+		dstrcat(&res, "===");
 	}
 	url_strcat(&res, playlist->title.buf);
-	da_strcat(&res, "\">");
-	da_strcat(&res, playlist->title.buf);
-	da_strcat(&res, "</a>");
+	dstrcat(&res, "\">");
+	dstrcat(&res, playlist->title.buf);
+	dstrcat(&res, "</a>");
 	return res.buf;
 }

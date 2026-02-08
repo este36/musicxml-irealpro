@@ -57,7 +57,7 @@ extern "C" {
 typedef struct s_sax_scanner
 {
     size_t		pos;
-    da_str_ref	xml;
+    t_str_ref	xml;
 }	t_sax_scanner;
 
 typedef enum s_xml_node_type
@@ -70,14 +70,14 @@ typedef enum s_xml_node_type
 
 typedef struct s_xml_attribute
 {
-    da_str_ref	key;
-    da_str_ref	value;
+    t_str_ref	key;
+    t_str_ref	value;
 }	t_xml_attribute;
 
 typedef struct s_xml_node
 {
     t_xml_node_type	type;
-    da_str_ref		target; // name or text content
+    t_str_ref		target; // name or text content
     t_xml_attribute	attrv[XML_MAX_ATTRIBUTES];
     size_t			attrc;
 }	t_xml_node;
@@ -98,7 +98,7 @@ typedef struct s_mxl_chord
 {
 	NoteEnum		root;
 	NoteEnum		bass;
-	da_str_ref		qual;
+	t_str_ref		qual;
 	t_mxl_degree	degrees[TMP_CHORD_MAX_DEGREES];
 	uint32_t		degrees_count;
 }	t_mxl_chord;
@@ -121,11 +121,11 @@ typedef struct s_parser_state
 t_sax_scanner	sax_scanner_init(const char *buffer, size_t length);
 t_sax_context	sax_context_init(t_sax_scanner *l);
 void			xml_clear_node(t_xml_node *n);
-int				sax_get_content(t_sax_context *context, da_str_ref *str_ref);
+int				sax_get_content(t_sax_context *context, t_str_ref *str_ref);
 int				sax_copy_content(t_sax_context *context, char *buf, size_t buf_len);
 int				sax_get_int(t_sax_context *context, int *res);
-int				sax_get_attrv(t_sax_context *context, da_str_ref *dst, char *key_buf);
-int				sax_skip_content(t_sax_context *context, da_str_ref node_name);
+int				sax_get_attrv(t_sax_context *context, t_str_ref *dst, char *key_buf);
+int				sax_skip_content(t_sax_context *context, t_str_ref node_name);
 int				sax_parse_xml(int (*fn)(void *user_data, t_sax_context *ctxt),
 							void *user_data, t_sax_context *context);
 

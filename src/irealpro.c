@@ -366,8 +366,8 @@ t_irealpro_playlist *irp_playlist_create(const char *title)
 	t_irealpro_playlist *playlist = calloc(1, sizeof(t_irealpro_playlist));
 	if (playlist == NULL)
 		return NULL;
-	if (*title != '\0') da_strcat(&playlist->title, title);
-	else da_strcat(&playlist->title, "Playlist Name");
+	if (*title != '\0') dstrcat(&playlist->title, title);
+	else dstrcat(&playlist->title, "Playlist Name");
 	return playlist;
 }
 

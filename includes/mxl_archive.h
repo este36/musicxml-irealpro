@@ -16,7 +16,7 @@ extern "C" {
 
 typedef struct s_archive_file
 {
-	da_str		content;
+	t_dstr		content;
 	char		*filename;
 } t_archive_file;
 

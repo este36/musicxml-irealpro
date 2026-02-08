@@ -157,7 +157,7 @@ int parse_direction(void *user_data, t_sax_context *context)
 				m->playback = PLAYBACK_CODA;
 			} else if (str_ref_eq(&n->target, &musicxml.sound)) {
 				char buf[16];
-				da_str_ref tempo;
+				t_str_ref tempo;
 				if (sax_get_attrv(context, &tempo, "tempo") == 0
 					&& parser_state->song->tempo == 0) {
 					for (size_t i = 0; i < tempo.len; i++) {
@@ -205,7 +205,7 @@ int parse_barline(void *user_data, t_sax_context *context)
 	const t_xml_node *n = &context->found;
 	t_measure	*m = GET_CURR_MEASURE(parser_state);
 	char content[128];
-	da_str_ref val;
+	t_str_ref val;
 
     switch (n->type) {
 		case XML_SELF_CLOSING:
@@ -233,10 +233,10 @@ int parse_barline(void *user_data, t_sax_context *context)
 			} else if (str_ref_eq(&n->target, &musicxml.coda)) {
 				m->playback = PLAYBACK_CODA;
 			} else if (str_ref_eq(&n->target, &musicxml.ending)) {
-				da_str_ref type;
+				t_str_ref type;
 				if (sax_get_attrv(context, &val, "number") == 0
 					&& sax_get_attrv(context, &type, "type") == 0) {
-					da_str_ref stop = STR_REF("stop");
+					t_str_ref stop = STR_REF("stop");
 					if (!str_ref_eq(&type, &stop)
 						&& val.buf[0] - '0' > 0
 						&& val.buf[0] - '0' < ENDING_MAX

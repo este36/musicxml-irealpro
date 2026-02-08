@@ -171,7 +171,7 @@ typedef struct s_irealpro_song
 
 typedef struct s_irealpro_playlist
 {
-    da_str	title;
+    t_dstr	title;
     struct 
 	{
         size_t			count;
@@ -185,7 +185,7 @@ void		chord_cpy(t_chord *dest, t_chord *src);
 void		chords_remove(t_chords *chords, size_t index);
 int			is_unvalid_time_signature(uint32_t b, uint32_t bt);
 int			duration_is_equiv(double d1, double d2);
-void		url_strcat(da_str *dst, const char *src);
+void		url_strcat(t_dstr *dst, const char *src);
 void		url_scramble(char *body, size_t len);
 void		irp_song_cleanup_and_factor_out(t_irealpro_song *song);
 int			irp_song_apply_zoom(t_irealpro_song* song);

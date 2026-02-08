@@ -1,6 +1,6 @@
 #include "irealpro.h"
 
-void url_strcat(da_str *dst, const char *src)
+void url_strcat(t_dstr *dst, const char *src)
 {
 	static const char hex_base[17] = "0123456789ABCDEF";
 	char	buf[4];
@@ -19,7 +19,7 @@ void url_strcat(da_str *dst, const char *src)
 			buf[1] = hex_base[(unsigned char)src[i] >> 4];
 			buf[2] = hex_base[(unsigned char)src[i] & 0x0F];
 		}
-		da_strcat(dst, buf);
+		dstrcat(dst, buf);
 		i++;
 	}
 }

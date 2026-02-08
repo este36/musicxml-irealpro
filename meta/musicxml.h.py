@@ -8,7 +8,7 @@ print('typedef struct {')
 for e in elements:
     e_str = to_c_ident(e)
     if is_in_parser_c(e_str):
-        print(f'    da_str_ref {e_str};')
+        print(f'    t_str_ref {e_str};')
 
 print('} MusicxmlKeywords;\n')
 

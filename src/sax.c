@@ -19,14 +19,14 @@ t_sax_context sax_context_init(t_sax_scanner *l)
 }
 
 // Suppose that the scanner is inside the parent node
-int sax_get_content(t_sax_context *context, da_str_ref *str_ref)
+int sax_get_content(t_sax_context *context, t_str_ref *str_ref)
 {
     str_ref->buf = GET_PTR(context->scanner);
     // now we try to find a closing tag with the same name.
     while (!IS_EOF(context->scanner)) 
     {
         if (GET_CHAR(context->scanner) == '<' && GET_NEXT_CHAR(context->scanner) == '/') {
-            da_str_ref name = {0};
+            t_str_ref name = {0};
 
             // update the len
             str_ref->len = GET_PTR(context->scanner) - str_ref->buf;
@@ -48,7 +48,7 @@ int sax_get_content(t_sax_context *context, da_str_ref *str_ref)
 
 int sax_copy_content(t_sax_context *context, char *buf, size_t buf_len)
 {
-    da_str_ref str_ref = {0};
+    t_str_ref str_ref = {0};
     str_ref.buf = GET_PTR(context->scanner);
 
     // now we try to find a closing tag with the same name.
@@ -57,7 +57,7 @@ int sax_copy_content(t_sax_context *context, char *buf, size_t buf_len)
         if (GET_CHAR(context->scanner) == '<'
 		&& GET_NEXT_CHAR(context->scanner) == '/')
 		{
-            da_str_ref name = {0};
+            t_str_ref name = {0};
 
             // update the len
             str_ref.len = GET_PTR(context->scanner) - str_ref.buf;
@@ -92,10 +92,10 @@ int	sax_get_int(t_sax_context *context, int *res)
 	return 0;
 }
 
-int	sax_get_attrv(t_sax_context *context, da_str_ref *dst, char *key_buf)
+int	sax_get_attrv(t_sax_context *context, t_str_ref *dst, char *key_buf)
 {
 	size_t i = 0;
-	const da_str_ref key = {
+	const t_str_ref key = {
 		.buf = key_buf,
 		.len = strlen(key_buf)
 	};
@@ -115,7 +115,7 @@ int	sax_get_attrv(t_sax_context *context, da_str_ref *dst, char *key_buf)
 int	sax_cpy_attrv(t_sax_context *context, char *dst, char *key_buf, size_t dst_len)
 {
 	size_t i = 0;
-	const da_str_ref key = {
+	const t_str_ref key = {
 		.buf = key_buf,
 		.len = strlen(key_buf)
 	};
@@ -132,14 +132,14 @@ int	sax_cpy_attrv(t_sax_context *context, char *dst, char *key_buf, size_t dst_l
 }
 
 // Suppose that the scanner is inside the parent node
-int sax_skip_content(t_sax_context *context, da_str_ref node_name)
+int sax_skip_content(t_sax_context *context, t_str_ref node_name)
 {
     while (!IS_EOF(context->scanner)) 
     {
         if (GET_CHAR(context->scanner) == '<'
 			&& GET_NEXT_CHAR(context->scanner) == '/')
 		{
-            da_str_ref name = {0};
+            t_str_ref name = {0};
 
             ADVANCE(context->scanner);
             ADVANCE(context->scanner);
@@ -163,7 +163,7 @@ int sax_skip_content(t_sax_context *context, da_str_ref node_name)
 int sax_parse_tag_body(t_sax_context *context)
 {
 	size_t attrc;
-    da_str_ref *name = &context->found.target;
+    t_str_ref *name = &context->found.target;
     // get name
     name->buf = GET_PTR(context->scanner);
     ADVANCE(context->scanner);
