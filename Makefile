@@ -2,7 +2,7 @@ NAME = mxl2irp
 LIB_NAME = lib$(NAME)
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -DMINIZ_NO_STDIO
 MINIZ_DIR = vendors/libminiz
 INCLUDES = -I./includes -I./$(MINIZ_DIR)
 
@@ -59,11 +59,10 @@ lib_so: $(LIB_SO)
 $(NAME): $(LIB) 
 	$(CC) $(CFLAGS) cli/main.c $(INCLUDES) ./$(LIB) -o $@
 
-$(LIB_JS):
-	mkdir -p $(BIN_DIR)
+$(LIB_JS): $(BIN_DIR)
 	docker run --rm -v $$(pwd):/src emscripten/emsdk bash -c "make wasm-emcc"
 
-wasm-emcc:
+wasm-emcc: $(BIN_DIR)
 	emcc $(CFLAGS) -Oz $(SRCS) $(INCLUDES) -o $(LIB_JS) $(EMCC_LDFLAGS)
 
 $(LIB): CFLAGS += -g
@@ -71,11 +70,13 @@ $(LIB): $(OBJS_STATIC)
 	mkdir -p $(BIN_DIR)
 	ar -rc $@ $^
 	
-
 $(LIB_SO): CFLAGS += -fPIC
 $(LIB_SO): $(OBJS_SHARED)
 	mkdir -p $(BIN_DIR)
 	$(CC) -shared $(CFLAGS) $^ -o $@ $(LFLAGS)
+
+$(BIN_DIR):
+	mkdir -p $@
 
 clean:
 	rm -rf obj $(BIN_DIR)
