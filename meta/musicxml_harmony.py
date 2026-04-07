@@ -14,6 +14,7 @@ print(f'''%{{
 #elif defined(__GNUC__)
   #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 #endif
+#ifdef IREALPRO_CHORD_IMPLEMENTATION
 %}}
 %language=ANSI-C
 %struct-type
@@ -25,5 +26,6 @@ struct keyword {{ const char *name; int id; }};
 %%
 {entries_str}
 %%
+#endif
 #endif /* IREALPRO_CHORD_H */
 ''')

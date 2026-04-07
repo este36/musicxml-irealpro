@@ -1,3 +1,5 @@
+#define IREALPRO_CHORD_IMPLEMENTATION
+#include "irealpro_chord.h"
 #include "parser.h"
 
 int parse_degree(void *user_data, t_sax_context *context)

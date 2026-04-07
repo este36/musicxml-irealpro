@@ -13,7 +13,6 @@ extern "C" {
 #endif
 
 #include "mxl2irp.h"
-#include "irealpro_chord.h"
 #include "da.h"
 #include "musicxml.h"
 #include "irealpro.h"
