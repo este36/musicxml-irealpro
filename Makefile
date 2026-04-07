@@ -7,15 +7,17 @@ MINIZ_DIR		= vendors/libminiz
 INCLUDES		= -I./includes -I./$(MINIZ_DIR)
 
 WASM_DIR		= wasm
-EMCC_LDFLAGS	= -sINITIAL_MEMORY=1MB\
+EMCC_LDFLAGS	=-sINITIAL_MEMORY=1MB\
 					-sMAXIMUM_MEMORY=32MB\
+					-sALLOW_MEMORY_GROWTH\
 					-sMODULARIZE=1\
 					-sEXPORT_ES6=1\
 					-sEXPORTED_FUNCTIONS='["_free", "_malloc"]'\
 					-sEXPORTED_RUNTIME_METHODS=ccall,cwrap,HEAPU8,UTF8ToString
 
-OBJ_DIR_STATIC	= obj/static
-OBJ_DIR_SHARED	= obj/shared
+OBJ_DIR			= obj
+OBJ_DIR_STATIC	= $(OBJ_DIR)/static
+OBJ_DIR_SHARED	= $(OBJ_DIR)/shared
 
 SRC_DIR			= src
 BIN_DIR			= build
@@ -80,10 +82,10 @@ $(BIN_DIR):
 	mkdir -p $@
 
 clean:
-	rm -rf $(OBJS_SHARED) $(OBJS_STATIC)
+	rm -rf $(OBJ_DIR)
 
-fclean:
-	rm -rf obj $(BIN_DIR)
+fclean: clean
+	rm -rf $(BIN_DIR)
 
 re: clean $(NAME)
 
