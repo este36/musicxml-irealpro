@@ -1,4 +1,6 @@
 #include "irealpro.h"
+#include "string.h"
+#include "stdlib.h"
 
 int is_unvalid_time_signature(uint32_t b, uint32_t bt)
 {

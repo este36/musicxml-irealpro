@@ -1,4 +1,6 @@
 #include "irealpro.h"
+#include "stdlib.h"
+#include "string.h"
 
 static void append_time_signature(t_dstr *dst, const t_measure *m)
 {

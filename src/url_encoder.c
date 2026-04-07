@@ -1,4 +1,6 @@
 #include "irealpro.h"
+#include "string.h"
+#include "stdlib.h"
 
 void url_strcat(t_dstr *dst, const char *src)
 {
