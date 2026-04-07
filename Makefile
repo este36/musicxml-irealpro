@@ -1,48 +1,48 @@
-NAME = mxl2irp
-LIB_NAME = lib$(NAME)
+NAME			= mxl2irp
+LIB_NAME		= lib$(NAME)
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -DMINIZ_NO_STDIO
-MINIZ_DIR = vendors/libminiz
-INCLUDES = -I./includes -I./$(MINIZ_DIR)
+CC				= gcc
+CFLAGS			= -Wall -Wextra -Werror -DMINIZ_NO_STDIO
+MINIZ_DIR		= vendors/libminiz
+INCLUDES		= -I./includes -I./$(MINIZ_DIR)
 
-WASM_DIR = wasm
-EMCC_LDFLAGS = \
-	-sINITIAL_MEMORY=1MB\
-	-sALLOW_MEMORY_GROWTH\
-	-sMAXIMUM_MEMORY=32MB\
-	-sMODULARIZE=1\
-	-sEXPORT_ES6=1\
-	-sEXPORTED_FUNCTIONS='["_free", "_malloc"]'\
-	-sEXPORTED_RUNTIME_METHODS=ccall,cwrap,HEAPU8,UTF8ToString
+WASM_DIR		= wasm
+EMCC_LDFLAGS	= -sINITIAL_MEMORY=1MB\
+					-sMAXIMUM_MEMORY=32MB\
+					-sMODULARIZE=1\
+					-sEXPORT_ES6=1\
+					-sEXPORTED_FUNCTIONS='["_free", "_malloc"]'\
+					-sEXPORTED_RUNTIME_METHODS=ccall,cwrap,HEAPU8,UTF8ToString
 
-OBJ_DIR_STATIC = obj/static
-OBJ_DIR_SHARED = obj/shared
+OBJ_DIR_STATIC	= obj/static
+OBJ_DIR_SHARED	= obj/shared
 
-SRC_DIR = src
-BIN_DIR = build
+SRC_DIR			= src
+BIN_DIR			= build
 
-LIB_SO = $(BIN_DIR)/$(LIB_NAME).so
-LIB = $(BIN_DIR)/$(LIB_NAME).a
-LIB_JS = $(BIN_DIR)/$(LIB_NAME).js
+LIB_SO			= $(BIN_DIR)/$(LIB_NAME).so
+LIB				= $(BIN_DIR)/$(LIB_NAME).a
+LIB_JS			= $(BIN_DIR)/$(LIB_NAME).js
 
-SRC = mxl2irp.c \
-	musicxml.c \
-	parser/parse_measure.c \
-	parser/parse_harmony.c \
-	parser/parse_attributes.c \
-	parser/parse_musicxml.c \
-	mxl_archive.c \
-	irealpro.c \
-	url_encoder.c \
-	irp_to_html.c \
-	sax.c \
-	da.c \
+SRC				= mxl2irp.c \
+					musicxml.c \
+					parser/parse_measure.c \
+					parser/parse_harmony.c \
+					parser/parse_attributes.c \
+					parser/parse_musicxml.c \
+					mxl_archive.c \
+					irealpro.c \
+					url_encoder.c \
+					irp_to_html.c \
+					sax.c \
+					utils/str_ref.c \
+					utils/dstr.c \
+					utils/darr.c \
 
-MINIZ_FILES = miniz.c \
-	miniz_zip.c \
-	miniz_tinfl.c \
-	miniz_tdef.c \
+MINIZ_FILES		= miniz.c \
+					miniz_zip.c \
+					miniz_tinfl.c \
+					miniz_tdef.c \
 
 MINIZ_SRCS = $(addprefix $(MINIZ_DIR)/, $(MINIZ_FILES))
 MINIZ_OBJS_STATIC =	$(addprefix $(OBJ_DIR_STATIC)/$(MINIZ_DIR)/, $(MINIZ_FILES:%.c=%.o))
