@@ -1,6 +1,6 @@
 meta/__pycache__
 test/__pycache__
-test/test.out
+test
 node_modules
 package-lock.json
 obj
@@ -9,7 +9,10 @@ libmxl_to_irealpro.so
 result
 mxl2irp
 result.html
+.clangd
+.vscode
 *.mxl
 *.musicxml
 *.xml
 *.txt
+*.html

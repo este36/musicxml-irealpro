@@ -112,6 +112,9 @@
 */
 #pragma once
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+
 #include "miniz_export.h"
 
 /* Defines to completely disable specific portions of miniz.c:
@@ -603,3 +606,5 @@ extern "C"
 #include "miniz_tdef.h"
 #include "miniz_tinfl.h"
 #include "miniz_zip.h"
+
+#pragma GCC diagnostic pop

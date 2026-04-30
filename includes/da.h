@@ -4,12 +4,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
-#include <string.h>
-#include <stdlib.h>
 
 #ifndef DA_MIN_CAPACITY
 #define DA_MIN_CAPACITY 64
 #endif
+
 #define DA_UNSET (size_t)-1
 
 // struct example {
@@ -37,29 +36,53 @@
         (da)->count = (da)->capacity = 0; \
     } while (0) 
 
-#define DA_STR(s) da_str_c(s, DA_UNSET)
-#define DA_STRCPY(s, l) da_str_c(s, l)
-// Use this for evaluating string and string length at compile time
-#define STR_REF(cstr) (da_str_ref){.buf = cstr, (sizeof(cstr) - 1)}
-
 typedef struct
 {
     char	*buf;
     size_t	len;
     size_t	cap;
-}	da_str;
+}	t_dstr;
+
+#ifndef DSTR_MIN_CAPACITY
+#define DSTR_MIN_CAPACITY 256
+#endif
+
+t_dstr	dstr_from_cstr(const char *str);
+t_dstr	dstr_from_str_ref(const char *str, size_t len);
+int		dstr_init(t_dstr *dst, size_t capacity);
+int		dstrcat(t_dstr *dst, const char *src);
+int		dstrncat(t_dstr *dst, const char *src, size_t len);
+int		dstr_resize(t_dstr *s, size_t new_len);
+void	dstr_free(t_dstr *s);
 
 typedef struct
 {
     const char	*buf;
     size_t		len;
-}	da_str_ref;
+}	t_str_ref;
 
-da_str	da_str_c(const char* c, size_t l);
-int		da_str_init(da_str *dst, size_t capacity);
-int		da_strcat(da_str *dst, const char *src);
-void	da_str_free(da_str *s);
-void	str_ref_copy(const da_str_ref* ref, char* dest, size_t length);
-bool	str_ref_eq(const da_str_ref* a, const da_str_ref* b);
+// Use this for evaluating string and string length at compile time
+#define STR_REF(cstr) (t_str_ref){.buf = cstr, .len = (sizeof(cstr) - 1)}
+
+t_str_ref	str_ref_from_cstr(const char *s);
+void		str_ref_copy(char *dest, size_t dest_cap, const t_str_ref *src);
+bool		str_ref_eq(const t_str_ref *a, const t_str_ref *b);
+
+typedef struct
+{
+	void	*data;
+	size_t	len;
+	size_t	cap;
+	size_t	_el_size;
+}	t_darr;
+
+#ifndef DARR_MIN_CAPACITY
+#define DARR_MIN_CAPACITY 64
+#endif
+
+#define	darr_get(a, index) ((index) < (a->len) ? (a)->data + (index) * (a)->_el_size : (void *)0)
+
+int			darr_init(t_darr *a, size_t cap, size_t el_size);
+int			darr_push(t_darr *a, void *el);
 
 #endif

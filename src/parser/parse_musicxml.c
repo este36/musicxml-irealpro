@@ -66,7 +66,7 @@ int	parse_credit(void *user_data, t_sax_context *context)
         case XML_TAG_OPEN:
         {
 			if (str_ref_eq(&n->target, &musicxml.credit_type)) {
-				da_str_ref content;
+				t_str_ref content;
 				if (sax_get_content(context, &content) != 0)
 					return PARSER_STOP_ERROR;
 				if (str_ref_eq(&content, &musicxml.composer) && parser_state->song->composer[0] == '\0') {

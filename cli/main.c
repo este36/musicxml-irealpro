@@ -7,6 +7,7 @@
 #pragma GCC diagnostic ignored "-Wunused-function"
 #include "miniz.h"
 #pragma GCC diagnostic pop
+
 #include "mxl2irp.h"
 #include "mxl_archive.h"
 
@@ -19,6 +20,8 @@ int is_mxl_file(const char *f)
 			&& f[len - 2] == 'x'
 			&& f[len - 1] == 'l');
 }
+
+#define IS_TEST() true
 
 t_mxl_archive	*get_mxl_archive_from_mxl_file(const char *file_buf, size_t file_len)
 {
@@ -126,7 +129,7 @@ int main(int argc, char **argv) {
 		irp_song_free(irp_song);
 		free(url);
 	} else {
-		t_irealpro_playlist *playlist = irp_playlist_create("This is a Test");
+		t_irealpro_playlist *playlist = irp_playlist_create("Test");
 
 		for (int i = 1; i < argc; i++) {
 			t_irealpro_song *irp_song = get_song_from_path(argv[i]);
@@ -147,6 +150,7 @@ int main(int argc, char **argv) {
 	}
 	end = clock();
 	cpu_time_used = ((double)(end - start)) * 1000 / CLOCKS_PER_SEC;
-	printf("Temps d'exécution : %fms\n", cpu_time_used);
+	if (!IS_TEST())
+		printf("Temps d'exécution : %fms\n", cpu_time_used);
     return 0;
 }

@@ -1,6 +1,9 @@
 #include "parser.h"
 #include <strings.h>
 
+/*
+ * https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/note/
+*/
 int parse_note(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -33,9 +36,7 @@ int parse_note(void *user_data, t_sax_context *context)
 				if (sax_get_int(context, &note_voice) != 0)
 					return PARSER_STOP_ERROR;
 				parser_state->tmp_note_voice = note_voice;
-				if (parser_state->curr_voice == 0
-					&& GET_CURR_MEASURE(parser_state)->chords.count == 0
-					&& GET_CURR_CHORD(parser_state)->duration == 0)
+				if (parser_state->curr_voice == 0)
 					parser_state->curr_voice = note_voice;
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
@@ -59,6 +60,9 @@ int parse_note(void *user_data, t_sax_context *context)
 	return PARSER_CONTINUE;
 }
 
+/*
+ * https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/sound/
+*/
 int parse_sound(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -84,6 +88,7 @@ int parse_sound(void *user_data, t_sax_context *context)
 	}
 	return PARSER_CONTINUE;
 }
+
 static char *trim(char *buf)
 {
 	unsigned char *start = (unsigned char *)buf;
@@ -152,7 +157,7 @@ int parse_direction(void *user_data, t_sax_context *context)
 				m->playback = PLAYBACK_CODA;
 			} else if (str_ref_eq(&n->target, &musicxml.sound)) {
 				char buf[16];
-				da_str_ref tempo;
+				t_str_ref tempo;
 				if (sax_get_attrv(context, &tempo, "tempo") == 0
 					&& parser_state->song->tempo == 0) {
 					for (size_t i = 0; i < tempo.len; i++) {
@@ -200,7 +205,7 @@ int parse_barline(void *user_data, t_sax_context *context)
 	const t_xml_node *n = &context->found;
 	t_measure	*m = GET_CURR_MEASURE(parser_state);
 	char content[128];
-	da_str_ref val;
+	t_str_ref val;
 
     switch (n->type) {
 		case XML_SELF_CLOSING:
@@ -228,10 +233,10 @@ int parse_barline(void *user_data, t_sax_context *context)
 			} else if (str_ref_eq(&n->target, &musicxml.coda)) {
 				m->playback = PLAYBACK_CODA;
 			} else if (str_ref_eq(&n->target, &musicxml.ending)) {
-				da_str_ref type;
+				t_str_ref type;
 				if (sax_get_attrv(context, &val, "number") == 0
 					&& sax_get_attrv(context, &type, "type") == 0) {
-					da_str_ref stop = STR_REF("stop");
+					t_str_ref stop = STR_REF("stop");
 					if (!str_ref_eq(&type, &stop)
 						&& val.buf[0] - '0' > 0
 						&& val.buf[0] - '0' < ENDING_MAX
