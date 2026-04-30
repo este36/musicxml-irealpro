@@ -4,6 +4,7 @@
 const MusicxmlKeywords musicxml = {
     .attribute = STR_REF("attribute"),
     .attributes = STR_REF("attributes"),
+    .backup = STR_REF("backup"),
     .bar_style = STR_REF("bar-style"),
     .barline = STR_REF("barline"),
     .bass = STR_REF("bass"),
@@ -29,6 +30,7 @@ const MusicxmlKeywords musicxml = {
     .ending = STR_REF("ending"),
     .f = STR_REF("f"),
     .fifths = STR_REF("fifths"),
+    .forward = STR_REF("forward"),
     .harmony = STR_REF("harmony"),
     .id = STR_REF("id"),
     .identification = STR_REF("identification"),

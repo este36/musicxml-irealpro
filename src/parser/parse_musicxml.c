@@ -15,8 +15,7 @@ int parse_part(void *user_data, t_sax_context *context)
                 if (sax_parse_xml(parse_measure, parser_state, context) != 0)
 					return PARSER_STOP_ERROR;
             }
-        	break;
-        }
+        } break;
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.part)) {
@@ -24,7 +23,7 @@ int parse_part(void *user_data, t_sax_context *context)
 				if (parser_state->song->measures.count != 0)
 					return PARSER_STOP;
 			}
-        }
+        } break;
         default: break;
     }
     return PARSER_CONTINUE;
@@ -47,13 +46,12 @@ int parse_work(void *user_data, t_sax_context *context)
 					return PARSER_STOP_ERROR;
                 return PARSER_STOP;
             }
-        	break;
-        }
+        } break;
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.work))
 				return PARSER_STOP;
-        }
+        } break;
         default: break;
     }
     return PARSER_CONTINUE;
@@ -90,8 +88,7 @@ int	parse_credit(void *user_data, t_sax_context *context)
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
-			break;
-		}
+		} break;
 		case XML_TAG_CLOSE:
 		{
 			if (str_ref_eq(&n->target, &musicxml.credit)) {
@@ -99,7 +96,7 @@ int	parse_credit(void *user_data, t_sax_context *context)
 				parser_state->credit_type_is_title = false;
 				return PARSER_STOP;
 			}
-		}
+		} break;
 		default: break; 
 	}
 	return PARSER_CONTINUE;
@@ -128,13 +125,12 @@ int parse_identification(void *user_data, t_sax_context *context)
             } else {
                 return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
             }
-        	break;
-        }
+        } break;
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.identification))
 				return PARSER_STOP;
-        }
+        } break;
         default: break;
     }
     return PARSER_CONTINUE;

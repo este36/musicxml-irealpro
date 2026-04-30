@@ -30,8 +30,7 @@ int parse_time(void *user_data, t_sax_context *context)
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
-        	break;
-        }
+        } break;
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.time)) {
@@ -56,8 +55,7 @@ int parse_time(void *user_data, t_sax_context *context)
 				}
 				return PARSER_STOP;
 			}
-			break;
-        }
+        } break;
 		default: break;
     }
     return PARSER_CONTINUE;
@@ -147,14 +145,12 @@ int parse_attributes(void *user_data, t_sax_context *context)
 			} else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
-			break;
-        }
+        } break;
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.attributes))
 				return PARSER_STOP;
-			break;
-        }
+        } break;
 		default: break;
     }
     return PARSER_CONTINUE;

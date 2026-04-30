@@ -25,13 +25,12 @@ int parse_degree(void *user_data, t_sax_context *context)
             } else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
-        	break;
-        }
+        } break;
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.degree))
 				return PARSER_STOP;
-        }
+        } break;
 		default: break;
     }
     return PARSER_CONTINUE;
@@ -119,8 +118,7 @@ int parse_harmony(void *user_data, t_sax_context *context)
                 else if (strncmp(alter_str, "-1", 2) == 0)
 					c->bass -= 1;
             }
-        	break;
-        }
+        } break;
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.harmony)) {
@@ -148,8 +146,7 @@ int parse_harmony(void *user_data, t_sax_context *context)
 				memset(c, 0, sizeof(*c));
                 return PARSER_STOP;
             }
-			break;
-        }
+        } break;
 		default: break;
     }
     return PARSER_CONTINUE;
