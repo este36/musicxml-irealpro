@@ -1,5 +1,6 @@
 #include "parser.h"
 
+// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/time/
 int parse_time(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -82,6 +83,7 @@ NoteEnum get_key_from_fifths(int mxl_fifths)
 	return (fifths[mxl_fifths] + alter);
 }
 
+// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/key/
 int parse_key(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -117,6 +119,7 @@ int parse_key(void *user_data, t_sax_context *context)
 }
 
 
+// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/attributes/
 int parse_attributes(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;

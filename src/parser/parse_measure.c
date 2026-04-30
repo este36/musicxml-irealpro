@@ -142,6 +142,7 @@ PlaybackEnum get_playback_enum(char *xml_content)
 	return (PLAYBACK_NONE);
 }
 
+// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/direction/
 int parse_direction(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -199,6 +200,7 @@ int parse_direction(void *user_data, t_sax_context *context)
 	return PARSER_CONTINUE;
 }
 
+// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/barline/
 int parse_barline(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -264,6 +266,8 @@ int parse_barline(void *user_data, t_sax_context *context)
 // count act as a flag for note element parsing if there is more than IRP_MAX_CHORDS chords
 // Also, the first chords[0] act as empty chord when there is no chords
 // in the begining of the bar but only notes
+//
+// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/measure-partwise/
 int parse_measure(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
