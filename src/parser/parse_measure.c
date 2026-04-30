@@ -260,6 +260,7 @@ int parse_barline(void *user_data, t_sax_context *context)
 	return PARSER_CONTINUE;
 }
 
+// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/forward/
 int parse_forward(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -268,11 +269,14 @@ int parse_forward(void *user_data, t_sax_context *context)
 
 	(void)m;
 	switch (n->type) {
-		case XML_SELF_CLOSING:
-		{
-		} break;
 		case XML_TAG_OPEN:
 		{
+			if (str_ref_eq(&n->target, &musicxml.duration)) {
+				int forward_duration = 0;
+				if (sax_get_int(context, &forward_duration) != 0)
+					return PARSER_STOP_ERROR;
+				GET_CURR_CHORD(parser_state)->duration += forward_duration;
+			}
 		} break;
 		case XML_TAG_CLOSE:
 		{
@@ -285,6 +289,7 @@ int parse_forward(void *user_data, t_sax_context *context)
 
 }
 
+// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/backup/
 int parse_backup(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -293,11 +298,16 @@ int parse_backup(void *user_data, t_sax_context *context)
 
 	(void)m;
 	switch (n->type) {
-		case XML_SELF_CLOSING:
-		{
-		} break;
 		case XML_TAG_OPEN:
 		{
+			if (str_ref_eq(&n->target, &musicxml.duration)) {
+				int backup_duration = 0;
+				if (sax_get_int(context, &backup_duration) != 0)
+					return PARSER_STOP_ERROR;
+				GET_CURR_CHORD(parser_state)->duration -= backup_duration;
+				if (GET_CURR_CHORD(parser_state)->duration < 0)
+					GET_CURR_CHORD(parser_state)->duration = 0;
+			}
 		} break;
 		case XML_TAG_CLOSE:
 		{
