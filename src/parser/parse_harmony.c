@@ -2,6 +2,7 @@
 #include "irealpro_chord.h"
 #include "parser.h"
 
+// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/degree/
 int parse_degree(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -24,13 +25,12 @@ int parse_degree(void *user_data, t_sax_context *context)
             } else {
 				return PARSER_CONTINUE | SKIP_ENTIRE_NODE;
 			}
-        	break;
-        }
+        } break;
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.degree))
 				return PARSER_STOP;
-        }
+        } break;
 		default: break;
     }
     return PARSER_CONTINUE;
@@ -68,6 +68,7 @@ const struct keyword *get_keyword_from_chord(t_mxl_chord *c)
 	return irealpro_chord_lookup(kind, ref - kind);
 }
 
+// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/harmony/
 int parse_harmony(void *user_data, t_sax_context *context)
 {
 	t_parser_state *parser_state = (t_parser_state *)user_data;
@@ -117,8 +118,7 @@ int parse_harmony(void *user_data, t_sax_context *context)
                 else if (strncmp(alter_str, "-1", 2) == 0)
 					c->bass -= 1;
             }
-        	break;
-        }
+        } break;
         case XML_TAG_CLOSE:
         {
             if (str_ref_eq(&n->target, &musicxml.harmony)) {
@@ -146,8 +146,7 @@ int parse_harmony(void *user_data, t_sax_context *context)
 				memset(c, 0, sizeof(*c));
                 return PARSER_STOP;
             }
-			break;
-        }
+        } break;
 		default: break;
     }
     return PARSER_CONTINUE;

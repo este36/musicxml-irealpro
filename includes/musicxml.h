@@ -3,6 +3,7 @@
 typedef struct {
     t_str_ref attribute;
     t_str_ref attributes;
+    t_str_ref backup;
     t_str_ref bar_style;
     t_str_ref barline;
     t_str_ref bass;
@@ -28,6 +29,7 @@ typedef struct {
     t_str_ref ending;
     t_str_ref f;
     t_str_ref fifths;
+    t_str_ref forward;
     t_str_ref harmony;
     t_str_ref id;
     t_str_ref identification;
